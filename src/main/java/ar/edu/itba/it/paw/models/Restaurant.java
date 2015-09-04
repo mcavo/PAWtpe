@@ -27,7 +27,7 @@ public class Restaurant {
 		this.setEndService(endService);
 		this.setAddress(address);
 		this.setTypesOfFood(typeOfFood);
-		this.califications = califications;
+		this.califications = new LinkedList<Calification> ();
 		this.setMenu(menu);
 	}
 
