@@ -23,11 +23,11 @@ public class Homepage extends HttpServlet{
 		}else{
 			email = request.getParameter("email");
 			pwd = request.getParameter("pwd");
-			if(!DBManager.getInstance().verifyUser(email, pwd)){
+			/*if(!DBManager.getInstance().verifyUser(email, pwd)){
 				response.sendRedirect(response.encodeRedirectURL("login"));
 				return;
 			}
-			userManager.setUser(DBManager.getInstance().getUserId(email, pwd), pwd);
+			userManager.setUser(DBManager.getInstance().getUserId(email, pwd), pwd);*/
 		}
 		//response.setContentType("text/html");*/
 		request.setAttribute("email", email);
