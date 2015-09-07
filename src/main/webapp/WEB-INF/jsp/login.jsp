@@ -2,7 +2,7 @@
 
 <H3>Por favor, ingrese sus datos</H3>
 
-<form action="homepage">
+<form action="login" method="post">
   E-mail: 
   <input type="text" name="email">
   <br/>

@@ -4,8 +4,8 @@ import javax.servlet.http.HttpSession;
 
 public class SessionUserManager implements UserManager{
 
-	private static String USR_ID = "usr";
-	private static String PSW = "password";
+	private static String USR_ID = null;
+	//private static String PSW = "password";
 	private HttpServletRequest request;
 	
 	public SessionUserManager(HttpServletRequest request) {
@@ -25,16 +25,15 @@ public class SessionUserManager implements UserManager{
 	}
 	
 	
-	public void setUser(String usrId, String psw) {
+	public void setUser(String usrId) {
 		HttpSession session = request.getSession();
 		session.setAttribute(USR_ID, usrId);
-		session.setAttribute(PSW, psw);
 	}
 	
 	public void resetUser(String usr) {
 		HttpSession session = request.getSession();
 		session.setAttribute(USR_ID, null);
-		session.setAttribute(PSW, null);
+		//session.setAttribute(PSW, null);
 	}
 	
 	private String getByID(String id) {
@@ -47,4 +46,3 @@ public class SessionUserManager implements UserManager{
 		}
 	}
 }
-
