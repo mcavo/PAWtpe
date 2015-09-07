@@ -1,6 +1,6 @@
 <jsp:useBean id="home" class="ar.edu.itba.it.paw.Homepage"
 	scope="request" />
-<jsp:setProperty name="home" property="email" />
+<!--jsp:setProperty name="home" property="email" /-->
 
 <%@ include file="header.jsp"%>
 
