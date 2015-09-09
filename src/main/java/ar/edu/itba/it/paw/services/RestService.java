@@ -10,4 +10,8 @@ public class RestService {
 	public static List<Restaurant> getLastWeekRestaurants(){
 		return RestaurantDAO.getInstance().getLastWeekAdded();
 	}
+
+	public static Restaurant getRestaurant(String name) {
+		return RestaurantDAO.getInstance().getRestaurant(name);
+	}
 }

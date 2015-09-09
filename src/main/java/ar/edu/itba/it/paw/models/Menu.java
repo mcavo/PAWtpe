@@ -22,4 +22,9 @@ public class Menu {
 	public void setSection(Section section) {
 		this.sections.add(section);
 	}
+	
+	public LinkedList<Section> getSections(){
+		return this.sections;
+	}
+		
 }
