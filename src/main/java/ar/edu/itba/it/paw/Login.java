@@ -6,8 +6,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.mortbay.jetty.servlet.AbstractSessionManager.Session;
-
 import ar.edu.itba.it.paw.models.User;
 import ar.edu.itba.it.paw.services.UserService;
 
@@ -42,9 +40,10 @@ public class Login extends HttpServlet{
 			resp.sendRedirect(resp.encodeRedirectURL("login"));
 			return;
 		}
+		
 		UserManager userManager = new SessionUserManager(req);
 		userManager.setUser(UserService.getUserId(email));
 		req.setAttribute("email", email);
-		req.getRequestDispatcher("/WEB-INF/jsp/homepage.jsp").forward(req, resp);
+		resp.sendRedirect("homepage");
 	}
 }

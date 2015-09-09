@@ -1,5 +1,4 @@
-<jsp:useBean id="home" class="ar.edu.itba.it.paw.Homepage"
-	scope="request" />
+<jsp:useBean id="home" class="ar.edu.itba.it.paw.Homepage" scope="request" />
 <!--jsp:setProperty name="home" property="email" /-->
 
 <%@ include file="header.jsp"%>
@@ -20,6 +19,12 @@
 	</div>
 
 	<H3>Bienvenido ${email}</H3>
+	<h4>Listado de restoranes:</h4>
+	<c:forEach items="${weekRests}" var="rest"> 
+	  <tr>
+	    <td><a href="/PAWTPE/showRestaurant?name=${rest.name}">${rest.name}</a></td>
+	  </tr>
+	</c:forEach>
 </div>
 
 <%@ include file="footer.jsp"%>

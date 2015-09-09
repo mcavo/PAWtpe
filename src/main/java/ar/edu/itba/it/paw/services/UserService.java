@@ -1,6 +1,6 @@
 package ar.edu.itba.it.paw.services;
 
-import ar.edu.itba.it.paw.UserDAO;
+import ar.edu.itba.it.paw.DAO.UserDAO;
 import ar.edu.itba.it.paw.models.User;
 
 public class UserService {

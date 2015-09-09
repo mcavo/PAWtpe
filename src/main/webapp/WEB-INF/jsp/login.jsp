@@ -4,10 +4,10 @@
 
 <form action="login" method="post">
   E-mail: 
-  <input type="text" name="email">
+  <input type="text" name="email" required>
   <br/>
   Contraseña: 
-  <input type="text" name="pwd">
+  <input type="text" name="pwd" required>
   <input type="submit" value="Submit">
 </form>
 
