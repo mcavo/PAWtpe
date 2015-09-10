@@ -28,7 +28,6 @@
 	    		<td>${tof}</td>
 	    	</tr>
 	    </c:forEach>
-	    <!--td>${rest.typesOfFood}</td-->
 	    <td>De: ${rest.startService} a: ${rest.endService}</td>
 	  </tr>
 	</c:forEach>
