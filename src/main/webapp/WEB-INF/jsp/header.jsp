@@ -39,7 +39,7 @@
 						<li><a href="#">Sign in</a></li>
 					</c:when>    
     				<c:otherwise>
-    					<li><a href="#">${email}</a></li>  //cambiar por un user.name o algo asi
+    					<li><a href="#">${email}</a></li>  
     				</c:otherwise>
     			</c:choose>
 			</ul>
