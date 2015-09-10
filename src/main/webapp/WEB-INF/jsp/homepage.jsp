@@ -23,7 +23,12 @@
 	<c:forEach items="${weekRests}" var="rest"> 
 	  <tr>
 	    <td><a href="/PAWTPE/showRestaurant?name=${rest.name}">${rest.name}</a></td>
-	    <td>${rest.typesOfFood}</td>
+	    <c:forEach items="${rest.typesOfFood}" var="tof">
+	    	<tr>
+	    		<td>${tof}</td>
+	    	</tr>
+	    </c:forEach>
+	    <!--td>${rest.typesOfFood}</td-->
 	    <td>De: ${rest.startService} a: ${rest.endService}</td>
 	  </tr>
 	</c:forEach>
