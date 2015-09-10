@@ -1,6 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html"%>
 <%@ page pageEncoding="UTF-8"%>
+<jsp:useBean id="header" class="ar.edu.itba.it.paw.Homepage"
+	scope="request" />
+<jsp:setProperty name="header" property="email" />
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
 "http://www.w3.org/TR/html4/loose.dtd">
@@ -30,8 +33,15 @@
 				<li><a href="#contact">Contact</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#">Log in</a></li>
-				<li><a href="#">Sign in</a></li>
+				<c:choose>
+					<c:when test="${email==null}">
+						<li><a href="#">Log in</a></li>
+						<li><a href="#">Sign in</a></li>
+					</c:when>    
+    				<c:otherwise>
+    					<li><a href="#">${email}</a></li>  //cambiar por un user.name o algo asi
+    				</c:otherwise>
+    			</c:choose>
 			</ul>
 		</div>
 		<!--/.nav-collapse -->
