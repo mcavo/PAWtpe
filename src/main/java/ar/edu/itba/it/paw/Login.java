@@ -43,7 +43,6 @@ public class Login extends HttpServlet{
 		
 		UserManager userManager = new SessionUserManager(req);
 		userManager.setUser(String.valueOf(user.getId()));
-		//req.setAttribute("email", email);
 		resp.sendRedirect("homepage");
 	}
 }

@@ -20,8 +20,7 @@ public class ShowRestaurant extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//LO TIENE QUE TRAER DEL FILTRO!
-		User usr = new User(null, null, null, false, null, null);
+		User usr = (User) req.getAttribute("user");
 		//----------------------
 		
 		String name = req.getParameter("name");

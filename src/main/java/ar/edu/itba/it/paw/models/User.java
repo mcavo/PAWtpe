@@ -85,11 +85,19 @@ public class User implements UserPermissions {
 	}
 	
 	/* User Permissions */
-	public boolean isAdmin() {
+	/*public boolean isAdmin() {
+		return false;
+	}*/
+	
+	public boolean getIsAdmin(){
 		return false;
 	}
 	
-	public boolean isManager() {
+	/*public boolean isManager() {
+		return isManager;
+	}*/
+	
+	public boolean getIsManager(){
 		return isManager;
 	}
 }

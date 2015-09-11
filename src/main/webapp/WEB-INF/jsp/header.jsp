@@ -25,6 +25,15 @@
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
+				<c:choose>
+					<c:when test="${user.isAdmin}">
+						<li><a href="#alta">Alta</a></li>
+					</c:when>
+					<c:when test="${user.isManager}">
+						<li><a href="#menu">Agregar menu</a></li>
+						<li><a href="#histo">Ver historial</a></li>
+					</c:when> 
+				</c:choose>
 				<li><a href="#rest">Restaurants</a></li>
 				<li><a href="#about">About</a></li>
 				<li><a href="#contact">Contact</a></li>

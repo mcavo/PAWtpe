@@ -22,7 +22,6 @@ public class UserFilter implements Filter {
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
-		System.out.println("chua");
 
 		//Ver si esta logueado
 		UserManager userManager = new SessionUserManager(request);
@@ -31,7 +30,6 @@ public class UserFilter implements Filter {
 			return;
 		}
 		User user = UserService.getUser(userManager.getUserId());
-		System.out.println(user.getEmail());
 		request.setAttribute("user", user);
 		chain.doFilter(request, response);
 	}
