@@ -1,10 +1,6 @@
-<jsp:useBean id="home" class="ar.edu.itba.it.paw.Homepage" scope="request" />
-<!--jsp:setProperty name="home" property="email" /-->
+<jsp:useBean id="home" class="ar.edu.itba.it.paw.servlets.Homepage" scope="request" />
 
-<%@ include file="header.jsp"%>
-
-
-
+<%@ include file="./../header.jsp"%>
 
 <div class="container">
 
@@ -18,7 +14,7 @@
 		</p>
 	</div>
 
-	<H3>Bienvenido ${email}</H3>
+	<H3>Bienvenido </H3>
 	<h4>Listado de restoranes:</h4>
 	<c:forEach items="${weekRests}" var="rest"> 
 	  <tr>
@@ -33,4 +29,4 @@
 	</c:forEach>
 </div>
 
-<%@ include file="footer.jsp"%>
+<%@ include file="./../footer.jsp"%>

@@ -45,4 +45,9 @@ public class SessionUserManager implements UserManager{
 			return request.getParameter(id);
 		}
 	}
+
+	@Override
+	public String getUserId() {
+		return this.USR_ID;
+	}
 }

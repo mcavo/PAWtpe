@@ -9,4 +9,6 @@ public interface UserManager {
 	public void setUser(String name);
 	
 	public void resetUser(String name);
+
+	public String getUserId();
 }

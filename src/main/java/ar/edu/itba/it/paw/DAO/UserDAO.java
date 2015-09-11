@@ -28,6 +28,10 @@ public class UserDAO {
 	public String getUserId(String mail) {
 		return "";
 	}
+
+	public static User getUser(String id) {
+		return new User("mail", null, null, false, null, null);
+	}
 	
 }
 

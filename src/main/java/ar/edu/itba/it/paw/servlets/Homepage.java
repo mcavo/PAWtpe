@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw;
+package ar.edu.itba.it.paw.servlets;
 
 import java.io.IOException;
 import java.util.List;
@@ -22,7 +22,7 @@ public class Homepage extends HttpServlet{
 
 		List<Restaurant> weekRests = RestService.getLastWeekRestaurants();
 		request.setAttribute("weekRests", weekRests);
-		request.getRequestDispatcher("/WEB-INF/jsp/homepage.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsp/filtered/homepage.jsp").forward(request, response);
 		
 	}
 	

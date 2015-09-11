@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw;
+package ar.edu.itba.it.paw.servlets;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -34,6 +34,6 @@ public class ShowRestaurant extends HttpServlet{
 		req.setAttribute("sections", sections);
 		req.setAttribute("score", r.getScore());
 		req.setAttribute("okToQualify", RestService.canQualify(r, usr));
-		req.getRequestDispatcher("/WEB-INF/jsp/showRestaurant.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/jsp/filtered/showRestaurant.jsp").forward(req, resp);
 	}
 }

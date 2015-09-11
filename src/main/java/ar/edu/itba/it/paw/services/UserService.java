@@ -11,5 +11,9 @@ public class UserService {
 	
 	public static String getUserId(String mail){
 		return UserDAO.getInstance().getUserId(mail);
-	} 
+	}
+	
+	public static User getUser(String id){
+		return UserDAO.getUser(id);
+	}
 }

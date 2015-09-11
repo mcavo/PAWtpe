@@ -8,17 +8,32 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import ar.edu.itba.it.paw.SessionUserManager;
+import ar.edu.itba.it.paw.UserManager;
+import ar.edu.itba.it.paw.models.User;
+import ar.edu.itba.it.paw.services.UserService;
 
 public class UserFilter implements Filter {
 
-	public void doFilter(ServletRequest arg0, ServletResponse arg1, FilterChain arg2)
+	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
 			throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		
+		HttpServletRequest request = (HttpServletRequest) req;
+		HttpServletResponse response = (HttpServletResponse) resp;
+		System.out.println("chua");
+
 		//Ver si esta logueado
-		
-		//Crear objeto userrr
-		
+		UserManager userManager = new SessionUserManager(request);
+		if (!userManager.existsUser()) {
+			response.sendRedirect("logout");
+			return;
+		}
+		User user = UserService.getUser(userManager.getUserId());
+		System.out.println(user.getEmail());
+		request.setAttribute("user", user);
+		chain.doFilter(request, response);
 	}
 
 	public void init(FilterConfig arg0) throws ServletException {

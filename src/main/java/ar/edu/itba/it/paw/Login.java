@@ -42,8 +42,8 @@ public class Login extends HttpServlet{
 		}
 		
 		UserManager userManager = new SessionUserManager(req);
-		userManager.setUser(UserService.getUserId(email));
-		req.setAttribute("email", email);
+		userManager.setUser(String.valueOf(user.getId()));
+		//req.setAttribute("email", email);
 		resp.sendRedirect("homepage");
 	}
 }
