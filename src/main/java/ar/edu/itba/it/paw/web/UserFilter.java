@@ -8,24 +8,14 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-
-import ar.edu.itba.it.paw.SessionUserManager;
-import ar.edu.itba.it.paw.UserManager;
 
 public class UserFilter implements Filter {
 
-	@Override
-	public void doFilter(ServletRequest req, ServletResponse response, FilterChain chain)
+	public void doFilter(ServletRequest arg0, ServletResponse arg1, FilterChain arg2)
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
-		HttpServletRequest request = (HttpServletRequest) req;
+		
 		//Ver si esta logueado
-		UserManager userManager = new SessionUserManager(request);
-		if (userManager.existsUser()) {
-			request.getRequestDispatcher("homepage").forward(request, response);
-			return;
-		}
 		
 		//Crear objeto userrr
 		
