@@ -4,6 +4,7 @@ import java.util.List;
 
 import ar.edu.itba.it.paw.DAO.RestaurantDAO;
 import ar.edu.itba.it.paw.models.Restaurant;
+import ar.edu.itba.it.paw.models.User;
 
 public class RestService {
 
@@ -11,7 +12,12 @@ public class RestService {
 		return RestaurantDAO.getInstance().getLastWeekAdded();
 	}
 
-	public static Restaurant getRestaurant(String name) {
-		return RestaurantDAO.getInstance().getRestaurant(name);
+	public static Restaurant getRestaurant(String name, String address) {
+		String key = name.concat(address);
+		return RestaurantDAO.getInstance().getRestaurant(key);
+	}
+	
+	public static boolean canQualify(Restaurant r, User usr){
+		return !r.getQualifications().keySet().contains(usr.getId());
 	}
 }

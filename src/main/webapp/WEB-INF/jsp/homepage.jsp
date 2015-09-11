@@ -22,7 +22,7 @@
 	<h4>Listado de restoranes:</h4>
 	<c:forEach items="${weekRests}" var="rest"> 
 	  <tr>
-	    <td><a href="/PAWTPE/showRestaurant?name=${rest.name}">${rest.name}</a></td>
+	    <td><a href="/PAWTPE/showRestaurant?name=${rest.name}&addr=${rest.address}">${rest.name}</a></td>
 	    <c:forEach items="${rest.typesOfFood}" var="tof">
 	    	<tr>
 	    		<td>${tof}</td>

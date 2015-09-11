@@ -2,6 +2,7 @@ package ar.edu.itba.it.paw.models;
 
 import java.sql.Time;
 import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class Restaurant {
@@ -13,7 +14,7 @@ public class Restaurant {
 	private Address address;
 	private LinkedList<String> typesOfFood;
 	private String description;
-	private LinkedList<Calification> califications;
+	private HashMap<User, Calification> califications;
 	private Menu menu;
 	private double score;
 	private LocalDate startDate;
@@ -27,7 +28,7 @@ public class Restaurant {
 		this.setEndService(endService);
 		this.setAddress(address);
 		this.setTypesOfFood(typeOfFood);
-		this.califications = new LinkedList<Calification> ();
+		this.califications = new HashMap<User, Calification> ();
 		this.setMenu(menu);
 	}
 
@@ -117,6 +118,10 @@ public class Restaurant {
 
 	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
+	}
+
+	public HashMap<User, Calification> getQualifications() {
+		return this.califications;
 	}
 
 }

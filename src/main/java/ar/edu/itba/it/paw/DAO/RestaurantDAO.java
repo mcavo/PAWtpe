@@ -58,7 +58,7 @@ public class RestaurantDAO {
 			return rests;
 		}
 
-		public Restaurant getRestaurant(String name) {
+		public Restaurant getRestaurant(String key) {
 			double minimumPurchase = 1;
 			Time startService = Time.valueOf("17:00:00");
 			Time endService = Time.valueOf("20:00:00");
@@ -78,7 +78,7 @@ public class RestaurantDAO {
 				e.printStackTrace();
 			}
 
-			Restaurant r = new Restaurant(name, minimumPurchase, startService, endService, address, typeOfFood, managers, menu);
+			Restaurant r = new Restaurant("nombre", minimumPurchase, startService, endService, address, typeOfFood, managers, menu);
 			return r;
 		}
 }

@@ -4,7 +4,11 @@
 <H4>Puntaje: ${score}</H4>
 
 <a class="btn btn-lg btn-primary" href="#" role="button">Menu</a>
-<a class="btn btn-lg btn-primary" href="#" role="button">Calificar</a>
+
+<c:if test="${okToQualify}">
+	<a class="btn btn-lg btn-primary" href="#" role="button">Calificar</a>
+</c:if>
+
 
 <div>
 	<h5>Menu</h5>
