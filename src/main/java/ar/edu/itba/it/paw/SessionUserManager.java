@@ -46,7 +46,6 @@ public class SessionUserManager implements UserManager{
 		}
 	}
 
-	@Override
 	public String getUserId() {
 		return this.USR_ID;
 	}
