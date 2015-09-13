@@ -18,6 +18,8 @@ public class RestService {
 	}
 	
 	public static boolean canQualify(Restaurant r, User usr){
+		System.out.println(r);
+		System.out.println(usr);
 		return !r.getQualifications().keySet().contains(usr.getId());
 	}
 }
