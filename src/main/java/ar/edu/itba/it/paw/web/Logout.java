@@ -15,7 +15,10 @@ public class Logout extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+		UserManager userManager = new SessionUserManager(request);
+		if (userManager.existsUser()) {
+			userManager.resetUser(null);
+		}
 		request.getRequestDispatcher("/WEB-INF/jsp/logout.jsp").forward(request, response);
 	}
 }
