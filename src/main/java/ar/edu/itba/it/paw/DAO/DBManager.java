@@ -17,7 +17,7 @@ public class DBManager {
 		return sDbConnection;
 	}
 	
-	public DBManager(){
+	private DBManager(){
 	}
 	
 	public static DBManager getInstance(){
