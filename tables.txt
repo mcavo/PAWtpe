@@ -1,0 +1,12 @@
+#DIRECCION
+
+CREATE TABLE direccion (
+	id SERIAL NOT NULL,
+	calle varchar(30) NOT NULL,
+	provincia varchar(30) NOT NULL,
+	localidad varchar(30) NOT NULL,
+	numero int NOT NULL,
+	piso int,
+	departamento char,
+	cp int NOT NULL
+);
