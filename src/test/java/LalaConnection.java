@@ -19,7 +19,6 @@ public class LalaConnection {
 		URI dbUri;
 		try {
 			dbUri = new URI("postgres://hubyihgpaouvuy:p59ImIPv_9CmNlMxbU-Cyn6tHF@ec2-54-235-162-144.compute-1.amazonaws.com:5432/dajenobv1kl0ho"); 
-			//dbUri = new URI("postgres://qycdoftytvgugn:3SS5BQFZsq1FKJXrMLSJtX5fat@localhost:3000/djnrag8vu0hpu");
 			String username = dbUri.getUserInfo().split(":")[0];
 			String password = dbUri.getUserInfo().split(":")[1];
 			String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
@@ -28,12 +27,6 @@ public class LalaConnection {
 			prop.setProperty("user", username);
 			prop.setProperty("password", password);
 			String ssloff = "?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
-
-			/*
-			 * String dbUrl = "jdbc:postgresql://localhost/paw";
-			 * 
-			 * String userName = "postgres"; String password = "paw";
-			 */
 
 			try {
 				Class.forName(dbDriver);
