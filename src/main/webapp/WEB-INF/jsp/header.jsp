@@ -7,6 +7,7 @@
 <html>
 <head>
 <link href="css/navbar-fixed-top.css" type="text/css" rel="stylesheet">
+<link href="css/restcard.css" type="text/css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 </head>
 <body class="mybody">

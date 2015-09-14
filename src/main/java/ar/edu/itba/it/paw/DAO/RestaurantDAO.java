@@ -32,7 +32,7 @@ public class RestaurantDAO {
 		public List<Restaurant> getLastWeekAdded(){
 			List<Restaurant> rests = new LinkedList<Restaurant>();
 			
-			String name = "rest1";
+			String name = "Taco Box";
 			double minimumPurchase = 1;
 			Time startService = Time.valueOf("17:00:00");
 			Time endService = Time.valueOf("20:00:00");

@@ -14,9 +14,10 @@
 		</p>
 	</div>
 
-	<H3>Bienvenido </H3>
-	<h4>Listado de restoranes:</h4>
-	<c:forEach items="${weekRests}" var="rest"> 
+	<br>
+	<h4>Restoranes de la Semana:</h4>
+	<c:forEach items="${weekRests}" var="rest">
+		<!-- 
 	  <tr>
 	    <td><a href="/PAWTPE/showRestaurant?name=${rest.name}&addr=${rest.address}">${rest.name}</a></td>
 	    <c:forEach items="${rest.typesOfFood}" var="tof">
@@ -26,6 +27,18 @@
 	    </c:forEach>
 	    <td>De: ${rest.startService} a: ${rest.endService}</td>
 	  </tr>
+	   -->
+		<a
+			href="/PAWTPE/showRestaurant?name=${rest.name}&addr=${rest.address}">
+			<div class="bs-callout bs-callout-info">
+				<h4>${rest.name}</h4> <br>
+				<p>
+					Comida:
+					<c:forEach items="${rest.typesOfFood}" var="tof"> ${tof} </c:forEach>
+				</p>
+				<p>Horario: ${rest.startService} - ${rest.endService}</p>
+			</div>
+		</a>
 	</c:forEach>
 </div>
 
