@@ -4,14 +4,17 @@ import java.sql.SQLException;
 
 import org.omg.Messaging.SyncScopeHelper;
 
+import ar.edu.itba.it.paw.DAO.DBManager;
+
 public class tryToFuckingConnect {
 
 	public static void main(String[] args) {
-		Connection sDbConnection;
-		LalaConnection lala = new LalaConnection();
-		sDbConnection = lala.getConnection();
+		Connection dbConnection;
+		DBManager db = new DBManager();
+		dbConnection = db.getConnection();
 		try {
-			ResultSet set = sDbConnection.createStatement().executeQuery("SELECT * FROM direccion");
+			dbConnection.createStatement().execute("CREATE TABLE example ();");
+			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM direccion");
 			while(set.next()) {
 				System.out.println(set.getString(1) + " " + set.getString(2));
 			}
