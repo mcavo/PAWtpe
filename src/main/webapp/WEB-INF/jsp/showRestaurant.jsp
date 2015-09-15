@@ -1,4 +1,4 @@
-<%@ include file="./../header.jsp" %>
+<%@ include file="header.jsp" %>
 		
 <H3>Restaurant ${name}</H3>
 <H4>Puntaje: ${score}</H4>
@@ -25,4 +25,4 @@
 		</c:forEach>
 	</c:forEach>
 </div>
-<%@ include file="./../footer.jsp" %>
+<%@ include file="footer.jsp" %>

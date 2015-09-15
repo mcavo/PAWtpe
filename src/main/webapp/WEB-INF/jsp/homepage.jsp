@@ -1,6 +1,6 @@
 <jsp:useBean id="home" class="ar.edu.itba.it.paw.servlets.Homepage" scope="request" />
 
-<%@ include file="./../header.jsp"%>
+<%@ include file="header.jsp"%>
 
 <div class="container">
 
@@ -42,4 +42,4 @@
 	</c:forEach>
 </div>
 
-<%@ include file="./../footer.jsp"%>
+<%@ include file="footer.jsp"%>

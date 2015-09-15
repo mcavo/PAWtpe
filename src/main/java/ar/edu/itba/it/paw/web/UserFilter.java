@@ -22,15 +22,14 @@ public class UserFilter implements Filter {
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
-
 		//Ver si esta logueado
 		UserManager userManager = new SessionUserManager(request);
-		if (!userManager.existsUser()) {
-			response.sendRedirect("logout");
-			return;
+		if (userManager.existsUser()) {
+			User user = UserService.getUser(userManager.getUserId());
+			request.setAttribute("user", user);
+		}else{
+			request.setAttribute("user", null);
 		}
-		User user = UserService.getUser(userManager.getUserId());
-		request.setAttribute("user", user);
 		chain.doFilter(request, response);
 	}
 
