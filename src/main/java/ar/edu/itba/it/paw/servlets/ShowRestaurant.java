@@ -21,10 +21,8 @@ public class ShowRestaurant extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		UserManager manager = new SessionUserManager(req); 
-		String userId = manager.getUser(); 
-		User usr = UserDAO.getUser(userId);
-		
+
+		User usr = (User) req.getAttribute("user");
 		//----------------------
 		
 		String name = req.getParameter("name");
@@ -36,7 +34,13 @@ public class ShowRestaurant extends HttpServlet{
 		req.setAttribute("name", name);
 		req.setAttribute("sections", sections);
 		req.setAttribute("score", r.getScore());
-		req.setAttribute("okToQualify", RestService.canQualify(r, usr));
-		req.getRequestDispatcher("/WEB-INF/jsp/filtered/showRestaurant.jsp").forward(req, resp);
+		if(usr != null){
+			req.setAttribute("okToQualify", RestService.canQualify(r, usr));
+		}else{
+			req.setAttribute("okToQualify", false);
+			System.out.println("not ok");
+		}
+		
+		req.getRequestDispatcher("/WEB-INF/jsp/showRestaurant.jsp").forward(req, resp);
 	}
 }

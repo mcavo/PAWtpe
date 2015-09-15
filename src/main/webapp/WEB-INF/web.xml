@@ -55,8 +55,7 @@
 	</filter> 
 	<filter-mapping>
 		<filter-name>UserFilter</filter-name>
-		<!--url-pattern>/filtered</url-pattern-->
-		<servlet-name>Homepage</servlet-name> 
+		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
   <display-name>Archetype Created Web Application</display-name>
