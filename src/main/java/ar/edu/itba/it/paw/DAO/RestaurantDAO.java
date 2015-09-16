@@ -58,7 +58,7 @@ public class RestaurantDAO {
 			return rests;
 		}
 
-		public Restaurant getRestaurant(String key) {
+		public Restaurant getRestaurant(String name, String street, String number, String neighborhood, String city, String province, String floor, String apartment) {
 			double minimumPurchase = 1;
 			Time startService = Time.valueOf("17:00:00");
 			Time endService = Time.valueOf("20:00:00");

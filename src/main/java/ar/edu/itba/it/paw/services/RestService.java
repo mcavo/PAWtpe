@@ -12,14 +12,15 @@ public class RestService {
 		return RestaurantDAO.getInstance().getLastWeekAdded();
 	}
 
-	public static Restaurant getRestaurant(String name, String address) {
-		String key = name.concat(address);
-		return RestaurantDAO.getInstance().getRestaurant(key);
+	public static Restaurant getRestaurant(String name, String street, String number, String neighborhood, String city, String province, String floor, String apartment) {
+		if(name == null){
+			return null;
+		}	
+
+		return RestaurantDAO.getInstance().getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
 	}
 	
 	public static boolean canQualify(Restaurant r, User usr){
-		System.out.println(r);
-		System.out.println(usr);
 		return !r.getQualifications().keySet().contains(usr.getId());
 	}
 }

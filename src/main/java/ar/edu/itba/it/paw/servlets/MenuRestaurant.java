@@ -25,17 +25,26 @@ public class MenuRestaurant extends HttpServlet {
 		String userId = manager.getUser(); 
 		User usr = UserDAO.getUser(userId);
 		
-		
 		String name = req.getParameter("name");
-		String address = req.getParameter("addr");
-		Restaurant r = RestService.getRestaurant(name, address);
-		Menu menu = r.getMenu();
+		String street = req.getParameter("srt");
+		String number = req.getParameter("numb");
+		String neighborhood = req.getParameter("neigh");
+		String city = req.getParameter("city");
+		String province = req.getParameter("prov");
+		String floor = req.getParameter("flr");
+		String apartment = req.getParameter("apt");
+		
+		Restaurant rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
+		
+		Menu menu = rest.getMenu();
 		List<Section> sections = menu.getSections();
+		req.setAttribute("rest", rest);
 
-		req.setAttribute("name", name);
-		req.setAttribute("sections", sections);
-		req.setAttribute("score", r.getScore());
-		req.setAttribute("okToQualify", RestService.canQualify(r, usr));
+		if(usr != null){
+			req.setAttribute("okToQualify", RestService.canQualify(rest, usr));
+		}else{
+			req.setAttribute("okToQualify", false);
+		}
 		req.getRequestDispatcher("/WEB-INF/jsp/menuRestaurant.jsp").forward(req, resp);
 	}
 }
