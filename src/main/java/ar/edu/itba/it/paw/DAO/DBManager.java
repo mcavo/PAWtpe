@@ -68,7 +68,40 @@ public class DBManager {
 		}
 	}
 
-	public String getUserId(String mail, String pwd){
-		return "5859";
+	
+	public void updateSQL(String sql){
+		Statement stmt = null;
+		try{
+			Connection conn = this.getConnection();
+			stmt = conn.createStatement();
+	        stmt.executeUpdate(sql);
+	        conn.commit();
+	        stmt.close();
+		}catch(Exception ex){
+			System.out.println("updateSQL error:" + ex.getMessage());
+		}
+	}
+
+	public void insertSQL(String sql){
+		updateSQL(sql);
+	}
+	
+	public void deleteSQL(String sql){
+		updateSQL(sql);
+	}
+	
+	public ResultSet selectSQL(String sql){
+		Statement stmt = null;
+		ResultSet rs = null;
+		try{
+			Connection conn = this.getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(sql);
+	        conn.commit();
+	        stmt.close();
+		}catch(Exception ex){
+			System.out.println("updateSQL error:" + ex.getMessage());
+		}
+		return rs;
 	}
 }
