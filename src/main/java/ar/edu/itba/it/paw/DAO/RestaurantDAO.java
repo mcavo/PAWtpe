@@ -36,7 +36,7 @@ public class RestaurantDAO {
 			double minimumPurchase = 1;
 			Time startService = Time.valueOf("17:00:00");
 			Time endService = Time.valueOf("20:00:00");
-			Address address = new Address("street", 1, "city", "province", 2, "apartment");
+			Address address = new Address("street", "1", "neigh", "city", "province", "2", "apartment", "1431");
 			LinkedList<String> typeOfFood = new LinkedList<String>(); typeOfFood.add("mejicana");
 			LinkedList<User>managers = new LinkedList<User>(); managers.add(new User("mail", null, null, false, null, null));
 			Menu menu = null;
@@ -62,7 +62,7 @@ public class RestaurantDAO {
 			double minimumPurchase = 1;
 			Time startService = Time.valueOf("17:00:00");
 			Time endService = Time.valueOf("20:00:00");
-			Address address = new Address("street", 1, "city", "province", 2, "apartment");
+			Address address = new Address("street", "1", "neigh", "city", "province", "2", "apartment", "1431");
 			LinkedList<String> typeOfFood = new LinkedList<String>(); typeOfFood.add("mejicana");
 			LinkedList<User>managers = new LinkedList<User>(); managers.add(new User("mail", null, null, false, null, null));
 			Menu menu = null;
