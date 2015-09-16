@@ -36,6 +36,6 @@ public class MenuRestaurant extends HttpServlet {
 		req.setAttribute("sections", sections);
 		req.setAttribute("score", r.getScore());
 		req.setAttribute("okToQualify", RestService.canQualify(r, usr));
-		req.getRequestDispatcher("/WEB-INF/jsp/filtered/menuRestaurant.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/jsp/menuRestaurant.jsp").forward(req, resp);
 	}
 }
