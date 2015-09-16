@@ -1,4 +1,3 @@
-
 <%@ include file="./../header.jsp"%>
 <div class="container">
 
@@ -80,7 +79,6 @@
 		</c:forEach>
 	</div>
 </div>
-
 
 <%@ include file="./../footer.jsp"%>
 
