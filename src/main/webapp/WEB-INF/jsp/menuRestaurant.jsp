@@ -3,7 +3,7 @@
 <div class="container">
 	<div class="row">
 		<div>
-			<H3>${name}</H3>
+			<H3>${rest.name}</H3>
 			<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
 			<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
 			<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
@@ -11,13 +11,13 @@
 			<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
 		</div>
 		<div class="pull-right">
-			<H4>Puntaje: ${score}</H4>
+			<H4>Puntaje: ${rest.score}</H4>
 		</div>
 	</div>
 
 	<div>
 		<ul class="nav nav-tabs nav-justified">
-			<li><a href="/PAWTPE/showRestaurant?name=${name}&addr=${add}">Pedir</a></li>
+			<li><a href="/PAWTPE/showRestaurant?name=${rest.name}&srt=${rest.address.street}&numb=${rest.address.number}&neigh=${rest.address.neighborhood}&city=${rest.address.city}&prov=${rest.address.province}&flr=${rest.address.floor}&apt=${rest.address.apartment}">Pedir</a></li>
 			<li class="active"><a href="#">Información</a></li>
 		</ul>
 	</div>

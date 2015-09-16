@@ -24,20 +24,19 @@ public class ShowRestaurant extends HttpServlet{
 		//----------------------
 		
 		String name = req.getParameter("name");
-		String address = req.getParameter("addr");
-		Restaurant r = RestService.getRestaurant(name, address);
-		Menu menu = r.getMenu();
+		String street = req.getParameter("srt");
+		String number = req.getParameter("numb");
+		String neighborhood = req.getParameter("neigh");
+		String city = req.getParameter("city");
+		String province = req.getParameter("prov");
+		String floor = req.getParameter("flr");
+		String apartment = req.getParameter("apt");
+		
+		Restaurant rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
+		Menu menu = rest.getMenu();
 		List<Section> sections = menu.getSections();
 
-		req.setAttribute("name", name);
-		req.setAttribute("sections", sections);
-		req.setAttribute("score", r.getScore());
-		if(usr != null){
-			req.setAttribute("okToQualify", RestService.canQualify(r, usr));
-		}else{
-			req.setAttribute("okToQualify", false);
-			System.out.println("not ok");
-		}
+		req.setAttribute("rest", rest);
 		
 		req.getRequestDispatcher("/WEB-INF/jsp/showRestaurant.jsp").forward(req, resp);
 	}

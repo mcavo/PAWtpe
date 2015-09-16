@@ -4,7 +4,7 @@
 
 	<div class="row">
 		<div>
-			<H3>${name}</H3>
+			<H3>${rest.name}</H3>
 			<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
 			<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
 			<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
@@ -12,21 +12,21 @@
 			<span class="glyphicon glyphicon-star" aria-hidden="true"></span>
 		</div>
 		<div class="pull-right">
-			<H4>Puntaje: ${score}</H4>
+			<H4>Puntaje: ${rest.score}</H4>
 		</div>
 	</div>
 
 	<div>
 		<ul class="nav nav-tabs nav-justified">
 			<li class="active"><a href="#">Pedir</a></li>
-			<li><a href="/PAWTPE/menuRestaurant?name=${name}&addr=${add}">Información</a></li>
+			<li><a href="/PAWTPE/menuRestaurant?name=${rest.name}&srt=${rest.address.street}&numb=${rest.address.number}&neigh=${rest.address.neighborhood}&city=${rest.address.city}&prov=${rest.address.province}&flr=${rest.address.floor}&apt=${rest.address.apartment}">Información</a></li>
 		</ul>
 	</div>
 	
 	
 	<br><br>
 	<div>
-		<c:forEach items="${sections}" var="sect">
+		<c:forEach items="${rest.menu.sections}" var="sect">
 			<h4>${sect.name}</h4>
 			<c:forEach items="${sect.dishes}" var="dish">
 				<div class="bs-callout bs-callout-info">

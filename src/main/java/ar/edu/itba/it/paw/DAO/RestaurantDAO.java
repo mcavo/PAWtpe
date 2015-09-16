@@ -184,7 +184,6 @@ public class RestaurantDAO {
 				ResultSet st = pstmt.executeQuery();
 				
 				List<String> l = new ArrayList<String>();
-				
 				while(st.next()) {
 					l.add(st.getString("tipo"));
 				}
