@@ -6,8 +6,9 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<link href="css/navbar-fixed-top.css" type="text/css" rel="stylesheet">
+<link href="css/common.css" type="text/css" rel="stylesheet">
 <link href="css/restcard.css" type="text/css" rel="stylesheet">
+<link href="css/comments.css" type="text/css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
 </head>
 <body class="mybody">
