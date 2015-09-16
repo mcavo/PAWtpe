@@ -13,11 +13,20 @@ public class TryToConnect {
 		DBManager db = DBManager.getInstance();
 		dbConnection = db.getConnection();
 		try {
+			
+			
+			//dbConnection.createStatement().execute("DROP TABLE direccion;");
+			
+			dbConnection.createStatement().execute("");				
+			
 			//dbConnection.createStatement().execute("CREATE TABLE example ();");
-			//dbConnection.createStatement().execute("INSERT INTO axample (atr1, atr2, atr3) values (val1,val2,val3)");
-			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM direccion");
+			//dbConnection.createStatement().execute("INSERT INTO axample (atr1, atr2, atr3) values (val1,val2,val3);");
+			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM direccion;");
+			System.out.println(set.next());
 			while(set.next()) {
-				System.out.println(set.getString(1) + " " + set.getString(2));
+				for(int i=1 ; i<=9 ; i++)
+					System.out.print(set.getString(i) + " ");
+				System.out.println("");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
