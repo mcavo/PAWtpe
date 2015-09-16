@@ -102,6 +102,7 @@ public class DBManager {
 			conn.commit();
 			stmt.close();
 		} catch (Exception ex) {
+
 			System.out.println("updateSQL error:" + ex.getMessage());
 		}
 		return rs;
