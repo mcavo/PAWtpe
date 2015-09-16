@@ -17,17 +17,7 @@
 	<br>
 	<h4>Restoranes de la Semana:</h4>
 	<c:forEach items="${weekRests}" var="rest">
-		<!-- 
-	  <tr>
-	    <td><a href="/PAWTPE/showRestaurant?name=${rest.name}&addr=${rest.address}">${rest.name}</a></td>
-	    <c:forEach items="${rest.typesOfFood}" var="tof">
-	    	<tr>
-	    		<td>${tof}</td>
-	    	</tr>
-	    </c:forEach>
-	    <td>De: ${rest.startService} a: ${rest.endService}</td>
-	  </tr>
-	   -->
+		
 		<a
 			href="/PAWTPE/showRestaurant?name=${rest.name}&addr=${rest.address}">
 			<div class="bs-callout bs-callout-info">
