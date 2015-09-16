@@ -71,37 +71,38 @@ public class DBManager {
 		}
 	}
 
-	public void updateSQL(String sql) {
+	
+	public void updateSQL(String sql){
 		Statement stmt = null;
-		try {
+		try{
 			Connection conn = this.getConnection();
 			stmt = conn.createStatement();
-			stmt.executeUpdate(sql);
-			conn.commit();
-			stmt.close();
-		} catch (Exception ex) {
+	        stmt.executeUpdate(sql);
+	        conn.commit();
+	        stmt.close();
+		}catch(Exception ex){
 			System.out.println("updateSQL error:" + ex.getMessage());
 		}
 	}
 
-	public void insertSQL(String sql) {
+	public void insertSQL(String sql){
 		updateSQL(sql);
 	}
-
-	public void deleteSQL(String sql) {
+	
+	public void deleteSQL(String sql){
 		updateSQL(sql);
 	}
-
-	public ResultSet selectSQL(String sql) {
+	
+	public ResultSet selectSQL(String sql){
 		Statement stmt = null;
 		ResultSet rs = null;
-		try {
+		try{
 			Connection conn = this.getConnection();
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(sql);
-			conn.commit();
-			stmt.close();
-		} catch (Exception ex) {
+	        conn.commit();
+	        stmt.close();
+		}catch(Exception ex){
 			System.out.println("updateSQL error:" + ex.getMessage());
 		}
 		return rs;
