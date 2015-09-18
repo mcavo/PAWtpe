@@ -30,6 +30,15 @@
 	</servlet-mapping>
 	
 	<servlet>
+       <servlet-name>RestaurantList</servlet-name>
+       <servlet-class>ar.edu.itba.it.paw.servlets.RestaurantList</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	       <servlet-name>RestaurantList</servlet-name>
+	       <url-pattern>/restaurantList</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
        <servlet-name>MenuRestaurant</servlet-name>
        <servlet-class>ar.edu.itba.it.paw.servlets.MenuRestaurant</servlet-class>
 	</servlet>

@@ -8,15 +8,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ar.edu.itba.it.paw.SessionUserManager;
-import ar.edu.itba.it.paw.UserManager;
-import ar.edu.itba.it.paw.DAO.UserDAO;
 import ar.edu.itba.it.paw.models.Menu;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.Section;
 import ar.edu.itba.it.paw.models.User;
 import ar.edu.itba.it.paw.services.RestService;
 
+@SuppressWarnings("serial")
 public class ShowRestaurant extends HttpServlet{
 
 	@Override

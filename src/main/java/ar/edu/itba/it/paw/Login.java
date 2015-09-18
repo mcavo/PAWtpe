@@ -10,6 +10,7 @@ import ar.edu.itba.it.paw.models.User;
 import ar.edu.itba.it.paw.services.UserService;
 
 
+@SuppressWarnings("serial")
 public class Login extends HttpServlet{
 
 	private String email;

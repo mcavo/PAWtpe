@@ -8,9 +8,8 @@ public class Address {
 	private String province;
 	private String floor;
 	private String apartment;
-	private String CP;
 	
-	public Address(String street, String number, String neighborhood, String city, String province, String floor, String apartment, String CP) {
+	public Address(String street, String number, String floor, String apartment, String neighborhood, String city, String province) {
 		this.setStreet(street);
 		this.setNumber(number);
 		this.setNeighborhood(neighborhood);
@@ -18,7 +17,6 @@ public class Address {
 		this.setProvince(province);
 		this.setFloor(floor);
 		this.setApartment(apartment);
-		this.CP=CP;
 	}
 
 	public String getStreet() {
@@ -77,13 +75,6 @@ public class Address {
 		this.apartment = apartment;
 	}
 	
-	public String getCP() {
-		return CP;
-	}
-
-	public void setCP(String cP) {
-		CP = cP;
-	}
 
 	public String parseAdress() {
 		String add = street + " " + number;

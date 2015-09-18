@@ -10,7 +10,6 @@ CREATE TABLE direccion (
 	numero int NOT NULL,
 	piso int,
 	departamento char,
-	cp int NOT NULL,
 	barrio VARCHAR(40),
 	PRIMARY KEY(id)
 );

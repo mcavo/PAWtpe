@@ -46,6 +46,7 @@ public class SessionUserManager implements UserManager{
 		}
 	}
 
+	@SuppressWarnings("static-access")
 	public String getUserId() {
 		return this.USR_ID;
 	}
