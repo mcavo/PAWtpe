@@ -14,7 +14,6 @@ public class SessionUserManager implements UserManager{
 	
 	public boolean existsUser() {
 		HttpSession session = request.getSession();
-		System.out.println("session usr id="+ session.getAttribute(USR_ID));
 		//System.out.println("request usr id="+request.getParameter(USR_ID) != null );
 		return ((session.getAttribute(USR_ID) != null ) ||
 				(request.getParameter(USR_ID) != null ));
@@ -48,6 +47,7 @@ public class SessionUserManager implements UserManager{
 
 	@SuppressWarnings("static-access")
 	public String getUserId() {
-		return this.USR_ID;
+		HttpSession session = request.getSession();
+		return (String) session.getAttribute(USR_ID);
 	}
 }

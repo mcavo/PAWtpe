@@ -35,15 +35,15 @@ public class Login extends HttpServlet{
 		email = req.getParameter("email");
 		pwd = req.getParameter("pwd");
 		
-		user = UserService.getUser(email, pwd);
-
-		if(user == null){
+		String id = UserService.getUserId(email, pwd);
+		if(id.equals("-1")){
 			resp.sendRedirect(resp.encodeRedirectURL("login"));
 			return;
 		}
+		user = UserService.getUserById(id);
 		
 		UserManager userManager = new SessionUserManager(req);
-		userManager.setUser(String.valueOf(user.getId()));
+		userManager.setUser(String.valueOf(id));
 		resp.sendRedirect("homepage");
 	}
 }

@@ -25,7 +25,7 @@ public class UserFilter implements Filter {
 		//Ver si esta logueado
 		UserManager userManager = new SessionUserManager(request);
 		if (userManager.existsUser()) {
-			User user = UserService.getUser(userManager.getUserId());
+			User user = UserService.getUserById(userManager.getUserId());
 			request.setAttribute("user", user);
 		}else{
 			request.setAttribute("user", null);

@@ -42,12 +42,12 @@
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<c:choose>
-					<c:when test="${user.email==null}">
+					<c:when test="${user.name==null}">
 						<li><a href="#">Log in</a></li>
 						<li><a href="#">Sign in</a></li>
 					</c:when>    
     				<c:otherwise>
-    					<li><a href="#">${user.email}</a></li>  
+    					<li><a href="#">${user.name}</a></li>  
     				</c:otherwise>
     			</c:choose>
 			</ul>

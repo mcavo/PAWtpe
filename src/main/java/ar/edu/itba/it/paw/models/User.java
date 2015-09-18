@@ -1,17 +1,18 @@
 package ar.edu.itba.it.paw.models;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public class User implements UserPermissions {
 	private String email;
 	private String name;
-	private LocalDate birth;
+	private Date birth;
 	private boolean isManager;
 	private String phoneNumber;
 	private Address address;
 	private int id;
 
-	public User(String email, String name, LocalDate birth, boolean isManager, String phoneNumber, Address address) {
+	public User(String email, String name, Date birth, boolean isManager, String phoneNumber, Address address) {
 		// TODO Auto-generated constructor stub
 		this.setEmail(email);
 		this.setName(name);
@@ -19,6 +20,13 @@ public class User implements UserPermissions {
 		this.setManager(isManager);
 		this.setPhoneNumber(phoneNumber);
 		this.setAddress(address); //Dirección obligatoria o puede ser optativa? y el teléfono??
+	}
+	
+	public User(String name, Date birth) {
+		// TODO Auto-generated constructor stub
+		this.setName(name);
+		this.setBirth(birth);
+		//this.setAddress(address); //Dirección obligatoria o puede ser optativa? y el teléfono??
 	}
 	
 	public void setId(int id) {
@@ -45,11 +53,11 @@ public class User implements UserPermissions {
 		this.name = name;
 	}
 
-	public LocalDate getBirth() {
+	public Date getBirth() {
 		return birth;
 	}
 
-	public void setBirth(LocalDate birth) {
+	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
 
@@ -74,7 +82,7 @@ public class User implements UserPermissions {
 	}
 	
 	public int getAge() { // testear esto
-		LocalDate today = LocalDate.now();
+		/*LocalDate today = LocalDate.now();
 		int answer = this.birth.getYear() - today.getYear();
 		if (this.birth.getMonthValue() - today.getMonthValue() > 0) {
 			return answer;
@@ -82,6 +90,8 @@ public class User implements UserPermissions {
 			return answer - 1;
 		}
 		return answer; 
+		*/
+		return 0;
 	}
 	
 	/* User Permissions */
