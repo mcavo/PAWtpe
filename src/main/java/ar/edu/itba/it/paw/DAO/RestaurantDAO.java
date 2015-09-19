@@ -39,16 +39,16 @@ public class RestaurantDAO {
 		dbConnection = db.getConnection();
 		List<Restaurant> rest = new LinkedList<Restaurant>();
 		try {
-			String sql = "SELECT DISTINCT id FROM tipos WHERE tipo = ?";
+			String sql = "SELECT DISTINCT restid FROM tipos WHERE tipo = ?";
 			PreparedStatement pstmt = dbConnection.prepareStatement(sql);
 			pstmt.setString(1, typeOfFood);
 			ResultSet s = pstmt.executeQuery();
 			while(s.next()) {
-				Restaurant aux = getById(s.getInt("id"));
+				Restaurant aux = getById(s.getInt("restid"));
 				if(aux!=null)
 					rest.add(aux);
 			}
-			dbConnection.close();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -94,7 +94,7 @@ public class RestaurantDAO {
 				l.add(st.getString("tipo"));
 			}
 			st.close();
-			Restaurant res = new Restaurant(sr.getString("name"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, l, null, null);
+			Restaurant res = new Restaurant(sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, l, null, null);
 		
 			pstmt.close();
 			pstmt2.close();
@@ -144,7 +144,6 @@ public class RestaurantDAO {
 				rests.add(new Restaurant(sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, l, null, null));
 			}
 			sr.close();
-			dbConnection.close();
 		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -208,7 +207,6 @@ public class RestaurantDAO {
 			}
 			pstmt.close();
 			pstmt2.close();
-			//dbConnection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

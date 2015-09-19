@@ -28,7 +28,7 @@ public class UserDAO {
 	}
 	
 	public static int getUserId(String mail, String pwd){
-		String sql = "select id from credencial where mail like ? and psw like ?;";
+		String sql = "SELECT id FROM credencial WHERE mail = ? AND psw = ?;";
 		System.out.println(sql);
 		int id = -1;
 		try{
@@ -38,7 +38,7 @@ public class UserDAO {
 			pstmt.setString(2, pwd);
 			
 			ResultSet rs = pstmt.executeQuery();
-			while ( rs.next() ) {
+			if ( rs.next() ) {
 			    id  = rs.getInt("id");
 			 }
 			rs.close();
@@ -51,7 +51,7 @@ public class UserDAO {
 	}
 	
 	public static User getUserById(int id){
-		String sql = "select * from usuario where userid = ?";
+		String sql = "SELECT * FROM usuario WHERE userid = ?";
 		boolean empty = true;
 		String  nombre = "";
 		String  apellido = "";
@@ -62,7 +62,7 @@ public class UserDAO {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();
-			while ( rs.next() ) {
+			if ( rs.next() ) {
 				empty = false;
 			    nombre = rs.getString("nombre");
 			    apellido = rs.getString("apellido");
@@ -76,7 +76,6 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 		if(empty){
-			//app error!!!
 			return null;
 		}
 		return new User(nombre+" "+apellido, nacimiento);
