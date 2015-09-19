@@ -86,6 +86,7 @@
 
 </div>
 
+<<<<<<< HEAD
 <%@ include file="footer.jsp"%>
 =======
 	<div>
@@ -153,5 +154,8 @@
 	</div>
 	
 </div>
+<%@ include file="footer.jsp"%>
+>>>>>>> switch de showrest a menurest
+=======
 <%@ include file="footer.jsp"%>
 >>>>>>> switch de showrest a menurest

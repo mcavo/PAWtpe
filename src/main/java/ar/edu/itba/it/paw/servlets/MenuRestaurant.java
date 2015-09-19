@@ -39,8 +39,6 @@ public class MenuRestaurant extends HttpServlet {
 		String apartment = req.getParameter("apt");
 		
 		rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
-		
-		Menu menu = rest.getMenu();
 		//List<Section> sections = menu.getSections();
 		req.setAttribute("rest", rest);
 		
@@ -67,6 +65,7 @@ public class MenuRestaurant extends HttpServlet {
 		String apartment = req.getParameter("apt");
 
 		Restaurant rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
+		req.setAttribute("rest", rest);
 		
 		Enumeration en = req.getParameterNames();
 		HashMap<Dish, String> map = new HashMap<Dish, String>();
