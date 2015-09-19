@@ -1,15 +1,31 @@
 <%@ include file="header.jsp" %>
 
-<H3>Por favor, ingrese sus datos</H3>
 
-<form action="login" method="post">
-  E-mail: 
-  <input type="text" name="email">
-  <br/>
-  Contraseña: 
-  <input type="text" name="pwd">
-  <input type="submit" value="Submit">
-</form>
+<div class="container">
+	<h3 class="text-center">Por favor, ingrese sus datos</h3>
+	<form role="form" action="login" method="post">
+		<br>
+		<div class="form-group row">
+			<div class="col-sm-offset-4 col-sm-4">
+				<div class="col-sm-offset-1 col-sm-10 focus">
+					<input type="email" name="email" class="form-control" id="email" placeholder="Email" autofocus>
+				</div>
+			</div>
+		</div>
+		<div class="form-group row">
+			<div class="col-sm-offset-4 col-sm-4"> 
+				<div class="col-sm-offset-1 col-sm-10">
+					<input type="password" name="pwd" class="form-control" id="pwd" placeholder="Contraseña">
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-offset-4 col-sm-4">
+			<div class="col-sm-offset-2 col-sm-8">
+				<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+			</div>
+		</div>
+	</form>
+</div>
 
 
 <%@ include file="footer.jsp" %>

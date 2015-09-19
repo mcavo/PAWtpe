@@ -1,7 +1,7 @@
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	version="2.4">
-	
+
 	<servlet>
        <servlet-name>Login</servlet-name>
        <servlet-class>ar.edu.itba.it.paw.Login</servlet-class>
@@ -13,12 +13,59 @@
 	
 	<servlet>
        <servlet-name>Homepage</servlet-name>
-       <servlet-class>ar.edu.itba.it.paw.Homepage</servlet-class>
+       <servlet-class>ar.edu.itba.it.paw.servlets.Homepage</servlet-class>
 	</servlet>
 	<servlet-mapping>
 	       <servlet-name>Homepage</servlet-name>
 	       <url-pattern>/homepage</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+       <servlet-name>ShowRestaurant</servlet-name>
+       <servlet-class>ar.edu.itba.it.paw.servlets.ShowRestaurant</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	       <servlet-name>ShowRestaurant</servlet-name>
+	       <url-pattern>/showRestaurant</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+       <servlet-name>RestaurantList</servlet-name>
+       <servlet-class>ar.edu.itba.it.paw.servlets.RestaurantList</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	       <servlet-name>RestaurantList</servlet-name>
+	       <url-pattern>/restaurantList</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+       <servlet-name>MenuRestaurant</servlet-name>
+       <servlet-class>ar.edu.itba.it.paw.servlets.MenuRestaurant</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	       <servlet-name>MenuRestaurant</servlet-name>
+	       <url-pattern>/menuRestaurant</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	<servlet>
+       <servlet-name>Logout</servlet-name>
+       <servlet-class>ar.edu.itba.it.paw.web.Logout</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	       <servlet-name>Logout</servlet-name>
+	       <url-pattern>/logout</url-pattern>
+	</servlet-mapping>
+	
+	<filter>
+		<filter-name>UserFilter</filter-name> 
+		<filter-class>ar.edu.itba.it.paw.web.UserFilter</filter-class>
+	</filter> 
+	<filter-mapping>
+		<filter-name>UserFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 	
   <display-name>Archetype Created Web Application</display-name>
 </web-app>

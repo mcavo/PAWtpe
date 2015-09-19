@@ -14,7 +14,6 @@ public class SessionUserManager implements UserManager{
 	
 	public boolean existsUser() {
 		HttpSession session = request.getSession();
-		System.out.println("session usr id="+ session.getAttribute(USR_ID));
 		//System.out.println("request usr id="+request.getParameter(USR_ID) != null );
 		return ((session.getAttribute(USR_ID) != null ) ||
 				(request.getParameter(USR_ID) != null ));
@@ -45,4 +44,10 @@ public class SessionUserManager implements UserManager{
 			return request.getParameter(id);
 		}
 	}
+
+	public String getUserId() {
+		HttpSession session = request.getSession();
+		return (String) session.getAttribute(USR_ID);
+	}
+
 }

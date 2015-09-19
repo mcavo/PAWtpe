@@ -6,12 +6,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.mortbay.jetty.servlet.AbstractSessionManager.Session;
 
 import ar.edu.itba.it.paw.models.User;
 import ar.edu.itba.it.paw.services.UserService;
 
 
+@SuppressWarnings("serial")
 public class Login extends HttpServlet{
 
 	private String email;
@@ -36,15 +36,15 @@ public class Login extends HttpServlet{
 		email = req.getParameter("email");
 		pwd = req.getParameter("pwd");
 		
-		user = UserService.getUser(email, pwd);
-
-		if(user == null){
+		String id = UserService.getUserId(email, pwd);
+		if(id.equals("-1")){
 			resp.sendRedirect(resp.encodeRedirectURL("login"));
 			return;
 		}
+		user = UserService.getUserById(id);
+		
 		UserManager userManager = new SessionUserManager(req);
-		userManager.setUser(UserService.getUserId(email));
-		req.setAttribute("email", email);
-		req.getRequestDispatcher("/WEB-INF/jsp/homepage.jsp").forward(req, resp);
+		userManager.setUser(String.valueOf(id));
+		resp.sendRedirect("homepage");
 	}
 }
