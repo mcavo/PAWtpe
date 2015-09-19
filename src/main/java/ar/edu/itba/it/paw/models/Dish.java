@@ -5,6 +5,7 @@ public class Dish {
 	private float price;
 //	private String sectionMenu;
 	private String description;
+	private int id;
 	
 	public Dish(String product, float price, String description) {
 		this.setProduct(product);
@@ -34,6 +35,14 @@ public class Dish {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public void setId(int id){
+		this.id = id;
+	}
+	
+	public int getId() {
+		return this.id;
 	}
 
 }
