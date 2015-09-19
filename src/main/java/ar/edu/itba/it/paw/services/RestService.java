@@ -44,7 +44,7 @@ public class RestService {
 			return null;
 		}	
 
-		return RestaurantDAO.getInstance().getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
+		return RestaurantDAO.getInstance().getRestaurant(name, street, Integer.valueOf(number), neighborhood, city, province, Integer.valueOf(floor), apartment);
 	}
 	
 	public static boolean canQualify(Restaurant r, User usr){

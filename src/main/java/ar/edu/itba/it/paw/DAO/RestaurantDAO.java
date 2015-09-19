@@ -70,18 +70,20 @@ public class RestaurantDAO {
 			if(!sr.next())
 				return null;
 			
+			PreparedStatement pstmt2 = dbConnection.prepareStatement(sql);
 			sql = "SELECT * FROM direccion WHERE id = ?;";
-			pstmt = dbConnection.prepareStatement(sql);
-			pstmt.setInt(1, sr.getInt("dirid"));
-			ResultSet sd = pstmt.executeQuery();
+			pstmt2 = dbConnection.prepareStatement(sql);
+			pstmt2.setInt(1, sr.getInt("dirid"));
+			ResultSet sd = pstmt2.executeQuery();
 			sd.next();
 			
-			Address address = new Address (sd.getString("calle"),sd.getString("numero"), sd.getString("piso"), sd.getString("departamento"), sd.getString("barrio"),sd.getString("localidad"),sd.getString("provincia")); 
+			Address address = new Address (sd.getString("calle"),sd.getInt("numero"), sd.getInt("piso"), sd.getString("departamento"), sd.getString("barrio"),sd.getString("localidad"),sd.getString("provincia")); 
 			
+			PreparedStatement pstmt3 = dbConnection.prepareStatement(sql);
 			sql = "SELECT * FROM tipos WHERE restid = ?;";
-			pstmt = dbConnection.prepareStatement(sql);
-			pstmt.setInt(1, id);
-			ResultSet st = pstmt.executeQuery();
+			pstmt3 = dbConnection.prepareStatement(sql);
+			pstmt3.setInt(1, id);
+			ResultSet st = pstmt3.executeQuery();
 			
 			List<String> l = new ArrayList<String>();
 			
@@ -91,6 +93,12 @@ public class RestaurantDAO {
 			
 			Restaurant res = new Restaurant(sr.getString("name"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, l, null, null);
 		
+			pstmt.close();
+			pstmt2.close();
+			pstmt3.close();
+			sr.close();
+			st.close();
+			sd.close();
 			return res;
 			
 		} catch (SQLException e) {
@@ -135,31 +143,6 @@ public class RestaurantDAO {
 		return rests;
 	}
 
-	public Restaurant getRestaurant(String key) {
-		double minimumPurchase = 1;
-		Time startService = Time.valueOf("17:00:00");
-		Time endService = Time.valueOf("20:00:00");
-		Address address = new Address("street", "1", "neigh", "city", "province", "2", "apartment");
-		LinkedList<String> typeOfFood = new LinkedList<String>();
-		typeOfFood.add("mejicana");
-		LinkedList<User> managers = new LinkedList<User>();
-		managers.add(new User("mail", null, null, false, null, null));
-		Menu menu = null;
-		try {
-			LinkedList<Section> sections = new LinkedList<Section>();
-			LinkedList<Dish> dishes = new LinkedList<Dish>();
-
-			dishes.add(new Dish("milanesa", 50, "de carne"));
-			sections.add(new Section("Plato principal", dishes));
-			menu = new Menu(sections);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		//Restaurant r = new Restaurant("nombre", minimumPurchase, startService, endService, address, typeOfFood, managers, menu);
-		return null;
-	}
-
 	public List<Restaurant> getAll() {
 		Connection dbConnection;
 		DBManager db = DBManager.getInstance();
@@ -168,6 +151,7 @@ public class RestaurantDAO {
 		try {
 			String sql = "SELECT * FROM restaurante";
 			PreparedStatement pstmt = dbConnection.prepareStatement(sql);
+			PreparedStatement pstmt2 = null;
 			ResultSet sr = pstmt.executeQuery();
 			while(sr.next()) {
 				sql = "SELECT * FROM direccion WHERE id = ?;";
@@ -175,12 +159,13 @@ public class RestaurantDAO {
 				pstmt.setInt(1, sr.getInt("dirid"));
 				ResultSet sd = pstmt.executeQuery();
 				sd.next();
-				Address address = new Address (sd.getString("calle"),sd.getString("numero"), sd.getString("piso"), sd.getString("departamento"), sd.getString("barrio"),sd.getString("localidad"),sd.getString("provincia")); 
+				Address address = new Address (sd.getString("calle"),sd.getInt("numero"), sd.getInt("piso"), sd.getString("departamento"), sd.getString("barrio"),sd.getString("localidad"),sd.getString("provincia")); 
 				
+				pstmt2 = dbConnection.prepareStatement(sql);
 				sql = "SELECT * FROM tipos WHERE restid = ?;";
-				pstmt = dbConnection.prepareStatement(sql);
-				pstmt.setInt(1, sr.getInt("id"));
-				ResultSet st = pstmt.executeQuery();
+				pstmt2 = dbConnection.prepareStatement(sql);
+				pstmt2.setInt(1, sr.getInt("id"));
+				ResultSet st = pstmt2.executeQuery();
 				
 				List<String> l = new ArrayList<String>();
 				while(st.next()) {
@@ -189,12 +174,119 @@ public class RestaurantDAO {
 				
 				rest.add(new Restaurant(sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, l, null, null));
 			}
-			dbConnection.close();
+			pstmt.close();
+			pstmt2.close();
+			//dbConnection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return rest;
 		
+	}
+	
+	private List<String> getTypesOfFoodByRestId(int restId){
+		Connection dbConnection;
+		DBManager db = DBManager.getInstance();
+		dbConnection = db.getConnection();
+		List<Restaurant> rest = new LinkedList<Restaurant>();
+		
+		List<String> tof = new LinkedList<String>();
+		try {
+			String sql = "SELECT tipo FROM tipos WHERE restid = ?";
+			PreparedStatement pstmt = dbConnection.prepareStatement(sql);
+			pstmt.setInt(1, restId);
+			
+			ResultSet rs = pstmt.executeQuery();
+			while ( rs.next() ) {
+			    tof.add(rs.getString("tipo"));
+			 }
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return tof;
+	}
+	
+	private int getAddressId(String street, int number, String neighborhood, String city, String province, int floor, String apartment) {
+
+		List<Restaurant> rest = new LinkedList<Restaurant>();
+		int id = -1;
+		try {
+			Connection conn = DBManager.getInstance().getConnection();
+			String sql = "SELECT id FROM direccion WHERE calle like ? and numero = ? and barrio like ? and localidad like ? and provincia like ? and (piso = ? or piso is null) and (departamento like ? or departamento is null);";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, street);
+			pstmt.setInt(2, number);
+			pstmt.setString(3, neighborhood);
+			pstmt.setString(4, city);
+			pstmt.setString(5, province);
+			pstmt.setInt(6, floor);
+			pstmt.setString(7, apartment);
+			
+			ResultSet rs = pstmt.executeQuery();
+			while ( rs.next() ) {
+			    id  = rs.getInt("id");
+			 }
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return id;
+	}
+	
+	private Menu getMenuByRestId(int restId){
+		/*-------------HARDCODEADO--------------*/
+		LinkedList<Section> sections = new LinkedList<Section>(); 
+		LinkedList<Dish> dishes = new LinkedList<Dish>();
+		
+		dishes.add(new Dish("milanesa", 50, "de carne")); 
+		sections.add(new Section("Plato principal", dishes)); 
+		Menu menu = null;
+		try {
+			menu = new Menu(sections);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		/*-------------------------------------*/
+		return menu;
+	}
+	
+	public Restaurant getRestaurant(String name, String street, int number, String neighborhood, String city, String province, int floor, String apartment) {
+		int addressId = getAddressId(street, number, neighborhood, city, province, floor, apartment);
+		if(addressId == -1){
+			//app error!
+			return null;
+		}
+		Address address = new Address(street, number, floor, apartment, neighborhood, city, province);
+		Connection dbConnection;
+		DBManager db = DBManager.getInstance();
+		
+		int restId = -1;
+		Restaurant rest = null;
+
+		try {
+			dbConnection = db.getConnection();
+			String sql = "SELECT * FROM restaurante WHERE dirid = ?;";
+			PreparedStatement pstmt = dbConnection.prepareStatement(sql);
+			pstmt.setInt(1, addressId);
+			ResultSet rs = pstmt.executeQuery();
+					 
+			while ( rs.next() ) {
+				restId = rs.getInt("id");
+				rest = new Restaurant(rs.getString("nombre"), rs.getDouble("montomin"), rs.getFloat("desde"), rs.getFloat("hasta"), address, getTypesOfFoodByRestId(restId), null, getMenuByRestId(restId));
+			 }
+	         rs.close();
+	         pstmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return rest;
 	}
 }
