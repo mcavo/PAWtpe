@@ -48,7 +48,7 @@ public class RestaurantDAO {
 				if(aux!=null)
 					rest.add(aux);
 			}
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -70,6 +70,7 @@ public class RestaurantDAO {
 			
 			if(!sr.next()) {
 				sr.close();
+				pstmt.close();
 				return null;
 			}
 
@@ -131,9 +132,10 @@ public class RestaurantDAO {
 				Address address = new Address (sd.getString("calle"),sd.getInt("numero"), sd.getInt("piso"), sd.getString("departamento"), sd.getString("barrio"),sd.getString("localidad"),sd.getString("provincia")); 
 				sd.close();
 				sql = "SELECT * FROM tipos WHERE restid = ?;";
-				pstmt = dbConnection.prepareStatement(sql);
-				pstmt.setInt(1, sr.getInt("id"));
-				ResultSet st = pstmt.executeQuery();
+				PreparedStatement pstmt2 = dbConnection.prepareStatement(sql);
+				pstmt2 = dbConnection.prepareStatement(sql);
+				pstmt2.setInt(1, sr.getInt("id"));
+				ResultSet st = pstmt2.executeQuery();
 				
 				List<String> l = new ArrayList<String>();
 				
@@ -141,9 +143,12 @@ public class RestaurantDAO {
 					l.add(st.getString("tipo"));
 				}
 				st.close();
+				pstmt.close();
 				rests.add(new Restaurant(sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, l, null, null));
+				pstmt2.close();
 			}
 			sr.close();
+
 		
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -204,6 +209,7 @@ public class RestaurantDAO {
 				}
 				st.close();
 				rest.add(new Restaurant(sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, l, null, null));
+				sr.close();
 			}
 			pstmt.close();
 			pstmt2.close();
