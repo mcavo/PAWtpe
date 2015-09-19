@@ -15,7 +15,6 @@ import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
 
 public class OrderDAO {
-
 	private static OrderDAO instance = null;
 
 	protected OrderDAO() {
@@ -49,7 +48,7 @@ public class OrderDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return empty;
+		return !empty;
 	}
 
 	public void sendOrder(int usrId, int restId, HashMap<Dish, Integer> oMap) {
@@ -70,6 +69,7 @@ public class OrderDAO {
 			} catch (Exception e) {
 				// rollback!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			}
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -86,7 +86,7 @@ public class OrderDAO {
 			pstmt.setInt(2, usrId);
 
 			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
+			while(rs.next()){
 				orderId = rs.getInt("id");
 			}
 			rs.close();
