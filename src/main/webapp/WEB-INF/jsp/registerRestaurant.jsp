@@ -9,19 +9,17 @@
 			</div>
 			<div class="panel-body">
 				<div class="form-group has-error">
-					<input type="text" class="form-control" id="inputName"
-						placeholder="Nombre del restaurante" required="" name="name">
+					<input type="text" class="form-control" id="inputName" placeholder="Nombre del restaurante" required="" name="name">
 				</div>
 
 				<div class="form-group has-error">
 					<label for="inputStreet" class="control-label">Descripción</label>
-					<textarea class="form-control" rows="5" id="description"
-						placeholder="Descripción"></textarea>
+					<textarea class="form-control" rows="5" id="description" placeholder="Descripción"></textarea>
 				</div>
 
 				<div class="form-group">
-					<label for="sel1">Tipo de restaurant</label> <select
-						class="form-control" id="sel1" requiered="">
+					<label for="sel1">Tipo de restaurant</label> 
+					<select class="form-control" id="sel1" requiered="">
 						<option>Chino</option>
 						<option>Japonés</option>
 						<option>Coreano</option>
@@ -42,21 +40,16 @@
 				<label for="inputStreet" class="control-label">Calle</label>
 				<div class="form-group has-error row">
 					<div class="col-sm-6">
-						<input type="text" class="form-control" id="inputName"
-							placeholder="Calle" required="" name="street">
+						<input type="text" class="form-control" id="inputName" placeholder="Calle" required="" name="street">
 					</div>
 					<div class="form-group col-sm-3 has-error">
-						<input type="password" class="form-control"
-							id="inputPasswordConfirm" data-match="#inputPassword"
-							placeholder="Nº" required="">
+						<input type="password" class="form-control"	id="inputPasswordConfirm" data-match="#inputPassword" placeholder="Nº" required="">
 					</div>
 					<div class="form-group col-sm-2 has-error">
-						<input type="password" class="form-control"
-							id="inputPasswordConfirm" placeholder="Piso" required="">
+						<input type="password" class="form-control"	id="inputPasswordConfirm" placeholder="Piso" required="">
 					</div>
 					<div class="form-group col-sm-1 has-error">
-						<input type="password" class="form-control"
-							id="inputPasswordConfirm" placeholder="Depto" required="">
+						<input type="password" class="form-control" id="inputPasswordConfirm" placeholder="Depto" required="">
 					</div>
 
 				</div>
