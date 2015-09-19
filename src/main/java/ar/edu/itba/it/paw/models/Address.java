@@ -1,6 +1,7 @@
 package ar.edu.itba.it.paw.models;
 
 public class Address {
+	private int id;
 	private String street;
 	private int number;
 	private String neighborhood;
@@ -8,8 +9,9 @@ public class Address {
 	private String province;
 	private int floor;
 	private String apartment;
-	
+
 	public Address(String street, int number, int floor, String apartment, String neighborhood, String city, String province) {
+	//public Address(String street, int number, String city, String province, String neighborhood) {
 		this.setStreet(street);
 		this.setNumber(number);
 		this.setNeighborhood(neighborhood);
@@ -74,14 +76,12 @@ public class Address {
 	public void setApartment(String apartment) {
 		this.apartment = apartment;
 	}
-	
 
-	/*public String parseAdress() {
-		String add = street + " " + number;
-		if (floor!=null)
-			add = add + floor + "º piso";
-		if (apartment!=null)
-			add = add + " " + apartment;
-		return add + ", " + neighborhood +", "+city+", "+province+"." ;
-	}*/
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 }

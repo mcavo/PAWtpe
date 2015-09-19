@@ -40,7 +40,7 @@ public class AddressDAO {
 				String apartment = rs.getString("departamento");
 				String neighborhood = rs.getString("barrio");
 				
-				address = new Address(street, number, floor, apartment, neighborhood, city, province);
+				//address = new Address(street, number, city, province, neighborhood);
 				address.setApartment(apartment);
 				address.setFloor(floor); //TODO:checkear que pasa si el piso es null ?? 
 			}
