@@ -10,7 +10,7 @@ CREATE TABLE direccion (
 	numero int NOT NULL,
 	piso int,
 	departamento char,
-	barrio VARCHAR(40),
+	barrio VARCHAR(40) NOT NULL,
 	PRIMARY KEY(id)
 );
 
@@ -42,7 +42,8 @@ CREATE TABLE restaurante (
 	desde FLOAT NOT NULL,
 	hasta FLOAT NOT NULL,
 	montomin FLOAT NOT NULL,
-	regis TIMESTAMP NOT NULL,	
+	regis TIMESTAMP NOT NULL,
+	costoenvio FLOAT,	
 	PRIMARY KEY(id),
 	UNIQUE(dirid), 
 	FOREIGN KEY(gerid) REFERENCES TO usuario(userid) ON DELETE CASCADE, 
@@ -70,6 +71,7 @@ CREATE TABLE plato (
 	id SERIAL NOT NULL,
 	restid INTEGER NOT NULL,
 	nombre VARCHAR(40) NOT NULL,
+	seccion VARCHAR(30) NOT NULL,
 	descripcion VARCHAR(200) NOT NULL,
 	precio FLOAT NOT NULL,
 	FOREIGN KEY(restid) REFERENCES restaurante(id) ON DELETE CASCADE,
@@ -82,7 +84,7 @@ CREATE TABLE pedido (
 	id SERIAL NOT NULL, 
 	restid INTEGER NOT NULL, 
 	userid INTEGER NOT NULL, 
-	horario TIMESTAMP NOT NULL, 
+	horario TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
 	estado INTEGER NOT NULL, 
 	PRIMARY KEY(id), 
 	FOREIGN KEY(userid) REFERENCES usuario(userid) ON DELETE CASCADE, 
