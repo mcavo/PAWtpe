@@ -141,5 +141,4 @@ public class Restaurant {
 		// TODO Auto-generated method stub
 		return this.id;
 	}
-
 }
