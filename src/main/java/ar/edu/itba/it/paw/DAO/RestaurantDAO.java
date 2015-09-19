@@ -113,12 +113,7 @@ public class RestaurantDAO {
 				menu = getMenuByRestId(restId);
 				Address address = getAddressById(sr.getInt("dirid"));
 				List<String> tipos = getTypesOfFoodByRestId(restId);
-<<<<<<< HEAD
 				rests.add(new Restaurant(restId,sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, null, menu));
-=======
-				qMap = CalificationService.getCalificationsByRestId(restId);
-				rests.add(new Restaurant(restId, sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, qMap, menu));
->>>>>>> calificaciones ok con la base
 			}
 			sr.close();
 		

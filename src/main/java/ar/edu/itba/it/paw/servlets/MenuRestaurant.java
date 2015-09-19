@@ -29,10 +29,6 @@ public class MenuRestaurant extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		User usr = (User) req.getAttribute("user");
-		
-		// ----------------------
-
 		String name = req.getParameter("name");
 		String street = req.getParameter("srt");
 		String number = req.getParameter("numb");
@@ -87,6 +83,5 @@ public class MenuRestaurant extends HttpServlet {
 		}
 		if(!OrderService.sendOrder(usrId, rest, map));
 		req.getRequestDispatcher("/WEB-INF/jsp/showRestaurant.jsp").forward(req, resp);
-
 	}
 }

@@ -23,8 +23,7 @@
 		</ul>
 	</div>
 	<br> <br>
-
-
+	
 	<!-- INFORMACION DEL RESTAURANTE -->
 
 	<c:if test="${okToQualify}">
@@ -35,6 +34,7 @@
 						<a class="btn btn-success btn-green" href="#reviews-anchor"
 							id="open-review-box">Comentar</a>
 					</div>
+<<<<<<< HEAD
 
 					<div class="row" id="post-review-box" style="display: none;">
 						<div class="col-md-12">
@@ -60,7 +60,6 @@
 	</c:if>
 
 	<!-- COMENTARIOS -->
-
 </div>
 
 <%@ include file="footer.jsp"%>
