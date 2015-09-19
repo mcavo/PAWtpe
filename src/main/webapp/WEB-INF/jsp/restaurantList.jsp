@@ -11,15 +11,15 @@
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 
-	<c:forEach items="${rlist}" var="r">	
-		
+	<c:forEach items="${rlist}" var="rest">	
+		<a href="/PAWTPE/showRestaurant?name=${rest.name}&srt=${rest.address.street}&numb=${rest.address.number}&neigh=${rest.address.neighborhood}&city=${rest.address.city}&prov=${rest.address.province}&flr=${rest.address.floor}&apt=${rest.address.apartment}"">
 			<div class="bs-callout bs-callout-info">
-				<h4>${r.name}</h4> <br>
+				<h4>${rest.name}</h4> <br>
 				<p>
-					
-					<c:forEach items="${r.typesOfFood}" var="tof"> <label> ${tof} </label> </c:forEach>
+					<c:forEach items="${rest.typesOfFood}" var="tof"> <label> ${tof} </label> </c:forEach>
 				</p>
-				<p class="restcard-schedule">Abierto de ${r.startService} a ${r.endService} hs</p>
+				<p class="restcard-schedule">Abierto de ${rest.startService} a ${rest.endService} hs</p>
+
 			</div>
 		</a>
 	</c:forEach>

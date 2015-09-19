@@ -2,14 +2,14 @@ package ar.edu.itba.it.paw.models;
 
 public class Address {
 	private String street;
-	private String number;
+	private int number;
 	private String neighborhood;
 	private String city;
 	private String province;
-	private String floor;
+	private int floor;
 	private String apartment;
 	
-	public Address(String street, String number, String floor, String apartment, String neighborhood, String city, String province) {
+	public Address(String street, int number, int floor, String apartment, String neighborhood, String city, String province) {
 		this.setStreet(street);
 		this.setNumber(number);
 		this.setNeighborhood(neighborhood);
@@ -27,11 +27,11 @@ public class Address {
 		this.street = street;
 	}
 
-	public String getNumber() {
+	public int getNumber() {
 		return number;
 	}
 
-	public void setNumber(String number) {
+	public void setNumber(int number) {
 		this.number = number;
 	}
 
@@ -59,11 +59,11 @@ public class Address {
 		this.province = province;
 	}
 
-	public String getFloor() {
+	public int getFloor() {
 		return floor;
 	}
 
-	public void setFloor(String floor) {
+	public void setFloor(int floor) {
 		this.floor = floor;
 	}
 
@@ -76,12 +76,12 @@ public class Address {
 	}
 	
 
-	public String parseAdress() {
+	/*public String parseAdress() {
 		String add = street + " " + number;
 		if (floor!=null)
 			add = add + floor + "º piso";
 		if (apartment!=null)
 			add = add + " " + apartment;
 		return add + ", " + neighborhood +", "+city+", "+province+"." ;
-	}
+	}*/
 }
