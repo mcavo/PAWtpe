@@ -184,7 +184,6 @@ public class RestaurantDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		//Restaurant r = new Restaurant("nombre", minimumPurchase, startService, endService, address, typeOfFood, managers, menu);
 		return null;
 	}
