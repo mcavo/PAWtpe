@@ -15,7 +15,6 @@ import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
 
 public class OrderDAO {
-
 	private static OrderDAO instance = null;
 
 	protected OrderDAO() {
@@ -31,23 +30,26 @@ public class OrderDAO {
 
 	public static boolean checkDish(Restaurant rest, Dish dish) {
 		String sql = "SELECT * FROM plato WHERE restid = ? and nombre like ?;";
-		boolean empty = false;
+		//String sql = "SELECT * FROM plato WHERE restid = ? and nombre like ? and descripcion like ? and precio = ?";
+		boolean empty = true;
 		try {
 			Connection conn = DBManager.getInstance().getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, rest.getId());
 			pstmt.setString(2, dish.getProduct());
+			//pstmt.setString(3, dish.getDescription());
+			//pstmt.setFloat(4, dish.getPrice());
 			ResultSet rs = pstmt.executeQuery();
-			if (rs.next()) {
-				empty = true;
-			}
-			rs.close();
-			pstmt.close();
+			if ( rs.next() ) {
+				empty = false;
+			 }
+	         rs.close();
+	         pstmt.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return empty;
+		return !empty;
 	}
 
 	public void sendOrder(int usrId, int restId, HashMap<Dish, Integer> oMap) {
@@ -64,10 +66,11 @@ public class OrderDAO {
 			pstmt.close();
 			try {
 				orderId = getOrderId(usrId, restId);
-				loadProducts(restId,orderId, oMap);
+				loadProducts(orderId, oMap);
 			} catch (Exception e) {
 				// rollback!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 			}
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -84,7 +87,7 @@ public class OrderDAO {
 			pstmt.setInt(2, usrId);
 
 			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
+			while(rs.next()){
 				orderId = rs.getInt("id");
 			}
 			rs.close();
@@ -96,32 +99,10 @@ public class OrderDAO {
 		return orderId;
 	}
 
-	private void loadProducts(int restId, int orderId, HashMap<Dish, Integer> oMap) {
+	private void loadProducts(int orderId, HashMap<Dish, Integer> oMap) {
 		for (Entry<Dish, Integer> set : oMap.entrySet()) {
-			int dishId;
-			Connection conn = DBManager.getInstance().getConnection();
-			String sql = "select id from plato where restid = ? and nombre = ?";
-			PreparedStatement pstmt;
-			try {
-				pstmt = conn.prepareStatement(sql);
-
-				pstmt.setInt(1, restId);
-				pstmt.setString(2, set.getKey().getProduct());
-				ResultSet rs = pstmt.executeQuery();
-				if (rs.next()) {
-					dishId = rs.getInt("id");
-					rs.close();
-					pstmt.close();
-					loadByOne(orderId, dishId, set.getValue());
-				}
-
-			} catch (SQLException e) {
-
-			}
-			return;
-
+			loadByOne(orderId, set.getKey().getId(), set.getValue());
 		}
-
 	}
 
 	private void loadByOne(int orderId, int dishId, int cant) {
