@@ -157,6 +157,7 @@ public class RestaurantDAO {
 			e.printStackTrace();
 		}
 
+<<<<<<< HEAD
 		//Restaurant r = new Restaurant("nombre", minimumPurchase, startService, endService, address, typeOfFood, managers, menu);
 		return null;
 	}
