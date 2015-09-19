@@ -29,15 +29,6 @@ public class MenuRestaurant extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		usr = (User) req.getAttribute("user");
-		String usrId = "";
-		UserManager userManager = new SessionUserManager(req);
-		if (userManager.existsUser()) {
-			usrId = userManager.getUserId();
-		}
-		
-		// ----------------------
-
 		String name = req.getParameter("name");
 		String street = req.getParameter("srt");
 		String number = req.getParameter("numb");
@@ -48,8 +39,6 @@ public class MenuRestaurant extends HttpServlet {
 		String apartment = req.getParameter("apt");
 		
 		rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
-		
-		Menu menu = rest.getMenu();
 		//List<Section> sections = menu.getSections();
 		req.setAttribute("rest", rest);
 		
@@ -58,8 +47,6 @@ public class MenuRestaurant extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String stars = req.getParameter("rating");
-		String comments = req.getParameter("comment");
 		String usrId = "";
 		UserManager userManager = new SessionUserManager(req);
 		if (userManager.existsUser()) {
@@ -76,6 +63,7 @@ public class MenuRestaurant extends HttpServlet {
 		String apartment = req.getParameter("apt");
 
 		Restaurant rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
+		req.setAttribute("rest", rest);
 		
 		Enumeration en = req.getParameterNames();
 		HashMap<Dish, String> map = new HashMap<Dish, String>();
@@ -90,6 +78,5 @@ public class MenuRestaurant extends HttpServlet {
 		}
 		if(!OrderService.sendOrder(usrId, rest, map));
 		req.getRequestDispatcher("/WEB-INF/jsp/showRestaurant.jsp").forward(req, resp);
-
 	}
 }

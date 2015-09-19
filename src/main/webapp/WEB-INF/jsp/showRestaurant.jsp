@@ -24,7 +24,6 @@
 	</div>
 	<br> <br>
 
-
 	<!-- INFORMACION DEL RESTAURANTE -->
 
 	<c:if test="${okToQualify}">
@@ -35,32 +34,28 @@
 						<a class="btn btn-success btn-green" href="#reviews-anchor"
 							id="open-review-box">Comentar</a>
 					</div>
-
+	
 					<div class="row" id="post-review-box" style="display: none;">
 						<div class="col-md-12">
-							<form accept-charset="UTF-8" action="" method="post">
+							<form accept-charset="UTF-8" action="showRestaurant" method="post">
 								<input id="ratings-hidden" name="rating" type="hidden">
-								<textarea class="form-control animated" cols="50"
-									id="new-review" name="comment"
-									placeholder="Ingrese su opinión aquí..." rows="5"></textarea>
-
+								<textarea class="form-control animated" cols="50" id="new-review"
+									name="comment" placeholder="Ingrese su opinión aquí..." rows="5"></textarea>
+	
 								<div class="text-right">
 									<div class="stars starrr" data-rating="0"></div>
 									<a class="btn btn-danger btn-sm" href="#" id="close-review-box"
-										style="display: none; margin-right: 10px;"> Cancelar </a>
+										style="display: none; margin-right: 10px;"> Cancelar
+									</a>
 									<button class="btn btn-success" type="submit">Enviar</button>
 								</div>
 							</form>
 						</div>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</c:if>
-
-	<!-- COMENTARIOS -->
-
 </div>
 
 <%@ include file="footer.jsp"%>
