@@ -36,18 +36,18 @@
 						<li><a href="#histo">Ver historial</a></li>
 					</c:when> 
 				</c:choose>
-				<li><a href="#rest">Restaurants</a></li>
-				<li><a href="#about">About</a></li>
-				<li><a href="#contact">Contact</a></li>
+				<li><a href="/PAWTPE/restaurantList">Restaurantes</a></li>
+				<li><a href="#contact">Contacto</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<c:choose>
 					<c:when test="${user.name==null}">
-						<li><a href="#">Log in</a></li>
-						<li><a href="#">Sign in</a></li>
+						<li><a href="/PAWTPE/login">Ingresa</a></li>
+						<li><a href="#">Regístrate</a></li>
 					</c:when>    
     				<c:otherwise>
-    					<li><a href="#">${user.name}</a></li>  
+    					<li><a href="#">${user.name}</a></li> 
+    					<li><a href="/PAWTPE/logout">Salir</a></li>
     				</c:otherwise>
     			</c:choose>
 			</ul>
