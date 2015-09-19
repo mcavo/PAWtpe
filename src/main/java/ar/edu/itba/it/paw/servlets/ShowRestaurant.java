@@ -16,6 +16,7 @@ import ar.edu.itba.it.paw.DAO.UserDAO;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
+import ar.edu.itba.it.paw.services.CalificationService;
 import ar.edu.itba.it.paw.services.RestService;
 
 @SuppressWarnings("serial")
@@ -43,9 +44,9 @@ public class ShowRestaurant extends HttpServlet {
 
 		req.setAttribute("rest", rest);
 
-		if (usr != null) {
-			req.setAttribute("okToQualify", RestService.canQualify(rest, usr));
-		} else {
+		if(usr != null){
+			req.setAttribute("okToQualify", CalificationService.canQualify(rest, userId));
+		}else{
 			req.setAttribute("okToQualify", false);
 		}
 		req.getRequestDispatcher("/WEB-INF/jsp/showRestaurant.jsp").forward(req, resp);

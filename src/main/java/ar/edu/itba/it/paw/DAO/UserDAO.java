@@ -13,7 +13,6 @@ import ar.edu.itba.it.paw.models.User;
 public class UserDAO {
 
 	private static UserDAO instance = null;
-	private static DBManager DBinstance = null;
 	
 	protected UserDAO(){
 		
@@ -22,7 +21,6 @@ public class UserDAO {
 	public static UserDAO getInstance(){
 		if(instance == null){
 			instance = new UserDAO();
-			DBinstance = DBManager.getInstance();
 		}
 		return instance;
 	}
@@ -32,7 +30,7 @@ public class UserDAO {
 		System.out.println(sql);
 		int id = -1;
 		try{
-			Connection conn = DBinstance.getConnection();
+			Connection conn = DBManager.getInstance().getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mail);
 			pstmt.setString(2, pwd);
@@ -58,7 +56,7 @@ public class UserDAO {
 		Date nacimiento = null;
 		int dirid = -1;
 		try {
-			Connection conn = DBinstance.getConnection();
+			Connection conn = DBManager.getInstance().getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, id);
 			ResultSet rs = pstmt.executeQuery();

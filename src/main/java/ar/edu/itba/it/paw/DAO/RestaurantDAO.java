@@ -8,15 +8,18 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 import ar.edu.itba.it.paw.models.Address;
+import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Menu;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.Section;
 import ar.edu.itba.it.paw.models.User;
+import ar.edu.itba.it.paw.services.CalificationService;
 
 public class RestaurantDAO {
 
@@ -74,14 +77,12 @@ public class RestaurantDAO {
 				return null;
 			}
 
-			int restId = sr.getInt("id");
-			restId = sr.getInt("dirid");
-			Menu menu = getMenuByRestId(restId);
-			Address address = getAddressById(restId);
-			List<String> tipos = getTypesOfFoodByRestId(restId);
-			
-			Restaurant res = new Restaurant(restId,sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, null, menu);
-		
+			int dirId = sr.getInt("dirid");
+			Menu menu = getMenuByRestId(id);
+			Address address = getAddressById(dirId);
+			List<String> tipos = getTypesOfFoodByRestId(id);
+			HashMap<Integer, Calification> qMap = CalificationService.getCalificationsByRestId(id);
+			Restaurant res = new Restaurant(id, sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, qMap, menu);		
 			sr.close();
 			pstmt.close();
 			return res;
@@ -99,17 +100,19 @@ public class RestaurantDAO {
 
 		int restId = -1;
 		Menu menu = null;
+		HashMap<Integer, Calification> qMap;
 		try {
 			Connection dbConnection;
 			DBManager db = DBManager.getInstance();
 			dbConnection = db.getConnection();
 			ResultSet sr = dbConnection.createStatement().executeQuery("SELECT * FROM restaurante WHERE CURRENT_DATE - DATE(regis) <= 7 ;");
 			while(sr.next()) {
-				restId = sr.getInt("dirid");
+				restId = sr.getInt("id");
 				menu = getMenuByRestId(restId);
-				Address address = getAddressById(restId);
+				Address address = getAddressById(sr.getInt("dirid"));
 				List<String> tipos = getTypesOfFoodByRestId(restId);
-				rests.add(new Restaurant(restId,sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, null, menu));
+				qMap = CalificationService.getCalificationsByRestId(restId);
+				rests.add(new Restaurant(restId, sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, qMap, menu));
 			}
 			sr.close();
 		
@@ -148,16 +151,18 @@ public class RestaurantDAO {
 		
 		int restId = -1;
 		Menu menu = null;
+		HashMap<Integer, Calification> qMap = null;
 		try {
 			String sql = "SELECT * FROM restaurante";
 			PreparedStatement pstmt = dbConnection.prepareStatement(sql);
 			ResultSet sr = pstmt.executeQuery();
 			while(sr.next()) {
-				restId = sr.getInt("dirid");
+				restId = sr.getInt("id");
 				menu = getMenuByRestId(restId);
-				Address address = getAddressById(restId);
+				Address address = getAddressById(sr.getInt("dirid"));
 				List<String> tipos = getTypesOfFoodByRestId(restId);
-				rest.add(new Restaurant(restId,sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, null, menu));
+				qMap = CalificationService.getCalificationsByRestId(restId);
+				rest.add(new Restaurant(restId, sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, qMap, menu));
 			}
 			sr.close();
 			pstmt.close();
@@ -305,11 +310,12 @@ public class RestaurantDAO {
 			String sql = "SELECT * FROM restaurante WHERE dirid = ?;";
 			PreparedStatement pstmt = dbConnection.prepareStatement(sql);
 			pstmt.setInt(1, addressId);
-			ResultSet rs = pstmt.executeQuery();
-					 
+			ResultSet rs = pstmt.executeQuery();	 
+			HashMap<Integer, Calification> qMap = null;
 			while ( rs.next() ) {
 				restId = rs.getInt("id");
-				rest = new Restaurant(restId,rs.getString("nombre"), rs.getDouble("montomin"), rs.getFloat("desde"), rs.getFloat("hasta"), address, getTypesOfFoodByRestId(restId), null, getMenuByRestId(restId));
+				qMap = CalificationService.getCalificationsByRestId(restId);
+				rest = new Restaurant(restId, rs.getString("nombre"), rs.getDouble("montomin"), rs.getFloat("desde"), rs.getFloat("hasta"), address, getTypesOfFoodByRestId(restId), qMap, getMenuByRestId(restId));
 			 }
 	         rs.close();
 	         pstmt.close();
