@@ -72,6 +72,7 @@ public class RestaurantDAO {
 				sr.close();
 				return null;
 			}
+
 			PreparedStatement pstmt2 = dbConnection.prepareStatement(sql);
 			sql = "SELECT * FROM direccion WHERE id = ?;";
 			pstmt2 = dbConnection.prepareStatement(sql);
@@ -80,7 +81,7 @@ public class RestaurantDAO {
 			sd.next();
 
 			Address address = new Address (sd.getString("calle"),sd.getInt("numero"), sd.getInt("piso"), sd.getString("departamento"), sd.getString("barrio"),sd.getString("localidad"),sd.getString("provincia")); 
-			
+
 			PreparedStatement pstmt3 = dbConnection.prepareStatement(sql);
 			sql = "SELECT * FROM tipos WHERE restid = ?;";
 			pstmt3 = dbConnection.prepareStatement(sql);
