@@ -25,13 +25,6 @@ public class MenuRestaurant extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		usr = (User) req.getAttribute("user");
-		String usrId = "";
-		UserManager userManager = new SessionUserManager(req);
-		if (userManager.existsUser()) {
-			usrId = userManager.getUserId();
-		}
-		
 		String name = req.getParameter("name");
 		String street = req.getParameter("srt");
 		String number = req.getParameter("numb");
@@ -42,29 +35,12 @@ public class MenuRestaurant extends HttpServlet {
 		String apartment = req.getParameter("apt");
 		
 		rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
-		
 		Menu menu = rest.getMenu();
-		//List<Section> sections = menu.getSections();
-		req.setAttribute("rest", rest);
+		List<Section> sections = menu.getSections();
 
-		if(usr != null){
-			req.setAttribute("okToQualify", CalificationService.canQualify(rest, usrId));
-		}else{
-			req.setAttribute("okToQualify", false);
-		}
+		req.setAttribute("rest", rest);
+		
 		req.getRequestDispatcher("/WEB-INF/jsp/menuRestaurant.jsp").forward(req, resp);
-	}
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String stars = req.getParameter("rating");
-		String comments = req.getParameter("comment");
-		String usrId = "";
-		UserManager userManager = new SessionUserManager(req);
-		if (userManager.existsUser()) {
-			usrId = userManager.getUserId();
-		}
-		CalificationService.addCalification(usrId, rest, stars, comments);
-		req.getRequestDispatcher("/WEB-INF/jsp/menuRestaurant.jsp").forward(req, resp);
+
 	}
 }
