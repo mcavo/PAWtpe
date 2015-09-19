@@ -19,9 +19,6 @@ public class ShowRestaurant extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		User usr = (User) req.getAttribute("user");
-		//----------------------
 		
 		String name = req.getParameter("name");
 		String street = req.getParameter("srt");

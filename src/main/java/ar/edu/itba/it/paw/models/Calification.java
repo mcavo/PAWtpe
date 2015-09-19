@@ -1,20 +1,20 @@
 package ar.edu.itba.it.paw.models;
 
 public class Calification {
-	private double starts;
+	private int stars;
 	private String comment;
 	
-	public Calification(double starts, String comment) {
-		this.setStarts(starts);
+	public Calification(int stars, String comment) {
+		this.setStars(stars);
 		this.setComment(comment);
 	}
 
-	public double getStarts() {
-		return starts;
+	public double getStars() {
+		return stars;
 	}
 
-	public void setStarts(double starts) {
-		this.starts = starts;
+	public void setStars(int stars) {
+		this.stars = stars;
 	}
 
 	public String getComment() {

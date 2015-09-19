@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import ar.edu.itba.it.paw.DAO.RestaurantDAO;
+import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
 
@@ -43,11 +44,11 @@ public class RestService {
 		if(name == null){
 			return null;
 		}	
-
 		return RestaurantDAO.getInstance().getRestaurant(name, street, Integer.valueOf(number), neighborhood, city, province, Integer.valueOf(floor), apartment);
 	}
-	
-	public static boolean canQualify(Restaurant r, User usr){
-		return !r.getQualifications().keySet().contains(usr.getId());
+
+	public static void addCalification(int usrId, Restaurant rest, Calification q) {
+		rest.getQualifications().put(usrId, q);
 	}
+	
 }

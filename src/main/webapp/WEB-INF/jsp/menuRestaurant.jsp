@@ -38,7 +38,7 @@
 	
 					<div class="row" id="post-review-box" style="display: none;">
 						<div class="col-md-12">
-							<form accept-charset="UTF-8" action="" method="post">
+							<form accept-charset="UTF-8" action="menuRestaurant" method="post">
 								<input id="ratings-hidden" name="rating" type="hidden">
 								<textarea class="form-control animated" cols="50" id="new-review"
 									name="comment" placeholder="Ingrese su opinión aquí..." rows="5"></textarea>
