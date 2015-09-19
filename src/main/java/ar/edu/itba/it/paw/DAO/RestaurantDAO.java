@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
@@ -65,19 +66,19 @@ public class RestaurantDAO {
 			String sql = "SELECT * FROM restaurante WHERE id = ?;";
 			PreparedStatement pstmt = dbConnection.prepareStatement(sql);
 			pstmt.setInt(1, id);
-			ResultSet sr = pstmt.executeQuery(); // Me traje el restaurante
+			ResultSet sr = pstmt.executeQuery();
 			
-			if(!sr.next())
+			if(!sr.next()) {
+				sr.close();
 				return null;
-			
+			}
 			sql = "SELECT * FROM direccion WHERE id = ?;";
 			pstmt = dbConnection.prepareStatement(sql);
 			pstmt.setInt(1, sr.getInt("dirid"));
 			ResultSet sd = pstmt.executeQuery();
 			sd.next();
-			
 			Address address = new Address (sd.getString("calle"),sd.getString("numero"), sd.getString("piso"), sd.getString("departamento"), sd.getString("barrio"),sd.getString("localidad"),sd.getString("provincia")); 
-			
+			sd.close();
 			sql = "SELECT * FROM tipos WHERE restid = ?;";
 			pstmt = dbConnection.prepareStatement(sql);
 			pstmt.setInt(1, id);
@@ -88,9 +89,9 @@ public class RestaurantDAO {
 			while(st.next()) {
 				l.add(st.getString("tipo"));
 			}
-			
+			st.close();
 			Restaurant res = new Restaurant(sr.getString("name"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, l, null, null);
-		
+			sr.close();
 			return res;
 			
 		} catch (SQLException e) {
@@ -104,14 +105,41 @@ public class RestaurantDAO {
 	public List<Restaurant> getLastWeekAdded() {
 		List<Restaurant> rests = new LinkedList<Restaurant>();
 
-		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.HOUR_OF_DAY, 0);
-		cal.set(Calendar.DAY_OF_WEEK, cal.getFirstDayOfWeek());
+		Connection dbConnection;
+		DBManager db = DBManager.getInstance();
+		dbConnection = db.getConnection();
+
+		try {
+			
+			ResultSet sr = dbConnection.createStatement().executeQuery("SELECT * FROM restaurante WHERE CURRENT_DATE - DATE(regis) <= 7 ;");
+			while(sr.next()) {
+				String sql = "SELECT * FROM direccion WHERE id = ?;";
+				PreparedStatement pstmt = dbConnection.prepareStatement(sql);
+				pstmt.setInt(1, sr.getInt("dirid"));
+				ResultSet sd = pstmt.executeQuery();
+				sd.next();
+				Address address = new Address (sd.getString("calle"),sd.getString("numero"), sd.getString("piso"), sd.getString("departamento"), sd.getString("barrio"),sd.getString("localidad"),sd.getString("provincia")); 
+				sd.close();
+				sql = "SELECT * FROM tipos WHERE restid = ?;";
+				pstmt = dbConnection.prepareStatement(sql);
+				pstmt.setInt(1, sr.getInt("id"));
+				ResultSet st = pstmt.executeQuery();
+				
+				List<String> l = new ArrayList<String>();
+				
+				while(st.next()) {
+					l.add(st.getString("tipo"));
+				}
+				st.close();
+				rests.add(new Restaurant(sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, l, null, null));
+			}
+			sr.close();
+			dbConnection.close();
 		
-		java.sql.Timestamp sow = new java.sql.Timestamp(cal.getTimeInMillis());
-
-
-		//ResultSet set = selectSQL("SELECT * FROM restaurante WHERE regis <= "+"\""+sow.toString()+"\"");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		/*
 		 * String name = "Taco Box"; double minimumPurchase = 1; Time
 		 * startService = Time.valueOf("17:00:00"); Time endService =
@@ -177,7 +205,7 @@ public class RestaurantDAO {
 				ResultSet sd = pstmt.executeQuery();
 				sd.next();
 				Address address = new Address (sd.getString("calle"),sd.getString("numero"), sd.getString("piso"), sd.getString("departamento"), sd.getString("barrio"),sd.getString("localidad"),sd.getString("provincia")); 
-				
+				sd.close();
 				sql = "SELECT * FROM tipos WHERE restid = ?;";
 				pstmt = dbConnection.prepareStatement(sql);
 				pstmt.setInt(1, sr.getInt("id"));
@@ -188,9 +216,10 @@ public class RestaurantDAO {
 				while(st.next()) {
 					l.add(st.getString("tipo"));
 				}
-				
+				st.close();
 				rest.add(new Restaurant(sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, l, null, null));
 			}
+			sr.close();
 			dbConnection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

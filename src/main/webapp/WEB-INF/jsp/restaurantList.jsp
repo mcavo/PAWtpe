@@ -5,26 +5,26 @@
 <div class="container">
 
 	<div class="row">
-		<div class="col-ms-6 col-ms-offset-3"><div class="well">...</div></div>
+		<div class="col-md-8 col-md-offset-2"><div class="well">...</div></div>
 	</div>
 
-	
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
 
 	<c:forEach items="${rlist}" var="r">	
-		<a
-			href="/PAWTPE/showRestaurant?name=${r.name}&addr=${r.address}">
+		
 			<div class="bs-callout bs-callout-info">
 				<h4>${r.name}</h4> <br>
 				<p>
-					Comida:
-					<c:forEach items="${r.typesOfFood}" var="tof"> ${tof} </c:forEach>
+					
+					<c:forEach items="${r.typesOfFood}" var="tof"> <label> ${tof} </label> </c:forEach>
 				</p>
-				<p>Horario: ${r.startService} - ${r.endService}</p>
+				<p class="restcard-schedule">Abierto de ${r.startService} a ${r.endService} hs</p>
 			</div>
 		</a>
 	</c:forEach>
 
-
+	</div></div>
 
 
 </div>
