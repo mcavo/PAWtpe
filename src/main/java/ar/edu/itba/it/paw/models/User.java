@@ -1,32 +1,24 @@
 package ar.edu.itba.it.paw.models;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class User implements UserPermissions {
 	private String email;
-	private String name;
-	private Date birth;
+	private String firstName;
+	private String lastName;
+	private LocalDate birth;
 	private boolean isManager;
-	private String phoneNumber;
 	private Address address;
 	private int id;
 
-	public User(String email, String name, Date birth, boolean isManager, String phoneNumber, Address address) {
+	public User(String email, String firstName, String lastName, LocalDate birth, boolean isManager,  Address address) {
 		// TODO Auto-generated constructor stub
 		this.setEmail(email);
-		this.setName(name);
+		this.setFirstName(firstName);
+		this.setLastName(lastName);
 		this.setBirth(birth);
 		this.setManager(isManager);
-		this.setPhoneNumber(phoneNumber);
 		this.setAddress(address); //Dirección obligatoria o puede ser optativa? y el teléfono??
-	}
-	
-	public User(String name, Date birth) {
-		// TODO Auto-generated constructor stub
-		this.setName(name);
-		this.setBirth(birth);
-		//this.setAddress(address); //Dirección obligatoria o puede ser optativa? y el teléfono??
 	}
 	
 	public void setId(int id) {
@@ -45,32 +37,16 @@ public class User implements UserPermissions {
 		this.email = email;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Date getBirth() {
+	public LocalDate getBirth() {
 		return birth;
 	}
 
-	public void setBirth(Date birth) {
+	public void setBirth(LocalDate birth) {
 		this.birth = birth;
 	}
 
 	public void setManager(boolean isManager) {
 		this.isManager = isManager;
-	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
 	}
 
 	public Address getAddress() {
@@ -95,19 +71,27 @@ public class User implements UserPermissions {
 	}
 	
 	/* User Permissions */
-	/*public boolean isAdmin() {
-		return false;
-	}*/
-	
 	public boolean getIsAdmin(){
 		return false;
 	}
 	
-	/*public boolean isManager() {
-		return isManager;
-	}*/
-	
 	public boolean getIsManager(){
 		return isManager;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 }

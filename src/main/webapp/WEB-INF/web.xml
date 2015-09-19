@@ -1,9 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns="http://java.sun.com/xml/ns/javaee"
-    xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd"
-    version="2.4">
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	version="2.4">
 
 	<servlet>
        <servlet-name>Login</servlet-name>
@@ -18,9 +15,20 @@
        <servlet-name>Homepage</servlet-name>
        <servlet-class>ar.edu.itba.it.paw.servlets.Homepage</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>SignUp</display-name>
+		<servlet-name>SignUp</servlet-name>
+		<servlet-class>ar.edu.itba.it.paw.SignUp</servlet-class>
+	</servlet>
 	<servlet-mapping>
 	       <servlet-name>Homepage</servlet-name>
 	       <url-pattern>/homepage</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SignUp</servlet-name>
+		<url-pattern>/signup</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
@@ -47,9 +55,20 @@
        <servlet-name>Logout</servlet-name>
        <servlet-class>ar.edu.itba.it.paw.web.Logout</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>RegisterRestaurant</display-name>
+		<servlet-name>RegisterRestaurant</servlet-name>
+		<servlet-class>ar.edu.itba.it.paw.RegisterRestaurant</servlet-class>
+	</servlet>
 	<servlet-mapping>
 	       <servlet-name>Logout</servlet-name>
 	       <url-pattern>/logout</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>RegisterRestaurant</servlet-name>
+		<url-pattern>/registerrestaurant</url-pattern>
 	</servlet-mapping>
 	
 	<filter>

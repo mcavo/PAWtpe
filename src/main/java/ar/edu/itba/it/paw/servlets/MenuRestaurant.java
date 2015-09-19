@@ -23,7 +23,7 @@ public class MenuRestaurant extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		UserManager manager = new SessionUserManager(req); 
 		String userId = manager.getUser(); 
-		User usr = UserDAO.getUser(userId);
+		User usr = UserDAO.getInstance().getUser(userId);
 		
 		String name = req.getParameter("name");
 		String street = req.getParameter("srt");

@@ -31,14 +31,15 @@ public class RestaurantDAO {
 		
 		public List<Restaurant> getLastWeekAdded(){
 			List<Restaurant> rests = new LinkedList<Restaurant>();
-			
 			String name = "Taco Box";
 			double minimumPurchase = 1;
 			Time startService = Time.valueOf("17:00:00");
 			Time endService = Time.valueOf("20:00:00");
-			Address address = new Address("street", "1", "neigh", "city", "province", "2", "apartment", "1431");
+			Address address = new Address("street", 1, "city", "province", "neighborhood");
+			address.setFloor(2);
+			address.setApartment("apartment");
 			LinkedList<String> typeOfFood = new LinkedList<String>(); typeOfFood.add("mejicana");
-			LinkedList<User>managers = new LinkedList<User>(); managers.add(new User("mail", null, null, false, null, null));
+			LinkedList<User>managers = new LinkedList<User>(); managers.add(new User("mail", null, null, null, false, null));
 			Menu menu = null;
 			try {
 				LinkedList<Section> sections = new LinkedList<Section>();
@@ -62,9 +63,11 @@ public class RestaurantDAO {
 			double minimumPurchase = 1;
 			Time startService = Time.valueOf("17:00:00");
 			Time endService = Time.valueOf("20:00:00");
-			Address address = new Address("street", "1", "neigh", "city", "province", "2", "apartment", "1431");
+			Address address = new Address("street", 1, "city", "province", "neighborhood");
+			address.setFloor(2);
+			address.setApartment("apartment");
 			LinkedList<String> typeOfFood = new LinkedList<String>(); typeOfFood.add("mejicana");
-			LinkedList<User>managers = new LinkedList<User>(); managers.add(new User("mail", null, null, false, null, null));
+			LinkedList<User>managers = new LinkedList<User>(); managers.add(new User("mail", null, null, null, false, null));
 			Menu menu = null;
 			try {
 				LinkedList<Section> sections = new LinkedList<Section>();

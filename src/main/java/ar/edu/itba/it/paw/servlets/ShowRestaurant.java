@@ -19,12 +19,15 @@ import ar.edu.itba.it.paw.services.RestService;
 
 public class ShowRestaurant extends HttpServlet{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 		User usr = (User) req.getAttribute("user");
-		//----------------------
-		
 		String name = req.getParameter("name");
 		String street = req.getParameter("srt");
 		String number = req.getParameter("numb");
