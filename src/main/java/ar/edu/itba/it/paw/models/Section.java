@@ -43,4 +43,8 @@ public class Section {
 		}
 		this.dishes.add(dish);
 	}
+
+	public void addDish(Dish dish) {
+		this.dishes.add(dish);
+	}
 }

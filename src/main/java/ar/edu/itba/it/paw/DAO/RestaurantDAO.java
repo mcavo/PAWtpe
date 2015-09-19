@@ -244,20 +244,46 @@ public class RestaurantDAO {
 	}
 	
 	private Menu getMenuByRestId(int restId){
-		/*-------------HARDCODEADO--------------*/
-		LinkedList<Section> sections = new LinkedList<Section>(); 
-		LinkedList<Dish> dishes = new LinkedList<Dish>();
-		
-		dishes.add(new Dish("milanesa", 50, "de carne")); 
-		sections.add(new Section("Plato principal", dishes)); 
 		Menu menu = null;
+		LinkedList<Section> sections = new LinkedList<Section>();
+		Dish dish = null;
+		Section section = null;
+		String seccion = null;
 		try {
-			menu = new Menu(sections);
-		} catch (Exception e) {
+			Connection conn = DBManager.getInstance().getConnection();
+			String sql = "SELECT * FROM plato WHERE restid = ?;";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, restId);
+			
+			ResultSet rs = pstmt.executeQuery();
+			while ( rs.next() ) {
+			    section = null;
+			    dish = new Dish(rs.getString("nombre"), rs.getFloat("precio"), rs.getString("descripcion"));
+			    seccion = rs.getString("seccion");
+			    for (Section sect : sections) {
+					if(sect.getName().equals(seccion)){
+						section = sect;
+					}
+				}
+			    if(section == null){
+			    	section = new Section(seccion, new LinkedList<Dish>());
+			    	sections.add(section);
+			    }
+			    section.addDish(dish);
+			 }
+			try {
+				menu = new Menu(sections);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
-		/*-------------------------------------*/
+		}
 		return menu;
 	}
 	
