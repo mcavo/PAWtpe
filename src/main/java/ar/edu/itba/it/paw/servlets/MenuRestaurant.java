@@ -21,10 +21,11 @@ public class MenuRestaurant extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		UserManager manager = new SessionUserManager(req); 
-		String userId = manager.getUser(); 
-		User usr = UserDAO.getUser(userId);
+
+		User usr = (User) req.getAttribute("user");
 		
+		// ----------------------
+
 		String name = req.getParameter("name");
 		String street = req.getParameter("srt");
 		String number = req.getParameter("numb");
@@ -33,18 +34,15 @@ public class MenuRestaurant extends HttpServlet {
 		String province = req.getParameter("prov");
 		String floor = req.getParameter("flr");
 		String apartment = req.getParameter("apt");
-		
-		Restaurant rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
-		
+
+		Restaurant rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor,
+				apartment);
 		Menu menu = rest.getMenu();
 		List<Section> sections = menu.getSections();
+
 		req.setAttribute("rest", rest);
 
-		if(usr != null){
-			req.setAttribute("okToQualify", RestService.canQualify(rest, usr));
-		}else{
-			req.setAttribute("okToQualify", false);
-		}
 		req.getRequestDispatcher("/WEB-INF/jsp/menuRestaurant.jsp").forward(req, resp);
 	}
+
 }
