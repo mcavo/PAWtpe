@@ -62,7 +62,7 @@ public class TryToConnect {
 			
 			while(set.next()) {
 				for(int i=1 ; i<=2; i++)
-					System.out.print(set.getString("piso")==null);
+					System.out.print(set.getString(i)+" | ");
 				System.out.println("");
 			}
 		} catch (SQLException e) {
