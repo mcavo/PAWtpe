@@ -1,6 +1,7 @@
 package ar.edu.itba.it.paw;
 
 import java.io.IOException;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 
 import javax.servlet.ServletException;
@@ -47,12 +48,7 @@ public class SignUp extends HttpServlet {
 		String firstName = request.getParameter("firstname");
 		String lastName = request.getParameter("lastname");
 		
-		//Get day
-		short day = Integer.valueOf(request.getParameter("day")).shortValue();
-		short month = Integer.valueOf(request.getParameter("month")).shortValue();
-		int year = Integer.valueOf(request.getParameter("year")).intValue();
-		LocalDate birth = LocalDate.of(year, month, day);
-		
+		//Get address parameters		
 		String street = request.getParameter("street");
 		int number = Integer.valueOf(request.getParameter("number")).intValue();
 		int floor = Integer.valueOf(request.getParameter("floor")).intValue();
@@ -64,6 +60,18 @@ public class SignUp extends HttpServlet {
 		address.setFloor(floor);
 		address.setApartment(apartment);
 		
+		//Get day
+		LocalDate birth = null;
+		try {
+			short day = Integer.valueOf(request.getParameter("day")).shortValue();
+			short month = Integer.valueOf(request.getParameter("month")).shortValue();
+			int year = Integer.valueOf(request.getParameter("year")).intValue();
+			birth = LocalDate.of(year, month, day);	
+		} catch (DateTimeException e) {
+//			response.setStatus(404);
+//			response.sendRedirect("error");
+			request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response);
+		}
 		user = new User(email, firstName, lastName, birth, false, address);
 		try {
 			user = UserService.signUp(email, pwd, firstName, lastName, birth, false, address);

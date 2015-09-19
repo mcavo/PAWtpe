@@ -71,6 +71,13 @@
 		<servlet-name>RegisterRestaurant</servlet-name>
 		<servlet-class>ar.edu.itba.it.paw.RegisterRestaurant</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>Error</display-name>
+		<servlet-name>Error</servlet-name>
+		<servlet-class>ar.edu.itba.it.paw.Error</servlet-class>
+	</servlet>
 	<servlet-mapping>
 	       <servlet-name>Logout</servlet-name>
 	       <url-pattern>/logout</url-pattern>
@@ -78,6 +85,10 @@
 	<servlet-mapping>
 		<servlet-name>RegisterRestaurant</servlet-name>
 		<url-pattern>/registerrestaurant</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Error</servlet-name>
+		<url-pattern>/Error</url-pattern>
 	</servlet-mapping>
 	
 	<filter>
