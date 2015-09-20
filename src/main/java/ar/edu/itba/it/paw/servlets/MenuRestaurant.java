@@ -29,9 +29,6 @@ public class MenuRestaurant extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		User usr = (User) req.getAttribute("user");
-		
-		// ----------------------
 
 		String name = req.getParameter("name");
 		String street = req.getParameter("srt");
@@ -44,23 +41,18 @@ public class MenuRestaurant extends HttpServlet {
 
 		Restaurant rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor,
 				apartment);
-		Menu menu = rest.getMenu();
-		List<Section> sections = menu.getSections();
-
 		req.setAttribute("rest", rest);
-
 		req.getRequestDispatcher("/WEB-INF/jsp/menuRestaurant.jsp").forward(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		usr = (User) req.getAttribute("user");
-		req.setAttribute("rest", rest);
-		String usrId = "";
+		/*String usrId = "";
 		UserManager userManager = new SessionUserManager(req);
 		if (userManager.existsUser()) {
 			usrId = userManager.getUserId();
-		}
+		}*/
 		
 		String name = req.getParameter("name");
 		String street = req.getParameter("srt");
@@ -84,7 +76,7 @@ public class MenuRestaurant extends HttpServlet {
 			if(d != null)
 				map.put(d,value);	
 		}
-		if(!OrderService.sendOrder(usrId, rest, map));
+		if(!OrderService.sendOrder(usr.getId(), rest, map));
 		req.setAttribute("rest", rest);
 		req.getRequestDispatcher("/WEB-INF/jsp/showRestaurant.jsp").forward(req, resp);
 

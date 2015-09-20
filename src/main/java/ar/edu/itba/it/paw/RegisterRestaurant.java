@@ -50,18 +50,7 @@ public class RegisterRestaurant extends HttpServlet {
 //		boolean isManager = request.getParameter("pwd");
 //		String phoneNumber = request.getParameter("pwd");
 //		Address address = request.getParameter("pwd");
-		user = new User(name, null, birth);
-		user.setEmail(email);
-		try {
-			UserDAO.getInstance().setUser(user, pwd);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
-		UserManager userManager = new SessionUserManager(request);
-		userManager.setUser(String.valueOf(user.getId()));
-		response.sendRedirect("homepage");
 	}
 
 }

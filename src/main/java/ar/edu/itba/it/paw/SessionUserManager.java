@@ -2,10 +2,11 @@ package ar.edu.itba.it.paw;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import ar.edu.itba.it.paw.models.User;
+
 public class SessionUserManager implements UserManager{
 
-	private static String USR_ID = null;
-	//private static String PSW = "password";
+	private static String USR= "usr";
 	private HttpServletRequest request;
 	
 	public SessionUserManager(HttpServletRequest request) {
@@ -15,23 +16,24 @@ public class SessionUserManager implements UserManager{
 	public boolean existsUser() {
 		HttpSession session = request.getSession();
 		//System.out.println("request usr id="+request.getParameter(USR_ID) != null );
-		return ((session.getAttribute(USR_ID) != null ) ||
-				(request.getParameter(USR_ID) != null ));
+		return ((session.getAttribute(USR) != null ) ||
+				(request.getParameter(USR) != null ));
 	}
 	
-	public String getUser() {
-		return getByID(USR_ID);
-	}
-	
-	
-	public void setUser(String usrId) {
+	public User getUser() {
 		HttpSession session = request.getSession();
-		session.setAttribute(USR_ID, usrId);
+		return (User) session.getAttribute("usr");
+	}
+	
+	
+	public void setUser(User usr) {
+		HttpSession session = request.getSession();
+		session.setAttribute(USR, usr);
 	}
 	
 	public void resetUser(String usr) {
 		HttpSession session = request.getSession();
-		session.setAttribute(USR_ID, null);
+		session.setAttribute(USR, null);
 		//session.setAttribute(PSW, null);
 	}
 	
@@ -47,7 +49,7 @@ public class SessionUserManager implements UserManager{
 
 	public String getUserId() {
 		HttpSession session = request.getSession();
-		return (String) session.getAttribute(USR_ID);
+		return (String) session.getAttribute(USR);
 	}
 
 }

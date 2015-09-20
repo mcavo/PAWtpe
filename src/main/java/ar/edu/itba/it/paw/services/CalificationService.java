@@ -9,14 +9,14 @@ import ar.edu.itba.it.paw.models.User;
 
 public class CalificationService {
 
-	public static boolean canQualify(Restaurant r, String usrId){
-		return !r.getQualifications().keySet().contains(Integer.valueOf(usrId));
+	public static boolean canQualify(Restaurant r, int usrId){
+		return !r.getQualifications().keySet().contains(usrId);
 	}
 	
-	public static void addCalification(String usrId, Restaurant rest, String stars, String comments) {
+	public static void addCalification(int usrId, Restaurant rest, String stars, String comments) {
 		int restId = rest.getId();
-		int userId = Integer.valueOf(usrId);
-		if(userId == 0 || restId == 0){
+		//int userId = Integer.valueOf(usrId);
+		if(usrId == 0 || restId == 0){
 			//app error
 			return;
 		}
@@ -29,9 +29,9 @@ public class CalificationService {
 			//tirar excepcion de comentario vacio
 			return;
 		}
-		CalificationDAO.getInstance().addCalification(userId, restId, rate, comments);
+		CalificationDAO.getInstance().addCalification(usrId, restId, rate, comments);
 		Calification q = new Calification(rate, comments);
-		RestService.addCalification(userId, rest, q);
+		RestService.addCalification(usrId, rest, q);
 	}
 
 	public static HashMap<Integer, Calification> getCalificationsByRestId(int restId) {

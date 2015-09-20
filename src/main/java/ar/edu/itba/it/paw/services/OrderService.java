@@ -11,8 +11,8 @@ import ar.edu.itba.it.paw.models.Restaurant;
 
 public class OrderService {
 
-	private static boolean checkOrder(String usrId, Restaurant rest, HashMap<Dish, String> oMap){
-		int usrIdV;
+	private static boolean checkOrder(int usrId, Restaurant rest, HashMap<Dish, String> oMap){
+		/*int usrIdV;
 		try {
 		usrIdV = Integer.valueOf(usrId);
 		} catch (java.lang.NumberFormatException e) {
@@ -21,7 +21,12 @@ public class OrderService {
 		if(usrIdV <= 0 || rest == null || oMap == null){
 			//app error
 			return false;
+		}*/
+		if(usrId <= 0 || rest == null || oMap == null){
+			//app error
+			return false;
 		}
+		
 		if(oMap.isEmpty()){
 			//excepcion pedido vacio
 			return false;
@@ -49,7 +54,7 @@ public class OrderService {
 		return true;
 	}
 	
-	public static boolean sendOrder(String usrId, Restaurant rest, HashMap<Dish, String> oMap){
+	public static boolean sendOrder(int usrId, Restaurant rest, HashMap<Dish, String> oMap){
 		if(!checkOrder(usrId, rest, oMap)){
 			//show excp
 			return false;
