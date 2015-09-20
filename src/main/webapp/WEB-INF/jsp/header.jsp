@@ -6,6 +6,8 @@
 "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<title>Food on Board</title>
+<link href="image/favicon.ico" rel="icon" type="image/x-icon" />
 <link href="css/common.css" type="text/css" rel="stylesheet">
 <link href="css/restcard.css" type="text/css" rel="stylesheet">
 <link href="css/comments.css" type="text/css" rel="stylesheet">
@@ -23,7 +25,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">PAW</a>
+			<a class="navbar-brand" href="#">Food on Board</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">

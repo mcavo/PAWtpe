@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import org.apache.jasper.tagplugins.jstl.ForEach;
+
 import ar.edu.itba.it.paw.DAO.OrderDAO;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Restaurant;
@@ -35,7 +36,7 @@ public class OrderService {
 				return false;
 			}
 			
-			if(cant <= 0){
+			if(cant < 0){
 				//cant excepcion
 				return false;
 			}
@@ -55,7 +56,9 @@ public class OrderService {
 		}
 		HashMap<Dish,Integer> map = new HashMap<Dish,Integer>();
 		for (Entry<Dish, String> set: oMap.entrySet()) {
-			map.put(set.getKey(), Integer.valueOf(set.getValue()));
+			int aux = Integer.valueOf(set.getValue());
+			if (aux!=0)
+				map.put(set.getKey(), aux);
 		}
 		OrderDAO.getInstance().sendOrder(Integer.valueOf(usrId), rest.getId(), map);
 		return true;
