@@ -4,22 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 import ar.edu.itba.it.paw.models.Address;
-import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Menu;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.Section;
-import ar.edu.itba.it.paw.models.User;
-import ar.edu.itba.it.paw.services.CalificationService;
 
 public class RestaurantDAO {
 
@@ -81,7 +74,7 @@ public class RestaurantDAO {
 			Menu menu = getMenuByRestId(id);
 			Address address = AddressDAO.getInstance().getAddressById(dirId);
 			List<String> tipos = getTypesOfFoodByRestId(id);
-			Restaurant res = new Restaurant(id, sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, menu);		
+			Restaurant res = new Restaurant(id, sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, menu, sr.getFloat("costoenvio"));		
 			sr.close();
 			pstmt.close();
 			return res;
@@ -109,7 +102,7 @@ public class RestaurantDAO {
 				menu = getMenuByRestId(restId);
 				Address address = AddressDAO.getInstance().getAddressById(sr.getInt("dirid"));
 				List<String> tipos = getTypesOfFoodByRestId(restId);
-				rests.add(new Restaurant(restId, sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, menu));
+				rests.add(new Restaurant(restId, sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, menu, sr.getFloat("costoenvio")));
 			}
 			sr.close();
 		
@@ -137,7 +130,7 @@ public class RestaurantDAO {
 				menu = getMenuByRestId(restId);
 				Address address = AddressDAO.getInstance().getAddressById(sr.getInt("dirid"));
 				List<String> tipos = getTypesOfFoodByRestId(restId);
-				rest.add(new Restaurant(restId, sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, menu));
+				rest.add(new Restaurant(restId, sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, menu, sr.getFloat("costoenvio")));
 			}
 			sr.close();
 			pstmt.close();
@@ -250,7 +243,7 @@ public class RestaurantDAO {
 			ResultSet rs = pstmt.executeQuery();	 
 			while ( rs.next() ) {
 				restId = rs.getInt("id");
-				rest = new Restaurant(restId, rs.getString("nombre"), rs.getDouble("montomin"), rs.getFloat("desde"), rs.getFloat("hasta"), null, getTypesOfFoodByRestId(restId), getMenuByRestId(restId));
+				rest = new Restaurant(restId, rs.getString("nombre"), rs.getDouble("montomin"), rs.getFloat("desde"), rs.getFloat("hasta"), null, getTypesOfFoodByRestId(restId), getMenuByRestId(restId), rs.getFloat("costoenvio"));
 			 }
 	         rs.close();
 	         pstmt.close();
@@ -259,5 +252,104 @@ public class RestaurantDAO {
 			e.printStackTrace();
 		}
 		return rest;
+	}
+	
+	public void setRestaurant(Restaurant rest) throws Exception {
+		String sql = "INSERT INTO restaurante (dirid, nombre, descripcion, desde, hasta, montomin, costoenvio) VALUES (?, ?, ?, ?, ?, ?, ?);";
+		validateAddress(rest.getAddress(), rest.getName());
+		int addressId = AddressDAO.getInstance().setAddress(rest.getAddress());
+		if(addressId == -1){
+			System.out.println("direccion -1");
+			return; //TODO: throw exception ??
+		}
+		
+		Connection dbConnection;
+		DBManager db = DBManager.getInstance();
+		try {
+			dbConnection = db.getConnection();
+			PreparedStatement pstmt = dbConnection.prepareStatement(sql);
+			pstmt.setInt(1, addressId);
+			pstmt.setString(2, rest.getName());
+			pstmt.setString(3, rest.getDescription());
+			pstmt.setFloat(4, rest.getStartService());
+			pstmt.setFloat(5, rest.getEndService());
+			pstmt.setDouble(6, rest.getMinimumPurchase());
+			pstmt.setFloat(7, rest.getCost());
+			pstmt.execute();
+			pstmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		int id = getRestaurantId(addressId);
+		if (id == -1) {
+			System.out.println("no restaurant id");
+			return;
+		}
+		setTypes(rest.getTypesOfFood(), id);
+	}
+	
+	private void validateAddress(Address address, String name) throws Exception {
+		String sql = "SELECT * FROM restaurante WHERE dirid = ? AND nombre = ?";
+		ArrayList<Integer> addressIds = AddressDAO.getInstance().getAddressesIds(address);
+		Connection dbConnection;
+		DBManager db = DBManager.getInstance();
+		dbConnection = db.getConnection();
+		try {
+			for (Integer id : addressIds) {
+				PreparedStatement pstmt = dbConnection.prepareStatement(sql);
+				pstmt.setInt(1, id);
+				pstmt.setString(2, name);
+				ResultSet rs = pstmt.executeQuery();
+				if (rs.next()) {
+					throw new Exception("Address already in use");
+				}
+				rs.close();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void setTypes(List<String> types, int id) {
+		String sql = "INSERT INTO tipos (restid, tipo) VALUES (?, ?);";
+		
+		Connection dbConnection;
+		DBManager db = DBManager.getInstance();
+		try {
+			dbConnection = db.getConnection();
+			for(String type : types) {
+				PreparedStatement pstmt = dbConnection.prepareStatement(sql);
+				pstmt.setInt(1, id);
+				pstmt.setString(2, type);
+				pstmt.execute();
+				pstmt.close();
+			}				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private int getRestaurantId(int dirId) {
+		int id = -1;
+		String sql = "SELECT id FROM restaurante WHERE dirid = ?";
+		Connection dbConnection;
+		DBManager db = DBManager.getInstance();
+		dbConnection = db.getConnection();
+		try {
+			PreparedStatement pstmt = dbConnection.prepareStatement(sql);
+			pstmt.setInt(1, dirId);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				id = rs.getInt("id");
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return id;
 	}
 }

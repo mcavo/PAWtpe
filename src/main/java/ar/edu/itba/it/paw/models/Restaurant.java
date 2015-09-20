@@ -20,8 +20,9 @@ public class Restaurant {
 	private double score = (double)0;
 	private LocalDate startDate;
 	private int id;
+	private Float cost;
 	
-	public Restaurant(int id, String name, double minimumPurchase, Float startService, Float endService, Address address, List<String> typeOfFood, Menu menu) {
+	public Restaurant(int id, String name, double minimumPurchase, Float startService, Float endService, Address address, List<String> typeOfFood, Menu menu, Float cost) {
 		// TODO Auto-generated constructor stub
 		this.setName(name);
 		this.setMinimumPurchase(minimumPurchase);
@@ -31,6 +32,7 @@ public class Restaurant {
 		this.setTypesOfFood(typeOfFood);
 		this.setMenu(menu);
 		this.id = id;
+		this.setCost(cost);
 	}
 	
 	private void calculateScore() {
@@ -162,5 +164,12 @@ public class Restaurant {
 			return 0;
 		return califications.size();
 	}
-	
+
+	public float getCost() {
+		return cost;
+	}
+
+	public void setCost(float cost) {
+		this.cost = cost;
+	}
 }

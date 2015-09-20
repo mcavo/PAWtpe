@@ -1,6 +1,7 @@
 package ar.edu.itba.it.paw.services;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,6 +10,7 @@ public class ValidateDataService {
 			"^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
+	private static final String[] TYPES_FOOD = {"arabe", "argentina", "armenia", "autor", "china", "deli", "italiana", "japonesa", "mexicana", "norteamericana", "parrilla", "peruana", "vegetariana"};
 	
 	public ValidateDataService() {
 		// TODO Auto-generated constructor stub
@@ -26,12 +28,16 @@ public class ValidateDataService {
 		return today.isAfter(birth) && valid;
 	}
 	
-	public static boolean validateFloor(int i) {
-		return i >= -1;
+	public static void validateFloor(int i) throws Exception {
+		if (i < -1) {
+			throw new Exception();
+		}
 	}
 	
-	public static boolean validateApartment(String str) {
-		return str.length() <= 1;
+	public static void validateApartment(String str) throws Exception {
+		if(str.length() > 1) {
+			throw new Exception();
+		}
 	}
 	
 	public static boolean validatePsw(String psw) {
@@ -44,9 +50,59 @@ public class ValidateDataService {
 	 * @param str
 	 * @param max
 	 * @return
+	 * @throws Exception 
 	 */
 	// nombre - apellido - calle - provincia -localidad - barrio. (Campos obligatorios de tipo string) 
-	public static boolean validateStringLength(String str, int max) {
-		return str.length() > 0 && (str.length() <= max);
+	public static void validateStringLength(String str, int max) throws Exception {
+		if (!(str.length() > 0 && (str.length() <= max))) {
+			throw new Exception("Invalid parameter");
+		}
 	}
+	
+	public static void validateInterval(Float from, Float to) throws Exception {
+		if (to - from < 0) {
+			throw new Exception();
+		}
+	}
+	
+	private static String validateType(String type) throws Exception {
+		boolean valid = false;
+		for (String validsTypes : TYPES_FOOD) {
+			if (type.length() < 30 && validsTypes.equals(type)) {
+				valid = true;
+			}
+		}
+		if (!valid) {
+			throw new Exception();
+		}
+		return type;
+	}
+	
+	public static ArrayList<String> validateTypes(String[] types) throws Exception {
+		ArrayList<String> ans = new ArrayList<String>();
+		for (String type : types) {
+			if (!validateType(type).equals("")) {
+				ans.add(type);
+			}
+		}
+		if (ans.size() == 0) {
+			throw new Exception();
+		}
+		return ans;
+	}
+	
+	public static float validateCost(String cost) throws  NumberFormatException, Exception {
+		float value = Float.valueOf(cost);
+		if (value < 0) {
+			throw new Exception(); //TODO: cambiar las exceptiones por algunas más personalizadas. 
+		}
+		return value;
+	}
+	public static double validateMinimum(String minimum) throws  NumberFormatException, Exception {
+		Double value = Double.valueOf(minimum);
+		if (value < 0) {
+			throw new Exception(); //TODO: cambiar las exceptiones por algunas más personalizadas. 
+		}
+		return value;
+	}	
 }

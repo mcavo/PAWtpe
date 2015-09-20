@@ -32,11 +32,6 @@
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
 		</dependency>
-		<dependency>
-			<groupId>taglibs</groupId>
-			<artifactId>standard</artifactId>
-			<version>1.1.2</version>
-		</dependency>
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -53,9 +48,8 @@
 		<dependency>
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>9.1-901-1.jdbc4</version>
+			<version>8.4-701.jdbc3</version>
 		</dependency>
-
 
 		<dependency>
 			<groupId>javax.servlet.jsp.jstl</groupId>

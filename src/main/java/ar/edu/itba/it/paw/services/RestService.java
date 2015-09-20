@@ -1,12 +1,13 @@
 package ar.edu.itba.it.paw.services;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 import ar.edu.itba.it.paw.DAO.RestaurantDAO;
+import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Restaurant;
-import ar.edu.itba.it.paw.models.User;
 
 public class RestService {
 
@@ -49,6 +50,48 @@ public class RestService {
 
 	public static void addCalification(int usrId, Restaurant rest, Calification q) {
 		rest.getQualifications().put(usrId, q);
+	}
+	
+	public static void setRestaurant(String name , String description , String[] types , String timeFrom , String timeTo , String street , String number , String city , String province , String floor , String apartment , String neighborhood, String minimum, String cost) throws Exception {
+		ArrayList<String> validTypes;
+		int floorV = -1;
+		int numberV; 
+		float costV;
+		double minimumPurchase;
+		float from;
+		float to;
+		try {
+			from = Float.valueOf(timeFrom.replace(':', '.'));
+			to = Float.valueOf(timeTo.replace(':', '.'));
+			if (!floor.isEmpty()) {
+				floorV = Integer.valueOf(floor);
+				ValidateDataService.validateFloor(floorV);
+			}
+			numberV = Integer.valueOf(number);
+			ValidateDataService.validateStringLength(name, 30);
+			if (description != null && !description.isEmpty()) {
+				ValidateDataService.validateStringLength(description, 500);	
+			}
+			ValidateDataService.validateInterval(from, to);
+			ValidateDataService.validateStringLength(street, 30);
+			ValidateDataService.validateStringLength(city, 30);
+			ValidateDataService.validateStringLength(province, 30);
+			ValidateDataService.validateStringLength(neighborhood, 40);
+			if (apartment != null && !apartment.isEmpty()) {
+				ValidateDataService.validateApartment(apartment);	
+			}
+			validTypes = ValidateDataService.validateTypes(types);
+			costV = ValidateDataService.validateCost(cost);
+			minimumPurchase = ValidateDataService.validateMinimum(minimum);
+			
+		} catch (Exception e) {
+			throw new Exception("Invalid parameters");
+		}
+		Address address = new Address(street, numberV, floorV, apartment, neighborhood, city, province);
+		Restaurant rest = new Restaurant(-1, name, minimumPurchase, from, to, address, validTypes, null, costV);
+		
+		RestaurantDAO.getInstance().setRestaurant(rest);
+		
 	}
 	
 }

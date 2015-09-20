@@ -98,7 +98,7 @@ public class ManagerDAO {
 			ResultSet rs = pstmt.executeQuery();
 			if ( rs.next() ) {
 				restId = rs.getInt("id");
-				rest = new Restaurant(restId, rs.getString("nombre"), rs.getFloat("montomin"), rs.getFloat("desde"), rs.getFloat("hasta"), null, RestaurantDAO.getInstance().getTypesOfFoodByRestId(restId), RestaurantDAO.getInstance().getMenuByRestId(restId));
+				rest = new Restaurant(restId, rs.getString("nombre"), rs.getFloat("montomin"), rs.getFloat("desde"), rs.getFloat("hasta"), null, RestaurantDAO.getInstance().getTypesOfFoodByRestId(restId), RestaurantDAO.getInstance().getMenuByRestId(restId), rs.getFloat("costoenvio"));
 			 }
 	         rs.close();
 	         pstmt.close();

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.ArrayList;
 
 import ar.edu.itba.it.paw.models.Address;
 
@@ -95,8 +96,8 @@ public class AddressDAO {
 			PreparedStatement pstmt = con.prepareStatement(query);
 			
 			pstmt.setString(1, address.getStreet());
-			pstmt.setString(2, address.getProvince());
-			pstmt.setString(3, address.getCity());
+			pstmt.setString(2, address.getCity());
+			pstmt.setString(3, address.getProvince());
 			pstmt.setInt(4, address.getNumber());
 			if (address.getFloor() != -1) { 
 				pstmt.setInt(5, address.getFloor());
@@ -122,27 +123,6 @@ public class AddressDAO {
 		}
 		return addressId;
 	}
-	
-	/*private Address getAddressById(int id){
-	Address address = null;
-	try {
-		Connection conn = DBManager.getInstance().getConnection();
-		String sql = "SELECT * FROM direccion WHERE id = ?";
-		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setInt(1, id);
-		
-		ResultSet sd = pstmt.executeQuery();
-		while ( sd.next() ) {
-			address = new Address (sd.getString("calle"),sd.getInt("numero"), sd.getInt("piso"), sd.getString("departamento"), sd.getString("barrio"),sd.getString("localidad"),sd.getString("provincia")); 
-		 }
-		sd.close();
-		pstmt.close();
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	return address;
-}*/
 
 	protected List<Integer> getIds(Address address){//String street, int number, String neighborhood, String city, String province, int floor, String apartment) {
 		List<Integer> ids = new LinkedList<Integer>();
@@ -171,4 +151,30 @@ public class AddressDAO {
 		return ids;
 	}
 
+	public ArrayList<Integer> getAddressesIds(Address address) {
+		ArrayList<Integer> ans = new ArrayList<Integer>();
+		try {
+			Connection conn = DBManager.getInstance().getConnection();
+			String sql = "SELECT id FROM direccion WHERE calle like ? and numero = ? and barrio like ? and localidad like ? and provincia like ? and (piso = ? or piso is null) and (departamento like ? or departamento is null);";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, address.getStreet());
+			pstmt.setInt(2, address.getNumber());
+			pstmt.setString(3, address.getNeighborhood());
+			pstmt.setString(4, address.getCity());
+			pstmt.setString(5, address.getProvince());
+			pstmt.setInt(6, address.getFloor());
+			pstmt.setString(7, address.getApartment());
+			
+			ResultSet rs = pstmt.executeQuery();
+			while ( rs.next() ) {
+			    ans.add(Integer.valueOf(rs.getInt("id")));
+			 }
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return ans;	
+	}
  }
