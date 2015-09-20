@@ -84,7 +84,7 @@ public class AddressDAO {
 	
 	private int getAddressID(Address address) {
 		// TODO: reveer esta query. No sé si es lo mejor. Necesito conseguir el id de la última tupla que agregué.
-		String query = "SELECT id FROM direccion WHERE calle = ? AND localidad = ? AND provincia = ? AND numero = ? AND piso = ? AND departamento = ? AND barrio = ? AND id = (SELECT max(id) FROM direccion)";
+		String query = "SELECT id FROM direccion WHERE calle = ? AND localidad = ? AND provincia = ? AND numero = ? AND (piso = ? or piso is null) AND (departamento = ? or departamento is null) AND barrio = ? AND id = (SELECT max(id) FROM direccion)";
 		DBManager.getInstance();
 		Connection con = DBManager.getConnection();
 		

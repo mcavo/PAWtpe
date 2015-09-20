@@ -1,164 +1,190 @@
 <%@ include file="header.jsp"%>
 
 <div class="container">
-	<form data-toggle="validator" role="form" novalidate="true"
-		action="signup" method="post">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">Información básica</h3>
-			</div>
-			<div class="panel-body">
-				<div class="form-group has-error">
-					<div class="row">
-						<div class="col-sm-offset-1">
-							<label for="inputName" class="control-label">Nombre</label>
-						</div>
-					</div>
-					<div class="form-inline row">
-						<div class="form-group  col-ms-6 has-error">
-							<input type="text" class="form-control" id="inputName"
-								placeholder="Nombre" required="" name="firstname">
-							<div class="help-block with-errors">
-								<ul class="list-unstyled">
-									<li>Completa este campo</li>
-								</ul>
-							</div>
-						</div>
-						<div class="form-group  col-ms-6 has-error">
-							<input type="text" class="form-control" id="inputLastName"
-								placeholder="Apellido" required="" name="lastname">
-							<div class="help-block with-errors">
-								<ul class="list-unstyled">
-									<li>Completa este campo</li>
-								</ul>
-							</div>
-						</div>
-					</div>
+	<div class="col-md-10 col-md-offset-1">
+		<form action="signup" data-toggle="validator" role="form"
+			method="post" class="form-horizontal">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Información básica</h3>
 				</div>
-			</div>
-		</div>
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">Dirección</h3>
-			</div>
-			<div class="panel-body">
-				<div class="form-group has-error container-fluid">
+				<div class="panel-body">
 					<div class="row">
-						<div class="col-md-1"></div>
-						<div class="col-md-11">
-							<label for="inputName" class="control-label">Nombre</label>
+						<div class="col-md-6">
+							<div class="form-group has-feedback">
+								<label for="inputName"
+									class="control-label col-sm-1 col-sm-offset-1">Nombre:</label>
+								<div class="col-sm-8 col-sm-offset-1">
+									<input type="text" class="form-control" id="inputName"
+										placeholder="Nombre" name="firstname" required>
+								</div>
+								<div class="help-block with-errors"></div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group has-feedback">
+								<label for="inputLastName"
+									class="control-label col-sm-1 col-sm-1">Apellido:</label>
+								<div class="col-sm-8 col-sm-offset-1">
+									<input type="text" class="form-control" id="inputLastName"
+										placeholder="Apellido" name="lastname" required>
+								</div>
+								<div class="help-block with-errors"></div>
+							</div>
 						</div>
 					</div>
-					<div class="form-inline row">
-						<div class="col-md-1"></div>
-						<div class="  col-md-5">
-							<div class="form-group has-error">
-								<input type="text" class="form-control" id="inputName"
-									placeholder="Nombre" required="" name="firstname">
-								<div class="help-block with-errors">
-									<ul class="list-unstyled">
-										<li>Completa este campo</li>
-									</ul>
+					<div class="row">
+						<label for="day" class="control-label col-sm-3">Fecha de
+							nacimiento:</label>
+						<div class="form-group has-feedback col-sm-3">
+							<div class="col-sm-10 col-sm-offset-1">
+								<div class="form-group">
+									<input type="number" min="1" max="31" class="form-control"
+										id="day" placeholder="DD" name="day" required>
 								</div>
 							</div>
 						</div>
-						<div class="col-md-5">
-							<div class="form-group has-error">
-								<input type="text" class="form-control" id="inputLastName"
-									placeholder="Apellido" required="" name="lastname">
-								<div class="help-block with-errors">
-									<ul class="list-unstyled">
-										<li>Completa este campo</li>
-									</ul>
+						<div class="form-group has-feedback col-sm-3">
+							<div class="col-sm-10 col-sm-offset-1">
+								<div class="form-group">
+									<input type="number" class="form-control" id="month" min=1
+										max=12 placeholder="MM" name="month" required>
 								</div>
 							</div>
 						</div>
-						<div class="col-ms-1"></div>
+						<div class="form-group has-feedback col-sm-3">
+							<div class="col-sm-10 col-sm-offset-1">
+								<div class="form-group">
+									<input type="number" class="form-control" id="year"
+										placeholder="YYYY" name="year" required>
+								</div>
+							</div>
+							<div class="help-block with-errors"></div>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-
-		<div class="form-group has-error">
-			<label for="inputStreet" class="control-label">Numero</label> <input
-				type="int" class="form-control" id="inputName"
-				placeholder="Cina Saffary" name="number"> <label
-				for="inputStreet" class="control-label">Piso</label> <input
-				type="text" class="form-control" id="inputName"
-				placeholder="Cina Saffary" name="floor"> <label
-				for="inputStreet" class="control-label">departamento</label> <input
-				type="text" class="form-control" id="inputName"
-				placeholder="Cina Saffary" required="" name="apartment"> <label
-				for="inputStreet" class="control-label">Ciudad</label> <input
-				type="text" class="form-control" id="inputName"
-				placeholder="Cina Saffary" required="" name="city"> <label
-				for="inputStreet" class="control-label">Provincia</label> <input
-				type="text" class="form-control" id="inputName"
-				placeholder="Cina Saffary" required="" name="province"> <label
-				for="inputStreet" class="control-label">Barrio</label> <input
-				type="text" class="form-control" id="neighborhood"
-				placeholder="barrio" required="" name="neighborhood">
-		</div>
-		<div class="form-group">
-			<label for="inputEmail" class="control-label">Email</label> <input
-				type="email" class="form-control" id="inputEmail" maxlength=40
-				placeholder="Email" data-error="Bruh, that email address is invalid"
-				required="" name="email">
-			<div class="help-block with-errors"></div>
-		</div>
-		<div class="form-group">
-			<label for="inputBirth" class="control-label">Birth</label>
-			<div class="form-inline row">
-				<div class="form-group col-md-4 has-error">
-					<input type="number" data-toggle="validator" min="1" max="31"
-						class="form-control" id="day" placeholder="DD" required=""
-						name="day"> <span class="help-block">Día de
-						nacimiento</span>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Autenticación</h3>
 				</div>
-				<div class="form-group col-md-4 has-error">
-					<input type="number" class="form-control" id="month" min=1 max=12
-						placeholder="Confirm" required="" name="month"> <span
-						class="help-block">Año de nacimiento</span>
-				</div>
-				<div class="form-group col-md-4 has-error">
-					<input type="number" data-toggle="validator" class="form-control"
-						id="inputmonth" placeholder="YYYY" required="" name="year">
-					<span class="help-block">Año de nacimiento</span>
-					<div class="help-block with-errors">
-						<ul class="list-unstyled">
-							<li>Completa este campo</li>
-						</ul>
+				<div class="panel-body">
+					<div class="row">
+						<div class="form-group">
+							<label for="inputEmail"
+								class="control-label col-sm-1 col-sm-offset-1">Email:</label>
+							<div class="col-sm-8 col-sm-offset-1">
+								<input type="email" class="form-control" id="inputEmail"
+									maxlength=40 placeholder="Email"
+									data-error="El email no es válido" name="email" required>
+							</div>
+							<div class="help-block with-errors"></div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label for="inputPassword" class="control-label col-sm-2 ">Contraseña</label>
+							<div class="col-sm-8 col-sm-offset-1">
+								<input type="password" data-toggle="validator"
+									data-minlength="8" maxlength="16" class="form-control"
+									id="inputPassword" placeholder="Contraseña" name="pwd" required>
+								<span class="help-block">Mínimo 8 caracteres</span>
+							</div>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="inputPassword" class="control-label col-sm-2">Confirmación</label>
+							<div class="col-sm-8 col-sm-offset-1">
+								<input type="password" class="form-control"
+									id="inputPasswordConfirm" data-match="#inputPassword"
+									data-match-error="Verificación incorrecta"
+									placeholder="Confirmación" required>
+								<div class="help-block with-errors"></div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="help-block with-errors"></div>
-		</div>
-		<div class="form-group">
-			<label for="inputPassword" class="control-label">Contraseña</label>
-			<div class="form-inline row">
-				<div class="form-group col-sm-6">
-					<input type="password" data-toggle="validator" data-minlength="8"
-						maxlength="16" class="form-control" id="inputPassword"
-						placeholder="Password" required="" name="pwd"> <span
-						class="help-block">Mínimo 6 caracteres</span>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Dirección</h3>
 				</div>
-				<div class="form-group col-sm-6 has-error">
-					<input type="password" class="form-control"
-						id="inputPasswordConfirm" data-match="#inputPassword"
-						data-match-error="Whoops, these don't match" placeholder="Confirm"
-						required="">
-					<div class="help-block with-errors">
-						<ul class="list-unstyled">
-							<li>Completa este campo</li>
-						</ul>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group has-feedback">
+								<label for="inputStreet" class="control-label col-sm-2 ">Calle:</label>
+								<div class="col-sm-10">
+									<input type="text" maxlength="30" class="form-control"
+										id="inputStreet" placeholder="Calle" name="street" required>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group has-feedback">
+								<label for="inputNumber" class="control-label col-sm-4">Altura:</label>
+								<div class="col-sm-8">
+									<input type="number" min=0 class="form-control"
+										id="inputNumber" placeholder="Altura" name="number" required>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-2">
+							<div class="form-group has-feedback">
+								<label for="inputFloor" class="control-label col-sm-3">Piso:</label>
+								<div class="col-sm-9">
+									<input type="number" class="form-control" id="inputFloor"
+										placeholder="Piso" name="floor">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">
+							<div class="form-group has-feedback">
+								<label for="inputApartment" class="control-label col-sm-3">Depto:</label>
+								<div class="col-sm-9">
+									<input type="text" maxlength=1 class="form-control"
+										id="inputApartment" placeholder="Depto" name="apartment">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group has-feedback">
+								<label for="neighbohood" class="control-label col-sm-4">Barrio:</label>
+								<div class="col-sm-8">
+									<input type="text" maxlength=40 class="form-control"
+										id="neighborhood" placeholder="Barrio" name="neighborhood"
+										required>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group has-feedback">
+								<label for="inputProvince" class="control-label col-sm-4">Provincia</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control" maxlength=30
+										id="inputProvince" placeholder="Provincia" required
+										name="province">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group has-feedback">
+								<label for="inputCity" class="control-label col-sm-4">Localidad:</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control" maxlength=30
+										id="inputCity" placeholder="Localidad" name="city" required>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="form-group">
-			<button type="submit" class="btn btn-primary disabled">Submit</button>
-		</div>
-	</form>
+			<div class="form-group col-md-4 col-md-offset-4">
+				<button type="submit" class="btn btn-primary disabled">Submit</button>
+			</div>
+		</form>
+	</div>
 </div>
 
 <%@ include file="footer.jsp"%>
