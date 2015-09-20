@@ -79,7 +79,7 @@ public class RestaurantDAO {
 
 			int dirId = sr.getInt("dirid");
 			Menu menu = getMenuByRestId(id);
-			Address address = getAddressById(dirId);
+			Address address = AddressDAO.getInstance().getAddressById(dirId);
 			List<String> tipos = getTypesOfFoodByRestId(id);
 			Restaurant res = new Restaurant(id, sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, menu);		
 			sr.close();
@@ -107,7 +107,7 @@ public class RestaurantDAO {
 			while(sr.next()) {
 				restId = sr.getInt("id");
 				menu = getMenuByRestId(restId);
-				Address address = getAddressById(sr.getInt("dirid"));
+				Address address = AddressDAO.getInstance().getAddressById(sr.getInt("dirid"));
 				List<String> tipos = getTypesOfFoodByRestId(restId);
 				rests.add(new Restaurant(restId, sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, menu));
 			}
@@ -117,26 +117,6 @@ public class RestaurantDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		/*
-		 * String name = "Taco Box"; double minimumPurchase = 1; Time
-		 * startService = Time.valueOf("17:00:00"); Time endService =
-		 * Time.valueOf("20:00:00"); Address address = new Address("street",
-		 * "1", "neigh", "city", "province", "2", "apartment");
-		 * LinkedList<String> typeOfFood = new LinkedList<String>();
-		 * typeOfFood.add("mejicana"); LinkedList<User>managers = new
-		 * LinkedList<User>(); managers.add(new User("mail", null, null, false,
-		 * null, null)); Menu menu = null; try { LinkedList<Section> sections =
-		 * new LinkedList<Section>(); LinkedList<Dish> dishes = new
-		 * LinkedList<Dish>();
-		 * 
-		 * dishes.add(new Dish("milanesa", 50, "de carne")); sections.add(new
-		 * Section("Plato principal", dishes)); menu = new Menu(sections); }
-		 * catch (Exception e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); }
-		 * 
-		 * Restaurant r = new Restaurant(name, minimumPurchase, startService,
-		 * endService, address, typeOfFood, managers, menu); rests.add(r);
-		 */
 		return rests;
 	}
 
@@ -155,7 +135,7 @@ public class RestaurantDAO {
 			while(sr.next()) {
 				restId = sr.getInt("id");
 				menu = getMenuByRestId(restId);
-				Address address = getAddressById(sr.getInt("dirid"));
+				Address address = AddressDAO.getInstance().getAddressById(sr.getInt("dirid"));
 				List<String> tipos = getTypesOfFoodByRestId(restId);
 				rest.add(new Restaurant(restId, sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, menu));
 			}
@@ -191,56 +171,6 @@ public class RestaurantDAO {
 			e.printStackTrace();
 		}
 		return tof;
-	}
-	
-	private Address getAddressById(int id){
-		Address address = null;
-		try {
-			Connection conn = DBManager.getInstance().getConnection();
-			String sql = "SELECT * FROM direccion WHERE id = ?";
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, id);
-			
-			ResultSet sd = pstmt.executeQuery();
-			while ( sd.next() ) {
-				address = new Address (sd.getString("calle"),sd.getInt("numero"), sd.getInt("piso"), sd.getString("departamento"), sd.getString("barrio"),sd.getString("localidad"),sd.getString("provincia")); 
-			 }
-			sd.close();
-			pstmt.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return address;
-	}
-	
-	private int getAddressId(String street, int number, String neighborhood, String city, String province, int floor, String apartment) {
-
-		List<Restaurant> rest = new LinkedList<Restaurant>();
-		int id = -1;
-		try {
-			Connection conn = DBManager.getInstance().getConnection();
-			String sql = "SELECT id FROM direccion WHERE calle like ? and numero = ? and barrio like ? and localidad like ? and provincia like ? and (piso = ? or piso is null) and (departamento like ? or departamento is null);";
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, street);
-			pstmt.setInt(2, number);
-			pstmt.setString(3, neighborhood);
-			pstmt.setString(4, city);
-			pstmt.setString(5, province);
-			pstmt.setInt(6, floor);
-			pstmt.setString(7, apartment);
-			
-			ResultSet rs = pstmt.executeQuery();
-			while ( rs.next() ) {
-			    id  = rs.getInt("id");
-			 }
-			rs.close();
-			pstmt.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return id;
 	}
 	
 	private Menu getMenuByRestId(int restId){
@@ -288,12 +218,13 @@ public class RestaurantDAO {
 	}
 	
 	public Restaurant getRestaurant(String name, String street, int number, String neighborhood, String city, String province, int floor, String apartment) {
-		int addressId = getAddressId(street, number, neighborhood, city, province, floor, apartment);
-		if(addressId == -1){
+		//int addressId = getAddressId(street, number, neighborhood, city, province, floor, apartment);
+		Address address = new Address(street, number, floor, apartment, neighborhood, city, province);
+		int addressId = AddressDAO.getInstance().getAddressId(address);
+				if(addressId == -1){
 			//app error!
 			return null;
 		}
-		Address address = new Address(street, number, floor, apartment, neighborhood, city, province);
 		Connection dbConnection;
 		DBManager db = DBManager.getInstance();
 		
