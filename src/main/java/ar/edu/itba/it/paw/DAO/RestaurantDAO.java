@@ -263,7 +263,7 @@ public class RestaurantDAO {
 			ResultSet rs = pstmt.executeQuery();
 			while ( rs.next() ) {
 			    section = null;
-			    dish = new Dish(rs.getString("nombre"), rs.getFloat("precio"), rs.getString("descripcion"));
+			    dish = new Dish(rs.getInt("id"), rs.getString("nombre"), rs.getFloat("precio"), rs.getString("descripcion"));
 			    seccion = rs.getString("seccion");
 			    for (Section sect : sections) {
 					if(sect.getName().equals(seccion)){

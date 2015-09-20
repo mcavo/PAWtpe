@@ -29,6 +29,11 @@ public class MenuRestaurant extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		User usr = (User) req.getAttribute("user");
+		
+		// ----------------------
+
 		String name = req.getParameter("name");
 		String street = req.getParameter("srt");
 		String number = req.getParameter("numb");
@@ -37,16 +42,23 @@ public class MenuRestaurant extends HttpServlet {
 		String province = req.getParameter("prov");
 		String floor = req.getParameter("flr");
 		String apartment = req.getParameter("apt");
-		
-		rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
-		//List<Section> sections = menu.getSections();
+
+		Restaurant rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor,
+				apartment);
+		Menu menu = rest.getMenu();
+		List<Section> sections = menu.getSections();
+
 		req.setAttribute("rest", rest);
-		
+
 		req.getRequestDispatcher("/WEB-INF/jsp/menuRestaurant.jsp").forward(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+<<<<<<< HEAD
+=======
+		
+>>>>>>> super rebaseado con order
 		usr = (User) req.getAttribute("user");
 		req.setAttribute("rest", rest);
 		String usrId = "";
@@ -65,7 +77,6 @@ public class MenuRestaurant extends HttpServlet {
 		String apartment = req.getParameter("apt");
 
 		Restaurant rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
-		req.setAttribute("rest", rest);
 		
 		Enumeration en = req.getParameterNames();
 		HashMap<Dish, String> map = new HashMap<Dish, String>();
@@ -79,6 +90,9 @@ public class MenuRestaurant extends HttpServlet {
 				map.put(d,value);	
 		}
 		if(!OrderService.sendOrder(usrId, rest, map));
+		req.setAttribute("rest", rest);
 		req.getRequestDispatcher("/WEB-INF/jsp/showRestaurant.jsp").forward(req, resp);
+
 	}
+
 }

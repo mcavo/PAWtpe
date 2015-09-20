@@ -7,10 +7,11 @@ public class Dish {
 	private String description;
 	private int id;
 	
-	public Dish(String product, float price, String description) {
+	public Dish(int id, String product, float price, String description) {
 		this.setProduct(product);
 		this.setPrice(price);
 		this.setDescription(description);
+		this.id = id;
 	}
 
 	public String getProduct() {

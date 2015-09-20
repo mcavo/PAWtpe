@@ -61,11 +61,22 @@ public class ShowRestaurant extends HttpServlet {
 		String comments = req.getParameter("comment");
 		String usrId = "";
 		UserManager userManager = new SessionUserManager(req);
+		String name = req.getParameter("name");
+		String street = req.getParameter("srt");
+		String number = req.getParameter("numb");
+		String neighborhood = req.getParameter("neigh");
+		String city = req.getParameter("city");
+		String province = req.getParameter("prov");
+		String floor = req.getParameter("flr");
+		String apartment = req.getParameter("apt");
+
+		Restaurant rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
+		
 		if (userManager.existsUser()) {
 			usrId = userManager.getUserId();
 		}
 		CalificationService.addCalification(usrId, rest, stars, comments);
-		
+		req.setAttribute("rest", rest);
 		req.getRequestDispatcher("/WEB-INF/jsp/showRestaurant.jsp").forward(req, resp);
 	}
 }

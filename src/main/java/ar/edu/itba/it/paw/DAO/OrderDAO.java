@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -52,19 +53,22 @@ public class OrderDAO {
 	}
 
 	public void sendOrder(int usrId, int restId, HashMap<Dish, Integer> oMap) {
-		String sql = "insert into pedido (restid, userid, estado) VALUES (?, ?, ?)";
+		String sql = "insert into pedido (restid, userid, horario, estado) VALUES (?, ?, ?, ?)";
 		int orderId = 0;
 		try {
 			Connection conn = DBManager.getInstance().getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, restId);
 			pstmt.setInt(2, usrId);
-			pstmt.setInt(3, 0);
+			pstmt.setInt(4, 0);
 
+			java.util.Date date = new java.util.Date(System.currentTimeMillis()); 
+			java.sql.Timestamp timestamp = new java.sql.Timestamp(date.getTime()); 
+			pstmt.setTimestamp(3, timestamp);
 			pstmt.execute();
 			pstmt.close();
 			try {
-				orderId = getOrderId(usrId, restId);
+				orderId = getOrderId(usrId, restId, timestamp);
 				loadProducts(orderId, oMap);
 			} catch (Exception e) {
 				// rollback!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -76,14 +80,15 @@ public class OrderDAO {
 		}
 	}
 
-	private int getOrderId(int usrId, int restId) {
+	private int getOrderId(int usrId, int restId, Timestamp timestamp) {
 		int orderId = 0;
 		try {
 			Connection conn = DBManager.getInstance().getConnection();
-			String sql = "select id from pedido where restid = ? and userid = ?";
+			String sql = "select id from pedido where restid = ? and userid = ? and horario = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, restId);
 			pstmt.setInt(2, usrId);
+			pstmt.setTimestamp(3, timestamp);
 
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()){
@@ -132,7 +137,7 @@ public class OrderDAO {
 
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				dish = new Dish(rs.getString("nombre"), rs.getFloat("precio"), rs.getString("descripcion"));
+				dish = new Dish(rs.getInt("id"), rs.getString("nombre"), rs.getFloat("precio"), rs.getString("descripcion"));
 			}
 			rs.close();
 			pstmt.close();
