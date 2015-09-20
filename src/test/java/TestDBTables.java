@@ -29,6 +29,10 @@ public class TestDBTables {
 //					System.out.print("pwd: " + set.getString("psw") + '\n' + '\n');
 					
 //					System.out.print("id: " + set.getInt("id") + '\n');
+//					System.out.print("numero: " + set.getInt("numero") + '\n');
+//					System.out.print("id: " + set.getString("localidad") + '\n');
+//					System.out.print("piso: " + set.getString("piso") + '\n');
+//					System.out.print("depto: " + set.getString("departamento") + '\n');
 //					System.out.print("street: " + set.getString("calle") + '\n');
 				
 					System.out.print("id: " + set.getInt("userid") + '\n');

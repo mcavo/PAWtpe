@@ -42,7 +42,6 @@ public class SignUp extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		User user = null;
 		String email = request.getParameter("email");
 		String pwd = request.getParameter("pwd");
 		String firstName = request.getParameter("firstname");
@@ -50,35 +49,27 @@ public class SignUp extends HttpServlet {
 		
 		//Get address parameters		
 		String street = request.getParameter("street");
-		int number = Integer.valueOf(request.getParameter("number")).intValue();
-		int floor = Integer.valueOf(request.getParameter("floor")).intValue();
+		String number = request.getParameter("number");
+		String floor = request.getParameter("floor");
 		String apartment = request.getParameter("apartment");
 		String city = request.getParameter("city");
 		String province = request.getParameter("province");
 		String neighborhood = request.getParameter("neighborhood");
-		Address address = new Address(street, number, city, province, neighborhood);
-		address.setFloor(floor);
-		address.setApartment(apartment);
 		
 		//Get day
-		LocalDate birth = null;
+		String day = request.getParameter("day");
+		String month = request.getParameter("month");
+		String year = request.getParameter("year");
+
+		User user = null;
 		try {
-			short day = Integer.valueOf(request.getParameter("day")).shortValue();
-			short month = Integer.valueOf(request.getParameter("month")).shortValue();
-			int year = Integer.valueOf(request.getParameter("year")).intValue();
-			birth = LocalDate.of(year, month, day);	
-		} catch (DateTimeException e) {
-//			response.setStatus(404);
-//			response.sendRedirect("error");
-			request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response);
-		}
-		user = new User(email, firstName, lastName, birth, false, address);
-		try {
-			user = UserService.signUp(email, pwd, firstName, lastName, birth, false, address);
+			user = UserService.signUp(email, pwd, firstName, lastName, day, month, year, false, street, number, city, province, neighborhood, floor, apartment);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response); //Debería distinguirse si el mail está en uso, o hubo una falla de parámetros
 			e.printStackTrace();
 		}
+		
 		
 		UserManager userManager = new SessionUserManager(request);
 		userManager.setUser(String.valueOf(user.getId()));
