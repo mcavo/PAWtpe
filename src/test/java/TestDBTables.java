@@ -16,6 +16,7 @@ public class TestDBTables {
 		Connection dbConnection;
 //		DBManager db = DBManager.getInstance();
 		dbConnection = DBManager.getInstance().getConnection();
+
 		ResultSet set;
 		try {
 			Statement st = dbConnection.createStatement(); 

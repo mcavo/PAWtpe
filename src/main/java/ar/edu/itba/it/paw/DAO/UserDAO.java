@@ -83,7 +83,7 @@ public class UserDAO {
 		String query = "SELECT * FROM usuario WHERE id = ?";
 		int userId = -1;
 		DBManager.getInstance();
-		Connection con = DBManager.getConnection();
+		Connection con = DBManager.getInstance().getConnection();
 		try {
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, userid);
@@ -121,7 +121,7 @@ public class UserDAO {
 	
 		String query = "INSERT INTO usuario (userid, nombre, apellido, nacimiento, dirid ) VALUES (? , ?, ?, ?, ?);";
 		DBManager.getInstance();
-		Connection con = DBManager.getConnection();
+		Connection con = DBManager.getInstance().getConnection();
 		
 		try {
 			PreparedStatement pstmt = con.prepareStatement(query);

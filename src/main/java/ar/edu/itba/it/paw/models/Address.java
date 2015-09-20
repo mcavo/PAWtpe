@@ -19,6 +19,7 @@ public class Address {
 		this.setProvince(province);
 		this.setFloor(floor);
 		this.setApartment(apartment);
+
 	}
 
 	public String getStreet() {

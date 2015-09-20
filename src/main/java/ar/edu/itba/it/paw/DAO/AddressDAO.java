@@ -39,8 +39,8 @@ public class AddressDAO {
 				int number = rs.getInt("numero");
 				String apartment = rs.getString("departamento");
 				String neighborhood = rs.getString("barrio");
-				
-				//address = new Address(street, number, city, province, neighborhood);
+
+				address = new Address(street, number, city, province, neighborhood);
 				address.setApartment(apartment);
 				address.setFloor(floor); //TODO:checkear que pasa si el piso es null ?? 
 			}
@@ -169,4 +169,5 @@ public class AddressDAO {
 		}
 		return id;
 	}
+
  }

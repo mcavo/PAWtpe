@@ -8,5 +8,6 @@
 		<script src="js/bootstrap.min.js"></script>
 		<script src="js/comments.js"></script>
 		<script src="js/menuOrder.js"></script>
+		<script src="js/validator.min.js"></script>
 	</body>
 </html>
