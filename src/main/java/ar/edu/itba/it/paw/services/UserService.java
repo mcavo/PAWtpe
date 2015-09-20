@@ -32,18 +32,22 @@ public class UserService {
 		
 		//Get the value
 		int numberV = Integer.valueOf(number);
-		Address address = new Address(street, numberV, city, province, neighborhood);
-		
+
 		int floorV;
 		try {
 			floorV = Integer.valueOf(floor);
 		} catch (Exception e) {
 			floorV = -1;
 		}
-		address.setFloor(floorV);	
-		address.setApartment(apartment);
+		//address.setFloor(floorV);	
+		//address.setApartment(apartment);
+		Address address = new Address(street, numberV, floorV, apartment, neighborhood, city, province);
 		
-		User user = new User(email, firstName, lastName, birth, isManager, address);
+		//User user = new User(email, firstName, lastName, birth, isManager, address);
+		User user = new User(firstName, lastName, birth);
+		user.setEmail(email);
+		user.setManager(isManager);
+		user.setAddress(address);
 		return UserDAO.getInstance().setUser(user, pwd); //TODO: esta exceptción debería ser cambiada por una más personalizada.
 	}
 }

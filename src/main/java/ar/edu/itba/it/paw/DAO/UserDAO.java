@@ -64,7 +64,6 @@ public class UserDAO {
 			    nombre = rs.getString("nombre");
 			    apellido = rs.getString("apellido");
 			    nacimiento = rs.getDate("nacimiento");
-			    //dirid  = rs.getInt("girid");
 			 }
 	         rs.close();
 	         pstmt.close();
@@ -75,7 +74,7 @@ public class UserDAO {
 		if(empty){
 			return null;
 		}
-		return new User(nombre+" "+apellido, nacimiento);
+		return new User(nombre, apellido, nacimiento.toLocalDate());
 	}
 
 	public int getUserId(String mail) {
@@ -97,10 +96,6 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 		return userId;
-	}
-
-	public User getUser(String id) {
-		return new User("mail", null, null, null, false, null);
 	}
 
 	public Address getUserAddressById(int id) {

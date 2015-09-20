@@ -39,8 +39,7 @@ public class AddressDAO {
 				int number = rs.getInt("numero");
 				String apartment = rs.getString("departamento");
 				String neighborhood = rs.getString("barrio");
-
-				address = new Address(street, number, city, province, neighborhood);
+				address = new Address(street, number, floor, apartment,neighborhood, city, province);
 				address.setApartment(apartment);
 				address.setFloor(floor); //TODO:checkear que pasa si el piso es null ?? 
 			}
@@ -66,7 +65,7 @@ public class AddressDAO {
 			} else {
 				pstmt.setNull(5, java.sql.Types.INTEGER);
 			}
-			if (address.getApartment() != null) { 
+			if (address.getApartment() != null && !address.getApartment().isEmpty()) { 
 				pstmt.setString(6, address.getApartment()); 
 			} else {
 				pstmt.setNull(6, java.sql.Types.VARCHAR);
@@ -102,7 +101,7 @@ public class AddressDAO {
 			} else {
 				pstmt.setNull(5, java.sql.Types.INTEGER);
 			}
-			if (address.getApartment() != null) { 
+			if (address.getApartment() != null && !address.getApartment().isEmpty()) { 
 				pstmt.setString(6, address.getApartment()); 
 			} else {
 				pstmt.setNull(6, java.sql.Types.VARCHAR);

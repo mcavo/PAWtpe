@@ -1,6 +1,5 @@
 <%@ include file="header.jsp" %>
 
-
 <div class="container">
 	<h3 class="text-center">Por favor, ingrese sus datos</h3>
 	<form role="form" action="login" method="post">
@@ -26,6 +25,5 @@
 		</div>
 	</form>
 </div>
-
 
 <%@ include file="footer.jsp" %>

@@ -43,12 +43,12 @@
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
 				<c:choose>
-					<c:when test="${user.name==null}">
+					<c:when test="${user.firstName==null}">
 						<li><a href="/PAWTPE/login">Ingresa</a></li>
 						<li><a href="#">Regístrate</a></li>
 					</c:when>    
     				<c:otherwise>
-    					<li><a href="#">${user.name}</a></li> 
+    					<li><a href="#">${user.firstName}</a></li> 
     					<li><a href="/PAWTPE/logout">Salir</a></li>
     				</c:otherwise>
     			</c:choose>

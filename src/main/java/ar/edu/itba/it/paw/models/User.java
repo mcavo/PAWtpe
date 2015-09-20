@@ -11,14 +11,12 @@ public class User implements UserPermissions {
 	private Address address;
 	private int id;
 
-	public User(String email, String firstName, String lastName, LocalDate birth, boolean isManager,  Address address) {
+	public User(String firstName, String lastName, LocalDate birth) {
 		// TODO Auto-generated constructor stub
-		this.setEmail(email);
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
 		this.setBirth(birth);
-		this.setManager(isManager);
-		this.setAddress(address); //Dirección obligatoria o puede ser optativa? y el teléfono??
+		//this.setAddress(address); //Dirección obligatoria o puede ser optativa? y el teléfono??
 	}
 	
 	public void setId(int id) {
