@@ -72,10 +72,11 @@
 						Mi Pedido <span class="glyphicon glyphicon-shopping-cart"></span>
 					</div>
 					<div class="panel-body">
-					
+					<c:if test="${user != null}">
 					<form action="#" method="POST" id="order">
 						<input type="submit" class="btn btn-info" value="Confirmar pedido">
 					</form>
+					</c:if>
 					</div>
 				</div>
 			</div>
