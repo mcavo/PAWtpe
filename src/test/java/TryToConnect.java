@@ -52,16 +52,18 @@ public class TryToConnect {
 			//dbConnection.createStatement().execute("INSERT INTO tipos (restid, tipo) values (1,'norteamericana')");
 			
 			//dbConnection.createStatement().execute("DROP TABLE direccion;");
-			//dbConnection.createStatement().execute("ALTER TABLE direccion DROP COLUMN cp");
+			//dbConnection.createStatement().execute("ALTER TABLE pedido ADD COLUMN estado INTEGER;");
+			//dbConnection.createStatement().execute("UPDATE pedido SET estado=0 WHERE estado IS NULL;");
+			//dbConnection.createStatement().execute("ALTER TABLE pedido ALTER COLUMN estado SET NOT NULL;");
 			//dbConnection.createStatement().execute("INSERT INTO direccion (calle, provincia, localidad, numero, barrio) values ('Av. Olazábal', 'Buenos Aires', 'Capital Federal', 5151,'Villa Urquiza');");				
 			//dbConnection.createStatement().execute("DELETE FROM usuario WHERE userid=2;");
 			//dbConnection.createStatement().execute("INSERT INTO usuario values (1,'María Victoria', 'Cavo', 6, );");
 			/**/
 			
-			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM direccion;");
+			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM pedido;");
 			
 			while(set.next()) {
-				for(int i=1 ; i<=2; i++)
+				for(int i=1 ; i<=3; i++)
 					System.out.print(set.getString(i)+" | ");
 				System.out.println("");
 			}

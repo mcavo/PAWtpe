@@ -14,22 +14,28 @@ public class Restaurant {
 	private Address address;
 	private List<String> typesOfFood;
 	private String description;
-	private HashMap<User, Calification> califications;
+	private HashMap<Integer, Calification> califications;
 	private Menu menu;
 	private double score;
 	private LocalDate startDate;
+	private int id;
 	
-	public Restaurant(String name, double minimumPurchase, Float startService, Float endService, Address address, List<String> typeOfFood, LinkedList<User>managers, Menu menu) {
+	public Restaurant(int id, String name, double minimumPurchase, Float startService, Float endService, Address address, List<String> typeOfFood, HashMap<Integer, Calification> qMap, Menu menu) {
 		// TODO Auto-generated constructor stub
 		this.setName(name);
-		this.setManagers(managers);
+		this.setCalifications(qMap);
 		this.setMinimumPurchase(minimumPurchase);
 		this.setStartService(startService);
 		this.setEndService(endService);
 		this.setAddress(address);
 		this.setTypesOfFood(typeOfFood);
-		this.califications = new HashMap<User, Calification> ();
+		this.califications = qMap;
 		this.setMenu(menu);
+		this.id = id;
+	}
+
+	public void setCalifications(HashMap<Integer, Calification> qMap) {
+		this.califications = qMap;
 	}
 
 	public String getName() {
@@ -123,8 +129,17 @@ public class Restaurant {
 		this.startDate = startDate;
 	}
 
-	public HashMap<User, Calification> getQualifications() {
+	public HashMap<Integer, Calification> getQualifications() {
 		return this.califications;
+	}
+
+	public void setId(int id){
+		this.id = id;
+	}
+	
+	public int getId() {
+		// TODO Auto-generated method stub
+		return this.id;
 	}
 
 }

@@ -80,7 +80,7 @@ public class RestaurantDAO {
 			Address address = getAddressById(restId);
 			List<String> tipos = getTypesOfFoodByRestId(restId);
 			
-			Restaurant res = new Restaurant(sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, null, menu);
+			Restaurant res = new Restaurant(restId,sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, null, menu);
 		
 			sr.close();
 			pstmt.close();
@@ -109,7 +109,7 @@ public class RestaurantDAO {
 				menu = getMenuByRestId(restId);
 				Address address = getAddressById(restId);
 				List<String> tipos = getTypesOfFoodByRestId(restId);
-				rests.add(new Restaurant(sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, null, menu));
+				rests.add(new Restaurant(restId,sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, null, menu));
 			}
 			sr.close();
 		
@@ -157,7 +157,7 @@ public class RestaurantDAO {
 				menu = getMenuByRestId(restId);
 				Address address = getAddressById(restId);
 				List<String> tipos = getTypesOfFoodByRestId(restId);
-				rest.add(new Restaurant(sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, null, menu));
+				rest.add(new Restaurant(restId,sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, null, menu));
 			}
 			sr.close();
 			pstmt.close();
@@ -309,7 +309,7 @@ public class RestaurantDAO {
 					 
 			while ( rs.next() ) {
 				restId = rs.getInt("id");
-				rest = new Restaurant(rs.getString("nombre"), rs.getDouble("montomin"), rs.getFloat("desde"), rs.getFloat("hasta"), address, getTypesOfFoodByRestId(restId), null, getMenuByRestId(restId));
+				rest = new Restaurant(restId,rs.getString("nombre"), rs.getDouble("montomin"), rs.getFloat("desde"), rs.getFloat("hasta"), address, getTypesOfFoodByRestId(restId), null, getMenuByRestId(restId));
 			 }
 	         rs.close();
 	         pstmt.close();

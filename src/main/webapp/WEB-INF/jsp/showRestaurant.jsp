@@ -16,7 +16,7 @@
 	</div>
 
 	<div>
-		<ul class="nav nav-tabs nav-justified">
+		<ul class="nav nav-pills nav-justified">
 			<li><a
 				href="/PAWTPE/menuRestaurant?name=${rest.name}&srt=${rest.address.street}&numb=${rest.address.number}&neigh=${rest.address.neighborhood}&city=${rest.address.city}&prov=${rest.address.province}&flr=${rest.address.floor}&apt=${rest.address.apartment}">Menú</a></li>
 			<li class="active"><a href="#">Información</a></li>
