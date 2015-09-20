@@ -31,16 +31,16 @@ private static OrderDAO instance = null;
 	}
 
 	public static boolean checkDish(Restaurant rest, Dish dish) {
-		String sql = "SELECT * FROM plato WHERE restid = ? and nombre like ?;";
-		//String sql = "SELECT * FROM plato WHERE restid = ? and nombre like ? and descripcion like ? and precio = ?";
+		//String sql = "SELECT * FROM plato WHERE restid = ? and nombre like ?;";
+		String sql = "SELECT * FROM plato WHERE restid = ? and nombre like ? and descripcion like ? and precio = ?";
 		boolean empty = true;
 		try {
 			Connection conn = DBManager.getInstance().getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, rest.getId());
 			pstmt.setString(2, dish.getProduct());
-			//pstmt.setString(3, dish.getDescription());
-			//pstmt.setFloat(4, dish.getPrice());
+			pstmt.setString(3, dish.getDescription());
+			pstmt.setFloat(4, dish.getPrice());
 
 			ResultSet rs = pstmt.executeQuery();
 			if ( rs.next() ) {

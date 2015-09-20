@@ -81,8 +81,7 @@ public class RestaurantDAO {
 			Menu menu = getMenuByRestId(id);
 			Address address = getAddressById(dirId);
 			List<String> tipos = getTypesOfFoodByRestId(id);
-			HashMap<Integer, Calification> qMap = CalificationService.getCalificationsByRestId(id);
-			Restaurant res = new Restaurant(id, sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, qMap, menu);		
+			Restaurant res = new Restaurant(id, sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, menu);		
 			sr.close();
 			pstmt.close();
 			return res;
@@ -100,7 +99,6 @@ public class RestaurantDAO {
 
 		int restId = -1;
 		Menu menu = null;
-		HashMap<Integer, Calification> qMap;
 		try {
 			Connection dbConnection;
 			DBManager db = DBManager.getInstance();
@@ -111,8 +109,7 @@ public class RestaurantDAO {
 				menu = getMenuByRestId(restId);
 				Address address = getAddressById(sr.getInt("dirid"));
 				List<String> tipos = getTypesOfFoodByRestId(restId);
-				qMap = CalificationService.getCalificationsByRestId(restId);
-				rests.add(new Restaurant(restId, sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, qMap, menu));
+				rests.add(new Restaurant(restId, sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, menu));
 			}
 			sr.close();
 		
@@ -151,7 +148,6 @@ public class RestaurantDAO {
 		
 		int restId = -1;
 		Menu menu = null;
-		HashMap<Integer, Calification> qMap = null;
 		try {
 			String sql = "SELECT * FROM restaurante";
 			PreparedStatement pstmt = dbConnection.prepareStatement(sql);
@@ -161,8 +157,7 @@ public class RestaurantDAO {
 				menu = getMenuByRestId(restId);
 				Address address = getAddressById(sr.getInt("dirid"));
 				List<String> tipos = getTypesOfFoodByRestId(restId);
-				qMap = CalificationService.getCalificationsByRestId(restId);
-				rest.add(new Restaurant(restId, sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, qMap, menu));
+				rest.add(new Restaurant(restId, sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, menu));
 			}
 			sr.close();
 			pstmt.close();
@@ -311,11 +306,9 @@ public class RestaurantDAO {
 			PreparedStatement pstmt = dbConnection.prepareStatement(sql);
 			pstmt.setInt(1, addressId);
 			ResultSet rs = pstmt.executeQuery();	 
-			HashMap<Integer, Calification> qMap = null;
 			while ( rs.next() ) {
 				restId = rs.getInt("id");
-				qMap = CalificationService.getCalificationsByRestId(restId);
-				rest = new Restaurant(restId, rs.getString("nombre"), rs.getDouble("montomin"), rs.getFloat("desde"), rs.getFloat("hasta"), address, getTypesOfFoodByRestId(restId), qMap, getMenuByRestId(restId));
+				rest = new Restaurant(restId, rs.getString("nombre"), rs.getDouble("montomin"), rs.getFloat("desde"), rs.getFloat("hasta"), address, getTypesOfFoodByRestId(restId), getMenuByRestId(restId));
 			 }
 	         rs.close();
 	         pstmt.close();
