@@ -20,16 +20,14 @@ public class Restaurant {
 	private LocalDate startDate;
 	private int id;
 	
-	public Restaurant(int id, String name, double minimumPurchase, Float startService, Float endService, Address address, List<String> typeOfFood, HashMap<Integer, Calification> qMap, Menu menu) {
+	public Restaurant(int id, String name, double minimumPurchase, Float startService, Float endService, Address address, List<String> typeOfFood, Menu menu) {
 		// TODO Auto-generated constructor stub
 		this.setName(name);
-		this.setCalifications(qMap);
 		this.setMinimumPurchase(minimumPurchase);
 		this.setStartService(startService);
 		this.setEndService(endService);
 		this.setAddress(address);
 		this.setTypesOfFood(typeOfFood);
-		this.califications = qMap;
 		this.setMenu(menu);
 		this.id = id;
 	}

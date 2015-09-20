@@ -42,8 +42,10 @@ public class ShowRestaurant extends HttpServlet {
 		String province = req.getParameter("prov");
 		String floor = req.getParameter("flr");
 		String apartment = req.getParameter("apt");
-		
+
 		rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
+		rest.setCalifications(CalificationService.getCalificationsByRestId(rest.getId()));
+
 		req.setAttribute("rest", rest);
 
 		if(usr != null){

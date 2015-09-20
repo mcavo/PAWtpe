@@ -39,6 +39,7 @@ public class OrderDAO {
 			pstmt.setString(2, dish.getProduct());
 			pstmt.setString(3, dish.getDescription());
 			pstmt.setFloat(4, dish.getPrice());
+
 			ResultSet rs = pstmt.executeQuery();
 			if ( rs.next() ) {
 				empty = false;
