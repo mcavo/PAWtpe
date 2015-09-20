@@ -55,10 +55,6 @@ public class MenuRestaurant extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-<<<<<<< HEAD
-=======
-		
->>>>>>> super rebaseado con order
 		usr = (User) req.getAttribute("user");
 		req.setAttribute("rest", rest);
 		String usrId = "";

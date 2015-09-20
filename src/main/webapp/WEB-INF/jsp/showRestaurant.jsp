@@ -23,11 +23,6 @@
 		</ul>
 	</div>
 	<br> <br>
-<<<<<<< HEAD
-	
-=======
-
->>>>>>> switch de showrest a menurest
 	<!-- INFORMACION DEL RESTAURANTE -->
 
 	<c:if test="${okToQualify}">
@@ -38,19 +33,12 @@
 						<a class="btn btn-success btn-green" href="#reviews-anchor"
 							id="open-review-box">Comentar</a>
 					</div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
-	
->>>>>>> switch de showrest a menurest
 					<div class="row" id="post-review-box" style="display: none;">
 						<div class="col-md-12">
 							<form accept-charset="UTF-8" action="showRestaurant" method="post">
 								<input id="ratings-hidden" name="rating" type="hidden">
 								<textarea class="form-control animated" cols="50" id="new-review"
 									name="comment" placeholder="Ingrese su opinión aquí..." rows="5"></textarea>
-	
 								<div class="text-right">
 									<div class="stars starrr" data-rating="0"></div>
 									<a class="btn btn-danger btn-sm" href="#" id="close-review-box"
@@ -65,11 +53,8 @@
 			</div>
 		</div>
 	</c:if>
-<<<<<<< HEAD
 
 	<!-- COMENTARIOS -->
-=======
->>>>>>> switch de showrest a menurest
 </div>
 
 <%@ include file="footer.jsp"%>

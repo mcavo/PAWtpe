@@ -21,9 +21,9 @@ public class OrderDAO {
 	protected OrderDAO() {
 
 	}
-
-	public static OrderDAO getInstance() {
-		if (instance == null) {
+	
+	public static OrderDAO getInstance(){
+		if(instance == null){
 			instance = new OrderDAO();
 		}
 		return instance;

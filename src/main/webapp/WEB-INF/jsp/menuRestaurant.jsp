@@ -16,7 +16,6 @@
 		</div>
 	</div>
 
-<<<<<<< HEAD
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			<div class="col-md-8">
@@ -85,12 +84,6 @@
 
 	</div>
 
-<<<<<<< HEAD
-</div>
-
-<<<<<<< HEAD
-<%@ include file="footer.jsp"%>
-=======
 	<div>
 		<ul class="nav nav-tabs nav-justified">
 			<li class="active"><a href="#">Pedir</a></li>
