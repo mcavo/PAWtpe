@@ -1,7 +1,3 @@
-**********************************
-*********     TABLAS     *********
-**********************************
-
 CREATE TABLE direccion (
 	id SERIAL NOT NULL,
 	calle varchar(30) NOT NULL,
@@ -18,6 +14,7 @@ CREATE TABLE credencial (
 	id SERIAL NOT NULL,
 	mail VARCHAR(40) NOT NULL,
 	psw VARCHAR(16) NOT NULL,
+	rol VARCHAR(20) NOT NULL,
 	PRIMARY KEY(id),
 	UNIQUE(mail)
 );
@@ -100,3 +97,11 @@ CREATE TABLE prodPedidos (
 	FOREIGN KEY(pedid) REFERENCES pedido(id) ON DELETE CASCADE, 
 	FOREIGN KEY(platoid) REFERENCES plato(id) ON DELETE CASCADE
 );
+
+CREATE TABLE gerente (
+	userid INT NOT NULL,
+	restid INT NOT NULL,
+	PRIMARY KEY(userid),
+	FOREIGN KEY(userid) REFERENCES usuario(userid) ON DELETE CASCADE,
+	FOREIGN KEY(restid) REFERENCES restaurante(id) ON DELETE CASCADE,
+}

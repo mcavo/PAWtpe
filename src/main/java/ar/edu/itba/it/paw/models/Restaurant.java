@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map.Entry;
 
 public class Restaurant {
 	private String name;
@@ -31,9 +32,25 @@ public class Restaurant {
 		this.setMenu(menu);
 		this.id = id;
 	}
+	
+	private void calculateScore() {
+		if(califications==null) {
+			this.score = (double) 0;
+			return;
+		}
+			
+		double saux = (double) 0;
+		for (Entry<Integer,Calification> set : califications.entrySet()) {
+			saux += set.getValue().getStars();
+		}
+		saux/=califications.size();
+		score=saux;
+	}
+
 
 	public void setCalifications(HashMap<Integer, Calification> qMap) {
 		this.califications = qMap;
+		calculateScore();
 	}
 
 	public String getName() {
@@ -139,4 +156,11 @@ public class Restaurant {
 		// TODO Auto-generated method stub
 		return this.id;
 	}
+	
+	public int getCountComments(){
+		if(califications==null)
+			return 0;
+		return califications.size();
+	}
+	
 }
