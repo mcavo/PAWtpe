@@ -12,13 +12,13 @@ public class UserService {
 
 	private static UserDAO instanceDAO = UserDAO.getInstance();
 			
-	public static String getUserId(String mail, String pwd){
+	public static int getUserId(String mail, String pwd){
 		int id = instanceDAO.getUserId(mail, pwd);
-		return String.valueOf(id);
+		return id;
 	}
 	
-	public static User getUserById(String id){
-		User user = instanceDAO.getUserById(Integer.valueOf(id));
+	public static User getUserById(int id){
+		User user = instanceDAO.getUserById(id);
 		return user;
 	}
 
@@ -44,10 +44,14 @@ public class UserService {
 		Address address = new Address(street, numberV, floorV, apartment, neighborhood, city, province);
 		
 		//User user = new User(email, firstName, lastName, birth, isManager, address);
-		User user = new User(firstName, lastName, birth);
+		User user = createUser(email, firstName, lastName, birth);//new User(firstName, lastName, birth);
 		user.setEmail(email);
 		user.setManager(isManager);
 		user.setAddress(address);
 		return UserDAO.getInstance().setUser(user, pwd); //TODO: esta exceptción debería ser cambiada por una más personalizada.
+	}
+
+	private static User createUser(String mail, String firstName, String lastName, LocalDate birth) {
+		return new User(UserDAO.getInstance().getUserId(mail), firstName, lastName, birth);
 	}
 }

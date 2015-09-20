@@ -74,7 +74,7 @@ public class UserDAO {
 		if(empty){
 			return null;
 		}
-		return new User(nombre, apellido, nacimiento.toLocalDate());
+		return new User(id, nombre, apellido, nacimiento.toLocalDate());
 	}
 
 	public int getUserId(String mail) {
@@ -96,16 +96,6 @@ public class UserDAO {
 			e.printStackTrace();
 		}
 		return userId;
-	}
-
-	public Address getUserAddressById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public String getUserMailById(int id) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 	
 	public User setUser(User user, String pwd) throws Exception {
@@ -136,5 +126,4 @@ public class UserDAO {
 		user.setId(userid);
 		return user;
 	}
-
 }

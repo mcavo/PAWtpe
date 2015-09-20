@@ -28,11 +28,11 @@ public class ShowRestaurant extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		usr = (User) req.getAttribute("user");
-		String usrId = "";
+		/*String usrId = "";
 		UserManager userManager = new SessionUserManager(req);
 		if (userManager.existsUser()) {
 			usrId = userManager.getUserId();
-		}
+		}*/
 		
 		String name = req.getParameter("name");
 		String street = req.getParameter("srt");
@@ -49,7 +49,7 @@ public class ShowRestaurant extends HttpServlet {
 		req.setAttribute("rest", rest);
 
 		if(usr != null){
-			req.setAttribute("okToQualify", CalificationService.canQualify(rest, usrId));
+			req.setAttribute("okToQualify", CalificationService.canQualify(rest, usr.getId()));
 		}else{
 			req.setAttribute("okToQualify", false);
 		}
@@ -59,10 +59,13 @@ public class ShowRestaurant extends HttpServlet {
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		usr = (User) req.getAttribute("user");
+		
 		String stars = req.getParameter("rating");
 		String comments = req.getParameter("comment");
-		String usrId = "";
+		/*String usrId = "";
 		UserManager userManager = new SessionUserManager(req);
+		*/
 		String name = req.getParameter("name");
 		String street = req.getParameter("srt");
 		String number = req.getParameter("numb");
@@ -73,11 +76,12 @@ public class ShowRestaurant extends HttpServlet {
 		String apartment = req.getParameter("apt");
 
 		Restaurant rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
-		
-		if (userManager.existsUser()) {
+		rest.setCalifications(CalificationService.getCalificationsByRestId(rest.getId()));
+
+		/*if (userManager.existsUser()) {
 			usrId = userManager.getUserId();
-		}
-		CalificationService.addCalification(usrId, rest, stars, comments);
+		}*/
+		CalificationService.addCalification(usr.getId(), rest, stars, comments);
 		req.setAttribute("rest", rest);
 		req.getRequestDispatcher("/WEB-INF/jsp/showRestaurant.jsp").forward(req, resp);
 	}

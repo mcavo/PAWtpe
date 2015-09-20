@@ -33,6 +33,11 @@ public class SignUp extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		UserManager userManager = new SessionUserManager(request);
+		if (userManager.existsUser()) {
+			response.sendRedirect("homepage");
+			return;
+		}
 		request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response);
 		//Cómo conecto esto con el DOM
 	}
@@ -72,7 +77,7 @@ public class SignUp extends HttpServlet {
 		
 		
 		UserManager userManager = new SessionUserManager(request);
-		userManager.setUser(String.valueOf(user.getId()));
+		userManager.setUser(user);
 		response.sendRedirect("homepage");
 	}
 }
