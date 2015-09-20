@@ -15,14 +15,15 @@ import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
 
 public class OrderDAO {
-	private static OrderDAO instance = null;
-
-	protected OrderDAO() {
-
+	
+private static OrderDAO instance = null;
+	
+	protected OrderDAO(){
+		
 	}
-
-	public static OrderDAO getInstance() {
-		if (instance == null) {
+	
+	public static OrderDAO getInstance(){
+		if(instance == null){
 			instance = new OrderDAO();
 		}
 		return instance;
@@ -39,6 +40,7 @@ public class OrderDAO {
 			pstmt.setString(2, dish.getProduct());
 			//pstmt.setString(3, dish.getDescription());
 			//pstmt.setFloat(4, dish.getPrice());
+
 			ResultSet rs = pstmt.executeQuery();
 			if ( rs.next() ) {
 				empty = false;

@@ -44,6 +44,7 @@ public class ShowRestaurant extends HttpServlet {
 		String apartment = req.getParameter("apt");
 
 		rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
+		
 		req.setAttribute("rest", rest);
 
 		if(usr != null){

@@ -41,7 +41,6 @@
 								<input id="ratings-hidden" name="rating" type="hidden">
 								<textarea class="form-control animated" cols="50" id="new-review"
 									name="comment" placeholder="Ingrese su opinión aquí..." rows="5"></textarea>
-	
 								<div class="text-right">
 									<div class="stars starrr" data-rating="0"></div>
 									<a class="btn btn-danger btn-sm" href="#" id="close-review-box"
