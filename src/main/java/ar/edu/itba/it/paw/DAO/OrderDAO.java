@@ -7,11 +7,15 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
 import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Dish;
+import ar.edu.itba.it.paw.models.Order;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
 
@@ -135,6 +139,72 @@ public class OrderDAO {
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, restId);
 			pstmt.setString(2, nameProd);
+
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				dish = new Dish(rs.getInt("id"), rs.getString("nombre"), rs.getFloat("precio"), rs.getString("descripcion"));
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return dish;
+	}
+
+	public List<Order> getHistory(Restaurant rest) {
+		List<Order> history = new LinkedList<Order>();
+		Order order = null;
+		try {
+			Connection conn = DBManager.getInstance().getConnection();
+			String sql = "select * from pedido where restid = ? ";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rest.getId());
+
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				order = new Order(rest, UserDAO.getInstance().getUserById(rs.getInt("userid")), rs.getInt("estado"));
+				order.setOrdlist(getOrderList(rs.getInt("id")));
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return history;
+	}
+
+
+	private Map<Dish, Integer> getOrderList(int orderId) {
+		Map<Dish, Integer> order = new HashMap<Dish, Integer>();
+		try {
+			Connection conn = DBManager.getInstance().getConnection();
+			String sql = "select * from prodPedidos where id = ? ";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, orderId);
+
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				order.put(getDishById(rs.getInt("platoid")), rs.getInt("cant"));
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return order;
+	}
+
+	private Dish getDishById(int id) {
+		Dish dish = null;
+		try {
+			Connection conn = DBManager.getInstance().getConnection();
+			String sql = "select * from plato where id = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
 
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {

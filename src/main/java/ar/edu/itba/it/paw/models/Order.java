@@ -9,7 +9,7 @@ public class Order {
 	private Restaurant rest;
 	private int status;
 	
-	public Order (Restaurant rest,Map <Dish,Integer> ordlist,User user,int status) {
+	public Order (Restaurant rest, User user,int status) {
 		this.rest=rest;
 		this.ordlist=ordlist;
 		this.user=user;
