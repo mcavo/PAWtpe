@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.services;
 
+import java.util.List;
+
 import ar.edu.itba.it.paw.DAO.CredentialDAO;
 import ar.edu.itba.it.paw.DAO.ManagerDAO;
 import ar.edu.itba.it.paw.models.Credential;
@@ -66,5 +68,25 @@ public class ManagerService {
 		}
 		ManagerDAO.getInstance().setManager(rest.getId(), cred.getId());
 		CredentialDAO.getInstance().setManager(cred.getId());
+	}
+
+	public static List<Credential> getManagersAvailables() {
+		return CredentialDAO.getInstance().getManagersAvailables();
+	}
+
+	public static boolean addManager(String email, String restid) {
+		Credential cred;
+		try {
+			cred = ManagerService.validateEmail(email);
+			if (cred==null || RestService.validateId(restid))
+				return false;
+			ManagerDAO.getInstance().setManager(cred.getId(),Integer.parseInt(restid));
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+		
+		
+		
 	}
 }

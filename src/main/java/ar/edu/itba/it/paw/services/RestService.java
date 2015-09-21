@@ -93,5 +93,15 @@ public class RestService {
 		RestaurantDAO.getInstance().setRestaurant(rest);
 		
 	}
+
+	public static boolean validateId(String restid) {
+		int id;
+		try {
+			id = Integer.parseInt(restid);
+			return RestaurantDAO.getInstance().validateId(id);
+		} catch (java.lang.NumberFormatException e) {
+			return false;
+		}
+	}
 	
 }

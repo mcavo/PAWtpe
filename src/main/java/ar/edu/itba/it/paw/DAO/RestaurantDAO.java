@@ -352,4 +352,23 @@ public class RestaurantDAO {
 		}
 		return id;
 	}
+
+	public boolean validateId(int id) {
+		String sql = "SELECT id FROM restaurante WHERE id = ?";
+		Connection dbConnection;
+		DBManager db = DBManager.getInstance();
+		dbConnection = db.getConnection();
+		try {
+			PreparedStatement pstmt = dbConnection.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			ResultSet rs = pstmt.executeQuery();
+			boolean aux = rs.next();
+			rs.close();
+			return aux;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
 }

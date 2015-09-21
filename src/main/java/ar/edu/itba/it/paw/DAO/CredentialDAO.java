@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import ar.edu.itba.it.paw.models.Credential;
 
@@ -74,7 +76,7 @@ public class CredentialDAO {
 			pstmt.setString(2, pwd);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				cred = new Credential(rs.getInt("id"), rs.getString("rol"));
+				cred = new Credential(rs.getInt("id"), rs.getString("rol"),rs.getString("mail"));
 			}
 			pstmt.close();
 		} catch (SQLException e) {
@@ -93,7 +95,7 @@ public class CredentialDAO {
 			pstmt.setString(1, email);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				cred = new Credential(rs.getInt("id"), rs.getString("rol"));
+				cred = new Credential(rs.getInt("id"), rs.getString("rol"),rs.getString("mail"));
 			}
 			pstmt.close();
 		} catch (SQLException e) {
@@ -140,5 +142,21 @@ public class CredentialDAO {
 			e.printStackTrace();
 			throw new Exception("The manager coulden't be set");
 		}
+	}
+
+	public List<Credential> getManagersAvailables() {
+		Connection con = DBManager.getInstance().getConnection();
+		List<Credential> creds = new ArrayList<Credential>();
+		try {
+			ResultSet rs = con.createStatement().executeQuery("SELECT mail, FROM credencial AS c WHERE NOT EXISTS (SELECT * FROM gerente AS g WHERE c.id = g.userid  );");
+			while(rs.next()) {
+				creds.add(new Credential(rs.getInt("id"), rs.getString("rol"),rs.getString("mail")));
+			}
+			return creds;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

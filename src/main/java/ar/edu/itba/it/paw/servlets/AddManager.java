@@ -32,6 +32,12 @@ public class AddManager extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		List<Restaurant> rlist;
+		List<Credential> clist;
+		rlist = RestService.getAllRestaurants();
+		clist = ManagerService.getManagersAvailables();
+		request.setAttribute("rlisr", rlist);
+		request.setAttribute("clisr", rlist);
 		request.getRequestDispatcher("/WEB-INF/jsp/addManager.jsp").forward(request, response);;
 	}
 
@@ -41,19 +47,17 @@ public class AddManager extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Credential cred = null;
 		List<Restaurant> rlist = null;
-		String email = request.getParameter("email");
+		String mail = request.getParameter("manager-mail");
+		String restid = request.getParameter("restaurant-id");
 		try {
-			cred = ManagerService.validateEmail(email);
-			rlist = RestService.getAllRestaurants();
+			ManagerService.addManager(mail,restid);
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.getRequestDispatcher("/WEB-INF/jsp/addManager.jsp"); 
 			return;
 		}
-		request.setAttribute("manager", email);
-		request.setAttribute("credential", cred);
-		request.setAttribute("rlist", rlist);
-		request.getRequestDispatcher("/WEB-INF/jsp/selectRestaurant.jsp").forward(request, response);
+		
+		request.getRequestDispatcher("/WEB-INF/jsp/homepage.jsp");
 	}
 
 }

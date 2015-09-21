@@ -9,20 +9,44 @@
 					<h3 class="panel-title">Mail del manager</h3>
 				</div>
 				<div class="panel-body">
-					<br>
-					<div class="row">
-						<div class="col-sm-8 col-sm-offset-2">
-							<div class="form-group">
-								<input type="email" class="form-control" id="inputEmail"
-									maxlength=40 placeholder="Email"
-									data-error="El email no es válido" name="email" required>
+					<form id="addm" method="post" action="addManager">
+						<br>
+						<div class="row">
+							<div class="col-sm-8 col-sm-offset-2">
+								<div class="form-group">
+									<select name="manager-mail" required>
+										<c:forEach items="${clist}" var="managerWannaBe">
+											<option value="${managerWannaBe.mail}">
+												${managerWannaBe.mail}</option>
+										</c:forEach>
+									</select>
+								</div>
+
+								<div class="form-group">
+									<select name="restaurant" required>
+									</select>
+								</div>
+
+								<div class="form-group">
+									<select name="restaurant-id" required>
+										<c:forEach items="${rlist}" var="rest">
+											<option value="${rest.id}">${rest.name} - 
+												${rest.address.street} ${rest.address.number}<c:if test="${rest.address.floor}!=0"> ${rest.address.floor}º</c:if>
+												<c:if test="${rest.address.apartment}!=null"> ${rest.address.apartment}</c:if>,
+												${rest.address.neighborhood}, ${rest.address.city},
+												${rest.address.province}
+											</option>
+										</c:forEach>
+									</select>
+								</div>
+
 							</div>
 						</div>
-					</div>
+					</form>
 				</div>
 				<div class="row">
 					<div class="form-group col-md-2 col-md-offset-5">
-						<button type="submit" class="btn btn-primary">Confirmar</button>
+						<button type="submit" form="addm" class="btn btn-primary">Confirmar</button>
 					</div>
 				</div>
 			</div>
