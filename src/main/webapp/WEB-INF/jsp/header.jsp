@@ -34,7 +34,7 @@
 						<li><a href="#alta">Alta</a></li>
 					</c:when>
 					<c:when test="${user.isManager}">
-						<li><a href="#menu">Agregar menu</a></li>
+						<li><a href="/PAWTPE/addDish">Agregar menu</a></li>
 						<li><a href="/PAWTPE/showOrders">Ver historial</a></li>
 					</c:when> 
 				</c:choose>
