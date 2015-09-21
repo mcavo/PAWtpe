@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 
 import ar.edu.itba.it.paw.models.Address;
 
@@ -142,8 +144,8 @@ public class AddressDAO {
 	return address;
 }*/
 
-	protected int getAddressId(Address address){//String street, int number, String neighborhood, String city, String province, int floor, String apartment) {
-		int id = -1;
+	protected List<Integer> getIds(Address address){//String street, int number, String neighborhood, String city, String province, int floor, String apartment) {
+		List<Integer> ids = new LinkedList<Integer>();
 		try {
 			Connection conn = DBManager.getInstance().getConnection();
 			String sql = "SELECT id FROM direccion WHERE calle like ? and numero = ? and barrio like ? and localidad like ? and provincia like ? and (piso = ? or piso is null) and (departamento like ? or departamento is null);";
@@ -158,7 +160,7 @@ public class AddressDAO {
 			
 			ResultSet rs = pstmt.executeQuery();
 			while ( rs.next() ) {
-			    id  = rs.getInt("id");
+			    ids.add(rs.getInt("id"));
 			 }
 			rs.close();
 			pstmt.close();
@@ -166,7 +168,7 @@ public class AddressDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return id;
+		return ids;
 	}
 
  }

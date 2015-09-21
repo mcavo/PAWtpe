@@ -220,26 +220,37 @@ public class RestaurantDAO {
 	public Restaurant getRestaurant(String name, String street, int number, String neighborhood, String city, String province, int floor, String apartment) {
 		//int addressId = getAddressId(street, number, neighborhood, city, province, floor, apartment);
 		Address address = new Address(street, number, floor, apartment, neighborhood, city, province);
-		int addressId = AddressDAO.getInstance().getAddressId(address);
-				if(addressId == -1){
+		List<Integer> addressIds = AddressDAO.getInstance().getIds(address);
+				if(addressIds.isEmpty()){
 			//app error!
 			return null;
 		}
-		Connection dbConnection;
-		DBManager db = DBManager.getInstance();
-		
-		int restId = -1;
 		Restaurant rest = null;
 
-		try {
-			dbConnection = db.getConnection();
-			String sql = "SELECT * FROM restaurante WHERE dirid = ?;";
-			PreparedStatement pstmt = dbConnection.prepareStatement(sql);
-			pstmt.setInt(1, addressId);
+		boolean found = false;
+		for (int i=0; i<addressIds.size() && !found; i++) {
+			rest = matchRestAddress(name, addressIds.get(i));
+			if(rest != null){
+				found = true;
+				rest.setAddress(address);
+			}
+		}
+		return rest;
+	}
+	
+	protected Restaurant matchRestAddress(String name, int addressId){
+		int restId = -1;
+		Restaurant rest = null;
+		try{
+			Connection conn = DBManager.getInstance().getConnection();
+			String sql = "SELECT * FROM restaurante WHERE nombre like ? and dirid = ?;";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setInt(2, addressId);
 			ResultSet rs = pstmt.executeQuery();	 
 			while ( rs.next() ) {
 				restId = rs.getInt("id");
-				rest = new Restaurant(restId, rs.getString("nombre"), rs.getDouble("montomin"), rs.getFloat("desde"), rs.getFloat("hasta"), address, getTypesOfFoodByRestId(restId), getMenuByRestId(restId));
+				rest = new Restaurant(restId, rs.getString("nombre"), rs.getDouble("montomin"), rs.getFloat("desde"), rs.getFloat("hasta"), null, getTypesOfFoodByRestId(restId), getMenuByRestId(restId));
 			 }
 	         rs.close();
 	         pstmt.close();
