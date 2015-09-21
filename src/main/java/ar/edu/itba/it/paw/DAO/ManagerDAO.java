@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import ar.edu.itba.it.paw.models.Restaurant;
+import ar.edu.itba.it.paw.models.User;
 
 public class ManagerDAO {
 

@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Restaurant;
+import ar.edu.itba.it.paw.models.User;
 import ar.edu.itba.it.paw.services.CalificationService;
+import ar.edu.itba.it.paw.services.ManagerService;
 import ar.edu.itba.it.paw.services.RestService;
 
 public class Homepage extends HttpServlet{
@@ -21,8 +23,6 @@ public class Homepage extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		//response.setContentType("text/html");*/
-
 		List<Restaurant> weekRests = RestService.getLastWeekRestaurants();
 		for(Restaurant rest : weekRests) {
 			rest.setCalifications(CalificationService.getCalificationsByRestId(rest.getId()));

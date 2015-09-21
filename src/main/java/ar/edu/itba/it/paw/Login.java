@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.User;
 import ar.edu.itba.it.paw.services.UserService;
 
@@ -36,12 +36,12 @@ public class Login extends HttpServlet{
 		email = req.getParameter("email");
 		pwd = req.getParameter("pwd");
 		
-		int id = UserService.getUserId(email, pwd);
-		if(id == -1){
+		Credential cred = UserService.getUserCredentials(email, pwd);
+		if(cred == null){
 			resp.sendRedirect(resp.encodeRedirectURL("login"));
 			return;
 		}
-		user = UserService.getUserById(id);
+		user = UserService.getUserById(cred);
 		
 		UserManager userManager = new SessionUserManager(req);
 		userManager.setUser(user);

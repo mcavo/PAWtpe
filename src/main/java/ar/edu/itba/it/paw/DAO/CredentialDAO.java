@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import ar.edu.itba.it.paw.models.Credential;
+
 public class CredentialDAO {
 	
 	public static CredentialDAO instance;
@@ -62,6 +64,25 @@ public class CredentialDAO {
 		return id;
 	}
 	
+	public Credential getCredentials(String email, String pwd) {
+		Connection con = DBManager.getInstance().getConnection();
+		String query = "SELECT * FROM credencial WHERE mail like ? and psw = ?";
+		Credential cred = null;
+		try {
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setString(1, email);
+			pstmt.setString(2, pwd);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				cred = new Credential(rs.getInt("id"), rs.getString("rol"));
+			}
+			pstmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return cred;
+	}
 	// TODO: por ahí hay que modificarlo cuando se realicen las verificaciones, pero en escencia es lo mismo.
 	private boolean validateEmail(String email) {
 		return this.getCredentialID(email) != -1;

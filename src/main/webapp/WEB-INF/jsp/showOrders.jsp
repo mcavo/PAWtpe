@@ -10,20 +10,22 @@
 		<div class="orders-container">
 			<c:forEach items="${olist}" var="order">
 				<div class="bs-callout bs-callout-info">
-					<p>Nombre: ${order.user.firsName}
-						${order.user.lastName}<p>
-					<p>
-						Dirección: ${order.user.address.street}
-						${order.user.address.number}
-						<c:if test="${rest.address.floor}!=null">${rest.address.floor}º</c:if>
-						<c:if test="${rest.address.apartment}!=null"> ${rest.address.apartment}</c:if>
-						, ${rest.address.neighborhood}
-					<p>
-					<div class="col-md-6">Estado: ${order.status}</div>
-					<div class="col-md-6">Total: $ ${order.total}</div>
+					<div class="raw">
+						<div class="col-md-12">Nombre: ${order.user.firstName}
+							${order.user.lastName}</div>
+						<div class="col-md-12">
+							Dirección: ${order.user.address.street}
+							${order.user.address.number}
+							<c:if test="${order.user.address.floor}!=0">${order.user.address.floor}º</c:if>
+							<c:if test="${order.user.address.apartment}!=null"> ${order.user.address.apartment}</c:if>
+							, ${order.user.address.neighborhood}
+						</div>
+						<div class="col-md-6">Estado: ${order.status}</div>
+						<div class="col-md-6">Total: $ ${order.total}</div>
+					</div>
 				</div>
+			</c:forEach>
 		</div>
-		</c:forEach>
 	</div>
 </div>
 <%@ include file="footer.jsp"%>
