@@ -98,6 +98,14 @@
 		<servlet-name>ShowOrders</servlet-name>
 		<url-pattern>/showOrders</url-pattern>
 	</servlet-mapping>
+	<servlet>
+       <servlet-name>AddDish</servlet-name>
+       <servlet-class>ar.edu.itba.it.paw.servlets.AddDish</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddDish</servlet-name>
+		<url-pattern>/addDish</url-pattern>
+	</servlet-mapping>
 	
 	
 	<filter>

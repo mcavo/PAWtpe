@@ -47,7 +47,6 @@ public class TryToConnect {
 			
 			
 			
-			
 			//dbConnection.createStatement().execute("INSERT INTO tipos (restid, tipo) values (4,'mexicana')");
 			//dbConnection.createStatement().execute("INSERT INTO tipos (restid, tipo) values (1,'norteamericana')");
 			
@@ -59,11 +58,11 @@ public class TryToConnect {
 			//dbConnection.createStatement().execute("DELETE FROM usuario WHERE userid=2;");
 			//dbConnection.createStatement().execute("INSERT INTO usuario values (1,'María Victoria', 'Cavo', 6, );");
 			/**/
-			
-			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM calificacion;");
+			//dbConnection.createStatement().execute("DELETE FROM pedido WHERE (id<9) AND (id<>4);");
+			ResultSet set = dbConnection.createStatement().executeQuery("SELECT id FROM pedido");
 			
 			while(set.next()) {
-				for(int i=1 ; i<=4; i++)
+				for(int i=1 ; i<=1; i++)
 					System.out.print(set.getString(i)+" | ");
 				System.out.println("");
 			}

@@ -13,4 +13,9 @@ public class ManagerService {
 		}
 		return ManagerDAO.getInstance().getRestByManagerId(manager.getId());
 	}
+
+	public static void addDish(String section, String dish, String price, String desc) {
+		// TODO Auto-generated method stub
+		
+	}
 }
