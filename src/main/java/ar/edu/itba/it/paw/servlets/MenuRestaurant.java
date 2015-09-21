@@ -19,6 +19,7 @@ import ar.edu.itba.it.paw.models.Menu;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.Section;
 import ar.edu.itba.it.paw.models.User;
+import ar.edu.itba.it.paw.services.CalificationService;
 import ar.edu.itba.it.paw.services.OrderService;
 import ar.edu.itba.it.paw.services.RestService;
 
@@ -41,6 +42,7 @@ public class MenuRestaurant extends HttpServlet {
 
 		Restaurant rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor,
 				apartment);
+		rest.setCalifications(CalificationService.getCalificationsByRestId(rest.getId()));
 		req.setAttribute("rest", rest);
 		req.getRequestDispatcher("/WEB-INF/jsp/menuRestaurant.jsp").forward(req, resp);
 	}

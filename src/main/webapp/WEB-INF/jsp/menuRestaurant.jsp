@@ -1,23 +1,20 @@
 <%@ include file="header.jsp"%>
 <div class="container">
 
-
-	<div class="row">
-		<div>
-			<H3>${rest.name}</H3>
-			<span class="glyphicon glyphicon-star" aria-hidden="true"></span> <span
-				class="glyphicon glyphicon-star" aria-hidden="true"></span> <span
-				class="glyphicon glyphicon-star" aria-hidden="true"></span> <span
-				class="glyphicon glyphicon-star" aria-hidden="true"></span> <span
-				class="glyphicon glyphicon-star" aria-hidden="true"></span>
-		</div>
-		<div class="pull-right">
-			<H4>Puntaje: ${rest.score}</H4>
-		</div>
-	</div>
-
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
+			<div class="row">
+				<div>
+					<H3>${rest.name}</H3>
+					<h4>
+						<p>
+							<span class="label label-warning">${rest.score}</span>
+							${rest.countComments} calificaciones
+						</p>
+						<br> <br>
+					</h4>
+				</div>
+			</div>
 			<div class="col-md-8">
 				<div class="col-md-12">
 					<ul class="nav nav-pills nav-justified">
@@ -77,38 +74,39 @@
 							<div class="productContainer"></div>
 							<div class="cartresume hide">
 								<div class="subtotal">
-									<br><br>
+									<br> <br>
 									<div class="col-sm-8">Subtotal:</div>
-									<div class='col-sm-4' id="subprice">
+									<div class='col-sm-4' id="subprice"></div>
 								</div>
 								<div class="costoEnvio">
 									<div class="col-sm-8">Envío:</div>
-									<div class='col-sm-4' id="sprice">$ ${rest.cost}
+									<div class='col-sm-4' id="sprice">$ ${rest.cost}</div>
 								</div>
 								<div class="total">
-									<br><br>
-									<div class="col-sm-8"><b>Total:</b></div>
+									<br> <br>
+									<div class="col-sm-8">
+										<b>Total:</b>
+									</div>
 									<div class='col-sm-4' id="tprice">
-									<br>
-									<br>
+										<br> <br>
+									</div>
+									<c:if test="${user != null}">
+										<form action="#" method="POST" id="order">
+											<input type="submit" class="btn btn-info"
+												value="Confirmar pedido">
+										</form>
+									</c:if>
 								</div>
-								<c:if test="${user != null}">
-								<form action="#" method="POST" id="order">
-									<input type="submit" class="btn btn-info"
-										value="Confirmar pedido">
-								</form>
-								</c:if>
 							</div>
+
+
 						</div>
-
-
 					</div>
 				</div>
 			</div>
+
 		</div>
 
 	</div>
-
 </div>
-
 <%@ include file="footer.jsp"%>
