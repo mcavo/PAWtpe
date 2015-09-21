@@ -22,10 +22,6 @@
 									</select>
 								</div>
 
-								<div class="form-group">
-									<select name="restaurant" required>
-									</select>
-								</div>
 
 								<div class="form-group">
 									<select name="restaurant-id" required>
@@ -42,12 +38,12 @@
 
 							</div>
 						</div>
-					</form>
-				</div>
-				<div class="row">
+						<div class="row">
 					<div class="form-group col-md-2 col-md-offset-5">
-						<button type="submit" form="addm" class="btn btn-primary">Confirmar</button>
+						<input type="submit" class="btn btn-info" value="Confirmar">
 					</div>
+				</div>
+					</form>
 				</div>
 			</div>
 		</form>

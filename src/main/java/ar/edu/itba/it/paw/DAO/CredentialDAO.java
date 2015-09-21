@@ -128,27 +128,12 @@ public class CredentialDAO {
 		}
 		return mail;
 	}
-	
-	public void setManager(int userId) throws Exception {
-		Connection con = DBManager.getInstance().getConnection();
-		String query = "UPDATE credencial SET rol = ? WHERE id = ?";
-		try {
-			PreparedStatement pstmt = con.prepareStatement(query);
-			pstmt.setString(1, "manager");
-			pstmt.setInt(2, userId);
-			pstmt.execute();
-			pstmt.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new Exception("The manager coulden't be set");
-		}
-	}
 
 	public List<Credential> getManagersAvailables() {
 		Connection con = DBManager.getInstance().getConnection();
 		List<Credential> creds = new ArrayList<Credential>();
 		try {
-			ResultSet rs = con.createStatement().executeQuery("SELECT mail, FROM credencial AS c WHERE NOT EXISTS (SELECT * FROM gerente AS g WHERE c.id = g.userid  );");
+			ResultSet rs = con.createStatement().executeQuery("SELECT * FROM credencial AS c WHERE NOT EXISTS (SELECT * FROM gerente AS g WHERE c.id = g.userid ) AND EXISTS (SELECT * FROM usuario AS s WHERE s.userid = c.id);");
 			while(rs.next()) {
 				creds.add(new Credential(rs.getInt("id"), rs.getString("rol"),rs.getString("mail")));
 			}

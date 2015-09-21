@@ -67,7 +67,6 @@ public class ManagerService {
 			return;
 		}
 		ManagerDAO.getInstance().setManager(rest.getId(), cred.getId());
-		CredentialDAO.getInstance().setManager(cred.getId());
 	}
 
 	public static List<Credential> getManagersAvailables() {
@@ -78,7 +77,7 @@ public class ManagerService {
 		Credential cred;
 		try {
 			cred = ManagerService.validateEmail(email);
-			if (cred==null || RestService.validateId(restid))
+			if (cred==null || !RestService.validateId(restid))
 				return false;
 			ManagerDAO.getInstance().setManager(cred.getId(),Integer.parseInt(restid));
 			return true;

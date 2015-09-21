@@ -36,28 +36,31 @@ public class AddManager extends HttpServlet {
 		List<Credential> clist;
 		rlist = RestService.getAllRestaurants();
 		clist = ManagerService.getManagersAvailables();
-		request.setAttribute("rlisr", rlist);
-		request.setAttribute("clisr", rlist);
-		request.getRequestDispatcher("/WEB-INF/jsp/addManager.jsp").forward(request, response);;
+		request.setAttribute("rlist", rlist);
+		request.setAttribute("clist", clist);
+		request.getRequestDispatcher("/WEB-INF/jsp/addManager.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Credential cred = null;
-		List<Restaurant> rlist = null;
+		
 		String mail = request.getParameter("manager-mail");
 		String restid = request.getParameter("restaurant-id");
 		try {
-			ManagerService.addManager(mail,restid);
+			if (!ManagerService.addManager(mail,restid)) {
+				response.sendRedirect("/PAWTPE/addmanager");
+			}
+				response.sendRedirect("/PAWTPE/homepage");
 		} catch (Exception e) {
 			e.printStackTrace();
-			request.getRequestDispatcher("/WEB-INF/jsp/addManager.jsp"); 
+			response.sendRedirect("/PAWTPE/homepage");
 			return;
 		}
 		
-		request.getRequestDispatcher("/WEB-INF/jsp/homepage.jsp");
+		
+		return;
 	}
 
 }
