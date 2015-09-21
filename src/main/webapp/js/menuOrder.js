@@ -17,11 +17,19 @@ $(document).ready(function(){
 		} else {
 			var i;
 			var subtotal=0;
-			/*for(i=0 ; i<plist.length; i++) {
-				console.log(plist[i].children(".precio").text());
-				subtotal += Float.parseFloat(plist[i].children(".precio").text().substring(2));
-			}
-			$(".subtotal").append(subtotal);*/
+			$(".product").each(function(index) {
+				var aux = $(this).children(".cant").text();
+				var aux1 = aux.substring(0,aux.length-3);
+				var aux2 = $(this).children(".precio").text();
+				var aux3 = aux2.substring(2,aux2.length);
+				subtotal = subtotal + parseInt(aux1)*parseFloat(aux3);
+				$("#subprice").empty();
+				$("#subprice").text("$ "+subtotal.toFixed(1));
+				var costomin = 0;
+				var total = subtotal+costomin;
+				$("#tprice").empty();
+				$("#tprice").text("<b>$ "+total.toFixed(1)+"<b>");
+			});
 			$(".cartresume").removeClass("hide");
 		}
 		
