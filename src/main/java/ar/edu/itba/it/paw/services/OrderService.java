@@ -1,12 +1,14 @@
 package ar.edu.itba.it.paw.services;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 
 import org.apache.jasper.tagplugins.jstl.ForEach;
 
 import ar.edu.itba.it.paw.DAO.OrderDAO;
 import ar.edu.itba.it.paw.models.Dish;
+import ar.edu.itba.it.paw.models.Order;
 import ar.edu.itba.it.paw.models.Restaurant;
 
 public class OrderService {
@@ -75,5 +77,9 @@ public class OrderService {
 			return null;
 		}
 		return OrderDAO.getInstance().getDishByRestAndName(restId, nameProd);
+	}
+	
+	public static List<Order> getHistoryOrder(Restaurant rest){
+		return OrderDAO.getInstance().getHistory(rest);
 	}
 }

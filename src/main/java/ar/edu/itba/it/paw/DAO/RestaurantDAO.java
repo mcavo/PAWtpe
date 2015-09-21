@@ -60,7 +60,7 @@ public class RestaurantDAO {
 		return rest;
 	}
 	
-	private Restaurant getById(int id) {
+	protected Restaurant getById(int id) {
 		Connection dbConnection;
 		DBManager db = DBManager.getInstance();
 		
