@@ -149,7 +149,7 @@ public class RestaurantDAO {
 		
 	}
 	
-	private List<String> getTypesOfFoodByRestId(int restId){
+	protected List<String> getTypesOfFoodByRestId(int restId){
 		Connection dbConnection;
 		DBManager db = DBManager.getInstance();
 		dbConnection = db.getConnection();
@@ -173,7 +173,7 @@ public class RestaurantDAO {
 		return tof;
 	}
 	
-	private Menu getMenuByRestId(int restId){
+	protected Menu getMenuByRestId(int restId){
 		Menu menu = null;
 		LinkedList<Section> sections = new LinkedList<Section>();
 		Dish dish = null;

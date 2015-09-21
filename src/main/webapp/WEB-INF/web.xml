@@ -126,5 +126,10 @@
 		<servlet-name>ShowOrders</servlet-name>
 	</filter-mapping>
 	
+	<filter-mapping>
+		<filter-name>ManagerFilter</filter-name>
+		<servlet-name>addDish</servlet-name>
+	</filter-mapping>
+	
   <display-name>Archetype Created Web Application</display-name>
 </web-app>
