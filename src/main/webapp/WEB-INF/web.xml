@@ -12,8 +12,8 @@
 	</servlet-mapping>
 	
 	<servlet>
-       <servlet-name>Homepage</servlet-name>
-       <servlet-class>ar.edu.itba.it.paw.servlets.Homepage</servlet-class>
+		<servlet-name>Homepage</servlet-name>
+		<servlet-class>ar.edu.itba.it.paw.servlets.Homepage</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
@@ -90,6 +90,15 @@
 		<servlet-name>Error</servlet-name>
 		<url-pattern>/Error</url-pattern>
 	</servlet-mapping>
+	<servlet>
+       <servlet-name>ShowOrders</servlet-name>
+       <servlet-class>ar.edu.itba.it.paw.servlets.ShowOrders</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ShowOrders</servlet-name>
+		<url-pattern>/showOrders</url-pattern>
+	</servlet-mapping>
+	
 	
 	<filter>
 		<filter-name>UserFilter</filter-name> 
