@@ -17,7 +17,7 @@ public class Restaurant {
 	private String description;
 	private HashMap<Integer, Calification> califications;
 	private Menu menu;
-	private double score;
+	private double score = (double)0;
 	private LocalDate startDate;
 	private int id;
 	
