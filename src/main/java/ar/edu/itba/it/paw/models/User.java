@@ -8,6 +8,7 @@ public class User implements UserPermissions {
 	private String lastName;
 	private LocalDate birth;
 	private boolean isManager;
+	private boolean isAdmin;
 	private Address address;
 	private int id;
 
@@ -72,6 +73,10 @@ public class User implements UserPermissions {
 	/* User Permissions */
 	public boolean getIsAdmin(){
 		return false;
+	}
+	
+	public void setIsAdmin(boolean isAdmin){
+		this.isAdmin = isAdmin;
 	}
 	
 	public boolean getIsManager(){

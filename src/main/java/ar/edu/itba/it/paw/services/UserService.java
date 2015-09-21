@@ -25,6 +25,7 @@ public class UserService {
 			return null;
 		}
 		user.setManager(cred.getRol().equals("gerente"));
+		user.setIsAdmin(cred.getRol().equals("admin"));
 		return user;
 	}
 
@@ -61,7 +62,8 @@ public class UserService {
 		return new User(UserDAO.getInstance().getUserId(mail), firstName, lastName, birth);
 	}
 
-	public static void setIfManager(User user, String rol) {
+	/*public static void setIfManager(User user, String rol) {
 		user.setManager(rol.equals("gerente"));
-	}
+		user.setIsAdmin(rol.equals("admin"));
+	}*/
 }
