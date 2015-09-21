@@ -23,7 +23,6 @@ public class RestaurantList extends HttpServlet{
 		String name = req.getParameter("name");
 		
 		String filterType = req.getParameter("type");
-		System.out.println(filterType);
 		//Implementar orderby despues.
 		List<Restaurant> rlist;
 		if(filterType==null)

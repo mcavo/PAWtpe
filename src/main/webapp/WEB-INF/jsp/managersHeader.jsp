@@ -31,7 +31,8 @@
 			<ul class="nav navbar-nav">
 				<c:choose>
 					<c:when test="${user.isAdmin}">
-						<li><a href="#alta">Alta</a></li>
+						<li><a href="/PAWTPE/admin/addManager">Agregar manager</a></li>
+						<li><a href="/PAWTPE/admin/registerRestaurant">Agregar restaurante</a></li>
 					</c:when>
 					<c:when test="${user.isManager}">
 						<li><a href="/PAWTPE/managers/addDish">Agregar menu</a></li>

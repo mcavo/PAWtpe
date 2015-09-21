@@ -84,7 +84,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>RegisterRestaurant</servlet-name>
-		<url-pattern>/registerrestaurant</url-pattern>
+		<url-pattern>/admin/registerRestaurant</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Error</servlet-name>
@@ -109,24 +109,13 @@
 		<servlet-name>AddManager</servlet-name>
 		<servlet-class>ar.edu.itba.it.paw.servlets.AddManager</servlet-class>
 	</servlet>
-	<servlet>
-		<description>
-		</description>
-		<display-name>ConfirmManager</display-name>
-		<servlet-name>ConfirmManager</servlet-name>
-		<servlet-class>ar.edu.itba.it.paw.servlets.ConfirmManager</servlet-class>
-	</servlet>
 	<servlet-mapping>
 		<servlet-name>AddDish</servlet-name>
 		<url-pattern>/managers/addDish</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>AddManager</servlet-name>
-		<url-pattern>/addmanager</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>ConfirmManager</servlet-name>
-		<url-pattern>/confirmmanager</url-pattern>
+		<url-pattern>/admin/addManager</url-pattern>
 	</servlet-mapping>
 	
 	

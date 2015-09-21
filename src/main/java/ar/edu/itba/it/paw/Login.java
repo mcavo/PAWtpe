@@ -28,6 +28,7 @@ public class Login extends HttpServlet{
 		}
 		//response.setContentType("text/html");
 		request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
+		return;
 	}
 	
 	@Override
@@ -42,9 +43,9 @@ public class Login extends HttpServlet{
 			return;
 		}
 		user = UserService.getUserById(cred);
-		
 		UserManager userManager = new SessionUserManager(req);
 		userManager.setUser(user);
 		resp.sendRedirect("homepage");
+		return;
 	}
 }

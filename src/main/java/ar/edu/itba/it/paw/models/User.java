@@ -72,7 +72,7 @@ public class User implements UserPermissions {
 	
 	/* User Permissions */
 	public boolean getIsAdmin(){
-		return false;
+		return isAdmin;
 	}
 	
 	public void setIsAdmin(boolean isAdmin){

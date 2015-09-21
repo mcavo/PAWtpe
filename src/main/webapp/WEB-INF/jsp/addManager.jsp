@@ -1,4 +1,4 @@
-<%@ include file="header.jsp"%>
+<%@ include file="managersHeader.jsp"%>
 
 <div class="container">
 	<div class="col-md-10 col-md-offset-1">
@@ -6,7 +6,7 @@
 
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">Mail del manager</h3>
+					<h3 class="panel-title">Agregar manager</h3>
 				</div>
 				<div class="panel-body">
 					<form id="addm" method="post" action="addManager">
@@ -14,6 +14,7 @@
 						<div class="row">
 							<div class="col-sm-8 col-sm-offset-2">
 								<div class="form-group">
+									<label>Posibles Gerentes:</label>
 									<select name="manager-mail" required>
 										<c:forEach items="${clist}" var="managerWannaBe">
 											<option value="${managerWannaBe.mail}">
@@ -24,6 +25,7 @@
 
 
 								<div class="form-group">
+									<label>Restaurantes:</label>
 									<select name="restaurant-id" required>
 										<c:forEach items="${rlist}" var="rest">
 											<option value="${rest.id}">${rest.name} - 

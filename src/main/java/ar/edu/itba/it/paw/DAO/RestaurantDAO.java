@@ -259,7 +259,6 @@ public class RestaurantDAO {
 		validateAddress(rest.getAddress(), rest.getName());
 		int addressId = AddressDAO.getInstance().setAddress(rest.getAddress());
 		if(addressId == -1){
-			System.out.println("direccion -1");
 			return; //TODO: throw exception ??
 		}
 		
@@ -283,7 +282,6 @@ public class RestaurantDAO {
 		}
 		int id = getRestaurantId(addressId);
 		if (id == -1) {
-			System.out.println("no restaurant id");
 			return;
 		}
 		setTypes(rest.getTypesOfFood(), id);

@@ -50,7 +50,7 @@ public class AddManager extends HttpServlet {
 		String restid = request.getParameter("restaurant-id");
 		try {
 			if (!ManagerService.addManager(mail,restid)) {
-				response.sendRedirect("/PAWTPE/addmanager");
+				response.sendRedirect("/PAWTPE/admin/addmanager");
 			}
 				response.sendRedirect("/PAWTPE/homepage");
 		} catch (Exception e) {

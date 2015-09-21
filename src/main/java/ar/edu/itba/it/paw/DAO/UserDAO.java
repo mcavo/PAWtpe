@@ -95,7 +95,6 @@ public class UserDAO {
 			pstmt.setInt(1, userid);
 			pstmt.setString(2, user.getFirstName());
 			pstmt.setString(3, user.getLastName());
-			System.out.println(user.getBirth());
 			pstmt.setDate(4, Date.valueOf(user.getBirth()));
 			pstmt.setInt(5, addressid); 
 			

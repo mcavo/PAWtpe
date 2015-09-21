@@ -1,4 +1,4 @@
-<%@ include file="header.jsp"%>
+<%@ include file="managersHeader.jsp"%>
 
 <div class="container">
 	<form data-toggle="validator" role="form" novalidate

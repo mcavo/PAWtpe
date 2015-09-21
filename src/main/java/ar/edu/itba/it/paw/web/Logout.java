@@ -19,7 +19,7 @@ public class Logout extends HttpServlet{
 		if (userManager.existsUser()) {
 			userManager.resetUser(null);
 		}
-		request.getRequestDispatcher("/WEB-INF/jsp/logout.jsp").forward(request, response);
+		response.sendRedirect("/PAWTPE/homepage");
 	}
 	
 	@Override

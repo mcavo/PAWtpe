@@ -11,6 +11,3 @@ INSERT INTO direccion (calle,numero,barrio,provincia,localidad) VALUES ('Gorriti
 INSERT INTO direccion (calle,numero,barrio,provincia,localidad) VALUES ('Soler',5608,'Palermo','Buenos Aires','Capital Federal');
 
 
-SELECT *
-FROM credencial AS c
-WHERE NOT EXISTS (SELECT * FROM gerente AS g WHERE c.id = g.userid  )
