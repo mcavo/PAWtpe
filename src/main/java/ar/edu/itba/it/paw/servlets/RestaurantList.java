@@ -40,4 +40,9 @@ public class RestaurantList extends HttpServlet{
 		
 		req.getRequestDispatcher("/WEB-INF/jsp/restaurantList.jsp").forward(req, resp);
 	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doGet(req, resp);
+	}
 }

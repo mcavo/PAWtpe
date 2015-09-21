@@ -34,9 +34,11 @@ public class OrderService {
 			return false;
 		}
 
+		int total = 0;
 		for (Entry<Dish, String> set: oMap.entrySet()) {
 			
 			int cant; 
+			Dish dish = set.getKey();
 			try {
 				cant = Integer.valueOf(set.getValue());
 			} catch (java.lang.NumberFormatException e) {
@@ -48,10 +50,15 @@ public class OrderService {
 				return false;
 			}
 			OrderDAO.getInstance();
-			if(!OrderDAO.checkDish(rest, set.getKey())){
+			if(!OrderDAO.checkDish(rest, dish)){
 				//dish no existe excp
 				return false;
 			}
+			total += dish.getPrice()*cant;
+		}
+		if(total < rest.getMinimumPurchase()){
+			//monto minimo no llegado
+			return false;
 		}
 		return true;
 	}

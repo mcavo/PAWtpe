@@ -96,7 +96,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ShowOrders</servlet-name>
-		<url-pattern>/showOrders</url-pattern>
+		<url-pattern>/managers/showOrders</url-pattern>
 	</servlet-mapping>
 	<servlet>
        <servlet-name>AddDish</servlet-name>
@@ -104,7 +104,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>AddDish</servlet-name>
-		<url-pattern>/addDish</url-pattern>
+		<url-pattern>/managers/addDish</url-pattern>
 	</servlet-mapping>
 	
 	
@@ -123,7 +123,7 @@
 	</filter> 
 	<filter-mapping>
 		<filter-name>ManagerFilter</filter-name>
-		<servlet-name>ShowOrders</servlet-name>
+		<url-pattern>/managers/*</url-pattern>
 	</filter-mapping>
 	
   <display-name>Archetype Created Web Application</display-name>

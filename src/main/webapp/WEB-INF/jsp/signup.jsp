@@ -132,7 +132,7 @@
 							<div class="form-group has-feedback">
 								<label for="inputFloor" class="control-label col-sm-3">Piso:</label>
 								<div class="col-sm-9">
-									<input type="number" class="form-control" id="inputFloor"
+									<input type="number" min=0 class="form-control" id="inputFloor"
 										placeholder="Piso" name="floor">
 								</div>
 							</div>

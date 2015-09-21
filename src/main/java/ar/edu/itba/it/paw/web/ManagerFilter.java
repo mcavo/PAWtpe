@@ -27,8 +27,8 @@ public class ManagerFilter implements Filter{
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
 		User usr = (User) request.getAttribute("user");
-		if(!usr.getIsManager()){
-			response.sendRedirect("homepage");
+		if(usr == null || !usr.getIsManager()){
+			response.sendRedirect("./../homepage");
 			return;
 		}
 		chain.doFilter(request, response);
