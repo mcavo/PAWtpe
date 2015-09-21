@@ -12,7 +12,6 @@ public class Order {
 	
 	public Order (Restaurant rest, User user,int status) {
 		this.rest=rest;
-		this.ordlist=ordlist;
 		this.user=user;
 		this.status=status;
 	}
