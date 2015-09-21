@@ -1,6 +1,8 @@
 package ar.edu.itba.it.paw.services;
 
+import ar.edu.itba.it.paw.DAO.CredentialDAO;
 import ar.edu.itba.it.paw.DAO.ManagerDAO;
+import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
 
@@ -40,5 +42,29 @@ public class ManagerService {
 			return null;
 		}
 		return ManagerDAO.getInstance().getRestaurant(usr.getId());
+	}
+	
+	public static Credential validateEmail(String email) throws Exception {
+		Credential cred = null;
+		try {
+			ValidateDataService.validateMail(email);
+			cred = CredentialDAO.getInstance().getCredentialsByEmail(email);
+			if (cred == null || !(cred.getRol().equals("usuario"))){
+				throw new Exception("bad parameter");	
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("bad parameter");
+		}
+		return cred;
+	}
+	
+	public static void SetManager(Credential cred,String name, String street, String number, String neighborhood, String city, String province, String floor, String apartment) throws Exception {
+		Restaurant rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
+		if (rest == null) {
+			return;
+		}
+		ManagerDAO.getInstance().setManager(rest.getId(), cred.getId());
+		CredentialDAO.getInstance().setManager(cred.getId());
 	}
 }

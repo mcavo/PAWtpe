@@ -9,7 +9,12 @@ public class Address {
 	private String province;
 	private int floor;
 	private String apartment;
-
+	
+	//Only to use with javabean
+	public Address() {
+		
+	}
+	
 	public Address(String street, int number, int floor, String apartment, String neighborhood, String city, String province) {
 	//public Address(String street, int number, String city, String province, String neighborhood) {
 		this.setStreet(street);

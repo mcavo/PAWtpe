@@ -83,6 +83,26 @@ public class CredentialDAO {
 		}
 		return cred;
 	}
+	
+	public Credential getCredentialsByEmail(String email) {
+		Connection con = DBManager.getInstance().getConnection();
+		String query = "SELECT * FROM credencial WHERE mail like ?";
+		Credential cred = null;
+		try {
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setString(1, email);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				cred = new Credential(rs.getInt("id"), rs.getString("rol"));
+			}
+			pstmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return cred;
+	}
+	
 	// TODO: por ahí hay que modificarlo cuando se realicen las verificaciones, pero en escencia es lo mismo.
 	private boolean validateEmail(String email) {
 		return this.getCredentialID(email) != -1;
@@ -105,5 +125,20 @@ public class CredentialDAO {
 			e.printStackTrace();
 		}
 		return mail;
+	}
+	
+	public void setManager(int userId) throws Exception {
+		Connection con = DBManager.getInstance().getConnection();
+		String query = "UPDATE credencial SET rol = ? WHERE id = ?";
+		try {
+			PreparedStatement pstmt = con.prepareStatement(query);
+			pstmt.setString(1, "manager");
+			pstmt.setInt(2, userId);
+			pstmt.execute();
+			pstmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new Exception("The manager coulden't be set");
+		}
 	}
 }

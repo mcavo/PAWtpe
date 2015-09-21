@@ -5,6 +5,9 @@ public class Credential {
 	private int id;
 	private String rol;
 	
+	public Credential() {
+		
+	}
 	public Credential(int id, String rol){
 		this.id = id;
 		this.rol = rol;

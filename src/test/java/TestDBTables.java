@@ -20,10 +20,12 @@ public class TestDBTables {
 		ResultSet set;
 		try {
 			Statement st = dbConnection.createStatement(); 
-			set = st.executeQuery("SELECT * FROM restaurante;");
+			set = st.executeQuery("SELECT * FROM gerente;");
 			
 			while(set.next()) {
-				for(int i=1 ; i<=3; i++)
+//				for(int i=1 ; i<=3; i++)
+					System.out.print("user: " + set.getInt("userid") + '\n');
+					System.out.print("rest: " + set.getInt("restid") + '\n' + '\n');
 //					System.out.print("id: " + set.getInt("id") + '\n');
 //					System.out.print("mail: " + set.getString("mail") + '\n');
 //					System.out.print("rol: " + set.getString("rol") + '\n');
@@ -42,11 +44,11 @@ public class TestDBTables {
 //					System.out.print("dir: " + set.getString("dirid") + '\n');
 //					System.out.print("nacimiento: " + set.getDate("nacimiento") + '\n' + '\n');
 					
-					System.out.print("id: " + set.getInt("id") + '\n');
-					System.out.print("numero: " + set.getInt("dirid") + '\n');
-					System.out.print("nombre: " + set.getString("nombre") + '\n');
-					System.out.print("mont: " + set.getFloat("montomin") + '\n');
-					System.out.print("depto: " + set.getFloat("hasta") + '\n');
+//					System.out.print("id: " + set.getInt("id") + '\n');
+//					System.out.print("numero: " + set.getInt("dirid") + '\n');
+//					System.out.print("nombre: " + set.getString("nombre") + '\n');
+//					System.out.print("mont: " + set.getFloat("montomin") + '\n');
+//					System.out.print("depto: " + set.getFloat("hasta") + '\n');
 					
 				System.out.println("");
 			}

@@ -181,7 +181,7 @@
 				</div>
 			</div>
 			<div class="form-group col-md-4 col-md-offset-4">
-				<button type="submit" class="btn btn-primary disabled">Submit</button>
+				<button type="submit" class="btn btn-primary disabled">Confirmar</button>
 			</div>
 		</form>
 	</div>

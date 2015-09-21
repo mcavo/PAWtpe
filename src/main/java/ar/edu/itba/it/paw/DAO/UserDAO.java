@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 
 import ar.edu.itba.it.paw.models.Address;
+import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.User;
 
 public class UserDAO {
@@ -107,4 +108,5 @@ public class UserDAO {
 		user.setId(userid);
 		return user;
 	}
+	
 }

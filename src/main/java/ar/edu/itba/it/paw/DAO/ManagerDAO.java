@@ -130,4 +130,20 @@ public class ManagerDAO {
 		}
 		return false;
 	}
+	
+	public void setManager(int restId, int userId) {
+		String sql = "INSERT INTO gerente (userid, restid) VALUES (?, ?);";
+				try {
+					Connection conn = DBManager.getInstance().getConnection();
+					PreparedStatement pstmt = conn.prepareStatement(sql);
+					pstmt.setInt(1, userId);
+					pstmt.setInt(2, restId);
+					pstmt.execute();
+					
+			        pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}		
+	}
 }

@@ -22,6 +22,11 @@ public class Restaurant {
 	private int id;
 	private Float cost;
 	
+	//Only for javabean
+	public Restaurant() {
+		
+	}
+	
 	public Restaurant(int id, String name, double minimumPurchase, Float startService, Float endService, Address address, List<String> typeOfFood, Menu menu, Float cost) {
 		// TODO Auto-generated constructor stub
 		this.setName(name);
