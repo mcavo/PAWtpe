@@ -25,28 +25,6 @@ public class UserDAO {
 		return instance;
 	}
 	
-	public int getUserId(String mail, String pwd){
-		String sql = "SELECT id FROM credencial WHERE mail = ? AND psw = ?;";
-		int id = -1;
-		try{
-			Connection conn = DBManager.getInstance().getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, mail);
-			pstmt.setString(2, pwd);
-			
-			ResultSet rs = pstmt.executeQuery();
-			if ( rs.next() ) {
-			    id  = rs.getInt("id");
-			 }
-			rs.close();
-			pstmt.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return id;
-	}
-	
 	public User getUserById(int id){
 		String sql = "SELECT * FROM usuario WHERE userid = ?";
 		boolean empty = true;
@@ -64,6 +42,7 @@ public class UserDAO {
 			    nombre = rs.getString("nombre");
 			    apellido = rs.getString("apellido");
 			    nacimiento = rs.getDate("nacimiento");
+			    dirid = rs.getInt("dirid");
 			 }
 	         rs.close();
 	         pstmt.close();
@@ -74,7 +53,9 @@ public class UserDAO {
 		if(empty){
 			return null;
 		}
-		return new User(id, nombre, apellido, nacimiento.toLocalDate());
+		User user = new User(id, nombre, apellido, nacimiento.toLocalDate());
+		user.setAddress(AddressDAO.getInstance().getAddressById(dirid));
+		return user;
 	}
 
 	public int getUserId(String mail) {

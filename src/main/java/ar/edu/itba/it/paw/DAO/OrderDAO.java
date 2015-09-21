@@ -166,6 +166,7 @@ public class OrderDAO {
 			while (rs.next()) {
 				order = new Order(rest, UserDAO.getInstance().getUserById(rs.getInt("userid")), rs.getInt("estado"));
 				order.setOrdlist(getOrderList(rs.getInt("id")));
+				history.add(order);
 			}
 			rs.close();
 			pstmt.close();
@@ -181,7 +182,7 @@ public class OrderDAO {
 		Map<Dish, Integer> order = new HashMap<Dish, Integer>();
 		try {
 			Connection conn = DBManager.getInstance().getConnection();
-			String sql = "select * from prodPedidos where id = ? ";
+			String sql = "select * from prodPedidos where pedid = ? ";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, orderId);
 

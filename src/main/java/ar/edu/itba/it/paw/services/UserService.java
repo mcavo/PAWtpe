@@ -3,8 +3,10 @@ package ar.edu.itba.it.paw.services;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
+import ar.edu.itba.it.paw.DAO.CredentialDAO;
 import ar.edu.itba.it.paw.DAO.UserDAO;
 import ar.edu.itba.it.paw.models.Address;
+import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.User;
 
 public class UserService {
@@ -12,13 +14,17 @@ public class UserService {
 
 	private static UserDAO instanceDAO = UserDAO.getInstance();
 			
-	public static int getUserId(String mail, String pwd){
-		int id = instanceDAO.getUserId(mail, pwd);
-		return id;
+	public static Credential getUserCredentials(String mail, String pwd){
+		return CredentialDAO.getInstance().getCredentials(mail, pwd);
 	}
 	
-	public static User getUserById(int id){
-		User user = instanceDAO.getUserById(id);
+	public static User getUserById(Credential cred){
+		User user = instanceDAO.getUserById(cred.getId());
+		if(user == null){
+			//app error
+			return null;
+		}
+		user.setManager(cred.getRol().equals("gerente"));
 		return user;
 	}
 
@@ -53,5 +59,9 @@ public class UserService {
 
 	private static User createUser(String mail, String firstName, String lastName, LocalDate birth) {
 		return new User(UserDAO.getInstance().getUserId(mail), firstName, lastName, birth);
+	}
+
+	public static void setIfManager(User user, String rol) {
+		user.setManager(rol.equals("gerente"));
 	}
 }
