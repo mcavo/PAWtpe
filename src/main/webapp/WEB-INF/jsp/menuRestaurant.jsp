@@ -77,14 +77,16 @@
 							<div class="productContainer"></div>
 							<div class="cartresume hide">
 								<div class="subtotal">
+									<br><br>
 									<div class="col-sm-8">Subtotal:</div>
 									<div class='col-sm-4' id="subprice">
 								</div>
 								<div class="costoEnvio">
 									<div class="col-sm-8">Envío:</div>
-									<div class='col-sm-4' id="subprice">
+									<div class='col-sm-4' id="sprice">$ ${rest.cost}
 								</div>
 								<div class="total">
+									<br><br>
 									<div class="col-sm-8"><b>Total:</b></div>
 									<div class='col-sm-4' id="tprice">
 									<br>
