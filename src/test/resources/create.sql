@@ -39,7 +39,7 @@ CREATE TABLE restaurante (
 	desde FLOAT NOT NULL,
 	hasta FLOAT NOT NULL,
 	montomin FLOAT NOT NULL,
-	regis TIMESTAMP NOT NULL,
+	regis TIMESTAMP NOT NULL SET DEFAULT CURRENT_TIMESTAMP,
 	costoenvio FLOAT,	
 	PRIMARY KEY(id),
 	UNIQUE(dirid), 

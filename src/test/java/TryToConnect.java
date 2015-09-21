@@ -58,11 +58,13 @@ public class TryToConnect {
 			//dbConnection.createStatement().execute("DELETE FROM usuario WHERE userid=2;");
 			//dbConnection.createStatement().execute("INSERT INTO usuario values (1,'María Victoria', 'Cavo', 6, );");
 			/**/
-			//dbConnection.createStatement().execute("DELETE FROM pedido WHERE (id<9) AND (id<>4);");
-			ResultSet set = dbConnection.createStatement().executeQuery("SELECT id FROM pedido");
+			//dbConnection.createStatement().execute("ALTER TABLE restaurante ALTER COLUMN descripcion DROP NOT NULL;");
+			//dbConnection.createStatement().execute("DELETE FROM plato WHERE id=3;");
+			//dbConnection.createStatement().execute("ALTER TABLE restaurante ALTER COLUMN regis SET DEFAULT CURRENT_TIMESTAMP;");
+			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM restaurante");
 			
 			while(set.next()) {
-				for(int i=1 ; i<=1; i++)
+				for(int i=1 ; i<=9; i++)
 					System.out.print(set.getString(i)+" | ");
 				System.out.println("");
 			}
