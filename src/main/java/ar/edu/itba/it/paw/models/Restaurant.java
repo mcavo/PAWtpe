@@ -41,7 +41,7 @@ public class Restaurant {
 	}
 	
 	private void calculateScore() {
-		if(califications==null) {
+		if(califications==null || califications.isEmpty()) {
 			this.score = (double) 0;
 			return;
 		}
