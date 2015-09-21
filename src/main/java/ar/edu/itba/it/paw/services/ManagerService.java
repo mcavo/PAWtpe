@@ -6,7 +6,7 @@ import ar.edu.itba.it.paw.models.User;
 
 public class ManagerService {
 
-	public Restaurant getRestByManager(User manager){
+	public static Restaurant getRestByManager(User manager){
 		if(!manager.getIsManager()){
 			//app error: no es manager
 			return null;
