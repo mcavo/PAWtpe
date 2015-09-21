@@ -1,6 +1,7 @@
 package ar.edu.itba.it.paw.models;
 
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class Order {
 	
@@ -11,7 +12,6 @@ public class Order {
 	
 	public Order (Restaurant rest, User user,int status) {
 		this.rest=rest;
-		this.ordlist=ordlist;
 		this.user=user;
 		this.status=status;
 	}
@@ -46,5 +46,13 @@ public class Order {
 
 	public void setStatus(int status) {
 		this.status = status;
+	}
+	
+	public double getTotal() {
+		double total = (double)0;
+		for(Entry<Dish,Integer> set : ordlist.entrySet()) {
+			total+=set.getValue()*set.getKey().getPrice();
+		}
+		return total;
 	}
 }

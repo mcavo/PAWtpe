@@ -35,7 +35,7 @@
 					</c:when>
 					<c:when test="${user.isManager}">
 						<li><a href="#menu">Agregar menu</a></li>
-						<li><a href="#histo">Ver historial</a></li>
+						<li><a href="/PAWTPE/showOrders">Ver historial</a></li>
 					</c:when> 
 				</c:choose>
 				<li><a href="/PAWTPE/restaurantList">Restaurantes</a></li>

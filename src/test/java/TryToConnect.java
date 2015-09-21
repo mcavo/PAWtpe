@@ -60,10 +60,10 @@ public class TryToConnect {
 			//dbConnection.createStatement().execute("INSERT INTO usuario values (1,'María Victoria', 'Cavo', 6, );");
 			/**/
 			
-			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM pedido;");
+			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM calificacion;");
 			
 			while(set.next()) {
-				for(int i=1 ; i<=3; i++)
+				for(int i=1 ; i<=4; i++)
 					System.out.print(set.getString(i)+" | ");
 				System.out.println("");
 			}
