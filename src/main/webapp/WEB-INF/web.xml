@@ -3,6 +3,19 @@
 	version="2.4">
 
 	<servlet>
+      <servlet-name>sprintSpring</servlet-name>
+      <servlet-class>
+         org.springframework.web.servlet.DispatcherServlet
+      </servlet-class>
+      <load-on-startup>1</load-on-startup>
+   </servlet>
+
+   <servlet-mapping>
+      <servlet-name>sprintSpring</servlet-name>
+      <url-pattern>/bin/*</url-pattern>
+   </servlet-mapping>
+   
+	<servlet>
        <servlet-name>Login</servlet-name>
        <servlet-class>ar.edu.itba.it.paw.Login</servlet-class>
 	</servlet>
