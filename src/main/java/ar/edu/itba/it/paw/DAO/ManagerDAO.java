@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import ar.edu.itba.it.paw.DAO.impl.RestaurantDAO;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
 
@@ -33,7 +34,7 @@ public class ManagerDAO {
 
 			ResultSet rs = pstmt.executeQuery();
 			if ( rs.next() ) {
-				rest = RestaurantDAO.getInstance().getById(rs.getInt("restid"));
+				rest = (new RestaurantDAO()).getById(rs.getInt("restid"));
 			 }
 	         rs.close();
 	         pstmt.close();
@@ -98,7 +99,7 @@ public class ManagerDAO {
 			ResultSet rs = pstmt.executeQuery();
 			if ( rs.next() ) {
 				restId = rs.getInt("id");
-				rest = new Restaurant(restId, rs.getString("nombre"), rs.getFloat("montomin"), rs.getFloat("desde"), rs.getFloat("hasta"), null, RestaurantDAO.getInstance().getTypesOfFoodByRestId(restId), RestaurantDAO.getInstance().getMenuByRestId(restId), rs.getFloat("costoenvio"));
+				rest = new Restaurant(restId, rs.getString("nombre"), rs.getFloat("montomin"), rs.getFloat("desde"), rs.getFloat("hasta"), null, (new RestaurantDAO()).getTypesOfFoodByRestId(restId), (new RestaurantDAO()).getMenuByRestId(restId), rs.getFloat("costoenvio"));
 			 }
 	         rs.close();
 	         pstmt.close();

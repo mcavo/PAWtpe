@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.DAO;
+package ar.edu.itba.it.paw.DAO.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,10 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
 import java.util.ArrayList;
 
+import ar.edu.itba.it.paw.DAO.DBManager;
 import ar.edu.itba.it.paw.models.Address;
 
+@Repository
 public class AddressDAO {
 	
 	private static AddressDAO instance;
@@ -124,7 +129,7 @@ public class AddressDAO {
 		return addressId;
 	}
 
-	protected List<Integer> getIds(Address address){//String street, int number, String neighborhood, String city, String province, int floor, String apartment) {
+	public List<Integer> getIds(Address address){//String street, int number, String neighborhood, String city, String province, int floor, String apartment) {
 		List<Integer> ids = new LinkedList<Integer>();
 		try {
 			Connection conn = DBManager.getInstance().getConnection();

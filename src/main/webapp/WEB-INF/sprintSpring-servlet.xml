@@ -10,13 +10,14 @@
          http://www.springframework.org/schema/context/spring-context-3.0.xsd
          http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
-	<!-- Servicios -->
-	<import resource="classpath:service.xml" />
-	
-	<!-- DAOs -->
-	<import resource="classpath:dao.xml" />
-
+	<context:component-scan base-package="ar.edu.itba.it.paw" />
 	<!-- Beans relacionados con Spring MVC -->
 	<import resource="classpath:mvc.xml" />
+
+	<!-- Servicios - ya no hace falta declararlos - Spring scanea @Service en Clases -->
+	<!--<import resource="classpath:service.xml" />-->
+	
+	<!-- DAOs - Ya no hace falta declararlo - Spring scanea @Repository en clases -->
+	<!--<import resource="classpath:dao.xml" />-->
 	
 </beans>

@@ -26,9 +26,9 @@ public class RestaurantList extends HttpServlet{
 		//Implementar orderby despues.
 		List<Restaurant> rlist;
 		if(filterType==null)
-			rlist = RestService.getAllRestaurants();
+			rlist = (new RestService()).getAllRestaurants();
 		else
-			rlist = RestService.getRestaurants(filterType);
+			rlist = (new RestService()).getRestaurants(filterType);
 		for(Restaurant rest : rlist) {
 			rest.setCalifications(CalificationService.getCalificationsByRestId(rest.getId()));
 			HashMap<Integer,Calification> map = CalificationService.getCalificationsByRestId(rest.getId());

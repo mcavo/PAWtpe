@@ -34,7 +34,7 @@ public class AddManager extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Restaurant> rlist;
 		List<Credential> clist;
-		rlist = RestService.getAllRestaurants();
+		rlist = (new RestService()).getAllRestaurants();
 		clist = ManagerService.getManagersAvailables();
 		request.setAttribute("rlist", rlist);
 		request.setAttribute("clist", clist);
