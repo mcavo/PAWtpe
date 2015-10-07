@@ -5,7 +5,7 @@
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="well">
-				<form role="form" action="/PAWTPE/restaurant/list" method="POST">
+				<form role="form" action="/PAWTPE/bin/restaurant/list" method="POST">
 					<div class="form-group">
 						<label for="type"><span class="glyphicon glyphicon-filter"></span>Filtrar por:</label> 
 						<select

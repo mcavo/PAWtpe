@@ -30,8 +30,10 @@ public class RestaurantController {
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public String list(HttpServletRequest req) {
-		restaurantService.getRestaurants(req.getParameter("type"));
-		return "redirect:list";
+	public ModelAndView list(HttpServletRequest req) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("rlist", restaurantService.getRestaurants(req.getParameter("type")));
+		mav.setViewName("restaurantList");
+		return mav;
 	}
 }

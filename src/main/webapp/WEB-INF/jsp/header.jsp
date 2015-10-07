@@ -40,7 +40,7 @@
 						<li><a href="/PAWTPE/managers/showOrders">Ver historial</a></li>
 					</c:when> 
 				</c:choose>
-				<li><a href="/PAWTPE/restaurant/list">Restaurantes</a></li>
+				<li><a href="/PAWTPE/bin/restaurant/list">Restaurantes</a></li>
 				<li><a href="#contact">Contacto</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">

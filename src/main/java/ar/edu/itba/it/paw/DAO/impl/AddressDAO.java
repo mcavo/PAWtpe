@@ -129,7 +129,7 @@ public class AddressDAO {
 		return addressId;
 	}
 
-	public List<Integer> getIds(Address address){//String street, int number, String neighborhood, String city, String province, int floor, String apartment) {
+	protected List<Integer> getIds(Address address){//String street, int number, String neighborhood, String city, String province, int floor, String apartment) {
 		List<Integer> ids = new LinkedList<Integer>();
 		try {
 			Connection conn = DBManager.getInstance().getConnection();
