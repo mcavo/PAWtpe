@@ -25,7 +25,7 @@ public class RestaurantController {
 	public ModelAndView list() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("rlist", restaurantService.getAllRestaurants());
-		mav.setViewName("/WEB-INF/jsp/restaurant/list.jsp");
+		mav.setViewName("restaurantList");
 		return mav;
 	}
 	

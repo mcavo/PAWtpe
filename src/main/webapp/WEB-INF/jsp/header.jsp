@@ -9,10 +9,10 @@
 <head>
 <title>Food on Board</title>
 <link href="image/favicon.ico" rel="icon" type="image/x-icon" />
-<link href="css/common.css" type="text/css" rel="stylesheet">
-<link href="css/restcard.css" type="text/css" rel="stylesheet">
-<link href="css/comments.css" type="text/css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+<link href="../../css/common.css" type="text/css" rel="stylesheet">
+<link href="../../css/restcard.css" type="text/css" rel="stylesheet">
+<link href="../../css/comments.css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css" />
 </head>
 <body class="mybody">
 
