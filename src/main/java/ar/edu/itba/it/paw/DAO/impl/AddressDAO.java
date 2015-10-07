@@ -17,17 +17,8 @@ import ar.edu.itba.it.paw.models.Address;
 @Repository
 public class AddressDAO {
 	
-	private static AddressDAO instance;
-	
 	public AddressDAO() {
 		// TODO Auto-generated constructor stub
-	}
-	
-	public static AddressDAO getInstance() {
-		if (instance == null) {
-			instance = new AddressDAO();
-		}
-		return instance;
 	}
 	
 	public Address getAddressById(int addressId) {

@@ -56,7 +56,7 @@ public class UserDAO {
 			return null;
 		}
 		User user = new User(id, nombre, apellido, nacimiento.toLocalDate());
-		user.setAddress(AddressDAO.getInstance().getAddressById(dirid));
+		user.setAddress(new AddressDAO().getAddressById(dirid));
 		return user;
 	}
 
@@ -85,7 +85,7 @@ public class UserDAO {
 		String role;
 		role = user.getIsManager() ? "manager" : "usuario"; 
 		int userid = CredentialDAO.getInstance().setCredentials(user.getEmail(), pwd, role); //Excpetion use to give feedback to the user if the email is still used
-		int addressid = AddressDAO.getInstance().setAddress(user.getAddress());
+		int addressid = new AddressDAO().setAddress(user.getAddress());
 	
 		String query = "INSERT INTO usuario (userid, nombre, apellido, nacimiento, dirid ) VALUES (? , ?, ?, ?, ?);";
 		DBManager.getInstance();

@@ -20,8 +20,6 @@ import ar.edu.itba.it.paw.models.Section;
 @Repository
 public class RestaurantDAO {
 
-	private static RestaurantDAO instance = null;
-
 	private AddressDAO addressDao;
 	
 	//este debe volar:
@@ -82,7 +80,7 @@ public class RestaurantDAO {
 
 			int dirId = sr.getInt("dirid");
 			Menu menu = getMenuByRestId(id);
-			Address address = AddressDAO.getInstance().getAddressById(dirId);
+			Address address = addressDao.getAddressById(dirId);
 			List<String> tipos = getTypesOfFoodByRestId(id);
 			Restaurant res = new Restaurant(id, sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, menu, sr.getFloat("costoenvio"));		
 			sr.close();
@@ -110,7 +108,7 @@ public class RestaurantDAO {
 			while(sr.next()) {
 				restId = sr.getInt("id");
 				menu = getMenuByRestId(restId);
-				Address address = AddressDAO.getInstance().getAddressById(sr.getInt("dirid"));
+				Address address = addressDao.getAddressById(sr.getInt("dirid"));
 				List<String> tipos = getTypesOfFoodByRestId(restId);
 				rests.add(new Restaurant(restId, sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, menu, sr.getFloat("costoenvio")));
 			}
@@ -138,7 +136,7 @@ public class RestaurantDAO {
 			while(sr.next()) {
 				restId = sr.getInt("id");
 				menu = getMenuByRestId(restId);
-				Address address = AddressDAO.getInstance().getAddressById(sr.getInt("dirid"));
+				Address address = addressDao.getAddressById(sr.getInt("dirid"));
 				List<String> tipos = getTypesOfFoodByRestId(restId);
 				rest.add(new Restaurant(restId, sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, menu, sr.getFloat("costoenvio")));
 			}
@@ -223,7 +221,7 @@ public class RestaurantDAO {
 	public Restaurant getRestaurant(String name, String street, int number, String neighborhood, String city, String province, int floor, String apartment) {
 		//int addressId = getAddressId(street, number, neighborhood, city, province, floor, apartment);
 		Address address = new Address(street, number, floor, apartment, neighborhood, city, province);
-		List<Integer> addressIds = AddressDAO.getInstance().getIds(address);
+		List<Integer> addressIds = addressDao.getIds(address);
 				if(addressIds.isEmpty()){
 			//app error!
 			return null;
@@ -241,7 +239,7 @@ public class RestaurantDAO {
 		return rest;
 	}
 	
-	protected Restaurant matchRestAddress(String name, int addressId){
+	public Restaurant matchRestAddress(String name, int addressId){
 		int restId = -1;
 		Restaurant rest = null;
 		try{
@@ -267,7 +265,7 @@ public class RestaurantDAO {
 	public void setRestaurant(Restaurant rest) throws Exception {
 		String sql = "INSERT INTO restaurante (dirid, nombre, descripcion, desde, hasta, montomin, costoenvio) VALUES (?, ?, ?, ?, ?, ?, ?);";
 		validateAddress(rest.getAddress(), rest.getName());
-		int addressId = AddressDAO.getInstance().setAddress(rest.getAddress());
+		int addressId = addressDao.setAddress(rest.getAddress());
 		if(addressId == -1){
 			return; //TODO: throw exception ??
 		}
@@ -299,7 +297,7 @@ public class RestaurantDAO {
 	
 	private void validateAddress(Address address, String name) throws Exception {
 		String sql = "SELECT * FROM restaurante WHERE dirid = ? AND nombre = ?";
-		ArrayList<Integer> addressIds = AddressDAO.getInstance().getAddressesIds(address);
+		ArrayList<Integer> addressIds = addressDao.getAddressesIds(address);
 		Connection dbConnection;
 		DBManager db = DBManager.getInstance();
 		dbConnection = db.getConnection();
