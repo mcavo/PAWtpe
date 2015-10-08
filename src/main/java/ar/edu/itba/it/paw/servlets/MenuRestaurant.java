@@ -19,9 +19,9 @@ import ar.edu.itba.it.paw.models.Menu;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.Section;
 import ar.edu.itba.it.paw.models.User;
-import ar.edu.itba.it.paw.services.CalificationService;
-import ar.edu.itba.it.paw.services.OrderService;
 import ar.edu.itba.it.paw.services.RestService;
+import ar.edu.itba.it.paw.services.impl.CalificationServiceImpl;
+import ar.edu.itba.it.paw.services.impl.OrderServiceImpl;
 
 public class MenuRestaurant extends HttpServlet {
 
@@ -42,7 +42,7 @@ public class MenuRestaurant extends HttpServlet {
 
 		Restaurant rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor,
 				apartment);
-		rest.setCalifications(CalificationService.getCalificationsByRestId(rest.getId()));
+		rest.setCalifications(CalificationServiceImpl.getCalificationsByRestId(rest.getId()));
 		req.setAttribute("rest", rest);
 		req.getRequestDispatcher("/WEB-INF/jsp/menuRestaurant.jsp").forward(req, resp);
 	}
@@ -74,11 +74,11 @@ public class MenuRestaurant extends HttpServlet {
 			String param = (String) objOri;
 			String value = req.getParameter(param);
 			
-			Dish d = OrderService.getDishByRestIdName(rest.getId(),param);
+			Dish d = OrderServiceImpl.getDishByRestIdName(rest.getId(),param);
 			if(d != null)
 				map.put(d,value);	
 		}
-		if(!OrderService.sendOrder(usr.getId(), rest, map));
+		if(!OrderServiceImpl.sendOrder(usr.getId(), rest, map));
 		req.setAttribute("rest", rest);
 		req.getRequestDispatcher("/WEB-INF/jsp/showRestaurant.jsp").forward(req, resp);
 

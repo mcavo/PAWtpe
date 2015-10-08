@@ -8,11 +8,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ar.edu.itba.it.paw.DAO.UserDAO;
+import ar.edu.itba.it.paw.DAO.impl.UserDAOImpl;
 import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.Restaurant;
-import ar.edu.itba.it.paw.services.ManagerService;
 import ar.edu.itba.it.paw.services.RestService;
+import ar.edu.itba.it.paw.services.impl.ManagerServiceImpl;
 
 /**
  * Servlet implementation class AddManager
@@ -35,7 +35,7 @@ public class AddManager extends HttpServlet {
 		List<Restaurant> rlist;
 		List<Credential> clist;
 		rlist = (new RestService()).getAllRestaurants();
-		clist = ManagerService.getManagersAvailables();
+		clist = ManagerServiceImpl.getManagersAvailables();
 		request.setAttribute("rlist", rlist);
 		request.setAttribute("clist", clist);
 		request.getRequestDispatcher("/WEB-INF/jsp/addManager.jsp").forward(request, response);
@@ -49,7 +49,7 @@ public class AddManager extends HttpServlet {
 		String mail = request.getParameter("manager-mail");
 		String restid = request.getParameter("restaurant-id");
 		try {
-			if (!ManagerService.addManager(mail,restid)) {
+			if (!ManagerServiceImpl.addManager(mail,restid)) {
 				response.sendRedirect("/PAWTPE/admin/addmanager");
 			}
 				response.sendRedirect("/PAWTPE/homepage");

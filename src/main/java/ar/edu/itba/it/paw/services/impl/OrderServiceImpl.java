@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.services;
+package ar.edu.itba.it.paw.services.impl;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,14 +6,20 @@ import java.util.Map.Entry;
 
 import org.apache.jasper.tagplugins.jstl.ForEach;
 
-import ar.edu.itba.it.paw.DAO.OrderDAO;
+import ar.edu.itba.it.paw.DAO.impl.OrderDAOImpl;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Order;
 import ar.edu.itba.it.paw.models.Restaurant;
 
-public class OrderService {
+public class OrderServiceImpl {
 
-	private static boolean checkOrder(int usrId, Restaurant rest, HashMap<Dish, String> oMap){
+	private OrderDAOImpl orderDAO;
+	
+	public OrderServiceImpl(OrderDAOImpl orderDao){
+		this.orderDAO = orderDao;
+	}
+	
+	private boolean checkOrder(int usrId, Restaurant rest, HashMap<Dish, String> oMap){
 		/*int usrIdV;
 		try {
 		usrIdV = Integer.valueOf(usrId);
@@ -49,8 +55,7 @@ public class OrderService {
 				//cant excepcion
 				return false;
 			}
-			OrderDAO.getInstance();
-			if(!OrderDAO.checkDish(rest, dish)){
+			if(!orderDAO.checkDish(rest, dish)){
 				//dish no existe excp
 				return false;
 			}
@@ -63,7 +68,7 @@ public class OrderService {
 		return true;
 	}
 	
-	public static boolean sendOrder(int usrId, Restaurant rest, HashMap<Dish, String> oMap){
+	public boolean sendOrder(int usrId, Restaurant rest, HashMap<Dish, String> oMap){
 		if(!checkOrder(usrId, rest, oMap)){
 			//show excp
 			return false;
@@ -74,19 +79,19 @@ public class OrderService {
 			if (aux!=0)
 				map.put(set.getKey(), aux);
 		}
-		OrderDAO.getInstance().sendOrder(Integer.valueOf(usrId), rest.getId(), map);
+		orderDAO.sendOrder(Integer.valueOf(usrId), rest.getId(), map);
 		return true;
 	}
 	
-	public static Dish getDishByRestIdName(int restId, String nameProd){
+	public Dish getDishByRestIdName(int restId, String nameProd){
 		if(restId == 0 || nameProd == null || nameProd.isEmpty()){
 			//app error
 			return null;
 		}
-		return OrderDAO.getInstance().getDishByRestAndName(restId, nameProd);
+		return orderDAO.getDishByRestAndName(restId, nameProd);
 	}
 	
-	public static List<Order> getHistoryOrder(Restaurant rest){
-		return OrderDAO.getInstance().getHistory(rest);
+	public List<Order> getHistoryOrder(Restaurant rest){
+		return orderDAO.getHistory(rest);
 	}
 }

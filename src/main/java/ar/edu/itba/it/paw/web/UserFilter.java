@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import ar.edu.itba.it.paw.SessionUserManager;
 import ar.edu.itba.it.paw.UserManager;
 import ar.edu.itba.it.paw.models.User;
-import ar.edu.itba.it.paw.services.UserService;
+import ar.edu.itba.it.paw.services.impl.UserServiceImpl;
 
 public class UserFilter implements Filter {
 

@@ -1,25 +1,31 @@
-package ar.edu.itba.it.paw.services;
+package ar.edu.itba.it.paw.services.impl;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
-import ar.edu.itba.it.paw.DAO.CredentialDAO;
-import ar.edu.itba.it.paw.DAO.UserDAO;
+import ar.edu.itba.it.paw.DAO.impl.CredentialDAOImpl;
+import ar.edu.itba.it.paw.DAO.impl.RestaurantDAOImpl;
+import ar.edu.itba.it.paw.DAO.impl.UserDAOImpl;
 import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.User;
 
-public class UserService {
+public class UserServiceImpl {
 
-
-	private static UserDAO instanceDAO = UserDAO.getInstance();
+	private UserDAOImpl userDAO;
+	private CredentialDAOImpl credentialDAO;
 			
-	public static Credential getUserCredentials(String mail, String pwd){
-		return CredentialDAO.getInstance().getCredentials(mail, pwd);
+	public UserServiceImpl(UserDAOImpl dao, CredentialDAOImpl credentialDao){
+		this.userDAO = dao;
+		this.credentialDAO = credentialDao;
 	}
 	
-	public static User getUserById(Credential cred){
-		User user = instanceDAO.getUserById(cred.getId());
+	public Credential getUserCredentials(String mail, String pwd){
+		return credentialDAO.getCredentials(mail, pwd);
+	}
+	
+	public User getUserById(Credential cred){
+		User user = userDAO.getUserById(cred.getId());
 		if(user == null){
 			//app error
 			return null;
@@ -29,7 +35,7 @@ public class UserService {
 		return user;
 	}
 
-	public static User signUp(String email, String pwd, String firstName, String lastName, String day, String month, String year, boolean isManager, String street, String number, String city, String province, String neighborhood, String floor, String apartment) throws DateTimeException, NumberFormatException, Exception {
+	public User signUp(String email, String pwd, String firstName, String lastName, String day, String month, String year, boolean isManager, String street, String number, String city, String province, String neighborhood, String floor, String apartment) throws DateTimeException, NumberFormatException, Exception {
 		//Get day
 		LocalDate birth = null;
 		short dayV = Integer.valueOf(day).shortValue();
@@ -55,11 +61,11 @@ public class UserService {
 		user.setEmail(email);
 		user.setManager(isManager);
 		user.setAddress(address);
-		return UserDAO.getInstance().setUser(user, pwd); //TODO: esta exceptción debería ser cambiada por una más personalizada.
+		return userDAO.setUser(user, pwd); //TODO: esta exceptción debería ser cambiada por una más personalizada.
 	}
 
-	private static User createUser(String mail, String firstName, String lastName, LocalDate birth) {
-		return new User(UserDAO.getInstance().getUserId(mail), firstName, lastName, birth);
+	private User createUser(String mail, String firstName, String lastName, LocalDate birth) {
+		return new User(userDAO.getUserId(mail), firstName, lastName, birth);
 	}
 
 	/*public static void setIfManager(User user, String rol) {

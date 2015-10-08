@@ -9,10 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ar.edu.itba.it.paw.DAO.UserDAO;
+import ar.edu.itba.it.paw.DAO.impl.UserDAOImpl;
 import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.User;
-import ar.edu.itba.it.paw.services.UserService;
+import ar.edu.itba.it.paw.services.impl.UserServiceImpl;
 
 /**
  * Servlet implementation class SignUp
@@ -68,7 +68,7 @@ public class SignUp extends HttpServlet {
 
 		User user = null;
 		try {
-			user = UserService.signUp(email, pwd, firstName, lastName, day, month, year, false, street, number, city, province, neighborhood, floor, apartment);
+			user = UserServiceImpl.signUp(email, pwd, firstName, lastName, day, month, year, false, street, number, city, province, neighborhood, floor, apartment);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response); //Debería distinguirse si el mail está en uso, o hubo una falla de parámetros

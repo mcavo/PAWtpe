@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import ar.edu.itba.it.paw.DAO.impl.RestaurantDAO;
+import ar.edu.itba.it.paw.DAO.impl.RestaurantDAOImpl;
 import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Restaurant;
 
 public class RestService {
 
-	public static List<Restaurant> getLastWeekRestaurants(){
-		return (new RestaurantDAO()).getLastWeekAdded();
+	/*public static List<Restaurant> getLastWeekRestaurants(){
+		return (new RestaurantDAOImpl()).getLastWeekAdded();
 	}
 	
 	public List<Restaurant> getAllRestaurants() {
-		List<Restaurant> res = (new RestaurantDAO()).getAll();
+		List<Restaurant> res = (new RestaurantDAOImpl()).getAll();
 		if(res!=null)
 			res.sort(new Comparator<Restaurant> () {
 
@@ -29,7 +29,7 @@ public class RestService {
 	}
 	
 	public List<Restaurant> getRestaurants(String typeOfFood) {
-		List<Restaurant> res = (new RestaurantDAO()).filterBy(typeOfFood);
+		List<Restaurant> res = (new RestaurantDAOImpl()).filterBy(typeOfFood);
 		if(res!=null)
 			res.sort(new Comparator<Restaurant> () {
 
@@ -45,7 +45,7 @@ public class RestService {
 		if(name == null){
 			return null;
 		}	
-		return (new RestaurantDAO()).getRestaurant(name, street, Integer.valueOf(number), neighborhood, city, province, Integer.valueOf(floor), apartment);
+		return (new RestaurantDAOImpl()).getRestaurant(name, street, Integer.valueOf(number), neighborhood, city, province, Integer.valueOf(floor), apartment);
 	}
 
 	public static void addCalification(int usrId, Restaurant rest, Calification q) {
@@ -90,7 +90,7 @@ public class RestService {
 		Address address = new Address(street, numberV, floorV, apartment, neighborhood, city, province);
 		Restaurant rest = new Restaurant(-1, name, minimumPurchase, from, to, address, validTypes, null, costV);
 		
-		(new RestaurantDAO()).setRestaurant(rest);
+		(new RestaurantDAOImpl()).setRestaurant(rest);
 		
 	}
 
@@ -98,10 +98,10 @@ public class RestService {
 		int id;
 		try {
 			id = Integer.parseInt(restid);
-			return (new RestaurantDAO()).validateId(id);
+			return (new RestaurantDAOImpl()).validateId(id);
 		} catch (java.lang.NumberFormatException e) {
 			return false;
 		}
 	}
-	
+	*/
 }

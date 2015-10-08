@@ -11,13 +11,14 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 
+import ar.edu.itba.it.paw.DAO.AddressDAO;
 import ar.edu.itba.it.paw.DAO.DBManager;
 import ar.edu.itba.it.paw.models.Address;
 
 @Repository
-public class AddressDAO {
+public class AddressDAOImpl implements AddressDAO{
 	
-	public AddressDAO() {
+	public AddressDAOImpl() {
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -80,7 +81,7 @@ public class AddressDAO {
 		return this.getAddressID(address);
 	}
 	
-	protected int getAddressID(Address address) {
+	public int getAddressID(Address address) {
 		// TODO: reveer esta query. No sé si es lo mejor. Necesito conseguir el id de la última tupla que agregué.
 		String query = "SELECT id FROM direccion WHERE calle = ? AND localidad = ? AND provincia = ? AND numero = ? AND (piso = ? or piso is null) AND (departamento = ? or departamento is null) AND barrio = ? AND id = (SELECT max(id) FROM direccion)";
 		DBManager.getInstance();
@@ -120,7 +121,7 @@ public class AddressDAO {
 		return addressId;
 	}
 
-	protected List<Integer> getIds(Address address){//String street, int number, String neighborhood, String city, String province, int floor, String apartment) {
+	public List<Integer> getIds(Address address){//String street, int number, String neighborhood, String city, String province, int floor, String apartment) {
 		List<Integer> ids = new LinkedList<Integer>();
 		try {
 			Connection conn = DBManager.getInstance().getConnection();

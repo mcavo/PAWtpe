@@ -10,7 +10,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
+import ar.edu.itba.it.paw.DAO.AddressDAO;
 import ar.edu.itba.it.paw.DAO.DBManager;
+import ar.edu.itba.it.paw.DAO.RestaurantDAO;
 import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Menu;
@@ -18,22 +20,16 @@ import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.Section;
 
 @Repository
-public class RestaurantDAO {
+public class RestaurantDAOImpl implements RestaurantDAO{
 
-	private AddressDAO addressDao;
+	private AddressDAOImpl addressDao;
 	
 	//este debe volar:
-	public RestaurantDAO() {
+	public RestaurantDAOImpl() {
 
 	}
 
-	/*public static RestaurantDAO getInstance() {
-		if (instance == null) {
-			instance = new RestaurantDAO();
-		}
-		return instance;
-	}*/
-	public RestaurantDAO(AddressDAO addressDao){
+	public RestaurantDAOImpl(AddressDAOImpl addressDao){
 		this.addressDao = addressDao;
 	}
 

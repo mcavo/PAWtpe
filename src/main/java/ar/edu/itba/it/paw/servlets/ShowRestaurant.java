@@ -12,12 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import ar.edu.itba.it.paw.SessionUserManager;
 import ar.edu.itba.it.paw.UserManager;
-import ar.edu.itba.it.paw.DAO.UserDAO;
+import ar.edu.itba.it.paw.DAO.impl.UserDAOImpl;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
-import ar.edu.itba.it.paw.services.CalificationService;
 import ar.edu.itba.it.paw.services.RestService;
+import ar.edu.itba.it.paw.services.impl.CalificationServiceImpl;
 
 @SuppressWarnings("serial")
 public class ShowRestaurant extends HttpServlet {
@@ -44,12 +44,12 @@ public class ShowRestaurant extends HttpServlet {
 		String apartment = req.getParameter("apt");
 
 		rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
-		rest.setCalifications(CalificationService.getCalificationsByRestId(rest.getId()));
+		rest.setCalifications(CalificationServiceImpl.getCalificationsByRestId(rest.getId()));
 
 		req.setAttribute("rest", rest);
 
 		if(usr != null){
-			req.setAttribute("okToQualify", CalificationService.canQualify(rest, usr.getId()));
+			req.setAttribute("okToQualify", CalificationServiceImpl.canQualify(rest, usr.getId()));
 		}else{
 			req.setAttribute("okToQualify", false);
 		}
@@ -76,12 +76,12 @@ public class ShowRestaurant extends HttpServlet {
 		String apartment = req.getParameter("apt");
 
 		Restaurant rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
-		rest.setCalifications(CalificationService.getCalificationsByRestId(rest.getId()));
+		rest.setCalifications(CalificationServiceImpl.getCalificationsByRestId(rest.getId()));
 
 		/*if (userManager.existsUser()) {
 			usrId = userManager.getUserId();
 		}*/
-		CalificationService.addCalification(usr.getId(), rest, stars, comments);
+		CalificationServiceImpl.addCalification(usr.getId(), rest, stars, comments);
 		req.setAttribute("rest", rest);
 		req.getRequestDispatcher("/WEB-INF/jsp/showRestaurant.jsp").forward(req, resp);
 	}

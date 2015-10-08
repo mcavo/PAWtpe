@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
-import ar.edu.itba.it.paw.services.CalificationService;
 import ar.edu.itba.it.paw.services.RestService;
+import ar.edu.itba.it.paw.services.impl.CalificationServiceImpl;
 
 public class RestaurantList extends HttpServlet{
 
@@ -30,8 +30,8 @@ public class RestaurantList extends HttpServlet{
 		else
 			rlist = (new RestService()).getRestaurants(filterType);
 		for(Restaurant rest : rlist) {
-			rest.setCalifications(CalificationService.getCalificationsByRestId(rest.getId()));
-			HashMap<Integer,Calification> map = CalificationService.getCalificationsByRestId(rest.getId());
+			rest.setCalifications(CalificationServiceImpl.getCalificationsByRestId(rest.getId()));
+			HashMap<Integer,Calification> map = CalificationServiceImpl.getCalificationsByRestId(rest.getId());
 			rest.setCalifications(map);
 		}
 		req.setAttribute("name", name);
