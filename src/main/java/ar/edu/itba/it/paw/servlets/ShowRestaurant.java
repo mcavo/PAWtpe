@@ -43,7 +43,7 @@ public class ShowRestaurant extends HttpServlet {
 		String floor = req.getParameter("flr");
 		String apartment = req.getParameter("apt");
 
-		rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
+		/*rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
 		rest.setCalifications(CalificationServiceImpl.getCalificationsByRestId(rest.getId()));
 
 		req.setAttribute("rest", rest);
@@ -54,7 +54,7 @@ public class ShowRestaurant extends HttpServlet {
 			req.setAttribute("okToQualify", false);
 		}
 
-		req.getRequestDispatcher("/WEB-INF/jsp/showRestaurant.jsp").forward(req, resp);
+		*/req.getRequestDispatcher("/WEB-INF/jsp/showRestaurant.jsp").forward(req, resp);
 	}
 	
 	@Override
@@ -75,14 +75,14 @@ public class ShowRestaurant extends HttpServlet {
 		String floor = req.getParameter("flr");
 		String apartment = req.getParameter("apt");
 
-		Restaurant rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
-		rest.setCalifications(CalificationServiceImpl.getCalificationsByRestId(rest.getId()));
+		//Restaurant rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
+		//rest.setCalifications(CalificationServiceImpl.getCalificationsByRestId(rest.getId()));
 
 		/*if (userManager.existsUser()) {
 			usrId = userManager.getUserId();
 		}*/
-		CalificationServiceImpl.addCalification(usr.getId(), rest, stars, comments);
-		req.setAttribute("rest", rest);
+		//CalificationServiceImpl.addCalification(usr.getId(), rest, stars, comments);
+		//req.setAttribute("rest", rest);
 		req.getRequestDispatcher("/WEB-INF/jsp/showRestaurant.jsp").forward(req, resp);
 	}
 }

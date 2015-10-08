@@ -52,7 +52,7 @@ public class RegisterRestaurant extends HttpServlet {
 		String cost = request.getParameter("cost");
 
 		try {
-			RestService.setRestaurant(name, description, types, timeFrom, timeTo, street, number, city, province, floor, apartment, neighborhood, minimum, cost);
+			//RestService.setRestaurant(name, description, types, timeFrom, timeTo, street, number, city, province, floor, apartment, neighborhood, minimum, cost);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

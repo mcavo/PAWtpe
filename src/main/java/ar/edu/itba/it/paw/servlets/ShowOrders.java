@@ -24,12 +24,12 @@ public class ShowOrders extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//Chequear si soy manager -> Homepage
 		usr = (User) req.getAttribute("user");
-		rest = ManagerServiceImpl.getRestByManager(usr);
+		/*rest = ManagerServiceImpl.getRestByManager(usr);
 		
 		req.setAttribute("rest", rest);
 		List<Order> olist = OrderServiceImpl.getHistoryOrder(rest);
 		req.setAttribute("olist", olist);
-		req.getRequestDispatcher("/WEB-INF/jsp/showOrders.jsp").forward(req, resp);
+		*/req.getRequestDispatcher("/WEB-INF/jsp/showOrders.jsp").forward(req, resp);
 	}
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

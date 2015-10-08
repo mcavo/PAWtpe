@@ -68,7 +68,7 @@ public class SignUp extends HttpServlet {
 
 		User user = null;
 		try {
-			user = UserServiceImpl.signUp(email, pwd, firstName, lastName, day, month, year, false, street, number, city, province, neighborhood, floor, apartment);
+			//user = UserServiceImpl.signUp(email, pwd, firstName, lastName, day, month, year, false, street, number, city, province, neighborhood, floor, apartment);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp").forward(request, response); //Debería distinguirse si el mail está en uso, o hubo una falla de parámetros

@@ -40,11 +40,11 @@ public class MenuRestaurant extends HttpServlet {
 		String floor = req.getParameter("flr");
 		String apartment = req.getParameter("apt");
 
-		Restaurant rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor,
+		/*Restaurant rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor,
 				apartment);
 		rest.setCalifications(CalificationServiceImpl.getCalificationsByRestId(rest.getId()));
 		req.setAttribute("rest", rest);
-		req.getRequestDispatcher("/WEB-INF/jsp/menuRestaurant.jsp").forward(req, resp);
+		*/req.getRequestDispatcher("/WEB-INF/jsp/menuRestaurant.jsp").forward(req, resp);
 	}
 	
 	@Override
@@ -65,7 +65,7 @@ public class MenuRestaurant extends HttpServlet {
 		String floor = req.getParameter("flr");
 		String apartment = req.getParameter("apt");
 
-		Restaurant rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
+		/*Restaurant rest = RestService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
 		
 		Enumeration en = req.getParameterNames();
 		HashMap<Dish, String> map = new HashMap<Dish, String>();
@@ -80,7 +80,7 @@ public class MenuRestaurant extends HttpServlet {
 		}
 		if(!OrderServiceImpl.sendOrder(usr.getId(), rest, map));
 		req.setAttribute("rest", rest);
-		req.getRequestDispatcher("/WEB-INF/jsp/showRestaurant.jsp").forward(req, resp);
+		*/req.getRequestDispatcher("/WEB-INF/jsp/showRestaurant.jsp").forward(req, resp);
 
 	}
 

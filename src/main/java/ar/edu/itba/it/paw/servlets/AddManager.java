@@ -34,10 +34,10 @@ public class AddManager extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Restaurant> rlist;
 		List<Credential> clist;
-		rlist = (new RestService()).getAllRestaurants();
-		clist = ManagerServiceImpl.getManagersAvailables();
-		request.setAttribute("rlist", rlist);
-		request.setAttribute("clist", clist);
+		//rlist = (new RestService()).getAllRestaurants();
+		//clist = ManagerServiceImpl.getManagersAvailables();
+		//request.setAttribute("rlist", rlist);
+		//request.setAttribute("clist", clist);
 		request.getRequestDispatcher("/WEB-INF/jsp/addManager.jsp").forward(request, response);
 	}
 
@@ -49,9 +49,9 @@ public class AddManager extends HttpServlet {
 		String mail = request.getParameter("manager-mail");
 		String restid = request.getParameter("restaurant-id");
 		try {
-			if (!ManagerServiceImpl.addManager(mail,restid)) {
-				response.sendRedirect("/PAWTPE/admin/addmanager");
-			}
+			//if (!ManagerServiceImpl.addManager(mail,restid)) {
+				//response.sendRedirect("/PAWTPE/admin/addmanager");
+			//}
 				response.sendRedirect("/PAWTPE/homepage");
 		} catch (Exception e) {
 			e.printStackTrace();

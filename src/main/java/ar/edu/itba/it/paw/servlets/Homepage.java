@@ -23,14 +23,14 @@ public class Homepage extends HttpServlet{
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		List<Restaurant> weekRests = RestService.getLastWeekRestaurants();
+		/*List<Restaurant> weekRests = RestService.getLastWeekRestaurants();
 		for(Restaurant rest : weekRests) {
 			rest.setCalifications(CalificationServiceImpl.getCalificationsByRestId(rest.getId()));
 			HashMap<Integer,Calification> map = CalificationServiceImpl.getCalificationsByRestId(rest.getId());
 			rest.setCalifications(map);
 		}
 		request.setAttribute("weekRests", weekRests);
-		request.getRequestDispatcher("/WEB-INF/jsp/homepage.jsp").forward(request, response);
+		*/request.getRequestDispatcher("/WEB-INF/jsp/homepage.jsp").forward(request, response);
 		
 	}
 	

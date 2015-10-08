@@ -37,13 +37,13 @@ public class Login extends HttpServlet{
 		email = req.getParameter("email");
 		pwd = req.getParameter("pwd");
 		
-		Credential cred = UserServiceImpl.getUserCredentials(email, pwd);
+		/*Credential cred = UserServiceImpl.getUserCredentials(email, pwd);
 		if(cred == null){
 			resp.sendRedirect(resp.encodeRedirectURL("login"));
 			return;
 		}
 		user = UserServiceImpl.getUserById(cred);
-		UserManager userManager = new SessionUserManager(req);
+		*/UserManager userManager = new SessionUserManager(req);
 		userManager.setUser(user);
 		resp.sendRedirect("homepage");
 		return;

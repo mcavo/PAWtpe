@@ -25,7 +25,7 @@ public class RestaurantList extends HttpServlet{
 		String filterType = req.getParameter("type");
 		//Implementar orderby despues.
 		List<Restaurant> rlist;
-		if(filterType==null)
+		/*if(filterType==null)
 			rlist = (new RestService()).getAllRestaurants();
 		else
 			rlist = (new RestService()).getRestaurants(filterType);
@@ -36,7 +36,7 @@ public class RestaurantList extends HttpServlet{
 		}
 		req.setAttribute("name", name);
 		req.setAttribute("rlist", rlist);
-		
+		*/
 		req.getRequestDispatcher("/WEB-INF/jsp/restaurantList.jsp").forward(req, resp);
 	}
 	

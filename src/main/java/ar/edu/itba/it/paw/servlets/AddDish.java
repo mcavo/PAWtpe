@@ -16,7 +16,7 @@ public class AddDish extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User usr = (User) request.getAttribute("user");
-		request.setAttribute("rest", ManagerServiceImpl.getRestaurant(usr));
+		//request.setAttribute("rest", ManagerServiceImpl.getRestaurant(usr));
 		request.getRequestDispatcher("/WEB-INF/jsp/addDish.jsp").forward(request, response);
 	}
 	
@@ -28,7 +28,7 @@ public class AddDish extends HttpServlet {
 		String price = request.getParameter("price");
 		String desc = request.getParameter("description");
 		
-		ManagerServiceImpl.addDish(ManagerServiceImpl.getRestaurant(usr), section,dish,price,desc);
+		//ManagerServiceImpl.addDish(ManagerServiceImpl.getRestaurant(usr), section,dish,price,desc);
 		
 		
 		request.getRequestDispatcher("/WEB-INF/jsp/addDish.jsp").forward(request, response);
