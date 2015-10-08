@@ -9,8 +9,9 @@ import ar.edu.itba.it.paw.DAO.impl.UserDAOImpl;
 import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.User;
+import ar.edu.itba.it.paw.services.UserService;
 
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService{
 
 	private UserDAOImpl userDAO;
 	private CredentialDAOImpl credentialDAO;

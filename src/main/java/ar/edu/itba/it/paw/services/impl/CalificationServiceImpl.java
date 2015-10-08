@@ -6,8 +6,9 @@ import ar.edu.itba.it.paw.DAO.impl.CalificationDAOImpl;
 import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
+import ar.edu.itba.it.paw.services.CalificationService;
 
-public class CalificationServiceImpl {
+public class CalificationServiceImpl implements CalificationService{
 
 	private CalificationDAOImpl calificationDAO;
 	private RestaurantServiceImpl restaurantService;
@@ -19,7 +20,7 @@ public class CalificationServiceImpl {
 		this.restaurantService = restaurantService;
 	}
 	
-	public static boolean canQualify(Restaurant r, int usrId){
+	public boolean canQualify(Restaurant r, int usrId){
 		return !r.getQualifications().keySet().contains(usrId);
 	}
 	

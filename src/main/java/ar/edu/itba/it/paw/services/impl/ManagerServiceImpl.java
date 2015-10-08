@@ -7,9 +7,10 @@ import ar.edu.itba.it.paw.DAO.impl.ManagerDAOImpl;
 import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
+import ar.edu.itba.it.paw.services.ManagerService;
 import ar.edu.itba.it.paw.services.ValidateDataService;
 
-public class ManagerServiceImpl {
+public class ManagerServiceImpl implements ManagerService{
 
 	private CredentialDAOImpl credentialDAO;
 	private ManagerDAOImpl managerDAO;

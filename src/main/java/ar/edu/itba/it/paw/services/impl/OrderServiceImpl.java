@@ -10,8 +10,9 @@ import ar.edu.itba.it.paw.DAO.impl.OrderDAOImpl;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Order;
 import ar.edu.itba.it.paw.models.Restaurant;
+import ar.edu.itba.it.paw.services.OrderService;
 
-public class OrderServiceImpl {
+public class OrderServiceImpl implements OrderService{
 
 	private OrderDAOImpl orderDAO;
 	
