@@ -16,6 +16,8 @@ public class OrderServiceImpl implements OrderService{
 
 	private OrderDAOImpl orderDAO;
 	
+	public OrderServiceImpl(){}
+	
 	public OrderServiceImpl(OrderDAOImpl orderDao){
 		this.orderDAO = orderDao;
 	}

@@ -16,6 +16,8 @@ public class ManagerServiceImpl implements ManagerService{
 	private ManagerDAOImpl managerDAO;
 	private RestaurantServiceImpl restaurantService;
 	
+	public ManagerServiceImpl(){}
+	
 	public ManagerServiceImpl(CredentialDAOImpl credentialDao, ManagerDAOImpl managerDao, RestaurantServiceImpl restaurantService){
 		this.credentialDAO = credentialDao;
 		this.managerDAO = managerDao;

@@ -16,6 +16,8 @@ public class UserServiceImpl implements UserService{
 	private UserDAOImpl userDAO;
 	private CredentialDAOImpl credentialDAO;
 			
+	public UserServiceImpl(){}
+	
 	public UserServiceImpl(UserDAOImpl dao, CredentialDAOImpl credentialDao){
 		this.userDAO = dao;
 		this.credentialDAO = credentialDao;
