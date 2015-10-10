@@ -214,9 +214,9 @@ public class RestaurantDAOImpl implements RestaurantDAO{
 		return menu;
 	}
 	
-	public Restaurant getRestaurant(String name, String street, int number, String neighborhood, String city, String province, int floor, String apartment) {
+	public Restaurant getRestaurant(String name, Address address){//String street, int number, String neighborhood, String city, String province, int floor, String apartment) {
 		//int addressId = getAddressId(street, number, neighborhood, city, province, floor, apartment);
-		Address address = new Address(street, number, floor, apartment, neighborhood, city, province);
+		//Address address = new Address(street, number, floor, apartment, neighborhood, city, province);
 		List<Integer> addressIds = addressDao.getIds(address);
 				if(addressIds.isEmpty()){
 			//app error!

@@ -4,10 +4,13 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.services.RestService;
 import ar.edu.itba.it.paw.services.RestaurantService;
 
@@ -34,6 +37,14 @@ public class RestaurantController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("rlist", restaurantService.getRestaurants(req.getParameter("type")));
 		mav.setViewName("restaurantList");
+		return mav;
+	}
+	
+	@RequestMapping(value="/details", method = RequestMethod.GET)
+	public ModelAndView details(@RequestParam("name") String name, @RequestParam("srt") String street, @RequestParam("numb") String number, @RequestParam("neigh") String neighborhood, @RequestParam("city") String city, @RequestParam("prov") String province, @RequestParam("flr") String floor, @RequestParam("apt") String apartment) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("rest", restaurantService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment));
+		mav.setViewName("showRestaurant");
 		return mav;
 	}
 }

@@ -56,7 +56,8 @@ public class RestaurantServiceImpl implements RestaurantService{
 		if(name == null){
 			return null;
 		}	
-		return restaurantDAO.getRestaurant(name, street, Integer.valueOf(number), neighborhood, city, province, Integer.valueOf(floor), apartment);
+		//return restaurantDAO.getRestaurant(name, street, Integer.valueOf(number), neighborhood, city, province, Integer.valueOf(floor), apartment);
+		return restaurantDAO.getRestaurant(name, new Address(street, Integer.valueOf(number), Integer.valueOf(floor), apartment, neighborhood, city, province));
 	}
 
 	public void addCalification(int usrId, Restaurant rest, Calification q) {

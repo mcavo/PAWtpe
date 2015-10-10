@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.Menu;
 import ar.edu.itba.it.paw.models.Restaurant;
 
@@ -21,7 +22,7 @@ public interface RestaurantDAO {
 	
 	public Menu getMenuByRestId(int restId);
 	
-	public Restaurant getRestaurant(String name, String street, int number, String neighborhood, String city, String province, int floor, String apartment);
+	public Restaurant getRestaurant(String name, Address address);//String street, int number, String neighborhood, String city, String province, int floor, String apartment);
 	
 	public Restaurant matchRestAddress(String name, int addressId);
 	
