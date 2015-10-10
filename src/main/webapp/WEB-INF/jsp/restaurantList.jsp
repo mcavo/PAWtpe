@@ -35,7 +35,7 @@
 		<div class="col-md-8 col-md-offset-2">
 
 			<c:forEach items="${rlist}" var="rest">
-				<a href="/PAWTPE/details?name=${rest.name}&srt=${rest.address.street}&numb=${rest.address.number}&neigh=${rest.address.neighborhood}&city=${rest.address.city}&prov=${rest.address.province}&flr=${rest.address.floor}&apt=${rest.address.apartment}"">
+				<a href="/PAWTPE/bin/restaurant/details?name=${rest.name}&srt=${rest.address.street}&numb=${rest.address.number}&neigh=${rest.address.neighborhood}&city=${rest.address.city}&prov=${rest.address.province}&flr=${rest.address.floor}&apt=${rest.address.apartment}"">
 					<div class="bs-callout bs-callout-info">
 						<h4>${rest.name}</h4>
 						<p>
