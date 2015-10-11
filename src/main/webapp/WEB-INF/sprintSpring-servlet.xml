@@ -11,6 +11,11 @@
          http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
 	<context:component-scan base-package="ar.edu.itba.it.paw" />
+	
+<!-- 	<mvc:interceptors> -->
+<!-- 		<bean class="ar.edu.itba.it.paw.web.interceptors.UserInterceptor" /> -->
+<!--     </mvc:interceptors> -->
+    
 	<!-- Beans relacionados con Spring MVC -->
 	<import resource="classpath:mvc.xml" />
 
