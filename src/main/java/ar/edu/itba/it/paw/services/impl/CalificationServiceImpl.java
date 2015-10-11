@@ -2,20 +2,25 @@ package ar.edu.itba.it.paw.services.impl;
 
 import java.util.HashMap;
 
+import org.springframework.stereotype.Service;
+
+import ar.edu.itba.it.paw.DAO.CalificationDAO;
 import ar.edu.itba.it.paw.DAO.impl.CalificationDAOImpl;
 import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
 import ar.edu.itba.it.paw.services.CalificationService;
+import ar.edu.itba.it.paw.services.RestaurantService;
 
+@Service
 public class CalificationServiceImpl implements CalificationService{
 
-	private CalificationDAOImpl calificationDAO;
-	private RestaurantServiceImpl restaurantService;
+	private CalificationDAO calificationDAO;
+	private RestaurantService restaurantService;
 	
 	public CalificationServiceImpl(){}
 	
-	public CalificationServiceImpl(CalificationDAOImpl calificationDao, RestaurantServiceImpl restaurantService){
+	public CalificationServiceImpl(CalificationDAO calificationDao, RestaurantService restaurantService){
 		this.calificationDAO = calificationDao;
 		this.restaurantService = restaurantService;
 	}
@@ -45,7 +50,11 @@ public class CalificationServiceImpl implements CalificationService{
 		restaurantService.addCalification(usrId, rest, q);
 	}
 
-	public HashMap<Integer, Calification> getCalificationsByRestId(int restId) {
-		return calificationDAO.getCalificationsByRestId(restId);
+	public HashMap<Integer, Calification> getCalifications(Restaurant restaurant) {
+		if(restaurant == null){
+			//app error
+			return null;
+		}
+		return calificationDAO.getCalifications(restaurant);
 	}
 }

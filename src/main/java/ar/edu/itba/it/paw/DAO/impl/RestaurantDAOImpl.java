@@ -11,6 +11,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.DAO.AddressDAO;
+import ar.edu.itba.it.paw.DAO.CalificationDAO;
 import ar.edu.itba.it.paw.DAO.DBManager;
 import ar.edu.itba.it.paw.DAO.RestaurantDAO;
 import ar.edu.itba.it.paw.models.Address;
@@ -22,15 +23,17 @@ import ar.edu.itba.it.paw.models.Section;
 @Repository
 public class RestaurantDAOImpl implements RestaurantDAO{
 
-	private AddressDAOImpl addressDao;
+	private AddressDAO addressDao;
+	private CalificationDAO calificationDAO;
 	
 	//este debe volar:
 	public RestaurantDAOImpl() {
 
 	}
 
-	public RestaurantDAOImpl(AddressDAOImpl addressDao){
+	public RestaurantDAOImpl(AddressDAO addressDao, CalificationDAO calificationDao){
 		this.addressDao = addressDao;
+		this.calificationDAO = calificationDao;
 	}
 
 	public List<Restaurant> filterBy(String typeOfFood ) {
@@ -230,6 +233,7 @@ public class RestaurantDAOImpl implements RestaurantDAO{
 			if(rest != null){
 				found = true;
 				rest.setAddress(address);
+				rest.setCalifications(calificationDAO.getCalifications(rest));
 			}
 		}
 		return rest;

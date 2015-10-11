@@ -45,6 +45,19 @@ public class RestaurantController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("rest", restaurantService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment));
 		mav.setViewName("showRestaurant");
+		/*if(usr != null){
+			req.setAttribute("okToQualify", CalificationServiceImpl.canQualify(rest, usr.getId()));
+		}else{
+			req.setAttribute("okToQualify", false);
+		}*/
+		return mav;
+	}
+	
+	@RequestMapping(value="/menu", method = RequestMethod.GET)
+	public ModelAndView menu(@RequestParam("name") String name, @RequestParam("srt") String street, @RequestParam("numb") String number, @RequestParam("neigh") String neighborhood, @RequestParam("city") String city, @RequestParam("prov") String province, @RequestParam("flr") String floor, @RequestParam("apt") String apartment) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("rest", restaurantService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment));
+		mav.setViewName("menuRestaurant");
 		return mav;
 	}
 }

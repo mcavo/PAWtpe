@@ -6,23 +6,25 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import ar.edu.itba.it.paw.DAO.RestaurantDAO;
 import ar.edu.itba.it.paw.DAO.impl.RestaurantDAOImpl;
 import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Restaurant;
+import ar.edu.itba.it.paw.services.CalificationService;
 import ar.edu.itba.it.paw.services.RestaurantService;
 import ar.edu.itba.it.paw.services.ValidateDataService;
 
 @Service
 public class RestaurantServiceImpl implements RestaurantService{
 
-	private RestaurantDAOImpl restaurantDAO;
+	private RestaurantDAO restaurantDAO;
 	
 	public RestaurantServiceImpl(){
 		
 	}
 	
-	public RestaurantServiceImpl(RestaurantDAOImpl dao){
+	public RestaurantServiceImpl(RestaurantDAO dao){
 		this.restaurantDAO = dao;
 	}
 	

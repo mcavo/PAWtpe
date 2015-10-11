@@ -10,6 +10,15 @@
          http://www.springframework.org/schema/context/spring-context-3.0.xsd
          http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
+	<bean id="calificationService" class="ar.edu.itba.it.paw.services.impl.CalificationServiceImpl">
+		<constructor-arg>
+			<ref bean="calificationDao" />
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="restaurantService" />
+		</constructor-arg>
+	</bean>
+	
 	<bean id="restaurantService" class="ar.edu.itba.it.paw.services.impl.RestaurantServiceImpl">
 		<constructor-arg>
 			<ref bean="restaurantDao" />

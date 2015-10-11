@@ -11,5 +11,5 @@ public interface CalificationService {
 	
 	public void addCalification(int usrId, Restaurant rest, String stars, String comments);
 	
-	public HashMap<Integer, Calification> getCalificationsByRestId(int restId);
+	public HashMap<Integer, Calification> getCalifications(Restaurant restaurant);
 }

@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import ar.edu.itba.it.paw.DAO.CalificationDAO;
 import ar.edu.itba.it.paw.DAO.DBManager;
 import ar.edu.itba.it.paw.models.Calification;
@@ -15,6 +17,7 @@ import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
 import ar.edu.itba.it.paw.services.impl.UserServiceImpl;
 
+@Repository
 public class CalificationDAOImpl implements CalificationDAO{
 
 	public CalificationDAOImpl() {
@@ -40,14 +43,14 @@ public class CalificationDAOImpl implements CalificationDAO{
 		}
 	}
 
-	public HashMap<Integer, Calification> getCalificationsByRestId(int restId) {
+	public HashMap<Integer, Calification> getCalifications(Restaurant restaurant) {
 		HashMap<Integer, Calification> qMap = new HashMap<Integer, Calification>();
 		
 		try {
 			Connection conn = DBManager.getInstance().getConnection();
 			String sql = "select * from calificacion where restid = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, restId);
+			pstmt.setInt(1, restaurant.getId());
 
 			ResultSet rs = pstmt.executeQuery();
 			int userid;
