@@ -11,8 +11,7 @@
          http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 	
 	<bean id="addressDao" class="ar.edu.itba.it.paw.DAO.impl.AddressDAOImpl" />
-	<bean id="calificationDao" class="ar.edu.itba.it.paw.DAO.impl.CalificationDAOImpl" />
-	
+	<bean id="calificationDao" class="ar.edu.itba.it.paw.DAO.impl.CalificationDAOImpl" />	
 	<bean id="restaurantDao" class="ar.edu.itba.it.paw.DAO.impl.RestaurantDAOImpl">
 		<constructor-arg>
 			<ref bean="addressDao" />

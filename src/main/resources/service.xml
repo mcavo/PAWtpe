@@ -24,6 +24,5 @@
 			<ref bean="restaurantDao" />
 		</constructor-arg>
 	</bean>
-	
 </beans>
          
