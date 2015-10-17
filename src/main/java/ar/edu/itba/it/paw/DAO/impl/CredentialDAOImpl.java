@@ -67,7 +67,7 @@ public class CredentialDAOImpl implements CredentialDAO{
 	}
 	
 	public Credential getCredentials(String email, String pwd) {
-		/*Connection con = DBManager.getInstance().getConnection();
+		Connection con = DBManager.getInstance().getConnection();
 		String query = "SELECT * FROM credencial WHERE mail like ? and psw = ?";
 		Credential cred = null;
 		try {
@@ -83,21 +83,21 @@ public class CredentialDAOImpl implements CredentialDAO{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return cred;*/
-		Credential cred = null;
+		return cred;
+		/*Credential cred = null;
 		Session session = HibernateConnection.getInstance().getSessionFactory().openSession();
 		//Transaction tx = session.beginTransaction();
 		
-		/*String hql = "FROM credencial WHERE mail like :mail and psw = :psw";
-		Query query = session.createQuery(hql);
-		query.setParameter("mail", email);
-		query.setParameter("psw", pwd);
-		*/@SuppressWarnings("unchecked")
+		//String hql = "FROM credencial WHERE mail like :mail and psw = :psw";
+		//Query query = session.createQuery(hql);
+		//query.setParameter("mail", email);
+		//query.setParameter("psw", pwd);
+		@SuppressWarnings("unchecked")
 		List<Credential> credentials = session.createQuery("from credencial").list();
 		cred = credentials.get(0);
 		
 		session.close();
-		return cred;
+		return cred;*/
 		
 	}
 	
