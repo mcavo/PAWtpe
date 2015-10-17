@@ -24,7 +24,7 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
-    <bean id="userInterceptor" class="ar.edu.itba.it.paw.web.interceptors.UserInterceptor"/>
+    <bean id="userInterceptor" class="ar.edu.itba.it.paw.interceptors.UserInterceptor"/>
     
     <bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
         <property name="interceptors">
