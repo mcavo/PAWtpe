@@ -8,18 +8,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import ar.edu.itba.it.paw.models.User;
-import ar.edu.itba.it.paw.services.impl.ManagerServiceImpl;
 
+@SuppressWarnings("serial")
 public class AddDish extends HttpServlet {
 	
 	
 	
+	@SuppressWarnings("unused")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User usr = (User) request.getAttribute("user");
 		//request.setAttribute("rest", ManagerServiceImpl.getRestaurant(usr));
 		request.getRequestDispatcher("/WEB-INF/jsp/addDish.jsp").forward(request, response);
 	}
 	
+	@SuppressWarnings("unused")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User usr = (User) request.getAttribute("user");
 		

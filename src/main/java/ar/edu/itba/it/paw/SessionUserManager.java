@@ -37,6 +37,7 @@ public class SessionUserManager implements UserManager{
 		//session.setAttribute(PSW, null);
 	}
 	
+	@SuppressWarnings("unused")
 	private String getByID(String id) {
 		HttpSession session = request.getSession();
 		String value = (String)session.getAttribute(id);

@@ -5,8 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
@@ -14,8 +12,6 @@ import ar.edu.itba.it.paw.DAO.CalificationDAO;
 import ar.edu.itba.it.paw.DAO.DBManager;
 import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Restaurant;
-import ar.edu.itba.it.paw.models.User;
-import ar.edu.itba.it.paw.services.impl.UserServiceImpl;
 
 @Repository
 public class CalificationDAOImpl implements CalificationDAO{

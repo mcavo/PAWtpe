@@ -11,8 +11,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ar.edu.itba.it.paw.SessionUserManager;
-import ar.edu.itba.it.paw.UserManager;
 import ar.edu.itba.it.paw.models.User;
 
 public class ManagerFilter implements Filter{

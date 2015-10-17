@@ -2,8 +2,6 @@ package ar.edu.itba.it.paw.DAO;
 
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
 import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.Menu;
 import ar.edu.itba.it.paw.models.Restaurant;

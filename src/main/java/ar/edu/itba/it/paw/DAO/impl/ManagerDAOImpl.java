@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import ar.edu.itba.it.paw.DAO.DBManager;
 import ar.edu.itba.it.paw.DAO.ManagerDAO;
 import ar.edu.itba.it.paw.models.Restaurant;
-import ar.edu.itba.it.paw.models.User;
 
 public class ManagerDAOImpl implements ManagerDAO{
 

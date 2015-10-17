@@ -19,7 +19,7 @@ import ar.edu.itba.it.paw.models.User;
 import ar.edu.itba.it.paw.services.RestService;
 import ar.edu.itba.it.paw.services.impl.CalificationServiceImpl;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "unused", "serial" })
 public class ShowRestaurant extends HttpServlet {
 
 	private User usr = null;

@@ -5,10 +5,8 @@ import java.util.HashMap;
 import org.springframework.stereotype.Service;
 
 import ar.edu.itba.it.paw.DAO.CalificationDAO;
-import ar.edu.itba.it.paw.DAO.impl.CalificationDAOImpl;
 import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Restaurant;
-import ar.edu.itba.it.paw.models.User;
 import ar.edu.itba.it.paw.services.CalificationService;
 import ar.edu.itba.it.paw.services.RestaurantService;
 

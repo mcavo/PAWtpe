@@ -6,15 +6,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.User;
-import ar.edu.itba.it.paw.services.impl.UserServiceImpl;
 
 
 @SuppressWarnings("serial")
 public class Login extends HttpServlet{
 
+	@SuppressWarnings("unused")
 	private String email;
+	@SuppressWarnings("unused")
 	private String pwd;
 	
 	@Override

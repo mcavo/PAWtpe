@@ -1,31 +1,19 @@
 package ar.edu.itba.it.paw.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ar.edu.itba.it.paw.SessionUserManager;
-import ar.edu.itba.it.paw.UserManager;
-import ar.edu.itba.it.paw.models.Dish;
-import ar.edu.itba.it.paw.models.Menu;
 import ar.edu.itba.it.paw.models.Restaurant;
-import ar.edu.itba.it.paw.models.Section;
 import ar.edu.itba.it.paw.models.User;
-import ar.edu.itba.it.paw.services.RestService;
-import ar.edu.itba.it.paw.services.impl.CalificationServiceImpl;
-import ar.edu.itba.it.paw.services.impl.OrderServiceImpl;
-
+@SuppressWarnings({ "unused", "serial" })
 public class MenuRestaurant extends HttpServlet {
 
 	private User usr = null;
+	
 	private Restaurant rest = null;
 	
 	@Override

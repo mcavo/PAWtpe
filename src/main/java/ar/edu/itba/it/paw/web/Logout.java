@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import ar.edu.itba.it.paw.SessionUserManager;
 import ar.edu.itba.it.paw.UserManager;
 
+@SuppressWarnings("serial")
 public class Logout extends HttpServlet{
 	
 	@Override

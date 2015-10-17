@@ -15,8 +15,9 @@ import ar.edu.itba.it.paw.services.RestService;
 import ar.edu.itba.it.paw.services.impl.ManagerServiceImpl;
 import ar.edu.itba.it.paw.services.impl.OrderServiceImpl;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "unused", "serial" })
 public class ShowOrders extends HttpServlet {
+	
 	
 	private User usr = null;
 	private Restaurant rest = null;

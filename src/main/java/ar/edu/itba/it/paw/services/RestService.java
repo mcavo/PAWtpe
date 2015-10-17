@@ -1,14 +1,5 @@
 package ar.edu.itba.it.paw.services;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-
-import ar.edu.itba.it.paw.DAO.impl.RestaurantDAOImpl;
-import ar.edu.itba.it.paw.models.Address;
-import ar.edu.itba.it.paw.models.Calification;
-import ar.edu.itba.it.paw.models.Restaurant;
-
 public class RestService {
 
 	/*public static List<Restaurant> getLastWeekRestaurants(){

@@ -8,9 +8,6 @@ import org.springframework.stereotype.Service;
 
 import ar.edu.itba.it.paw.DAO.CredentialDAO;
 import ar.edu.itba.it.paw.DAO.UserDAO;
-import ar.edu.itba.it.paw.DAO.impl.CredentialDAOImpl;
-import ar.edu.itba.it.paw.DAO.impl.RestaurantDAOImpl;
-import ar.edu.itba.it.paw.DAO.impl.UserDAOImpl;
 import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.User;

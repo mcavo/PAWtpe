@@ -1,18 +1,13 @@
 package ar.edu.itba.it.paw;
 
 import java.io.IOException;
-import java.time.DateTimeException;
-import java.time.LocalDate;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ar.edu.itba.it.paw.DAO.impl.UserDAOImpl;
-import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.User;
-import ar.edu.itba.it.paw.services.impl.UserServiceImpl;
 
 /**
  * Servlet implementation class SignUp
@@ -45,6 +40,7 @@ public class SignUp extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("unused")
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String email = request.getParameter("email");
