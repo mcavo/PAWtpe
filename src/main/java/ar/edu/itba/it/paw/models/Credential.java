@@ -1,5 +1,10 @@
 package ar.edu.itba.it.paw.models;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Credenciales")
 public class Credential {
 
 	private int id;

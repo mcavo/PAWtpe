@@ -7,8 +7,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
+import ar.edu.itba.it.paw.HibernateConnection;
 import ar.edu.itba.it.paw.DAO.CredentialDAO;
 import ar.edu.itba.it.paw.DAO.DBManager;
 import ar.edu.itba.it.paw.models.Credential;
@@ -63,7 +67,7 @@ public class CredentialDAOImpl implements CredentialDAO{
 	}
 	
 	public Credential getCredentials(String email, String pwd) {
-		Connection con = DBManager.getInstance().getConnection();
+		/*Connection con = DBManager.getInstance().getConnection();
 		String query = "SELECT * FROM credencial WHERE mail like ? and psw = ?";
 		Credential cred = null;
 		try {
@@ -79,7 +83,22 @@ public class CredentialDAOImpl implements CredentialDAO{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return cred;*/
+		Credential cred = null;
+		Session session = HibernateConnection.getInstance().getSessionFactory().openSession();
+		//Transaction tx = session.beginTransaction();
+		
+		String hql = "FROM credencial WHERE mail like :mail and psw = :psw";
+		Query query = session.createQuery(hql);
+		query.setParameter("mail", email);
+		query.setParameter("psw", pwd);
+		@SuppressWarnings("unchecked")
+		List<Credential> credentials = query.list();
+		cred = credentials.get(0);
+		
+		session.close();
 		return cred;
+		
 	}
 	
 	public Credential getCredentialsByEmail(String email) {

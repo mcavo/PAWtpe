@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+		<property name="hibernate.connection.url"> jdbc:postgresql://ec2-54-235-162-144.compute-1.amazonaws.com:5432/dajenobv1kl0ho</property> 
+		<property name="hibernate.connection.username">hubyihgpaouvuy</property>
+		<property name="hibernate.connection.password">p59ImIPv_9CmNlMxbU-Cyn6tHF</property>
+
+		<property name="hibernate.dialect">
+			org.hibernate.dialect.PostgreSQLDialect
+		</property>
+		
+		<!-- Use the C3P0 connection pool provider -->
+		<property name="hibernate.c3p0.min_size">5</property>
+		<property name="hibernate.c3p0.max_size">20</property>
+		<property name="hibernate.c3p0.timeout">300</property>
+		<property name="hibernate.c3p0.max_statements">50</property>
+		<property name="hibernate.c3p0.idle_test_period">3000</property>
+
+		<property name="hibernate.hbm2ddl.auto">create</property> 
+
+		<!-- Show and print nice SQL on stdout -->
+		<property name="show_sql">true</property>
+		
+		<!-- List of XML mapping files -->
+<!-- 		<mapping class="ar.edu.itba.it.paw.models.Credential"/> -->
+
+	</session-factory>
+	
+<!-- 	<hibernate-mapping> -->
+<!-- 		<class name="demoHib.domain.Department" table="DEPARTMENT"> -->
+<!-- 			<id name="id" column="ID">  -->
+<!-- 				<generator class="identity" /> -->
+<!-- 			</id> -->
+<!-- 			<property name="name" not-null="true"/> -->
+<!-- 			<set name="subjects" lazy="false" cascade="all-delete-orphan"> -->
+<!-- 				<key column="dept_id" /> -->
+<!-- 				<one-to-many class="demoHib.domain.Subject"/>  -->
+<!-- 			</set> -->
+<!-- 		</class>  -->
+<!-- 	</hibernate-mapping> -->
+</hibernate-configuration>
