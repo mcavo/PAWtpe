@@ -26,7 +26,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/PAWTPE/homepage">Food on Board</a>
+			<a class="navbar-brand" href="/PAWTPE/bin/homepage/">Food on Board</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
@@ -46,7 +46,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				<c:choose>
 					<c:when test="${user.firstName==null}">
-						<li><a href="/PAWTPE/login">Ingresa</a></li>
+						<li><a href="/PAWTPE/bin/login/">Ingresa</a></li>
 						<li><a href="#">Regístrate</a></li>
 					</c:when>    
     				<c:otherwise>

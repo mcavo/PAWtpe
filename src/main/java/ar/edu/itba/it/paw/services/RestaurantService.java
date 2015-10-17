@@ -21,4 +21,6 @@ public interface RestaurantService {
 	public void setRestaurant(String name , String description , String[] types , String timeFrom , String timeTo , String street , String number , String city , String province , String floor , String apartment , String neighborhood, String minimum, String cost) throws Exception;
 	
 	public boolean validateId(String restid);
+
+	public List<Restaurant> getLastWeekRestaurants();
 }

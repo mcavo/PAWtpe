@@ -10,5 +10,5 @@ public interface CalificationDAO {
 	public void addCalification(int userId, int restId, int rate, String comment);
 	
 	public HashMap<Integer, Calification> getCalifications(Restaurant restaurant);
-	
+
 }
