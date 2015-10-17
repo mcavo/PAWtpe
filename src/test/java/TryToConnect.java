@@ -6,6 +6,7 @@ import ar.edu.itba.it.paw.DAO.DBManager;
 
 public class TryToConnect {
 
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		Connection dbConnection;
 		DBManager db = DBManager.getInstance();
@@ -54,7 +55,11 @@ public class TryToConnect {
 			//dbConnection.createStatement().execute("DELETE FROM usuario WHERE userid=2;");
 			//dbConnection.createStatement().execute("INSERT INTO usuario values (1,'María Victoria', 'Cavo', 6, );");
 			/**/
-			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM direccion");
+
+			ResultSet set1 = dbConnection.createStatement().executeQuery("SELECT * FROM direccion");
+
+			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM credencial");
+			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM information_schema.columns WHERE table_name  = 'credencial'");
 			//dbConnection.createStatement().execute("ALTER TABLE restaurante ALTER COLUMN descripcion DROP NOT NULL;");
 			//dbConnection.createStatement().execute("DELETE FROM plato WHERE id=3;");
 			//dbConnection.createStatement().execute("ALTER TABLE restaurante ALTER COLUMN regis SET DEFAULT CURRENT_TIMESTAMP;");

@@ -1,11 +1,19 @@
 package ar.edu.itba.it.paw.models;
 
+import javax.persistence.*;
+@Entity
+@Table(name = "credencial")
 public class Credential {
 
+	@Id @GeneratedValue
+	@Column(name = "id")
 	private int id;
-	private String rol;
-	private String mail;
 	
+	@Column(name = "rol")
+	private String rol;
+	
+	@Column(name = "mail")
+	private String mail;
 	
 	public Credential() {
 		
