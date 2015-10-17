@@ -7,21 +7,25 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+import org.springframework.stereotype.Repository;
+
+import ar.edu.itba.it.paw.DAO.CredentialDAO;
 import ar.edu.itba.it.paw.DAO.DBManager;
 import ar.edu.itba.it.paw.DAO.UserDAO;
 import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.User;
 
+@Repository
 public class UserDAOImpl implements UserDAO{
 	
-	private CredentialDAOImpl credentialDAO;
+	private CredentialDAO credentialDAO;
 	
 	public UserDAOImpl(){
 		
 	}
 	
-	public UserDAOImpl(CredentialDAOImpl dao){
+	public UserDAOImpl(CredentialDAO dao){
 		this.credentialDAO = dao;
 	}
 	

@@ -2,7 +2,7 @@
 
 <div class="container">
 	<h3 class="text-center">Por favor, ingrese sus datos</h3>
-	<form role="form" action="login" method="post">
+	<form role="form" action="" method="post">
 		<br>
 		<div class="form-group row">
 			<div class="col-sm-offset-4 col-sm-4">

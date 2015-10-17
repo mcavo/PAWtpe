@@ -24,7 +24,7 @@ public class RestaurantController {
 		this.restaurantService = restaurantService;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("rlist", restaurantService.getAllRestaurants());
@@ -32,7 +32,7 @@ public class RestaurantController {
 		return mav;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value="/list", method = RequestMethod.POST)
 	public ModelAndView list(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("rlist", restaurantService.getRestaurants(req.getParameter("type")));

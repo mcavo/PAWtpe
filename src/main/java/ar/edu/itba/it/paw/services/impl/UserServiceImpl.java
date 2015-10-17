@@ -3,6 +3,11 @@ package ar.edu.itba.it.paw.services.impl;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ar.edu.itba.it.paw.DAO.CredentialDAO;
+import ar.edu.itba.it.paw.DAO.UserDAO;
 import ar.edu.itba.it.paw.DAO.impl.CredentialDAOImpl;
 import ar.edu.itba.it.paw.DAO.impl.RestaurantDAOImpl;
 import ar.edu.itba.it.paw.DAO.impl.UserDAOImpl;
@@ -11,14 +16,16 @@ import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.User;
 import ar.edu.itba.it.paw.services.UserService;
 
+@Service
 public class UserServiceImpl implements UserService{
 
-	private UserDAOImpl userDAO;
-	private CredentialDAOImpl credentialDAO;
+	private UserDAO userDAO;
+	private CredentialDAO credentialDAO;
 			
 	public UserServiceImpl(){}
 	
-	public UserServiceImpl(UserDAOImpl dao, CredentialDAOImpl credentialDao){
+	@Autowired
+	public UserServiceImpl(UserDAO dao, CredentialDAO credentialDao){
 		this.userDAO = dao;
 		this.credentialDAO = credentialDao;
 	}
