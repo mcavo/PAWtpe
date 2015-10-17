@@ -15,7 +15,6 @@ public class UserInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest req, HttpServletResponse resp, Object arg2) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("PRE");
 		
 		HttpServletRequest request = (HttpServletRequest) req;
 		UserManager userManager = new SessionUserManager(request);
@@ -25,7 +24,7 @@ public class UserInterceptor extends HandlerInterceptorAdapter {
 		}else{
 			request.setAttribute("user", null);
 		}
-		return false;
+		return true;
 	}
 
 }
