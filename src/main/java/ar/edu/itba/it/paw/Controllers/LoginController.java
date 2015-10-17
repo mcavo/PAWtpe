@@ -14,7 +14,6 @@ import ar.edu.itba.it.paw.SessionUserManager;
 import ar.edu.itba.it.paw.UserManager;
 import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.User;
-import ar.edu.itba.it.paw.services.RestaurantService;
 import ar.edu.itba.it.paw.services.UserService;
 
 @Controller
@@ -34,7 +33,8 @@ public class LoginController {
 		if (user == null) {
 			mav.setViewName("login");
 		}else{
-			mav.setViewName("homepage");
+			return new ModelAndView("redirect:../homepage/");
+
 		}
 		return mav;
 	}
@@ -49,7 +49,7 @@ public class LoginController {
 			User user = UserService.getUserById(cred);
 			UserManager userManager = new SessionUserManager(request);
 			userManager.setUser(user);
-			return "redirect:../homepage";
+			return "redirect:../homepage/";
 		}
 	}
 }
