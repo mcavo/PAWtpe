@@ -26,22 +26,21 @@ public class LoginController {
 		this.UserService = userService;
 	}
 	
-	@RequestMapping(value="", method = RequestMethod.GET)
+	@RequestMapping(value="/login", method = RequestMethod.GET)
 	public ModelAndView get(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) request.getAttribute("user");
 		if (user == null) {
-			mav.setViewName("login");
+			return mav;
+			//mav.setViewName("login");
 		}else{
 			return new ModelAndView("redirect:../homepage/");
-
 		}
-		return mav;
+		//return mav;
 	}
 	
-	@RequestMapping(value="", method = RequestMethod.POST)
+	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public String post(HttpServletRequest request, @RequestParam("email") String email, @RequestParam("pwd") String pwd) {
-		ModelAndView mav = new ModelAndView();
 		Credential cred = UserService.getUserCredentials(email, pwd);
 		if(cred == null){
 			return "redirect:";

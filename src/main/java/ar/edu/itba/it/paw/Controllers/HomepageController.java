@@ -11,25 +11,25 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Restaurant;
-import ar.edu.itba.it.paw.services.impl.CalificationServiceImpl;
-import ar.edu.itba.it.paw.services.impl.RestaurantServiceImpl;
+import ar.edu.itba.it.paw.services.CalificationService;
+import ar.edu.itba.it.paw.services.RestaurantService;
 
 @Controller
 public class HomepageController {
-	private RestaurantServiceImpl restaurantService;
-	private CalificationServiceImpl calificationService; 
+	private RestaurantService restaurantService;
+	private CalificationService calificationService; 
 	
 	@Autowired
-	public HomepageController(RestaurantServiceImpl restaurantService, CalificationServiceImpl calificationService) {
+	public HomepageController(RestaurantService restaurantService, CalificationService calificationService) {
 		// TODO Auto-generated constructor stub
 		this.restaurantService = restaurantService;
 		this.calificationService = calificationService;
 	}
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value="/homepage", method = RequestMethod.GET)
 	public ModelAndView homepage() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("homepage");
+		//mav.setViewName("homepage");
 		List<Restaurant> weekRests = restaurantService.getLastWeekRestaurants();
 		for(Restaurant rest : weekRests) {
 			rest.setCalifications(calificationService.getCalifications(rest));
