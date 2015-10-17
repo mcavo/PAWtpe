@@ -88,12 +88,12 @@ public class CredentialDAOImpl implements CredentialDAO{
 		Session session = HibernateConnection.getInstance().getSessionFactory().openSession();
 		//Transaction tx = session.beginTransaction();
 		
-		String hql = "FROM credencial WHERE mail like :mail and psw = :psw";
+		/*String hql = "FROM credencial WHERE mail like :mail and psw = :psw";
 		Query query = session.createQuery(hql);
 		query.setParameter("mail", email);
 		query.setParameter("psw", pwd);
-		@SuppressWarnings("unchecked")
-		List<Credential> credentials = query.list();
+		*/@SuppressWarnings("unchecked")
+		List<Credential> credentials = session.createQuery("from credencial").list();
 		cred = credentials.get(0);
 		
 		session.close();

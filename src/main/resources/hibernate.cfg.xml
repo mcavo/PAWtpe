@@ -4,42 +4,30 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
 	<session-factory>
-		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-		<property name="hibernate.connection.url"> jdbc:postgresql://ec2-54-235-162-144.compute-1.amazonaws.com:5432/dajenobv1kl0ho</property> 
-		<property name="hibernate.connection.username">hubyihgpaouvuy</property>
-		<property name="hibernate.connection.password">p59ImIPv_9CmNlMxbU-Cyn6tHF</property>
+                <property name="connection.driver_class">org.postgresql.Driver</property>
+                <property name="connection.url">jdbc:postgresql://localhost/postgres</property>
+                <property name="connection.username">postgres</property>
+                <property name="connection.password">postgres</property>
 
-		<property name="hibernate.dialect">
-			org.hibernate.dialect.PostgreSQLDialect
-		</property>
-		
-		<!-- Use the C3P0 connection pool provider -->
-		<property name="hibernate.c3p0.min_size">5</property>
-		<property name="hibernate.c3p0.max_size">20</property>
-		<property name="hibernate.c3p0.timeout">300</property>
-		<property name="hibernate.c3p0.max_statements">50</property>
-		<property name="hibernate.c3p0.idle_test_period">3000</property>
+                <!-- JDBC connection pool (use the built-in) -->
+                <property name="connection.pool_size">1</property>
 
-		<property name="hibernate.hbm2ddl.auto">create</property> 
+                <!-- SQL dialect -->
+                <property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
 
-		<!-- Show and print nice SQL on stdout -->
-		<property name="show_sql">true</property>
-		
-		<!-- List of XML mapping files -->
-		<mapping class="ar.edu.itba.it.paw.models.Credential"/>
+                <!-- Enable Hibernate's automatic session context management -->
+                <property name="current_session_context_class">thread</property>
+
+                <!-- Disable the second-level cache  -->
+                <property name="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</property>
+
+                <!-- Echo all executed SQL to stdout -->
+                <property name="show_sql">true</property>
+
+                <property name="hbm2ddl.auto">create</property>
+                
+                <!-- Clases -->
+                <mapping class="ar.edu.itba.it.paw.models.Credential"/>
 
 	</session-factory>
-	
-<!-- 	<hibernate-mapping> -->
-<!-- 		<class name="demoHib.domain.Department" table="DEPARTMENT"> -->
-<!-- 			<id name="id" column="ID">  -->
-<!-- 				<generator class="identity" /> -->
-<!-- 			</id> -->
-<!-- 			<property name="name" not-null="true"/> -->
-<!-- 			<set name="subjects" lazy="false" cascade="all-delete-orphan"> -->
-<!-- 				<key column="dept_id" /> -->
-<!-- 				<one-to-many class="demoHib.domain.Subject"/>  -->
-<!-- 			</set> -->
-<!-- 		</class>  -->
-<!-- 	</hibernate-mapping> -->
 </hibernate-configuration>

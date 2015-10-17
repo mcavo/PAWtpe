@@ -52,20 +52,21 @@ public class TryToConnect {
 			
 			//dbConnection.createStatement().execute("DROP TABLE direccion;");
 			//dbConnection.createStatement().execute("ALTER TABLE pedido ADD COLUMN estado INTEGER;");
-			dbConnection.createStatement().execute("UPDATE credencial SET rol='admin' WHERE mail='mvictoria.cavo@gmail.com';");
+			//dbConnection.createStatement().execute("UPDATE credencial SET rol='admin' WHERE mail='mvictoria.cavo@gmail.com';");
 			//dbConnection.createStatement().execute("ALTER TABLE pedido ALTER COLUMN estado SET NOT NULL;");
 			//dbConnection.createStatement().execute("INSERT INTO direccion (calle, provincia, localidad, numero, barrio) values ('Av. Olazábal', 'Buenos Aires', 'Capital Federal', 5151,'Villa Urquiza');");				
 			//dbConnection.createStatement().execute("DELETE FROM usuario WHERE userid=2;");
 			//dbConnection.createStatement().execute("INSERT INTO usuario values (1,'María Victoria', 'Cavo', 6, );");
 			/**/
-			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM credencial");
+			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM credencial");
+			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM information_schema.columns WHERE table_name  = 'credencial'");
 			//dbConnection.createStatement().execute("ALTER TABLE restaurante ALTER COLUMN descripcion DROP NOT NULL;");
 			//dbConnection.createStatement().execute("DELETE FROM plato WHERE id=3;");
 			//dbConnection.createStatement().execute("ALTER TABLE restaurante ALTER COLUMN regis SET DEFAULT CURRENT_TIMESTAMP;");
 			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM restaurante");
 			
 			while(set.next()) {
-				for(int i=1 ; i<=4; i++)
+				for(int i=1 ; i<=5; i++)
 					System.out.print(set.getString(i)+" | ");
 				System.out.println("");
 			}
