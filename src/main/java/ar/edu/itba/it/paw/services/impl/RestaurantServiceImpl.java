@@ -118,4 +118,9 @@ public class RestaurantServiceImpl implements RestaurantService{
 		}
 	}
 
+	@Override
+	public List<Restaurant> getLastWeekRestaurants() {
+		return (new RestaurantDAOImpl()).getLastWeekAdded();
+	}
+
 }
