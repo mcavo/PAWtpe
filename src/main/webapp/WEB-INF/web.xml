@@ -24,25 +24,25 @@
 	       <url-pattern>/login</url-pattern>
 	</servlet-mapping>
 	
-	<servlet>
+<!-- 	<servlet>
 		<servlet-name>Homepage</servlet-name>
 		<servlet-class>ar.edu.itba.it.paw.servlets.Homepage</servlet-class>
 	</servlet>
 	<servlet>
-		<description>
+		<descript<ion>
 		</description>
 		<display-name>SignUp</display-name>
 		<servlet-name>SignUp</servlet-name>
 		<servlet-class>ar.edu.itba.it.paw.SignUp</servlet-class>
-	</servlet>
+	</servlet>-->
 	<!-- <servlet-mapping>
 	       <servlet-name>Homepage</servlet-name>
 	       <url-pattern>/homepage</url-pattern>
-	</servlet-mapping>-->
+	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>SignUp</servlet-name>
 		<url-pattern>/signup</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping>-->
 	
 	<servlet>
        <servlet-name>ShowRestaurant</servlet-name>

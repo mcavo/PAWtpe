@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.DAO.CredentialDAO;
@@ -22,6 +23,7 @@ public class UserDAOImpl implements UserDAO{
 		
 	}
 	
+	@Autowired
 	public UserDAOImpl(CredentialDAO dao){
 		this.credentialDAO = dao;
 	}
@@ -54,7 +56,8 @@ public class UserDAOImpl implements UserDAO{
 		if(empty){
 			return null;
 		}
-		User user = new User(id, nombre, apellido, nacimiento.toLocalDate());
+		User user = new User(nombre, apellido, nacimiento.toLocalDate());
+		user.setId(id);
 		user.setAddress(new AddressDAOImpl().getAddressById(dirid));
 		return user;
 	}
@@ -69,7 +72,7 @@ public class UserDAOImpl implements UserDAO{
 			PreparedStatement pstmt = con.prepareStatement(query);
 			pstmt.setInt(1, userid);
 			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
+			if (rs.next()) {
 				userId = rs.getInt("userid");
 			}
 			pstmt.close();

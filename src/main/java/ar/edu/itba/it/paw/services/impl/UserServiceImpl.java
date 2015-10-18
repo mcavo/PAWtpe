@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	private User createUser(String mail, String firstName, String lastName, LocalDate birth) {
-		return new User(userDAO.getUserId(mail), firstName, lastName, birth);
+		return new User(firstName, lastName, birth);
 	}
 
 	/*public static void setIfManager(User user, String rol) {

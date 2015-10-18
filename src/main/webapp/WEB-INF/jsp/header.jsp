@@ -46,8 +46,8 @@
 			<ul class="nav navbar-nav navbar-right">
 				<c:choose>
 					<c:when test="${user.firstName==null}">
-						<li><a href="/PAWTPE/bin/login/">Ingresa</a></li>
-						<li><a href="#">Regístrate</a></li>
+						<li><a href="../login/">Ingresa</a></li>
+						<li><a href="../signup/">Regístrate</a></li>
 					</c:when>    
     				<c:otherwise>
     					<li><a href="#">${user.firstName}</a></li> 
