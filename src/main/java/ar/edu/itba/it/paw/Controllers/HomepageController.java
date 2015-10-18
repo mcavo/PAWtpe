@@ -29,7 +29,6 @@ public class HomepageController {
 	@RequestMapping(value="/homepage", method = RequestMethod.GET)
 	public ModelAndView homepage() {
 		ModelAndView mav = new ModelAndView();
-		//mav.setViewName("homepage");
 		List<Restaurant> weekRests = restaurantService.getLastWeekRestaurants();
 		for(Restaurant rest : weekRests) {
 			rest.setCalifications(calificationService.getCalifications(rest));

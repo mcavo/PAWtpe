@@ -31,11 +31,9 @@ public class LoginController {
 		User user = (User) request.getAttribute("user");
 		if (user == null) {
 			return mav;
-			//mav.setViewName("login");
 		}else{
 			return new ModelAndView("redirect:../homepage/");
 		}
-		//return mav;
 	}
 	
 	@RequestMapping(value="/login", method = RequestMethod.POST)

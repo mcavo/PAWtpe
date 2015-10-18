@@ -51,7 +51,7 @@
 					</c:when>    
     				<c:otherwise>
     					<li><a href="#">${user.firstName}</a></li> 
-    					<li><a href="/PAWTPE/logout">Salir</a></li>
+    					<li><a href="../logout/">Salir</a></li>
     				</c:otherwise>
     			</c:choose>
 			</ul>
