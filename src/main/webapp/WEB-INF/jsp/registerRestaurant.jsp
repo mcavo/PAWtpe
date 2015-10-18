@@ -2,7 +2,7 @@
 
 <div class="container">
 	<form data-toggle="validator" role="form" novalidate
-		action="registerrestaurant" method="post">
+		action="/PAWTPE/bin/restaurant/register" method="post">
 		<div class="row">
 			<div class="col-md-6">
 				<div class="panel panel-default">
@@ -18,7 +18,7 @@
 						<div class="form-group">
 							<label for="inputStreet" class="control-label">Descripción</label>
 							<textarea class="form-control" rows="4" maxlength="500"
-								id="description" placeholder="Descripción"></textarea>
+								id="description" placeholder="Descripción" name="description"></textarea>
 						</div>
 					</div>
 				</div>

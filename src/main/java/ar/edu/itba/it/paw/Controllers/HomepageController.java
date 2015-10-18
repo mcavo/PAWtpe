@@ -21,7 +21,6 @@ public class HomepageController {
 	
 	@Autowired
 	public HomepageController(RestaurantService restaurantService, CalificationService calificationService) {
-		// TODO Auto-generated constructor stub
 		this.restaurantService = restaurantService;
 		this.calificationService = calificationService;
 	}

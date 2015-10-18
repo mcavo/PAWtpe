@@ -7,11 +7,11 @@
 <html>
 <head>
 <title>Food on Board</title>
-<link href="../../image/favicon.ico" rel="icon" type="image/x-icon" />
-<link href="../css/common.css" type="text/css" rel="stylesheet">
-<link href="../css/restcard.css" type="text/css" rel="stylesheet">
-<link href="../css/comments.css" type="text/css" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+<link href="image/favicon.ico" rel="icon" type="image/x-icon" />
+<link href="../../css/common.css" type="text/css" rel="stylesheet">
+<link href="../../css/restcard.css" type="text/css" rel="stylesheet">
+<link href="../../css/comments.css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../../css/bootstrap.min.css" />
 </head>
 <body class="mybody">
 
@@ -32,7 +32,7 @@
 				<c:choose>
 					<c:when test="${user.isAdmin}">
 						<li><a href="/PAWTPE/admin/addManager">Agregar manager</a></li>
-						<li><a href="/PAWTPE/admin/registerRestaurant">Agregar restaurante</a></li>
+						<li><a href="/PAWTPE/bin/restaurant/register">Agregar restaurante</a></li>
 					</c:when>
 					<c:when test="${user.isManager}">
 						<li><a href="/PAWTPE/managers/addDish">Agregar menu</a></li>

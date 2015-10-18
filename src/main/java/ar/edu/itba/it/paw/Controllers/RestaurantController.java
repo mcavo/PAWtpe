@@ -60,4 +60,23 @@ public class RestaurantController {
 		mav.setViewName("menuRestaurant");
 		return mav;
 	}
+	
+	@RequestMapping(value="/register", method = RequestMethod.POST)
+	public ModelAndView register(@RequestParam("name") String name, @RequestParam("street") String street, @RequestParam("number") String number, @RequestParam("neighborhood") String neighborhood, @RequestParam("city") String city, @RequestParam("province") String province, @RequestParam("floor") String floor, @RequestParam("apartment") String apartment, @RequestParam(name="description", required=false) String description,  @RequestParam("from") String from,  @RequestParam("to") String to,  @RequestParam("minimum") String minimum,  @RequestParam("cost") String cost, @RequestParam("checkboxes") String[] types) {
+		ModelAndView mav = new ModelAndView();
+		try {
+			restaurantService.setRestaurant(name, description, types, from, to, street, number, city, province, floor, apartment, neighborhood, minimum, cost);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return mav;
+		}
+		return new ModelAndView("redirect:../homepage/");
+	}
+	
+	@RequestMapping(value="/register", method = RequestMethod.GET)
+	public ModelAndView register() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("registerRestaurant");
+		return mav;
+	}
 }

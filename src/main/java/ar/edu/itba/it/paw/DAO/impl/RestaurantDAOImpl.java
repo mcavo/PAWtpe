@@ -30,7 +30,7 @@ public class RestaurantDAOImpl implements RestaurantDAO{
 	public RestaurantDAOImpl() {
 
 	}
-
+	
 	public RestaurantDAOImpl(AddressDAO addressDao, CalificationDAO calificationDao){
 		this.addressDao = addressDao;
 		this.calificationDAO = calificationDao;
@@ -290,7 +290,7 @@ public class RestaurantDAOImpl implements RestaurantDAO{
 		}
 		int id = getRestaurantId(addressId);
 		if (id == -1) {
-			return;
+			throw new Exception("No tuvo dirección");
 		}
 		setTypes(rest.getTypesOfFood(), id);
 	}

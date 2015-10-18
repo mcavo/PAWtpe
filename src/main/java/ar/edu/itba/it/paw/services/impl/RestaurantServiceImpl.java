@@ -7,7 +7,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import ar.edu.itba.it.paw.DAO.RestaurantDAO;
-import ar.edu.itba.it.paw.DAO.impl.RestaurantDAOImpl;
 import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Restaurant;
@@ -119,7 +118,7 @@ public class RestaurantServiceImpl implements RestaurantService{
 
 	@Override
 	public List<Restaurant> getLastWeekRestaurants() {
-		return (new RestaurantDAOImpl()).getLastWeekAdded();
+		return restaurantDAO.getLastWeekAdded();
 	}
 
 }

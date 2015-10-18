@@ -40,11 +40,6 @@ public class SignupController {
 	public ModelAndView signup(HttpServletRequest request, @RequestParam("email") String email, @RequestParam("pwd") String pwd, @RequestParam("firstname") String firstname, @RequestParam("lastname") String lastname, @RequestParam("street") String street, @RequestParam("number") String number, @RequestParam("neighborhood") String neighborhood, @RequestParam("city") String city, @RequestParam("province") String province, @RequestParam("floor") String floor, @RequestParam("apartment") String apartment, @RequestParam("day") String day, @RequestParam("month") String month, @RequestParam("year") String year) {
 		User user = null;
 		try {
-			System.out.println(email);
-			System.out.println(pwd);
-			System.out.println(firstname);
-			System.out.println(day);
-			System.out.println(month);
 			user = this.userService.signUp(email, pwd, firstname, lastname, day, month, year, false, street, number, city, province, neighborhood, floor, apartment);
 		} catch (Exception e) {
 			e.printStackTrace();
