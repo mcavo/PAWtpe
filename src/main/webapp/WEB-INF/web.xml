@@ -14,76 +14,7 @@
       <servlet-name>sprintSpring</servlet-name>
       <url-pattern>/bin/*</url-pattern>
    </servlet-mapping>
-   
-	<servlet>
-       <servlet-name>Login</servlet-name>
-       <servlet-class>ar.edu.itba.it.paw.Login</servlet-class>
-	</servlet>
-	<servlet-mapping>
-	       <servlet-name>Login</servlet-name>
-	       <url-pattern>/login</url-pattern>
-	</servlet-mapping>
 	
-<!-- 	<servlet>
-		<servlet-name>Homepage</servlet-name>
-		<servlet-class>ar.edu.itba.it.paw.servlets.Homepage</servlet-class>
-	</servlet>
-	<servlet>
-		<descript<ion>
-		</description>
-		<display-name>SignUp</display-name>
-		<servlet-name>SignUp</servlet-name>
-		<servlet-class>ar.edu.itba.it.paw.SignUp</servlet-class>
-	</servlet>-->
-	<!-- <servlet-mapping>
-	       <servlet-name>Homepage</servlet-name>
-	       <url-pattern>/homepage</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>SignUp</servlet-name>
-		<url-pattern>/signup</url-pattern>
-	</servlet-mapping>-->
-	
-	<servlet>
-       <servlet-name>ShowRestaurant</servlet-name>
-       <servlet-class>ar.edu.itba.it.paw.servlets.ShowRestaurant</servlet-class>
-	</servlet>
-	<servlet-mapping>
-	       <servlet-name>ShowRestaurant</servlet-name>
-	       <url-pattern>/showRestaurant</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-       <servlet-name>RestaurantList</servlet-name>
-       <servlet-class>ar.edu.itba.it.paw.servlets.RestaurantList</servlet-class>
-	</servlet>
-	<servlet-mapping>
-	       <servlet-name>RestaurantList</servlet-name>
-	       <url-pattern>/restaurantList</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-       <servlet-name>MenuRestaurant</servlet-name>
-       <servlet-class>ar.edu.itba.it.paw.servlets.MenuRestaurant</servlet-class>
-	</servlet>
-	<servlet-mapping>
-	       <servlet-name>MenuRestaurant</servlet-name>
-	       <url-pattern>/menuRestaurant</url-pattern>
-	</servlet-mapping>
-	
-	
-	
-	<servlet>
-       <servlet-name>Logout</servlet-name>
-       <servlet-class>ar.edu.itba.it.paw.web.Logout</servlet-class>
-	</servlet>
-	<servlet>
-		<description>
-		</description>
-		<display-name>RegisterRestaurant</display-name>
-		<servlet-name>RegisterRestaurant</servlet-name>
-		<servlet-class>ar.edu.itba.it.paw.RegisterRestaurant</servlet-class>
-	</servlet>
 	<servlet>
 		<description>
 		</description>
@@ -91,14 +22,6 @@
 		<servlet-name>Error</servlet-name>
 		<servlet-class>ar.edu.itba.it.paw.Error</servlet-class>
 	</servlet>
-	<servlet-mapping>
-	       <servlet-name>Logout</servlet-name>
-	       <url-pattern>/logout</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>RegisterRestaurant</servlet-name>
-		<url-pattern>/admin/registerRestaurant</url-pattern>
-	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>Error</servlet-name>
 		<url-pattern>/Error</url-pattern>

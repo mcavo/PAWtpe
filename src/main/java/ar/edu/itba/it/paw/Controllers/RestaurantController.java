@@ -9,17 +9,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.itba.it.paw.SessionUserManager;
+import ar.edu.itba.it.paw.UserManager;
+import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
+import ar.edu.itba.it.paw.services.CalificationService;
 import ar.edu.itba.it.paw.services.RestaurantService;
 
 @Controller
 public class RestaurantController {
 	
 	private final RestaurantService restaurantService;
+	private final CalificationService calificationService;
 	
 	@Autowired
-	public RestaurantController(RestaurantService restaurantService){
+	public RestaurantController(RestaurantService restaurantService, CalificationService calificationService){
 		this.restaurantService = restaurantService;
+		this.calificationService = calificationService;
 	}
 	
 	@RequestMapping(value="/list", method = RequestMethod.GET)
@@ -38,18 +44,37 @@ public class RestaurantController {
 		return mav;
 	}
 	
-	@SuppressWarnings("unused")
+
 	@RequestMapping(value="/details", method = RequestMethod.GET)
 	public ModelAndView details(HttpServletRequest request, @RequestParam("name") String name, @RequestParam("srt") String street, @RequestParam("numb") String number, @RequestParam("neigh") String neighborhood, @RequestParam("city") String city, @RequestParam("prov") String province, @RequestParam("flr") String floor, @RequestParam("apt") String apartment) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("rest", restaurantService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment));
+		Restaurant rest = restaurantService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
+		mav.addObject("rest", rest);
 		mav.setViewName("showRestaurant");
 		User user = (User) request.getAttribute("user");
-		/*if(usr != null){
-			req.setAttribute("okToQualify", CalificationServiceImpl.canQualify(rest, usr.getId()));
+		if(user != null){
+			request.setAttribute("okToQualify", calificationService.canQualify(rest, user.getId()));
 		}else{
-			req.setAttribute("okToQualify", false);
-		}*/
+			request.setAttribute("okToQualify", false);
+		}
+		return mav;
+	}
+	
+	@RequestMapping(value="/details", method = RequestMethod.POST)
+	public ModelAndView details(HttpServletRequest request, @RequestParam("name") String name, @RequestParam("srt") String street, @RequestParam("numb") String number, @RequestParam("neigh") String neighborhood, @RequestParam("city") String city, @RequestParam("prov") String province, @RequestParam("flr") String floor, @RequestParam("apt") String apartment,@RequestParam("rating") String stars, @RequestParam(name="comment", required=false) String comments ) throws Exception { 
+		ModelAndView mav = new ModelAndView();
+		User user = (User) request.getAttribute("user");
+		Restaurant rest = restaurantService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
+		rest.setCalifications(calificationService.getCalifications(rest));
+		mav.addObject("rest", rest);
+		mav.setViewName("showRestaurant");
+		UserManager userManager = new SessionUserManager(request);
+		if (!userManager.existsUser()) {
+			throw new Exception("No hay un usuario loggeado");
+		}
+		calificationService.addCalification(user.getId(), rest, stars, comments);
+		request.setAttribute("rest", rest);
+		
 		return mav;
 	}
 	
