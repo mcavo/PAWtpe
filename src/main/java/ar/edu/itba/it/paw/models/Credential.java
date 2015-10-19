@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Table(name = "credencial")
 public class Credential {
 
-	@Id @GeneratedValue
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
 	
@@ -18,6 +18,7 @@ public class Credential {
 	public Credential() {
 		
 	}
+	
 	public Credential(int id, String rol, String mail){
 		this.id = id;
 		this.rol = rol;
@@ -43,6 +44,4 @@ public class Credential {
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	
-	
 }

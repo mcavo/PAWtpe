@@ -3,11 +3,15 @@ package ar.edu.itba.it.paw.services.impl;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ar.edu.itba.it.paw.HibernateConnection;
 import ar.edu.itba.it.paw.DAO.CredentialDAO;
 import ar.edu.itba.it.paw.DAO.UserDAO;
+import ar.edu.itba.it.paw.Exceptions.CredentialNoMatchException;
+import ar.edu.itba.it.paw.Repositories.CredentialRepository;
 import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.User;
@@ -28,7 +32,16 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	public Credential getUserCredentials(String mail, String pwd){
-		return credentialDAO.getCredentials(mail, pwd);
+		SessionFactory sf = HibernateConnection.getInstance().getSessionFactory();
+		CredentialRepository credentialRepository = new CredentialRepository(sf);
+		try {
+			return credentialRepository.getCredentials(mail, pwd);
+		} catch (CredentialNoMatchException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+//		return credentialDAO.getCredentials(mail, pwd);
 	}
 	
 	public User getUserById(Credential cred){
@@ -59,13 +72,12 @@ public class UserServiceImpl implements UserService{
 		} catch (Exception e) {
 			floorV = -1;
 		}
-		//address.setFloor(floorV);	
-		//address.setApartment(apartment);
 		Address address = new Address(street, numberV, floorV, apartment, neighborhood, city, province);
+		address.setFloor(floorV);	
+		address.setApartment(apartment);
 		
 		//User user = new User(email, firstName, lastName, birth, isManager, address);
 		User user = createUser(email, firstName, lastName, birth);//new User(firstName, lastName, birth);
-		user.setEmail(email);
 		user.setManager(isManager);
 		user.setAddress(address);
 		return userDAO.setUser(user, pwd); //TODO: esta exceptción debería ser cambiada por una más personalizada.
@@ -75,8 +87,8 @@ public class UserServiceImpl implements UserService{
 		return new User(firstName, lastName, birth);
 	}
 
-	/*public static void setIfManager(User user, String rol) {
+	public static void setIfManager(User user, String rol) {
 		user.setManager(rol.equals("gerente"));
 		user.setIsAdmin(rol.equals("admin"));
-	}*/
+	}
 }

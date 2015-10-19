@@ -6,21 +6,28 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import ar.edu.itba.it.paw.HibernateConnection;
 import ar.edu.itba.it.paw.DAO.CredentialDAO;
 import ar.edu.itba.it.paw.DAO.DBManager;
 import ar.edu.itba.it.paw.DAO.UserDAO;
+import ar.edu.itba.it.paw.Exceptions.NoCredentialException;
+import ar.edu.itba.it.paw.Repositories.CredentialRepository;
+import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.User;
 
 @Repository
 public class UserDAOImpl implements UserDAO{
 	
 	private CredentialDAO credentialDAO;
+	private CredentialRepository credentialRepository;
 	
 	public UserDAOImpl(){
-		
+		SessionFactory sf = HibernateConnection.getInstance().getSessionFactory();
+		this.credentialRepository = new CredentialRepository(sf);
 	}
 	
 	@Autowired
@@ -63,7 +70,14 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	public int getUserId(String mail) {
-		int userid = credentialDAO.getCredentialID(mail);
+		//int userid = credentialDAO.getCredentialID(mail);
+		int userid;
+		try {
+			userid = credentialRepository.getCredentialID(mail);
+		} catch (NoCredentialException e1) {
+			// TODO Auto-generated catch block
+			userid = -1;
+		}
 		String query = "SELECT * FROM usuario WHERE id = ?";
 		int userId = -1;
 		DBManager.getInstance();
@@ -86,7 +100,13 @@ public class UserDAOImpl implements UserDAO{
 	public User setUser(User user, String pwd) throws Exception {
 		String role;
 		role = user.getIsManager() ? "manager" : "usuario"; 
-		int userid = credentialDAO.setCredentials(user.getEmail(), pwd, role); //Excpetion use to give feedback to the user if the email is still used
+		int userid = -1;
+		//int userid = credentialDAO.setCredentials(user.getEmail(), pwd, role); //Excpetion use to give feedback to the user if the email is still used
+		Credential credential = new Credential();
+		credential.setMail(user.getEmail());
+		credential.setRol(role);
+		credentialRepository.add(credential);
+		userid = credentialRepository.getCredentialID(user.getEmail());
 		int addressid = new AddressDAOImpl().setAddress(user.getAddress());
 	
 		String query = "INSERT INTO usuario (userid, nombre, apellido, nacimiento, dirid ) VALUES (? , ?, ?, ?, ?);";

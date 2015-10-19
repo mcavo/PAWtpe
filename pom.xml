@@ -40,50 +40,50 @@
 
 
 		<dependency>
-    <groupId>org.hibernate</groupId>
-    <artifactId>hibernate-core</artifactId>
-    <version>5.0.2.Final</version>
-</dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>5.0.2.Final</version>
+		</dependency>
 
-<!-- for JPA, use hibernate-entitymanager instead of hibernate-core -->
-<!-- <dependency> -->
-<!--     <groupId>org.hibernate</groupId> -->
-<!--     <artifactId>hibernate-entitymanager</artifactId> -->
-<!--     <version>5.0.2.Final</version> -->
-<!-- </dependency> -->
+		<!-- for JPA, use hibernate-entitymanager instead of hibernate-core -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.hibernate</groupId> -->
+		<!-- <artifactId>hibernate-entitymanager</artifactId> -->
+		<!-- <version>5.0.2.Final</version> -->
+		<!-- </dependency> -->
 
-<!-- optional -->
+		<!-- optional -->
 
-<!-- <dependency> -->
-<!--     <groupId>org.hibernate</groupId> -->
-<!--     <artifactId>hibernate-osgi</artifactId> -->
-<!--     <version>5.0.2.Final</version> -->
-<!-- </dependency> -->
-<!-- <dependency> -->
-<!--     <groupId>org.hibernate</groupId> -->
-<!--     <artifactId>hibernate-envers</artifactId> -->
-<!--     <version>5.0.2.Final</version> -->
-<!-- </dependency> -->
-<dependency>
-    <groupId>org.hibernate</groupId>
-    <artifactId>hibernate-c3p0</artifactId>
-    <version>5.0.2.Final</version>
-</dependency>
-<!-- <dependency> -->
-<!--     <groupId>org.hibernate</groupId> -->
-<!--     <artifactId>hibernate-proxool</artifactId> -->
-<!--     <version>5.0.2.Final</version> -->
-<!-- </dependency> -->
-<!-- <dependency> -->
-<!--     <groupId>org.hibernate</groupId> -->
-<!--     <artifactId>hibernate-infinispan</artifactId> -->
-<!--     <version>5.0.2.Final</version> -->
-<!-- </dependency> -->
-<!-- <dependency> -->
-<!--     <groupId>org.hibernate</groupId> -->
-<!--     <artifactId>hibernate-ehcache</artifactId> -->
-<!--     <version>5.0.2.Final</version> -->
-<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.hibernate</groupId> -->
+		<!-- <artifactId>hibernate-osgi</artifactId> -->
+		<!-- <version>5.0.2.Final</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.hibernate</groupId> -->
+		<!-- <artifactId>hibernate-envers</artifactId> -->
+		<!-- <version>5.0.2.Final</version> -->
+		<!-- </dependency> -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-c3p0</artifactId>
+			<version>5.0.2.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+			<version>3.5.6-Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.12.1.GA</version>
+		</dependency>
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
