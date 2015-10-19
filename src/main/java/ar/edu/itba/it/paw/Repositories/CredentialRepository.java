@@ -32,7 +32,7 @@ public class CredentialRepository extends AbstractHibernateRepository {
 	}
 	
 	public Credential getCredentials(String email, String pwd) throws CredentialNoMatchException {
-		List<Credential> list = find("from credencial where mail = ? AND pwd = ?", email, pwd);
+		List<Credential> list = find("from Credential where mail = ? AND pwd = ?", email, pwd);
 		if (!list.isEmpty()) {
 			return list.get(0);	
 		}

@@ -3,9 +3,9 @@ package ar.edu.itba.it.paw;
 import java.net.URI;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+//import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
+//import org.hibernate.service.ServiceRegistry;
 
 public class HibernateConnection {
 
@@ -29,7 +29,7 @@ public class HibernateConnection {
 				dbUrl += ssloff;
 				
 		        Configuration configuration = new Configuration();
-		        configuration.configure("hibernate.cfg.xml");
+		        //configuration.configure("hibernate.cfg.xml");
 
 				configuration
 		                .setProperty("hibernate.connection.username", username);
@@ -38,12 +38,12 @@ public class HibernateConnection {
 		        configuration.setProperty("hibernate.connection.url", dbUrl);
 		        System.out.println("Hibernate Annotation Configuration loaded");
 
-		        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-		                .applySettings(configuration.getProperties()).build();
-		        System.out.println("Hibernate Annotation serviceRegistry created");
-
-		        sessionFactory = configuration
-		                .buildSessionFactory(serviceRegistry);
+////		        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+//		                .applySettings(configuration.getProperties()).build();
+//		        System.out.println("Hibernate Annotation serviceRegistry created");
+//
+//		        sessionFactory = configuration
+//		                .buildSessionFactory(serviceRegistry);
 		    } catch (Throwable ex) {
 		        // Make sure you log the exception, as it might be swallowed
 		        System.err.println("Initial SessionFactory creation failed." + ex);

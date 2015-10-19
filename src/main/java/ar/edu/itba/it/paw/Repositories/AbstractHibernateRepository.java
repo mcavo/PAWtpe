@@ -4,9 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Query;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+import org.hibernate.Session;
 
 public class AbstractHibernateRepository {
 	private final SessionFactory sessionFactory;
@@ -22,13 +21,12 @@ public class AbstractHibernateRepository {
 		@SuppressWarnings("unchecked")
 		public <T> List<T> find(String hql, Object... params) {
 			Session session = getSession();
-			Transaction tx = session.beginTransaction();
+
 			Query query = session.createQuery(hql);
 			for (int i = 0; i < params.length; i++) {
 				query.setParameter(i, params[i]);
 			}
 			List<T> list = query.list();
-			tx.commit();
 			return list;
 		}
 

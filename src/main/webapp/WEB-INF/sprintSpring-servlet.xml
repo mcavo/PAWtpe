@@ -24,5 +24,7 @@
 	
 	<!-- DAOs - Ya no hace falta declararlo - Spring scanea @Repository en clases -->
 	<import resource="classpath:dao.xml" />
+		
+	<import resource="classpath:data.xml" />
 	
 </beans>
