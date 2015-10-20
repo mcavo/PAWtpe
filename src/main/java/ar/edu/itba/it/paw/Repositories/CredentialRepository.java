@@ -3,14 +3,18 @@ package ar.edu.itba.it.paw.Repositories;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.Exceptions.CredentialNoMatchException;
 import ar.edu.itba.it.paw.Exceptions.DuplicateEmailException;
 import ar.edu.itba.it.paw.Exceptions.NoCredentialException;
 import ar.edu.itba.it.paw.models.Credential;
 
+@Repository
 public class CredentialRepository extends AbstractHibernateRepository {
-
+	
+	@Autowired
 	public CredentialRepository(SessionFactory sessionFactory) {
 		super(sessionFactory);
 	}
@@ -32,7 +36,7 @@ public class CredentialRepository extends AbstractHibernateRepository {
 	}
 	
 	public Credential getCredentials(String email, String pwd) throws CredentialNoMatchException {
-		List<Credential> list = find("from Credential where mail = ? AND pwd = ?", email, pwd);
+		List<Credential> list = find("from Credential where mail = ? AND psw = ?", email, pwd);
 		if (!list.isEmpty()) {
 			return list.get(0);	
 		}

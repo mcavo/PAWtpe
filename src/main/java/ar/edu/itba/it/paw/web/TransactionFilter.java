@@ -20,7 +20,6 @@ public class TransactionFilter extends OncePerRequestFilter {
 	@Autowired
 	public TransactionFilter(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
-		System.out.println("Filto feo!!");
 	}
 	
 	@Override

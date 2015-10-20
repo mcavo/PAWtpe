@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc"
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="
          http://www.springframework.org/schema/beans
          http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
@@ -8,28 +10,33 @@
          http://www.springframework.org/schema/context/spring-context-3.0.xsd
          http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
 
-	<context:annotation-config/>
-	
-	<bean id="properties" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<context:annotation-config />
+
+	<bean id="properties"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="ignoreResourceNotFound" value="true" />
 		<property name="locations">
 			<list>
-	            <value>classpath:setup.properties</value>
-        	</list>
+				<value>classpath:setup.properties</value>
+			</list>
 		</property>
 	</bean>
 
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-		<property name="driverClassName" value="${jdbc.driverClassName}" />
-		<property name="url" value="${jdbc.url}" />
-		<property name="username" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
-		
-<!-- 		<property name="hibernate.c3p0.timeout" value="1800"/> -->
-<!-- 		<property name="hibernate.c3p0.idle_test_period" value="100"/> -->
+	<bean class="java.net.URI" id="dbUrl">
+		<constructor-arg value="postgres://hubyihgpaouvuy:p59ImIPv_9CmNlMxbU-Cyn6tHF@ec2-54-235-162-144.compute-1.amazonaws.com:5432/dajenobv1kl0ho" />
 	</bean>
 	
-	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url"
+			value="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + ':' + @dbUrl.getPort() + @dbUrl.getPath() + '?ssl=true&amp;sslfactory=org.postgresql.ssl.NonValidatingFactory'}" />
+		<property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }" />
+		<property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="hibernateProperties">
 			<value>
@@ -37,17 +44,18 @@
 				hibernate.hbm2ddl.auto=${hibernate.hbm2ddl.auto}
 				hibernate.show_sql=${hibernate.show_sql}
 				hibernate.current_session_context_class=thread
-            	hibernate.max_fetch_depth=2
-           		hibernate.jdbc.batch_size=30  
-           		hibernate.timeout=180000
-           		hibernate.
+				hibernate.max_fetch_depth=2
+				hibernate.jdbc.batch_size=30
+				hibernate.timeout=180000
 			</value>
 		</property>
 
 		<property name="packagesToScan">
-			<list> <value>ar.edu.itba.it.paw.models</value> </list>
+			<list>
+				<value>ar.edu.itba.it.paw.models</value>
+			</list>
 		</property>
 
 	</bean>
-	
+
 </beans>

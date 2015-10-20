@@ -26,13 +26,12 @@ public class UserDAOImpl implements UserDAO{
 	private CredentialRepository credentialRepository;
 	
 	public UserDAOImpl(){
-		SessionFactory sf = HibernateConnection.getInstance().getSessionFactory();
-		this.credentialRepository = new CredentialRepository(sf);
 	}
 	
 	@Autowired
-	public UserDAOImpl(CredentialDAO dao){
+	public UserDAOImpl(CredentialDAO dao, CredentialRepository credentialRepository){
 		this.credentialDAO = dao;
+		this.credentialRepository = credentialRepository;
 	}
 	
 	public User getUserById(int id){
