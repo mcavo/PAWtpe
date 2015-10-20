@@ -94,10 +94,10 @@
   			<param-value>org.springframework.web.servlet.FrameworkServlet.CONTEXT.spring</param-value> 
   		</init-param>
     </filter>
-    <filter-mapping>
-        <filter-name>transactionFilter</filter-name>
-        <url-pattern>/bin/*</url-pattern>
-    </filter-mapping> 
+<!--     <filter-mapping> -->
+<!--         <filter-name>transactionFilter</filter-name> -->
+<!--         <url-pattern>/bin/*</url-pattern> -->
+<!--     </filter-mapping>  -->
     
     <listener>
     	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>

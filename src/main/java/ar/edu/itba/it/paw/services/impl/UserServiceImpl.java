@@ -22,18 +22,20 @@ public class UserServiceImpl implements UserService{
 
 	private UserDAO userDAO;
 	private CredentialDAO credentialDAO;
+	private CredentialRepository credentialRepository;
 			
 	public UserServiceImpl(){}
 	
 	@Autowired
-	public UserServiceImpl(UserDAO dao, CredentialDAO credentialDao){
+	public UserServiceImpl(UserDAO dao, CredentialDAO credentialDao, CredentialRepository credentialRepository){
 		this.userDAO = dao;
 		this.credentialDAO = credentialDao;
+		this.credentialRepository = credentialRepository;
 	}
 	
 	public Credential getUserCredentials(String mail, String pwd){
-		SessionFactory sf = HibernateConnection.getInstance().getSessionFactory();
-		CredentialRepository credentialRepository = new CredentialRepository(sf);
+//		SessionFactory sf = HibernateConnection.getInstance().getSessionFactory();
+//		CredentialRepository credentialRepository = new CredentialRepository(sf);
 		try {
 			return credentialRepository.getCredentials(mail, pwd);
 		} catch (CredentialNoMatchException e) {

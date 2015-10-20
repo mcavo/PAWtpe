@@ -38,7 +38,7 @@ public class HibernateConnection {
 		        configuration.setProperty("hibernate.connection.url", dbUrl);
 		        System.out.println("Hibernate Annotation Configuration loaded");
 
-////		        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+//		        ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
 //		                .applySettings(configuration.getProperties()).build();
 //		        System.out.println("Hibernate Annotation serviceRegistry created");
 //
