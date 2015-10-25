@@ -15,6 +15,7 @@ import ar.edu.itba.it.paw.DAO.AddressDAO;
 import ar.edu.itba.it.paw.DAO.CalificationDAO;
 import ar.edu.itba.it.paw.DAO.DBManager;
 import ar.edu.itba.it.paw.DAO.RestaurantDAO;
+import ar.edu.itba.it.paw.Repositories.AddressRepository;
 import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Menu;
@@ -26,6 +27,7 @@ public class RestaurantDAOImpl implements RestaurantDAO{
 
 	private AddressDAO addressDao;
 	private CalificationDAO calificationDAO;
+	private AddressRepository addressRepository;
 	
 	//este debe volar:
 	public RestaurantDAOImpl() {
@@ -33,9 +35,10 @@ public class RestaurantDAOImpl implements RestaurantDAO{
 	}
 	
 	@Autowired
-	public RestaurantDAOImpl(AddressDAO addressDao, CalificationDAO calificationDao){
+	public RestaurantDAOImpl(AddressDAO addressDao, CalificationDAO calificationDao, AddressRepository addressRepository){
 		this.addressDao = addressDao;
 		this.calificationDAO = calificationDao;
+		this.addressRepository = addressRepository;
 	}
 
 	public List<Restaurant> filterBy(String typeOfFood ) {
@@ -81,7 +84,8 @@ public class RestaurantDAOImpl implements RestaurantDAO{
 
 			int dirId = sr.getInt("dirid");
 			Menu menu = getMenuByRestId(id);
-			Address address = addressDao.getAddressById(dirId);
+			//Address address = addressDao.getAddressById(dirId);
+			Address address = addressRepository.getAddressById(dirId);
 			List<String> tipos = getTypesOfFoodByRestId(id);
 			Restaurant res = new Restaurant(id, sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, menu, sr.getFloat("costoenvio"));		
 			sr.close();

@@ -1,13 +1,39 @@
 package ar.edu.itba.it.paw.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "direccion")
 public class Address {
+	
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "id")
 	private int id;
+	
+	@Column(name = "calle")
 	private String street;
+	
+	@Column(name = "numero")
 	private int number;
+	
+	@Column(name = "barrio")
 	private String neighborhood;
+	
+	@Column(name = "localidad")
 	private String city;
+	
+	@Column(name = "provincia")
 	private String province;
-	private int floor;
+	
+	@Column(name = "piso", nullable=true)
+	private Integer floor;
+	
+	@Column(name = "departamento", nullable=true)
 	private String apartment;
 	
 	//Only to use with javabean
@@ -68,6 +94,9 @@ public class Address {
 	}
 
 	public int getFloor() {
+		if(this.floor == null){
+			return -1;
+		}
 		return floor;
 	}
 

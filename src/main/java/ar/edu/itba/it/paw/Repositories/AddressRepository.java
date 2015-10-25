@@ -26,7 +26,7 @@ public class AddressRepository extends AbstractHibernateRepository{
 	
 	public Address getAddressById(int addressId) {
 		Address address = null;
-		List<Address> results = find("FROM direccion WHERE id = ?", addressId);
+		List<Address> results = find("FROM Address WHERE id = ?", addressId);
 		if(!results.isEmpty()){
 			address = results.get(0);
 		}
