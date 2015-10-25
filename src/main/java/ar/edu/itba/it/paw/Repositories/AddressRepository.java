@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -22,29 +23,10 @@ public class AddressRepository extends AbstractHibernateRepository{
 	}
 	
 	public Address getAddressById(int addressId) {
-		String query = "SELECT * FROM direccion WHERE id = ?";
-		DBManager.getInstance();
-		Connection con = DBManager.getInstance().getConnection();
 		Address address = null;
-		try {
-			PreparedStatement pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, addressId);
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-				String street = rs.getString("calle");
-				String city = rs.getString("localidad");
-				String province = rs.getString("provincia");
-				int floor = rs.getInt("piso");
-				int number = rs.getInt("numero");
-				String apartment = rs.getString("departamento");
-				String neighborhood = rs.getString("barrio");
-				address = new Address(street, number, floor, apartment,neighborhood, city, province);
-				address.setApartment(apartment);
-				address.setFloor(floor); //TODO:checkear que pasa si el piso es null ?? 
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		List<Address> results = find("FROM direccion WHERE id = ?", addressId);
+		if(!results.isEmpty()){
+			address = results.get(0);
 		}
 		return address;
 	}
@@ -82,73 +64,42 @@ public class AddressRepository extends AbstractHibernateRepository{
 	
 	public int getAddressID(Address address) {
 		// TODO: reveer esta query. No sé si es lo mejor. Necesito conseguir el id de la última tupla que agregué.
-		String query = "SELECT id FROM direccion WHERE calle = ? AND localidad = ? AND provincia = ? AND numero = ? AND (piso = ? or piso is null) AND (departamento = ? or departamento is null) AND barrio = ? AND id = (SELECT max(id) FROM direccion)";
-		DBManager.getInstance();
-		Connection con = DBManager.getInstance().getConnection();
-		
-		int addressId = -1;
-		
-		try {
-			PreparedStatement pstmt = con.prepareStatement(query);
-			
-			pstmt.setString(1, address.getStreet());
-			pstmt.setString(2, address.getCity());
-			pstmt.setString(3, address.getProvince());
-			pstmt.setInt(4, address.getNumber());
-			if (address.getFloor() != -1) { 
-				pstmt.setInt(5, address.getFloor());
-			} else {
-				pstmt.setNull(5, java.sql.Types.INTEGER);
-			}
-			if (address.getApartment() != null && !address.getApartment().isEmpty()) { 
-				pstmt.setString(6, address.getApartment()); 
-			} else {
-				pstmt.setNull(6, java.sql.Types.VARCHAR);
-			}
-			pstmt.setString(7, address.getNeighborhood());
-			
-			
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-				addressId = rs.getInt("id");
-			}
-			pstmt.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		int floor = -1;
+		String aprt = "";
+		if (address.getFloor() != -1) { 
+			floor = address.getFloor();
 		}
-		return addressId;
+		if (address.getApartment() != null && !address.getApartment().isEmpty()) { 
+			aprt = address.getApartment(); 
+		}
+		List<Address> results = find("FROM direccion WHERE calle = ? AND localidad = ? AND provincia = ? AND numero = ? AND "
+				+ "(piso = ? or piso is null) AND (departamento = ? or departamento is null) AND barrio = ? AND "
+				+ "id = (SELECT max(id) FROM direccion", address.getStreet(), address.getCity(), address.getProvince(), 
+				address.getNumber(), floor, aprt, address.getNeighborhood());
+		
+		if(results.isEmpty()){
+			return -1;
+		}
+
+		return results.get(0).getId();
 	}
 
 	public List<Integer> getIds(Address address){//String street, int number, String neighborhood, String city, String province, int floor, String apartment) {
 		List<Integer> ids = new LinkedList<Integer>();
-		try {
-			Connection conn = DBManager.getInstance().getConnection();
-			String sql = "SELECT id FROM direccion WHERE calle like ? and numero = ? and barrio like ? and localidad like ? and provincia like ? and (piso = ? or piso is null) and (departamento like ? or departamento is null);";
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, address.getStreet());
-			pstmt.setInt(2, address.getNumber());
-			pstmt.setString(3, address.getNeighborhood());
-			pstmt.setString(4, address.getCity());
-			pstmt.setString(5, address.getProvince());
-			pstmt.setInt(6, address.getFloor());
-			pstmt.setString(7, address.getApartment());
-			
-			ResultSet rs = pstmt.executeQuery();
-			while ( rs.next() ) {
-			    ids.add(rs.getInt("id"));
-			 }
-			rs.close();
-			pstmt.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		List<Address> results = find("FROM direccion WHERE calle like ? and numero = ? and barrio like ? and localidad like ? "
+				+ "and provincia like ? and (piso = ? or piso is null) and (departamento like ? or "
+				+ "departamento is null", address.getStreet(), address.getNumber(), address.getNeighborhood(), 
+				address.getCity(), address.getProvince(), address.getFloor(), address.getApartment());
+		
+		for (Address addr : results) {
+			ids.add(addr.getId());
+		}	
 		return ids;
 	}
 
-	public ArrayList<Integer> getAddressesIds(Address address) {
-		ArrayList<Integer> ans = new ArrayList<Integer>();
+	public List<Integer> getAddressesIds(Address address) {
+		return getIds(address);
+		/*ArrayList<Integer> ans = new ArrayList<Integer>();
 		try {
 			Connection conn = DBManager.getInstance().getConnection();
 			String sql = "SELECT id FROM direccion WHERE calle like ? and numero = ? and barrio like ? and localidad like ? and provincia like ? and (piso = ? or piso is null) and (departamento like ? or departamento is null);";
@@ -172,5 +123,6 @@ public class AddressRepository extends AbstractHibernateRepository{
 			e.printStackTrace();
 		}
 		return ans;	
+		*/
 	}
 }

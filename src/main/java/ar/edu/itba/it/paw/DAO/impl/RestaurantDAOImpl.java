@@ -299,7 +299,7 @@ public class RestaurantDAOImpl implements RestaurantDAO{
 	
 	private void validateAddress(Address address, String name) throws Exception {
 		String sql = "SELECT * FROM restaurante WHERE dirid = ? AND nombre = ?";
-		ArrayList<Integer> addressIds = addressDao.getAddressesIds(address);
+		List<Integer> addressIds = addressDao.getAddressesIds(address);
 		Connection dbConnection;
 		DBManager db = DBManager.getInstance();
 		dbConnection = db.getConnection();
