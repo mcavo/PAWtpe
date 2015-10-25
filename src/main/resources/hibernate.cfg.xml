@@ -23,9 +23,7 @@
 
                 <!-- Echo all executed SQL to stdout -->
                 <property name="show_sql">true</property>
-                
-                <!-- Clases -->
-                <mapping class="ar.edu.itba.it.paw.models.Credential"/>
+                                
 
 	</session-factory>
 </hibernate-configuration>

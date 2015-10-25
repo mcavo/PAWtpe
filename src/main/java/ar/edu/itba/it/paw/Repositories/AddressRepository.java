@@ -11,10 +11,12 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.DAO.DBManager;
 import ar.edu.itba.it.paw.models.Address;
 
+@Repository
 public class AddressRepository extends AbstractHibernateRepository{
 
 	@Autowired
@@ -124,5 +126,13 @@ public class AddressRepository extends AbstractHibernateRepository{
 		}
 		return ans;	
 		*/
+	}
+	
+	protected Address getByRestId(int restId){
+		List<Address> result = find("FROM direccion WHERE id = (select dirid from restaurante where id = ?)", restId);
+		if(result.isEmpty()){
+			return null;
+		}
+		return result.get(0);
 	}
 }

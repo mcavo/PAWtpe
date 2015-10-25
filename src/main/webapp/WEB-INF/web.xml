@@ -27,28 +27,13 @@
 		<url-pattern>/Error</url-pattern>
 	</servlet-mapping>
 	<servlet>
-       <servlet-name>ShowOrders</servlet-name>
-       <servlet-class>ar.edu.itba.it.paw.servlets.ShowOrders</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ShowOrders</servlet-name>
-		<url-pattern>/managers/showOrders</url-pattern>
-	</servlet-mapping>
-	<servlet>
-       <servlet-name>AddDish</servlet-name>
-       <servlet-class>ar.edu.itba.it.paw.servlets.AddDish</servlet-class>
-	</servlet>
-	<servlet>
 		<description>
 		</description>
 		<display-name>AddManager</display-name>
 		<servlet-name>AddManager</servlet-name>
 		<servlet-class>ar.edu.itba.it.paw.servlets.AddManager</servlet-class>
 	</servlet>
-	<servlet-mapping>
-		<servlet-name>AddDish</servlet-name>
-		<url-pattern>/managers/addDish</url-pattern>
-	</servlet-mapping>
+	
 	<servlet-mapping>
 		<servlet-name>AddManager</servlet-name>
 		<url-pattern>/admin/addManager</url-pattern>

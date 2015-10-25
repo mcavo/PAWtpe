@@ -20,4 +20,6 @@ public interface RestaurantService {
 	public boolean validateId(String restid);
 
 	public List<Restaurant> getLastWeekRestaurants();
+
+	public List<Restaurant> getPopularRestaurants();
 }

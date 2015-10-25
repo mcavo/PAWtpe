@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.itba.it.paw.DAO.RestaurantDAO;
+import ar.edu.itba.it.paw.Repositories.RestaurantRepository;
 import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Restaurant;
@@ -18,14 +19,16 @@ import ar.edu.itba.it.paw.services.ValidateDataService;
 public class RestaurantServiceImpl implements RestaurantService{
 
 	private RestaurantDAO restaurantDAO;
+	private RestaurantRepository restaurantRepository;
 	
 	public RestaurantServiceImpl(){
 		
 	}
 	
 	@Autowired
-	public RestaurantServiceImpl(RestaurantDAO dao){
+	public RestaurantServiceImpl(RestaurantDAO dao, RestaurantRepository restaurantRepo){
 		this.restaurantDAO = dao;
+		this.restaurantRepository = restaurantRepo;
 	}
 	
 	public List<Restaurant> getAllRestaurants() {
@@ -121,6 +124,11 @@ public class RestaurantServiceImpl implements RestaurantService{
 	@Override
 	public List<Restaurant> getLastWeekRestaurants() {
 		return restaurantDAO.getLastWeekAdded();
+	}
+
+	@Override
+	public List<Restaurant> getPopularRestaurants() {
+		return this.restaurantRepository.getMostPopular();
 	}
 
 }

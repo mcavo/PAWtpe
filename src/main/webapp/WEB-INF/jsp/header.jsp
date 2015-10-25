@@ -41,6 +41,7 @@
 					</c:when> 
 				</c:choose>
 				<li><a href="/PAWTPE/bin/restaurant/list">Restaurantes</a></li>
+				<li><a href="/PAWTPE/bin/restaurant/popular">Mas pedidos</a></li>
 				<li><a href="#contact">Contacto</a></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">

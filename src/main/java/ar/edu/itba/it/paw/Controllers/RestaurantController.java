@@ -60,6 +60,14 @@ public class RestaurantController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/popular", method = RequestMethod.GET)
+	public ModelAndView popular() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("rlist", restaurantService.getPopularRestaurants());
+		mav.setViewName("restaurantList");
+		return mav;
+	}
+	
 	@RequestMapping(value="/details", method = RequestMethod.POST)
 	public ModelAndView details(HttpServletRequest request, @RequestParam("name") String name, @RequestParam("srt") String street, @RequestParam("numb") String number, @RequestParam("neigh") String neighborhood, @RequestParam("city") String city, @RequestParam("prov") String province, @RequestParam("flr") String floor, @RequestParam("apt") String apartment,@RequestParam("rating") String stars, @RequestParam(name="comment", required=false) String comments ) throws Exception { 
 		ModelAndView mav = new ModelAndView();
@@ -77,6 +85,7 @@ public class RestaurantController {
 		
 		return mav;
 	}
+	
 	
 	@RequestMapping(value="/menu", method = RequestMethod.GET)
 	public ModelAndView menu(@RequestParam("name") String name, @RequestParam("srt") String street, @RequestParam("numb") String number, @RequestParam("neigh") String neighborhood, @RequestParam("city") String city, @RequestParam("prov") String province, @RequestParam("flr") String floor, @RequestParam("apt") String apartment) {
