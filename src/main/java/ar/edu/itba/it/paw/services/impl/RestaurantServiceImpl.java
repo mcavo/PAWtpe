@@ -33,11 +33,12 @@ public class RestaurantServiceImpl implements RestaurantService{
 	
 	public List<Restaurant> getAllRestaurants() {
 		List<Restaurant> res = restaurantDAO.getAll();
+		//List<Restaurant> res = this.restaurantRepository.getAll();
 		if(res!=null)
 			res.sort(new Comparator<Restaurant> () {
 
 				public int compare(Restaurant o1, Restaurant o2) {
-					return o1.getName().compareTo(o2.getName());
+					return o1.getNombre().compareTo(o2.getNombre());
 				}
 			
 			});
@@ -45,12 +46,13 @@ public class RestaurantServiceImpl implements RestaurantService{
 	}
 	
 	public List<Restaurant> getRestaurants(String typeOfFood) {
-		List<Restaurant> res = restaurantDAO.filterBy(typeOfFood);
+		//List<Restaurant> res = restaurantDAO.filterBy(typeOfFood);
+		List<Restaurant> res = this.restaurantRepository.filterBy(typeOfFood);
 		if(res!=null)
 			res.sort(new Comparator<Restaurant> () {
 
 				public int compare(Restaurant o1, Restaurant o2) {
-					return o1.getName().compareTo(o2.getName());
+					return o1.getNombre().compareTo(o2.getNombre());
 				}
 			
 			});

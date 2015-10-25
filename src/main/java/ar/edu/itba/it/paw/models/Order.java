@@ -3,12 +3,37 @@ package ar.edu.itba.it.paw.models;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name = "pedido")
 public class Order {
 	
+	@Transient
 	private Map<Dish,Integer> ordlist;
+	
+	@Transient
 	private User user;
+	
+	@Transient
 	private Restaurant rest;
-	private int status;
+	
+	@Column(name = "estado")
+	private Integer status;
+	
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "id")
+	private int id;
+	
+	public Order(){
+		
+	}
 	
 	public Order (Restaurant rest, User user,int status) {
 		this.rest=rest;

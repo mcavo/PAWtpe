@@ -272,7 +272,7 @@ public class RestaurantDAOImpl implements RestaurantDAO{
 	
 	public void setRestaurant(Restaurant rest) throws Exception {
 		String sql = "INSERT INTO restaurante (dirid, nombre, descripcion, desde, hasta, montomin, costoenvio) VALUES (?, ?, ?, ?, ?, ?, ?);";
-		validateAddress(rest.getAddress(), rest.getName());
+		validateAddress(rest.getAddress(), rest.getNombre());
 		int addressId = addressDao.setAddress(rest.getAddress());
 		if(addressId == -1){
 			return; //TODO: throw exception ??
@@ -284,7 +284,7 @@ public class RestaurantDAOImpl implements RestaurantDAO{
 			dbConnection = db.getConnection();
 			PreparedStatement pstmt = dbConnection.prepareStatement(sql);
 			pstmt.setInt(1, addressId);
-			pstmt.setString(2, rest.getName());
+			pstmt.setString(2, rest.getNombre());
 			pstmt.setString(3, rest.getDescription());
 			pstmt.setFloat(4, rest.getStartService());
 			pstmt.setFloat(5, rest.getEndService());

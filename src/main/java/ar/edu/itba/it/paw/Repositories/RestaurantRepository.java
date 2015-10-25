@@ -7,10 +7,13 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,6 +21,7 @@ import ar.edu.itba.it.paw.DAO.DBManager;
 import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Menu;
+import ar.edu.itba.it.paw.models.Order;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.Section;
 
@@ -33,16 +37,43 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 	}
 	
 	public List<Restaurant> getMostPopular(){
-		List<Restaurant> results = find("from restaurante where id in (select restid from pedido where count(*) = (select count(restid) from pedido group by restid) group by restid)");
-		return results;
+		List<Order> orders = find("from Order");
+		//List<Restaurant> results = find("from Restaurant where id in (select distinct restid from Order where max(count(*)) = (select count(restid) from Order group by restid) group by restid)");
+		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Restaurant> filterBy(String typeOfFood ) {
-		return find("FROM restaurante WHERE id in (select distinct restid from tipos where tipo = ?)", typeOfFood);
+		//List<Restaurant> rests = super.getSession().createSQLQuery("Select * FROM Restaurant WHERE id in (select distinct restid from tipos where tipo = ?)").setString(1, typeOfFood).setResultTransformer(Transformers.aliasToBean(Restaurant.class)).list();
+		List<Restaurant> rests = null;
+		Session session=null;
+	    try 
+	    {
+		    Session sessionSQL = super.getSession();
+		    Transaction tx = sessionSQL.beginTransaction();
+		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("Select * FROM restaurante WHERE id in (select distinct restid from tipos where tipo like ?)").setParameter(0, typeOfFood); 
+		    query.addScalar("nombre", Hibernate.STRING);
+		    rests = query.setResultTransformer(Transformers.aliasToBean(Restaurant.class)).list();
+		    tx.commit();
+	    }
+	    catch(Exception e)
+	    {
+	    	e.printStackTrace();
+	    }
+	    finally
+	    {
+	        if(session !=null && session.isOpen())
+	        {
+	          session.close();
+	          session=null;
+	        }
+	    }
+		//return find("FROM Restaurant WHERE id in (select distinct restid from tipos where tipo = ?)", typeOfFood);
+		return rests;
 	}
 	
 	public Restaurant getById(int id) {
-		List<Restaurant> rests = find("FROM restaurante WHERE id = ?", id);
+		List<Restaurant> rests = find("FROM Restaurant WHERE id = ?", id);
 		if(rests.isEmpty()){
 			return null;
 		}
@@ -52,7 +83,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		//Hibernate thing:
 		Address address = getAddressByRestId(id);
 		List<String> tipos = getTypesOfFoodByRestId(id);
-		Restaurant rest = new Restaurant(id, r.getName(), r.getMinimumPurchase(), r.getStartService(), r.getEndService(), address, tipos, menu, r.getCost());		
+		Restaurant rest = new Restaurant(id, r.getNombre(), r.getMinimumPurchase(), r.getStartService(), r.getEndService(), address, tipos, menu, r.getCost());		
 		return rest;
 	}
 	
@@ -61,7 +92,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 	}
 
 	public List<Restaurant> getLastWeekAdded() {
-		List<Restaurant> rests = find("FROM restaurante WHERE CURRENT_DATE - DATE(regis) <= 7");
+		List<Restaurant> rests = find("FROM Restaurant WHERE CURRENT_DATE - DATE(regis) <= 7");
 
 		Menu menu;
 		List<String> tipos;
@@ -78,7 +109,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 	}
 
 	public List<Restaurant> getAll() {
-		List<Restaurant> results = find("FROM restaurante");
+		List<Restaurant> results = find("FROM Restaurant");
 		Menu menu;
 		List<String> tipos;
 		Address address;

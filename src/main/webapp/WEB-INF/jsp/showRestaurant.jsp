@@ -4,7 +4,7 @@
 	<div class="col-md-10 col-md-offset-1">
 		<div class="row">
 			<div>
-				<H3>${rest.name}</H3>
+				<H3>${rest.nombre}</H3>
 				<h4>
 					<p>
 						<span class="label label-warning">${rest.score}</span>
@@ -18,7 +18,7 @@
 		<div class="col-md-8">
 			<div class="col-md-12">
 				<ul class="nav nav-pills nav-justified">
-					<li ><a href="/PAWTPE/bin/restaurant/menu?name=${rest.name}&srt=${rest.address.street}&numb=${rest.address.number}&neigh=${rest.address.neighborhood}&city=${rest.address.city}&prov=${rest.address.province}&flr=${rest.address.floor}&apt=${rest.address.apartment}">Menú</a></li>
+					<li ><a href="/PAWTPE/bin/restaurant/menu?name=${rest.nombre}&srt=${rest.address.street}&numb=${rest.address.number}&neigh=${rest.address.neighborhood}&city=${rest.address.city}&prov=${rest.address.province}&flr=${rest.address.floor}&apt=${rest.address.apartment}">Menú</a></li>
 					<li class="active"><a
 						href="#">Información</a></li>
 				</ul>

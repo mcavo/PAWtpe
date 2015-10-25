@@ -3,7 +3,7 @@
 <div class="container">
 	<div class="col-md-8 col-md-offset-2">
 		<div class="title">
-			<h3>Pedidos a ${rest.name}</h3>
+			<h3>Pedidos a ${rest.nombre}</h3>
 		</div>
 
 

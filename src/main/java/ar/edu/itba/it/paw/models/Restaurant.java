@@ -23,7 +23,7 @@ import javax.persistence.Transient;
 public class Restaurant {
 	
 	@Column(name = "nombre")
-	private String name;
+	private String nombre;
 
 	@Transient
 	private LinkedList<User> managers;
@@ -79,7 +79,7 @@ public class Restaurant {
 	
 	public Restaurant(int id, String name, double minimumPurchase, Float startService, Float endService, Address address, List<String> typeOfFood, Menu menu, Float cost) {
 		// TODO Auto-generated constructor stub
-		this.setName(name);
+		this.setNombre(name);
 		this.setMinimumPurchase(minimumPurchase);
 		this.setStartService(startService);
 		this.setEndService(endService);
@@ -110,14 +110,18 @@ public class Restaurant {
 		calculateScore();
 	}
 
-	public String getName() {
-		return name;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setName(String name) {
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	/*public void setNombre(String nombre) {
 		this.name = name;
-	}
-
+	}*/
+	
 	public LinkedList<User> getManager() {
 		if(managers==null) {
 			

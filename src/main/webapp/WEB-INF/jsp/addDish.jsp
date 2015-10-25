@@ -3,7 +3,7 @@
 <div class="container">
 	<div class="col-md-8 col-md-offset-2">
 		<div>
-			<h4>Agregar plato a ${rest.name}</h4>
+			<h4>Agregar plato a ${rest.nombre}</h4>
 		</div>
 		<div>
 			<form class="form-horizontal" action="addDish" role="form"
