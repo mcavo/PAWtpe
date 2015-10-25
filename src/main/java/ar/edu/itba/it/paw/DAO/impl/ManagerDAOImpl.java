@@ -5,10 +5,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.springframework.stereotype.Repository;
+
 import ar.edu.itba.it.paw.DAO.DBManager;
 import ar.edu.itba.it.paw.DAO.ManagerDAO;
 import ar.edu.itba.it.paw.models.Restaurant;
 
+@Repository
 public class ManagerDAOImpl implements ManagerDAO{
 
 	private RestaurantDAOImpl restaurantDAO;

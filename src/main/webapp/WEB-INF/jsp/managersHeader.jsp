@@ -35,8 +35,8 @@
 						<li><a href="/PAWTPE/bin/restaurant/register">Agregar restaurante</a></li>
 					</c:when>
 					<c:when test="${user.isManager}">
-						<li><a href="/PAWTPE/managers/addDish">Agregar menu</a></li>
-						<li><a href="/PAWTPE/managers/showOrders">Ver historial</a></li>
+						<li><a href="/PAWTPE/bin/manager/addDish">Agregar menu</a></li>
+						<li><a href="/PAWTPE/bin/manager/showOrders">Ver historial</a></li>
 					</c:when> 
 				</c:choose>
 				<li><a href="../restaurant/list">Restaurantes</a></li>

@@ -11,12 +11,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.springframework.stereotype.Repository;
+
 import ar.edu.itba.it.paw.DAO.DBManager;
 import ar.edu.itba.it.paw.DAO.OrderDAO;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Order;
 import ar.edu.itba.it.paw.models.Restaurant;
 
+@Repository
 public class OrderDAOImpl implements OrderDAO{
 	
 	private UserDAOImpl userDAO;

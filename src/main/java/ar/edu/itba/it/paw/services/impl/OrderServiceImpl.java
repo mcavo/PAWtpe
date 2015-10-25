@@ -4,12 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import org.springframework.stereotype.Service;
+
 import ar.edu.itba.it.paw.DAO.impl.OrderDAOImpl;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Order;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.services.OrderService;
 
+@Service
 public class OrderServiceImpl implements OrderService{
 
 	private OrderDAOImpl orderDAO;

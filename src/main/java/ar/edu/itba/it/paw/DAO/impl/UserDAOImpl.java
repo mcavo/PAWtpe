@@ -22,15 +22,13 @@ import ar.edu.itba.it.paw.models.User;
 @Repository
 public class UserDAOImpl implements UserDAO{
 	
-	private CredentialDAO credentialDAO;
 	private CredentialRepository credentialRepository;
 	
 	public UserDAOImpl(){
 	}
 	
 	@Autowired
-	public UserDAOImpl(CredentialDAO dao, CredentialRepository credentialRepository){
-		this.credentialDAO = dao;
+	public UserDAOImpl(CredentialRepository credentialRepository){
 		this.credentialRepository = credentialRepository;
 	}
 	

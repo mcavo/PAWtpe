@@ -2,6 +2,8 @@ package ar.edu.itba.it.paw.services.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import ar.edu.itba.it.paw.DAO.impl.CredentialDAOImpl;
 import ar.edu.itba.it.paw.DAO.impl.ManagerDAOImpl;
 import ar.edu.itba.it.paw.models.Credential;
@@ -10,16 +12,15 @@ import ar.edu.itba.it.paw.models.User;
 import ar.edu.itba.it.paw.services.ManagerService;
 import ar.edu.itba.it.paw.services.ValidateDataService;
 
+@Service
 public class ManagerServiceImpl implements ManagerService{
 
-	private CredentialDAOImpl credentialDAO;
 	private ManagerDAOImpl managerDAO;
 	private RestaurantServiceImpl restaurantService;
 	
 	public ManagerServiceImpl(){}
 	
-	public ManagerServiceImpl(CredentialDAOImpl credentialDao, ManagerDAOImpl managerDao, RestaurantServiceImpl restaurantService){
-		this.credentialDAO = credentialDao;
+	public ManagerServiceImpl(ManagerDAOImpl managerDao, RestaurantServiceImpl restaurantService){
 		this.managerDAO = managerDao;
 		this.restaurantService = restaurantService;
 	}
@@ -62,7 +63,7 @@ public class ManagerServiceImpl implements ManagerService{
 	
 	public Credential validateEmail(String email) throws Exception {
 		Credential cred = null;
-		try {
+		/*try {
 			ValidateDataService.validateMail(email);
 			cred = credentialDAO.getCredentialsByEmail(email);
 			if (cred == null || !(cred.getRol().equals("usuario"))){
@@ -71,7 +72,7 @@ public class ManagerServiceImpl implements ManagerService{
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception("bad parameter");
-		}
+		}*/
 		return cred;
 	}
 	
@@ -84,7 +85,8 @@ public class ManagerServiceImpl implements ManagerService{
 	}
 
 	public List<Credential> getManagersAvailables() {
-		return credentialDAO.getManagersAvailables();
+		//return credentialDAO.getManagersAvailables();
+		return null;
 	}
 
 	public boolean addManager(String email, String restid) {
