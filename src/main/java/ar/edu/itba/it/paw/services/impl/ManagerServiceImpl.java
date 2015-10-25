@@ -2,6 +2,7 @@ package ar.edu.itba.it.paw.services.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.itba.it.paw.DAO.impl.CredentialDAOImpl;
@@ -10,7 +11,6 @@ import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
 import ar.edu.itba.it.paw.services.ManagerService;
-import ar.edu.itba.it.paw.services.ValidateDataService;
 
 @Service
 public class ManagerServiceImpl implements ManagerService{
@@ -20,6 +20,7 @@ public class ManagerServiceImpl implements ManagerService{
 	
 	public ManagerServiceImpl(){}
 	
+	@Autowired
 	public ManagerServiceImpl(ManagerDAOImpl managerDao, RestaurantServiceImpl restaurantService){
 		this.managerDAO = managerDao;
 		this.restaurantService = restaurantService;

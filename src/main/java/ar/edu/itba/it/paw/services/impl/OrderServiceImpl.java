@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.itba.it.paw.DAO.impl.OrderDAOImpl;
@@ -19,6 +20,7 @@ public class OrderServiceImpl implements OrderService{
 	
 	public OrderServiceImpl(){}
 	
+	@Autowired
 	public OrderServiceImpl(OrderDAOImpl orderDao){
 		this.orderDAO = orderDao;
 	}

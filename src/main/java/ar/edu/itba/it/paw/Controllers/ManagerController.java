@@ -58,6 +58,7 @@ public class ManagerController {
 		User user = (User) request.getAttribute("user");
 		if(user != null){
 			Restaurant rest = managerService.getRestaurant(user);
+			mav.addObject("rest", rest);
 			request.setAttribute("olist", orderService.getHistoryOrder(rest));
 			mav.setViewName("showOrders");
 		}else{

@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.DAO.DBManager;
@@ -28,6 +29,7 @@ public class OrderDAOImpl implements OrderDAO{
 
 	}
 	
+	@Autowired
 	public OrderDAOImpl(UserDAOImpl userDao){
 		this.userDAO = userDao;
 	}

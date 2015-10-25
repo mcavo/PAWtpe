@@ -2,6 +2,7 @@ package ar.edu.itba.it.paw.services.impl;
 
 import java.util.HashMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.itba.it.paw.DAO.CalificationDAO;
@@ -18,6 +19,7 @@ public class CalificationServiceImpl implements CalificationService{
 	
 	public CalificationServiceImpl(){}
 	
+	@Autowired
 	public CalificationServiceImpl(CalificationDAO calificationDao, RestaurantService restaurantService){
 		this.calificationDAO = calificationDao;
 		this.restaurantService = restaurantService;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.itba.it.paw.DAO.RestaurantDAO;
@@ -22,6 +23,7 @@ public class RestaurantServiceImpl implements RestaurantService{
 		
 	}
 	
+	@Autowired
 	public RestaurantServiceImpl(RestaurantDAO dao){
 		this.restaurantDAO = dao;
 	}

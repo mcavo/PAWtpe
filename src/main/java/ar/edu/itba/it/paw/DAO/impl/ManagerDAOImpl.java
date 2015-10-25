@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.DAO.DBManager;
@@ -16,6 +17,7 @@ public class ManagerDAOImpl implements ManagerDAO{
 
 	private RestaurantDAOImpl restaurantDAO;
 	
+	@Autowired
 	public ManagerDAOImpl(RestaurantDAOImpl restaurantDao) {
 		this.restaurantDAO = restaurantDao;
 	}

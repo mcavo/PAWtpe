@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.DAO.AddressDAO;
@@ -31,6 +32,7 @@ public class RestaurantDAOImpl implements RestaurantDAO{
 
 	}
 	
+	@Autowired
 	public RestaurantDAOImpl(AddressDAO addressDao, CalificationDAO calificationDao){
 		this.addressDao = addressDao;
 		this.calificationDAO = calificationDao;
