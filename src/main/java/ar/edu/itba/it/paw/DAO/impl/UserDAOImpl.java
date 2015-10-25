@@ -15,6 +15,7 @@ import ar.edu.itba.it.paw.DAO.CredentialDAO;
 import ar.edu.itba.it.paw.DAO.DBManager;
 import ar.edu.itba.it.paw.DAO.UserDAO;
 import ar.edu.itba.it.paw.Exceptions.NoCredentialException;
+import ar.edu.itba.it.paw.Repositories.AddressRepository;
 import ar.edu.itba.it.paw.Repositories.CredentialRepository;
 import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.User;
@@ -23,13 +24,15 @@ import ar.edu.itba.it.paw.models.User;
 public class UserDAOImpl implements UserDAO{
 	
 	private CredentialRepository credentialRepository;
+	private AddressRepository addressRepository;
 	
 	public UserDAOImpl(){
 	}
 	
 	@Autowired
-	public UserDAOImpl(CredentialRepository credentialRepository){
+	public UserDAOImpl(CredentialRepository credentialRepository, AddressRepository addressRepository){
 		this.credentialRepository = credentialRepository;
+		this.addressRepository = addressRepository;
 	}
 	
 	public User getUserById(int id){
@@ -62,7 +65,7 @@ public class UserDAOImpl implements UserDAO{
 		}
 		User user = new User(nombre, apellido, nacimiento.toLocalDate());
 		user.setId(id);
-		user.setAddress(new AddressDAOImpl().getAddressById(dirid));
+		user.setAddress(this.addressRepository.getAddressById(dirid));
 		return user;
 	}
 

@@ -13,13 +13,13 @@ public class Address {
 	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "id")
-	private int id;
+	private Integer id;
 	
 	@Column(name = "calle")
 	private String street;
 	
 	@Column(name = "numero")
-	private int number;
+	private Integer number;
 	
 	@Column(name = "barrio")
 	private String neighborhood;
@@ -62,6 +62,9 @@ public class Address {
 	}
 
 	public int getNumber() {
+		if(this.number == null){
+			return -1;
+		}
 		return number;
 	}
 
@@ -113,6 +116,9 @@ public class Address {
 	}
 
 	public int getId() {
+		if(this.id == null){
+			return -1;
+		}
 		return id;
 	}
 

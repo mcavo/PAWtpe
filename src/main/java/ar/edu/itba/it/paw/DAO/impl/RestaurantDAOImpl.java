@@ -113,7 +113,8 @@ public class RestaurantDAOImpl implements RestaurantDAO{
 			while(sr.next()) {
 				restId = sr.getInt("id");
 				menu = getMenuByRestId(restId);
-				Address address = addressDao.getAddressById(sr.getInt("dirid"));
+				//Address address = addressDao.getAddressById(sr.getInt("dirid"));
+				Address address = addressRepository.getAddressById(sr.getInt("dirid"));
 				List<String> tipos = getTypesOfFoodByRestId(restId);
 				rests.add(new Restaurant(restId, sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, menu, sr.getFloat("costoenvio")));
 			}
@@ -141,7 +142,8 @@ public class RestaurantDAOImpl implements RestaurantDAO{
 			while(sr.next()) {
 				restId = sr.getInt("id");
 				menu = getMenuByRestId(restId);
-				Address address = addressDao.getAddressById(sr.getInt("dirid"));
+				//Address address = addressDao.getAddressById(sr.getInt("dirid"));
+				Address address = addressRepository.getAddressById(sr.getInt("dirid"));
 				List<String> tipos = getTypesOfFoodByRestId(restId);
 				rest.add(new Restaurant(restId, sr.getString("nombre"), sr.getFloat("montomin"), sr.getFloat("desde"), sr.getFloat("hasta"), address, tipos, menu, sr.getFloat("costoenvio")));
 			}

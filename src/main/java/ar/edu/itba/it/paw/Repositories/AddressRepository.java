@@ -74,7 +74,7 @@ public class AddressRepository extends AbstractHibernateRepository{
 		if (address.getApartment() != null && !address.getApartment().isEmpty()) { 
 			aprt = address.getApartment(); 
 		}
-		List<Address> results = find("FROM direccion WHERE calle = ? AND localidad = ? AND provincia = ? AND numero = ? AND "
+		List<Address> results = find("FROM Address WHERE calle = ? AND localidad = ? AND provincia = ? AND numero = ? AND "
 				+ "(piso = ? or piso is null) AND (departamento = ? or departamento is null) AND barrio = ? AND "
 				+ "id = (SELECT max(id) FROM direccion", address.getStreet(), address.getCity(), address.getProvince(), 
 				address.getNumber(), floor, aprt, address.getNeighborhood());
@@ -88,7 +88,7 @@ public class AddressRepository extends AbstractHibernateRepository{
 
 	public List<Integer> getIds(Address address){//String street, int number, String neighborhood, String city, String province, int floor, String apartment) {
 		List<Integer> ids = new LinkedList<Integer>();
-		List<Address> results = find("FROM direccion WHERE calle like ? and numero = ? and barrio like ? and localidad like ? "
+		List<Address> results = find("FROM Address WHERE calle like ? and numero = ? and barrio like ? and localidad like ? "
 				+ "and provincia like ? and (piso = ? or piso is null) and (departamento like ? or "
 				+ "departamento is null", address.getStreet(), address.getNumber(), address.getNeighborhood(), 
 				address.getCity(), address.getProvince(), address.getFloor(), address.getApartment());
