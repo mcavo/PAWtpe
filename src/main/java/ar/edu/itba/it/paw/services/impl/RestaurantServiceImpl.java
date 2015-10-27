@@ -125,7 +125,7 @@ public class RestaurantServiceImpl implements RestaurantService{
 
 	@Override
 	public List<Restaurant> getLastWeekRestaurants() {
-		return restaurantDAO.getLastWeekAdded();
+		return this.restaurantRepository.getLastWeekAdded();
 	}
 
 	@Override

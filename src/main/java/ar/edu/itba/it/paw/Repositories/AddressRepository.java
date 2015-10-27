@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.DAO.DBManager;
 import ar.edu.itba.it.paw.models.Address;
+import ar.edu.itba.it.paw.models.Restaurant;
 
 @Repository
 public class AddressRepository extends AbstractHibernateRepository{
@@ -128,8 +129,8 @@ public class AddressRepository extends AbstractHibernateRepository{
 		*/
 	}
 	
-	protected Address getByRestId(int restId){
-		List<Address> result = find("FROM direccion WHERE id = (select dirid from restaurante where id = ?)", restId);
+	protected Address getByRestaurant(Restaurant rest){
+		List<Address> result = find("FROM Address WHERE id = (select dirid from Restaurant where id = ?)", rest.getId());
 		if(result.isEmpty()){
 			return null;
 		}

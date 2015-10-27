@@ -94,7 +94,6 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 	          session=null;
 	        }
 	    }
-		//return find("FROM Restaurant WHERE id in (select distinct restid from tipos where tipo = ?)", typeOfFood);
 		return rests;
 	}
 	
@@ -104,17 +103,17 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			return null;
 		}
 		Restaurant r = rests.get(0);
-		Menu menu = getMenuByRestId(id);
+		Menu menu = getMenuByRestaurant(r);
 		//Address address = addressDao.getAddressById(getAddressId(id));
 		//Hibernate thing:
-		Address address = getAddressByRestId(id);
-		List<String> tipos = getTypesOfFoodByRestId(id);
+		Address address = getAddressByRestaurant(r);
+		List<String> tipos = getTypesOfFoodByRestaurant(r);
 		Restaurant rest = new Restaurant(id, r.getNombre(), r.getMinimumPurchase(), r.getStartService(), r.getEndService(), address, tipos, menu, r.getCost());		
 		return rest;
 	}
 	
-	private Address getAddressByRestId(int restId) {
-		return addressRepository.getByRestId(restId);
+	private Address getAddressByRestaurant(Restaurant r) {
+		return addressRepository.getByRestaurant(r);
 	}
 
 	public List<Restaurant> getLastWeekAdded() {
@@ -124,11 +123,11 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		List<String> tipos;
 		Address address;
 		for (Restaurant r : rests) {
-			menu = getMenuByRestId(r.getId());
+			menu = getMenuByRestaurant(r);
 			r.setMenu(menu);
-			tipos = getTypesOfFoodByRestId(r.getId());
+			tipos = getTypesOfFoodByRestaurant(r);
 			r.setTypesOfFood(tipos);
-			address = getAddressByRestId(r.getId());
+			address = getAddressByRestaurant(r);
 			r.setAddress(address);
 		}
 		return rests;	
@@ -140,81 +139,73 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		List<String> tipos;
 		Address address;
 		for (Restaurant r : results) {
-			menu = getMenuByRestId(r.getId());
+			menu = getMenuByRestaurant(r);
 			r.setMenu(menu);
-			tipos = getTypesOfFoodByRestId(r.getId());
+			tipos = getTypesOfFoodByRestaurant(r);
 			r.setTypesOfFood(tipos);
-			address = getAddressByRestId(r.getId());
+			address = getAddressByRestaurant(r);
 			r.setAddress(address);
 		}
 		return results;
 	}
 	
-	public List<String> getTypesOfFoodByRestId(int restId){
-		Connection dbConnection;
-		DBManager db = DBManager.getInstance();
-		dbConnection = db.getConnection();
-		
+	@SuppressWarnings("unchecked")
+	public List<String> getTypesOfFoodByRestaurant(Restaurant r){
 		List<String> tof = new LinkedList<String>();
-		try {
-			String sql = "SELECT tipo FROM tipos WHERE restid = ?";
-			PreparedStatement pstmt = dbConnection.prepareStatement(sql);
-			pstmt.setInt(1, restId);
-			
-			ResultSet rs = pstmt.executeQuery();
-			while ( rs.next() ) {
-			    tof.add(rs.getString("tipo"));
-			 }
-			rs.close();
-			pstmt.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Session session=null;
+	    try 
+	    {
+		    Session sessionSQL = super.getSession();
+		    Transaction tx = sessionSQL.beginTransaction();
+		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("SELECT tipo FROM tipos WHERE restid = ?").setParameter(0, r.getId()); 
+		    tof = query.list();
+		    tx.commit();
+	    }
+	    catch(Exception e)
+	    {
+	    	e.printStackTrace();
+	    }
+	    finally
+	    {
+	        if(session !=null && session.isOpen())
+	        {
+	          session.close();
+	          session=null;
+	        }
+	    }
+
 		return tof;
 	}
 	
-	public Menu getMenuByRestId(int restId){
+	public Menu getMenuByRestaurant(Restaurant r){
 		Menu menu = null;
 		LinkedList<Section> sections = new LinkedList<Section>();
-		Dish dish = null;
 		Section section = null;
 		String seccion = null;
-		try {
-			Connection conn = DBManager.getInstance().getConnection();
-			String sql = "SELECT * FROM plato WHERE restid = ?;";
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, restId);
-			
-			ResultSet rs = pstmt.executeQuery();
-			while ( rs.next() ) {
-			    section = null;
-			    dish = new Dish(rs.getInt("id"), rs.getString("nombre"), rs.getFloat("precio"), rs.getString("descripcion"));
-			    seccion = rs.getString("seccion");
-			    for (Section sect : sections) {
-					if(sect.getName().equals(seccion)){
-						section = sect;
-					}
+		
+		List<Dish> dishes = find("from Dish where restid = ?", r.getId());
+		for (Dish d : dishes) {
+			section = null;
+			seccion = d.getSection();
+			for (Section sect : sections) {
+				if(sect.getName().equals(seccion)){
+					section = sect;
 				}
-			    if(section == null){
-			    	section = new Section(seccion, new LinkedList<Dish>());
-			    	sections.add(section);
-			    }
-			    section.addDish(dish);
-			 }
-			try {
-				menu = new Menu(sections);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
-
-			rs.close();
-			pstmt.close();
-		} catch (SQLException e) {
+			if(section == null){
+			    section = new Section(seccion, new LinkedList<Dish>());
+			    sections.add(section);
+			}
+			section.addDish(d);
+		}
+		
+		try {
+			menu = new Menu(sections);
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		return menu;
 	}
 	

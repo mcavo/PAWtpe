@@ -1,11 +1,34 @@
 package ar.edu.itba.it.paw.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "plato")
 public class Dish {
+	
+	@Column(name = "nombre")
 	private String product;
+	
+	@Column(name = "precio")
 	private float price;
 //	private String sectionMenu;
+	
+	@Column(name = "descripcion")
 	private String description;
+	
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "id")
 	private int id;
+	
+	@Column(name = "seccion")
+	private String section;
+
+	public Dish(){}
 	
 	public Dish(int id, String product, float price, String description) {
 		this.setProduct(product);
@@ -46,6 +69,14 @@ public class Dish {
 		return this.id;
 	}
 
+	public String getSection() {
+		return section;
+	}
+
+	public void setSection(String section) {
+		this.section = section;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
