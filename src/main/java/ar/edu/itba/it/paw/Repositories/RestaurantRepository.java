@@ -36,15 +36,41 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		this.addressRepository = addressRepository;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Restaurant> getMostPopular(){
-		List<Order> orders = find("from Order");
 		//List<Restaurant> results = find("from Restaurant where id in (select distinct restid from Order where max(count(*)) = (select count(restid) from Order group by restid) group by restid)");
-		return null;
+		List<Restaurant> rests = null;
+		Session session=null;
+	    try 
+	    {
+		    Session sessionSQL = super.getSession();
+		    Transaction tx = sessionSQL.beginTransaction();
+		    //ARREGLAR LA QUERY!
+		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("Select * FROM restaurante WHERE id in "
+		    											+ "(select p1.restid from pedido p1 group by p1.restid having count(*) >= "
+		    												+ "(select count(*) from pedido p2 where p2.restid <> p1.restid))"); 
+		    query.addScalar("nombre", Hibernate.STRING);
+		    rests = query.setResultTransformer(Transformers.aliasToBean(Restaurant.class)).list();
+		    tx.commit();
+	    }
+	    catch(Exception e)
+	    {
+	    	e.printStackTrace();
+	    }
+	    finally
+	    {
+	        if(session !=null && session.isOpen())
+	        {
+	          session.close();
+	          session=null;
+	        }
+	    }
+		//return find("FROM Restaurant WHERE id in (select distinct restid from tipos where tipo = ?)", typeOfFood);
+		return rests;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Restaurant> filterBy(String typeOfFood ) {
-		//List<Restaurant> rests = super.getSession().createSQLQuery("Select * FROM Restaurant WHERE id in (select distinct restid from tipos where tipo = ?)").setString(1, typeOfFood).setResultTransformer(Transformers.aliasToBean(Restaurant.class)).list();
 		List<Restaurant> rests = null;
 		Session session=null;
 	    try 
