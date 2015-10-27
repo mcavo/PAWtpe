@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.DAO.DBManager;
+import ar.edu.itba.it.paw.DAO.impl.CalificationDAOImpl;
 import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Menu;
@@ -209,11 +210,9 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		return menu;
 	}
 	
-	/*public Restaurant getRestaurant(String name, Address address){//String street, int number, String neighborhood, String city, String province, int floor, String apartment) {
-		//int addressId = getAddressId(street, number, neighborhood, city, province, floor, apartment);
-		//Address address = new Address(street, number, floor, apartment, neighborhood, city, province);
-		List<Integer> addressIds = addressDao.getIds(address);
-				if(addressIds.isEmpty()){
+	public Restaurant getRestaurant(String name, Address address){
+		List<Integer> addressIds = this.addressRepository.getIds(address);
+		if(addressIds.isEmpty()){
 			//app error!
 			return null;
 		}
@@ -225,14 +224,24 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			if(rest != null){
 				found = true;
 				rest.setAddress(address);
-				rest.setCalifications(calificationDAO.getCalifications(rest));
+				rest.setCalifications((new CalificationDAOImpl()).getCalifications(rest));
 			}
 		}
 		return rest;
 	}
 	
 	public Restaurant matchRestAddress(String name, int addressId){
-		int restId = -1;
+		List<Restaurant> rests = find("from Restaurant where nombre like ? and dirid = ?", name, addressId);
+		if(rests.isEmpty()){
+			return null;
+		}
+		Restaurant r = rests.get(0);
+		r.setTypesOfFood(getTypesOfFoodByRestaurant(r));
+		r.setMenu(getMenuByRestaurant(r));
+		
+		return r;
+		
+		/*int restId = -1;
 		Restaurant rest = null;
 		try{
 			Connection conn = DBManager.getInstance().getConnection();
@@ -252,9 +261,10 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			e.printStackTrace();
 		}
 		return rest;
+		*/
 	}
 	
-	public void setRestaurant(Restaurant rest) throws Exception {
+	/*public void setRestaurant(Restaurant rest) throws Exception {
 		String sql = "INSERT INTO restaurante (dirid, nombre, descripcion, desde, hasta, montomin, costoenvio) VALUES (?, ?, ?, ?, ?, ?, ?);";
 		validateAddress(rest.getAddress(), rest.getName());
 		int addressId = addressDao.setAddress(rest.getAddress());
@@ -287,8 +297,20 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		setTypes(rest.getTypesOfFood(), id);
 	}
 	
+	*/
+	@SuppressWarnings("unused")
 	private void validateAddress(Address address, String name) throws Exception {
-		String sql = "SELECT * FROM restaurante WHERE dirid = ? AND nombre = ?";
+		List<Integer> addressIds = this.addressRepository.getAddressesIds(address);
+		
+		List<Address> results = null;
+		for (Integer id : addressIds) {
+			results = find("from Restaurant where dirid = ? and nombre = ?", id, name);
+			if (!results.isEmpty()) {
+				throw new Exception("Address already in use");
+			}
+		}
+		
+		/*String sql = "SELECT * FROM restaurante WHERE dirid = ? AND nombre = ?";
 		List<Integer> addressIds = addressDao.getAddressesIds(address);
 		Connection dbConnection;
 		DBManager db = DBManager.getInstance();
@@ -307,10 +329,10 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 	
-	private void setTypes(List<String> types, int id) {
+	/*private void setTypes(List<String> types, int id) {
 		String sql = "INSERT INTO tipos (restid, tipo) VALUES (?, ?);";
 		
 		Connection dbConnection;
@@ -329,8 +351,16 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			e.printStackTrace();
 		}
 	}
+	*/
 	
+	@SuppressWarnings("unused")
 	private int getRestaurantId(int dirId) {
+		List<Restaurant> rests = find("from Restaurant where dirid = ?", dirId);
+		if(!rests.isEmpty()){
+			return rests.get(0).getId();
+		}
+		return -1;
+		/*
 		int id = -1;
 		String sql = "SELECT id FROM restaurante WHERE dirid = ?";
 		Connection dbConnection;
@@ -349,25 +379,12 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			e.printStackTrace();
 		}
 		return id;
+		*/
 	}
 
+	
 	public boolean validateId(int id) {
-		String sql = "SELECT id FROM restaurante WHERE id = ?";
-		Connection dbConnection;
-		DBManager db = DBManager.getInstance();
-		dbConnection = db.getConnection();
-		try {
-			PreparedStatement pstmt = dbConnection.prepareStatement(sql);
-			pstmt.setInt(1, id);
-			ResultSet rs = pstmt.executeQuery();
-			boolean aux = rs.next();
-			rs.close();
-			return aux;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return false;
+		List<Restaurant> rests = find("from Restaurant where id = ?", id);
+		return !rests.isEmpty();
 	}
-	*/
 }

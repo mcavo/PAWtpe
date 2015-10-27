@@ -64,7 +64,7 @@ public class RestaurantServiceImpl implements RestaurantService{
 			return null;
 		}	
 		//return restaurantDAO.getRestaurant(name, street, Integer.valueOf(number), neighborhood, city, province, Integer.valueOf(floor), apartment);
-		return restaurantDAO.getRestaurant(name, new Address(street, Integer.valueOf(number), Integer.valueOf(floor), apartment, neighborhood, city, province));
+		return this.restaurantRepository.getRestaurant(name, new Address(street, Integer.valueOf(number), Integer.valueOf(floor), apartment, neighborhood, city, province));
 	}
 
 	public void addCalification(int usrId, Restaurant rest, Calification q) {
@@ -117,7 +117,7 @@ public class RestaurantServiceImpl implements RestaurantService{
 		int id;
 		try {
 			id = Integer.parseInt(restid);
-			return restaurantDAO.validateId(id);
+			return this.restaurantRepository.validateId(id);
 		} catch (java.lang.NumberFormatException e) {
 			return false;
 		}

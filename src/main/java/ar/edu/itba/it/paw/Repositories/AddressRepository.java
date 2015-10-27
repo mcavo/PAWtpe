@@ -91,7 +91,7 @@ public class AddressRepository extends AbstractHibernateRepository{
 		List<Integer> ids = new LinkedList<Integer>();
 		List<Address> results = find("FROM Address WHERE calle like ? and numero = ? and barrio like ? and localidad like ? "
 				+ "and provincia like ? and (piso = ? or piso is null) and (departamento like ? or "
-				+ "departamento is null", address.getStreet(), address.getNumber(), address.getNeighborhood(), 
+				+ "departamento is null)", address.getStreet(), address.getNumber(), address.getNeighborhood(), 
 				address.getCity(), address.getProvince(), address.getFloor(), address.getApartment());
 		
 		for (Address addr : results) {
