@@ -1,8 +1,6 @@
 package ar.edu.itba.it.paw.models;
 
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -56,8 +54,8 @@ public class Restaurant {
 	private double score = (double)0;
 	
 	//@Temporal(TemporalType.DATE)
-	@Transient
-	private Date startDate;
+	//@Transient
+	//private Date startDate;
 	
 	@Column(name = "regis")
 	private Timestamp regis;
@@ -71,7 +69,7 @@ public class Restaurant {
 	
 	@Column(name = "dirid")
 	private int dirid;
-	
+
 	//Only for javabean
 	public Restaurant() {
 		
@@ -230,5 +228,13 @@ public class Restaurant {
 
 	public void setCostoenvio(float costoenvio) {
 		this.costoenvio = costoenvio;
+	}
+	
+	public int getDirid() {
+		return dirid;
+	}
+
+	public void setDirid(int dirid) {
+		this.dirid = dirid;
 	}
 }

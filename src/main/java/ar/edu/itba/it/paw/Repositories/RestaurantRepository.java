@@ -1,8 +1,8 @@
 package ar.edu.itba.it.paw.Repositories;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -315,8 +315,9 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		if(addressId == -1){
 			return; //TODO: throw exception ??
 		}
-		
-		rest.setRegis(fflvlvhlvhv);
+		rest.setDirid(addressId);
+		Timestamp now = new Timestamp((new Date()).getTime());
+		rest.setRegis(now);
 		int id = (Integer) save(rest);
 		rest.setId(id);
 		int idBydir = getRestaurantId(addressId);
