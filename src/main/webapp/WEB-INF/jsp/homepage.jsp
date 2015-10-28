@@ -27,7 +27,7 @@
 						</p>
 						<p class="restcard-adress">${rest.address.street} ${rest.address.number}<c:if test="${rest.address.floor}!=null">${rest.address.floor}º</c:if><c:if test="${rest.address.apartment}!=null"> ${rest.address.apartment}</c:if>, ${rest.address.neighborhood}, ${rest.address.province}</p>
 						
-						<p class="restcard-schedule">Abierto de ${rest.startService} a ${rest.endService} hs</p>
+						<p class="restcard-schedule">Abierto de ${rest.desde} a ${rest.hasta} hs</p>
 						<p> <span class="label label-warning">${rest.score}</span> ${rest.countComments} calificaciones </p>
 					</div>
 				</a>

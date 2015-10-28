@@ -285,11 +285,11 @@ public class RestaurantDAOImpl implements RestaurantDAO{
 			PreparedStatement pstmt = dbConnection.prepareStatement(sql);
 			pstmt.setInt(1, addressId);
 			pstmt.setString(2, rest.getNombre());
-			pstmt.setString(3, rest.getDescription());
-			pstmt.setFloat(4, rest.getStartService());
-			pstmt.setFloat(5, rest.getEndService());
-			pstmt.setDouble(6, rest.getMinimumPurchase());
-			pstmt.setFloat(7, rest.getCost());
+			pstmt.setString(3, rest.getDescripcion());
+			pstmt.setFloat(4, rest.getDesde());
+			pstmt.setFloat(5, rest.getHasta());
+			pstmt.setDouble(6, rest.getMontomin());
+			pstmt.setFloat(7, rest.getCostoenvio());
 			pstmt.execute();
 			pstmt.close();
 		} catch (SQLException e) {

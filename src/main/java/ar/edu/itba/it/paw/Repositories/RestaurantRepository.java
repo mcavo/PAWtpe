@@ -1,6 +1,8 @@
 package ar.edu.itba.it.paw.Repositories;
 
+import java.security.Timestamp;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,6 +22,7 @@ import org.springframework.stereotype.Repository;
 import ar.edu.itba.it.paw.DAO.DBManager;
 import ar.edu.itba.it.paw.DAO.impl.CalificationDAOImpl;
 import ar.edu.itba.it.paw.models.Address;
+import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Menu;
 import ar.edu.itba.it.paw.models.Order;
@@ -51,6 +54,14 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		    											+ "(select p1.restid from pedido p1 group by p1.restid having count(*) >= "
 		    												+ "(select count(*) from pedido p2 where p2.restid <> p1.restid))"); 
 		    query.addScalar("nombre", Hibernate.STRING);
+		    query.addScalar("montomin", Hibernate.DOUBLE);
+		    query.addScalar("desde", Hibernate.FLOAT);
+		    query.addScalar("hasta", Hibernate.FLOAT);
+		    query.addScalar("id", Hibernate.INTEGER);
+		    query.addScalar("descripcion", Hibernate.STRING);
+		    query.addScalar("regis", Hibernate.TIMESTAMP);
+		    query.addScalar("costoenvio", Hibernate.FLOAT);
+		    query.addScalar("dirid", Hibernate.INTEGER);
 		    rests = query.setResultTransformer(Transformers.aliasToBean(Restaurant.class)).list();
 		    tx.commit();
 	    }
@@ -67,6 +78,18 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 	        }
 	    }
 		//return find("FROM Restaurant WHERE id in (select distinct restid from tipos where tipo = ?)", typeOfFood);
+	    Menu menu;
+		List<String> tipos;
+		Address address;
+		for (Restaurant r : rests) {
+			menu = getMenuByRestaurant(r);
+			r.setMenu(menu);
+			tipos = getTypesOfFoodByRestaurant(r);
+			r.setTypesOfFood(tipos);
+			address = getAddressByRestaurant(r);
+			r.setAddress(address);
+			r.setCalifications((new CalificationDAOImpl()).getCalifications(r));
+		}
 		return rests;
 	}
 	
@@ -80,6 +103,14 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		    Transaction tx = sessionSQL.beginTransaction();
 		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("Select * FROM restaurante WHERE id in (select distinct restid from tipos where tipo like ?)").setParameter(0, typeOfFood); 
 		    query.addScalar("nombre", Hibernate.STRING);
+		    query.addScalar("montomin", Hibernate.DOUBLE);
+		    query.addScalar("desde", Hibernate.FLOAT);
+		    query.addScalar("hasta", Hibernate.FLOAT);
+		    query.addScalar("id", Hibernate.INTEGER);
+		    query.addScalar("descripcion", Hibernate.STRING);
+		    query.addScalar("regis", Hibernate.TIMESTAMP);
+		    query.addScalar("costoenvio", Hibernate.FLOAT);
+		    query.addScalar("dirid", Hibernate.INTEGER);
 		    rests = query.setResultTransformer(Transformers.aliasToBean(Restaurant.class)).list();
 		    tx.commit();
 	    }
@@ -95,6 +126,18 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 	          session=null;
 	        }
 	    }
+	    Menu menu;
+		List<String> tipos;
+		Address address;
+		for (Restaurant r : rests) {
+			menu = getMenuByRestaurant(r);
+			r.setMenu(menu);
+			tipos = getTypesOfFoodByRestaurant(r);
+			r.setTypesOfFood(tipos);
+			address = getAddressByRestaurant(r);
+			r.setAddress(address);
+			r.setCalifications((new CalificationDAOImpl()).getCalifications(r));
+		}
 		return rests;
 	}
 	
@@ -109,7 +152,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		//Hibernate thing:
 		Address address = getAddressByRestaurant(r);
 		List<String> tipos = getTypesOfFoodByRestaurant(r);
-		Restaurant rest = new Restaurant(id, r.getNombre(), r.getMinimumPurchase(), r.getStartService(), r.getEndService(), address, tipos, menu, r.getCost());		
+		Restaurant rest = new Restaurant(id, r.getNombre(), r.getMontomin(), r.getDesde(), r.getHasta(), address, tipos, menu, r.getCostoenvio());		
 		return rest;
 	}
 	
@@ -130,6 +173,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			r.setTypesOfFood(tipos);
 			address = getAddressByRestaurant(r);
 			r.setAddress(address);
+			r.setCalifications((new CalificationDAOImpl()).getCalifications(r));
 		}
 		return rests;	
 	}
@@ -146,6 +190,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			r.setTypesOfFood(tipos);
 			address = getAddressByRestaurant(r);
 			r.setAddress(address);
+			r.setCalifications((new CalificationDAOImpl()).getCalifications(r));
 		}
 		return results;
 	}
@@ -264,10 +309,25 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		*/
 	}
 	
-	/*public void setRestaurant(Restaurant rest) throws Exception {
-		String sql = "INSERT INTO restaurante (dirid, nombre, descripcion, desde, hasta, montomin, costoenvio) VALUES (?, ?, ?, ?, ?, ?, ?);";
-		validateAddress(rest.getAddress(), rest.getName());
-		int addressId = addressDao.setAddress(rest.getAddress());
+	public void setRestaurant(Restaurant rest) throws Exception {
+		validateAddress(rest.getAddress(), rest.getNombre());
+		int addressId = this.addressRepository.setAddress(rest.getAddress());
+		if(addressId == -1){
+			return; //TODO: throw exception ??
+		}
+		
+		rest.setRegis(fflvlvhlvhv);
+		int id = (Integer) save(rest);
+		rest.setId(id);
+		int idBydir = getRestaurantId(addressId);
+		if (idBydir == -1) {
+			throw new Exception("No tuvo dirección");
+		}
+		setTypes(rest.getTypesOfFood(), id);
+		
+		/*String sql = "INSERT INTO restaurante (dirid, nombre, descripcion, desde, hasta, montomin, costoenvio) VALUES (?, ?, ?, ?, ?, ?, ?);";
+		validateAddress(rest.getAddress(), rest.getNombre());
+		int addressId = this.addressRepository.setAddress(rest.getAddress());
 		if(addressId == -1){
 			return; //TODO: throw exception ??
 		}
@@ -295,9 +355,10 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			throw new Exception("No tuvo dirección");
 		}
 		setTypes(rest.getTypesOfFood(), id);
+		*/
 	}
 	
-	*/
+	
 	@SuppressWarnings("unused")
 	private void validateAddress(Address address, String name) throws Exception {
 		List<Integer> addressIds = this.addressRepository.getAddressesIds(address);
@@ -332,9 +393,12 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		}*/
 	}
 	
-	/*private void setTypes(List<String> types, int id) {
-		String sql = "INSERT INTO tipos (restid, tipo) VALUES (?, ?);";
-		
+	@SuppressWarnings("unused")
+	private void setTypes(List<String> types, int id) {
+		for(String type : types) {
+			setByOne(type, id);
+		}
+		/*
 		Connection dbConnection;
 		DBManager db = DBManager.getInstance();
 		try {
@@ -350,8 +414,36 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 	}
-	*/
+	
+	private void setByOne(String type, int id){
+		Session session=null;
+	    try 
+	    {
+		    Session sessionSQL = super.getSession();
+		    Transaction tx = sessionSQL.beginTransaction();
+		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("INSERT INTO tipos (restid, tipo) VALUES (?, ?);");
+		    query.setParameter(0, id); 
+		    query.setParameter(1, type);
+		    query.executeUpdate();
+		    tx.commit();
+	    }
+	    catch(Exception e)
+	    {
+	    	e.printStackTrace();
+	    }
+	    finally
+	    {
+	        if(session !=null && session.isOpen())
+	        {
+	          session.close();
+	          session=null;
+	        }
+	    }
+
+	}
+	
 	
 	@SuppressWarnings("unused")
 	private int getRestaurantId(int dirId) {
@@ -384,7 +476,6 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 
 	
 	public boolean validateId(int id) {
-		List<Restaurant> rests = find("from Restaurant where id = ?", id);
-		return !rests.isEmpty();
+		return get(Restaurant.class, id) != null;
 	}
 }

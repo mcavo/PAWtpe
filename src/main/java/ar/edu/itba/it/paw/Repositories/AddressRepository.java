@@ -77,7 +77,7 @@ public class AddressRepository extends AbstractHibernateRepository{
 		}
 		List<Address> results = find("FROM Address WHERE calle = ? AND localidad = ? AND provincia = ? AND numero = ? AND "
 				+ "(piso = ? or piso is null) AND (departamento = ? or departamento is null) AND barrio = ? AND "
-				+ "id = (SELECT max(id) FROM direccion", address.getStreet(), address.getCity(), address.getProvince(), 
+				+ "id = (SELECT max(id) FROM Address)", address.getStreet(), address.getCity(), address.getProvince(), 
 				address.getNumber(), floor, aprt, address.getNeighborhood());
 		
 		if(results.isEmpty()){

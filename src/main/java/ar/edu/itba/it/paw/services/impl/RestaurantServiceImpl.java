@@ -18,7 +18,6 @@ import ar.edu.itba.it.paw.services.ValidateDataService;
 @Service
 public class RestaurantServiceImpl implements RestaurantService{
 
-	private RestaurantDAO restaurantDAO;
 	private RestaurantRepository restaurantRepository;
 	
 	public RestaurantServiceImpl(){
@@ -26,13 +25,12 @@ public class RestaurantServiceImpl implements RestaurantService{
 	}
 	
 	@Autowired
-	public RestaurantServiceImpl(RestaurantDAO dao, RestaurantRepository restaurantRepo){
-		this.restaurantDAO = dao;
+	public RestaurantServiceImpl(RestaurantRepository restaurantRepo){
 		this.restaurantRepository = restaurantRepo;
 	}
 	
 	public List<Restaurant> getAllRestaurants() {
-		List<Restaurant> res = restaurantDAO.getAll();
+		List<Restaurant> res = restaurantRepository.getAll();
 		//List<Restaurant> res = this.restaurantRepository.getAll();
 		if(res!=null)
 			res.sort(new Comparator<Restaurant> () {
@@ -109,7 +107,7 @@ public class RestaurantServiceImpl implements RestaurantService{
 		Address address = new Address(street, numberV, floorV, apartment, neighborhood, city, province);
 		Restaurant rest = new Restaurant(-1, name, minimumPurchase, from, to, address, validTypes, null, costV);
 		
-		restaurantDAO.setRestaurant(rest);
+		this.restaurantRepository.setRestaurant(rest);
 		
 	}
 

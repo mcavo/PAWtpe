@@ -67,7 +67,7 @@ public class OrderServiceImpl implements OrderService{
 			}
 			total += dish.getPrice()*cant;
 		}
-		if(total < rest.getMinimumPurchase()){
+		if(total < rest.getMontomin()){
 			//monto minimo no llegado
 			return false;
 		}

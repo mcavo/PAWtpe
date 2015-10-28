@@ -80,7 +80,7 @@
 								</div>
 								<div class="costoEnvio">
 									<div class="col-sm-8">Envío:</div>
-									<div class='col-sm-4' id="sprice">$ ${rest.cost}</div>
+									<div class='col-sm-4' id="sprice">$ ${rest.costoenvio}</div>
 								</div>
 								<div class="total">
 									<br> <br>

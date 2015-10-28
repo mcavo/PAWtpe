@@ -35,7 +35,7 @@
 		<div class="col-md-8 col-md-offset-2">
 
 			<c:forEach items="${rlist}" var="rest">
-				<a href="/PAWTPE/bin/restaurant/details?name=${rest.nombre}&srt=${rest.address.street}&numb=${rest.address.number}&neigh=${rest.address.neighborhood}&city=${rest.address.city}&prov=${rest.address.province}&flr=${rest.address.floor}&apt=${rest.address.apartment}"">
+				<a href="/PAWTPE/bin/restaurant/details?name=${rest.nombre}&srt=${rest.address.street}&numb=${rest.address.number}&neigh=${rest.address.neighborhood}&city=${rest.address.city}&prov=${rest.address.province}&flr=${rest.address.floor}&apt=${rest.address.apartment}">
 					<div class="bs-callout bs-callout-info">
 						<h4>${rest.nombre}</h4>
 						<p>
@@ -45,7 +45,7 @@
 						</p>
 						<p class="restcard-adress">${rest.address.street} ${rest.address.number}<c:if test="${rest.address.floor}!=null">${rest.address.floor}º</c:if><c:if test="${rest.address.apartment}!=null"> ${rest.address.apartment}</c:if>, ${rest.address.neighborhood}, ${rest.address.province}</p>
 						
-						<p class="restcard-schedule">Abierto de ${rest.startService} a ${rest.endService} hs</p>
+						<p class="restcard-schedule">Abierto de ${rest.desde} a ${rest.hasta} hs</p>
 						<p> <span class="label label-warning">${rest.score}</span> ${rest.countComments} calificaciones </p>
 					</div>
 				</a>

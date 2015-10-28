@@ -37,7 +37,11 @@ public class AbstractHibernateRepository {
 		}
 
 		public Serializable save(Object o) {
-			return getSession().save(o);
+			Session session = getSession();
+			Transaction tx = session.beginTransaction();
+			Serializable obj = session.save(o);
+			tx.commit();
+			return obj;
 		}
 
 }

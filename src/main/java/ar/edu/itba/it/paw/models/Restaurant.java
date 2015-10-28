@@ -29,13 +29,13 @@ public class Restaurant {
 	private LinkedList<User> managers;
 	
 	@Column(name = "montomin")
-	private double minimumPurchase;
+	private double montomin;
 	
 	@Column(name = "desde")
-	private Float startService;
+	private Float desde;
 	
 	@Column(name = "hasta")
-	private Float endService;
+	private Float hasta;
 	
 	@Transient
 	private Address address;
@@ -44,7 +44,7 @@ public class Restaurant {
 	private List<String> typesOfFood;
 	
 	@Column(name = "descripcion")
-	private String description;
+	private String descripcion;
 	
 	@Transient
 	private HashMap<Integer, Calification> califications;
@@ -67,7 +67,7 @@ public class Restaurant {
 	private int id;
 	
 	@Column(name = "costoenvio")
-	private Float cost;
+	private Float costoenvio;
 	
 	@Column(name = "dirid")
 	private int dirid;
@@ -80,14 +80,14 @@ public class Restaurant {
 	public Restaurant(int id, String name, double minimumPurchase, Float startService, Float endService, Address address, List<String> typeOfFood, Menu menu, Float cost) {
 		// TODO Auto-generated constructor stub
 		this.setNombre(name);
-		this.setMinimumPurchase(minimumPurchase);
-		this.setStartService(startService);
-		this.setEndService(endService);
+		this.setMontomin(minimumPurchase);
+		this.setDesde(startService);
+		this.setHasta(endService);
 		this.setAddress(address);
 		this.setTypesOfFood(typeOfFood);
 		this.setMenu(menu);
 		this.id = id;
-		this.setCost(cost);
+		this.setCostoenvio(cost);
 	}
 	
 	private void calculateScore() {
@@ -133,20 +133,20 @@ public class Restaurant {
 		this.managers = managers;
 	}
 
-	public double getMinimumPurchase() {
-		return minimumPurchase;
+	public double getMontomin() {
+		return montomin;
 	}
 
-	public void setMinimumPurchase(double minimumPurchase) {
-		this.minimumPurchase = minimumPurchase;
+	public void setMontomin(double montomin) {
+		this.montomin = montomin;
 	}
 
-	public Float getStartService() {
-		return startService;
+	public Float getDesde() {
+		return desde;
 	}
 
-	public void setStartService(Float startService) {
-		this.startService = startService;
+	public void setDesde(Float desde) {
+		this.desde = desde;
 	}
 
 	public Address getAddress() {
@@ -157,12 +157,12 @@ public class Restaurant {
 		this.address = address;
 	}
 
-	public Float getEndService() {
-		return endService;
+	public Float getHasta() {
+		return hasta;
 	}
 
-	public void setEndService(Float endService) {
-		this.endService = endService;
+	public void setHasta(Float hasta) {
+		this.hasta = hasta;
 	}
 
 	public List<String> getTypesOfFood() {
@@ -173,12 +173,12 @@ public class Restaurant {
 		this.typesOfFood = typesOfFood;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public Menu getMenu() {
@@ -197,12 +197,12 @@ public class Restaurant {
 		this.score = score;
 	}
 
-	public Date getStartDate() {
-		return startDate;
+	public Timestamp getRegis() {
+		return regis;
 	}
 
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+	public void setRegis(Timestamp regis) {
+		this.regis = regis;
 	}
 
 	public HashMap<Integer, Calification> getQualifications() {
@@ -224,11 +224,11 @@ public class Restaurant {
 		return califications.size();
 	}
 
-	public float getCost() {
-		return cost;
+	public float getCostoenvio() {
+		return costoenvio;
 	}
 
-	public void setCost(float cost) {
-		this.cost = cost;
+	public void setCostoenvio(float costoenvio) {
+		this.costoenvio = costoenvio;
 	}
 }
