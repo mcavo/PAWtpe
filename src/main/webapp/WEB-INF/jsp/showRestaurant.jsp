@@ -26,6 +26,7 @@
 		</div>
 		<br> <br>
 
+		${rest.descripcion}
 
 		<!-- INFORMACION DEL RESTAURANTE -->
 

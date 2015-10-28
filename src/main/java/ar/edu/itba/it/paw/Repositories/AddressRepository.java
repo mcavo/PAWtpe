@@ -35,7 +35,12 @@ public class AddressRepository extends AbstractHibernateRepository{
 	}
 	
 	public int setAddress(Address address) {
-		Connection con = DBManager.getInstance().getConnection();
+		int id = (Integer) save(address);
+		address.setId(id);
+		
+		return id;
+		
+		/*Connection con = DBManager.getInstance().getConnection();
 		String query = "INSERT INTO direccion (calle,provincia, localidad, numero, piso, departamento, barrio) VALUES (?, ?, ?, ?, ?, ?, ?);";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(query);
@@ -63,6 +68,7 @@ public class AddressRepository extends AbstractHibernateRepository{
 			e.printStackTrace();
 		}
 		return this.getAddressID(address);
+		*/
 	}
 	
 	public int getAddressID(Address address) {

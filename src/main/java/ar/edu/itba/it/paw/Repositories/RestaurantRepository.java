@@ -1,16 +1,11 @@
 package ar.edu.itba.it.paw.Repositories;
 
 import java.sql.Timestamp;
-import java.sql.Connection;
 import java.util.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.hibernate.Hibernate;
-import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,13 +14,10 @@ import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import ar.edu.itba.it.paw.DAO.DBManager;
 import ar.edu.itba.it.paw.DAO.impl.CalificationDAOImpl;
 import ar.edu.itba.it.paw.models.Address;
-import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Menu;
-import ar.edu.itba.it.paw.models.Order;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.Section;
 
@@ -77,7 +69,6 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 	          session=null;
 	        }
 	    }
-		//return find("FROM Restaurant WHERE id in (select distinct restid from tipos where tipo = ?)", typeOfFood);
 	    Menu menu;
 		List<String> tipos;
 		Address address;
@@ -268,8 +259,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			rest = matchRestAddress(name, addressIds.get(i));
 			if(rest != null){
 				found = true;
-				rest.setAddress(address);
-				rest.setCalifications((new CalificationDAOImpl()).getCalifications(rest));
+				rest.setAddress(address);				
 			}
 		}
 		return rest;
@@ -283,7 +273,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		Restaurant r = rests.get(0);
 		r.setTypesOfFood(getTypesOfFoodByRestaurant(r));
 		r.setMenu(getMenuByRestaurant(r));
-		
+		r.setCalifications((new CalificationDAOImpl()).getCalifications(r));
 		return r;
 		
 		/*int restId = -1;
