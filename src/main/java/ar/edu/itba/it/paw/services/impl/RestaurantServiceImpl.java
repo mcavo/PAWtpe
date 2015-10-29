@@ -121,12 +121,10 @@ public class RestaurantServiceImpl implements RestaurantService{
 		}
 	}
 
-	@Override
 	public List<Restaurant> getLastWeekRestaurants() {
 		return this.restaurantRepository.getLastWeekAdded();
 	}
 
-	@Override
 	public List<Restaurant> getPopularRestaurants() {
 		return this.restaurantRepository.getMostPopular();
 	}
