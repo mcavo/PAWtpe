@@ -1,126 +1,98 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-
-xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
-
-version="2.4">
-
-<display-name>Archetype Created Web Application</display-name>
-
-<session-config>
-
-<session-timeout>10</session-timeout>
-
-</session-config>
-
-<!-- <filter>
-
-<filter-name>FilterSession</filter-name>
-
-<filter-class>ar.edu.itba.paw.filters.FilterSession</filter-class>
-
-</filter>
-
-<filter-mapping>
-
-<filter-name>FilterSession</filter-name>
-
-<url-pattern>/*</url-pattern>
-
-</filter-mapping> -->
-
-
-
-<filter>
-
-<filter-name>transactionFilter</filter-name>
-
-<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-
-<init-param>
-
-<param-name>targetBeanName</param-name>
-
-<param-value>transactionFilter</param-value>
-
-</init-param>
-
-<init-param>
-
-<param-name>contextAttribute</param-name>
-
-<param-value>org.springframework.web.servlet.FrameworkServlet.CONTEXT.spring</param-value>
-
-</init-param>
-
-</filter>
-
-
-
-<filter-mapping>
-
-<filter-name>transactionFilter</filter-name>
-
-<url-pattern>/bin/*</url-pattern>
-
-</filter-mapping>
-
-
-
-<!-- <filter> <filter-name>FilterNonUser</filter-name> <filter-class>ar.edu.itba.paw.filters.FilterNonUser</filter-class> 
-
-</filter> <filter-mapping> <filter-name>FilterNonUser</filter-name> <url-pattern>/login</url-pattern> 
-
-<url-pattern>/register</url-pattern> </filter-mapping> <filter> <filter-name>FilterUser</filter-name> 
-
-<filter-class>ar.edu.itba.paw.filters.FilterUser</filter-class> </filter> 
-
-<filter-mapping> <filter-name>FilterUser</filter-name> <url-pattern>/listOrders</url-pattern> 
-
-</filter-mapping> <filter> <filter-name>FilterManager</filter-name> <filter-class>ar.edu.itba.paw.filters.FilterManager</filter-class> 
-
-</filter> <filter-mapping> <filter-name>FilterManager</filter-name> <url-pattern>/editMenu</url-pattern> 
-
-<url-pattern>/listMyRestaurants</url-pattern> </filter-mapping> <filter> 
-
-<filter-name>FilterAdmin</filter-name> <filter-class>ar.edu.itba.paw.filters.FilterAdmin</filter-class> 
-
-</filter> <filter-mapping> <filter-name>FilterAdmin</filter-name> <url-pattern>/addManagers</url-pattern> 
-
-<url-pattern>/assignManager</url-pattern> <url-pattern>/allUsers</url-pattern> 
-
-<url-pattern>/manageRestaurants</url-pattern> <url-pattern>/removeManager</url-pattern> 
-
-<url-pattern>/retractManager</url-pattern> <url-pattern>/addRestaurant</url-pattern> 
-
-</filter-mapping> -->
-
-
-
-
-
-<servlet>
-
-<servlet-name>spring</servlet-name>
-
-<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-
-<load-on-startup>1</load-on-startup>
-
-</servlet>
-
-
-
-<servlet-mapping>
-
-<servlet-name>spring</servlet-name>
-
-<url-pattern>/bin/*</url-pattern>
-
-</servlet-mapping>
-
-
-
-
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
+	version="2.4">
+
+	<servlet>
+      <servlet-name>sprintSpring</servlet-name>
+      <servlet-class>
+         org.springframework.web.servlet.DispatcherServlet
+      </servlet-class>
+      <load-on-startup>1</load-on-startup>
+   </servlet>
+
+   <servlet-mapping>
+      <servlet-name>sprintSpring</servlet-name>
+      <url-pattern>/bin/*</url-pattern>
+   </servlet-mapping>
+	
+	<servlet>
+		<description>
+		</description>
+		<display-name>Error</display-name>
+		<servlet-name>Error</servlet-name>
+		<servlet-class>ar.edu.itba.it.paw.Error</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Error</servlet-name>
+		<url-pattern>/Error</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description>
+		</description>
+		<display-name>AddManager</display-name>
+		<servlet-name>AddManager</servlet-name>
+		<servlet-class>ar.edu.itba.it.paw.servlets.AddManager</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>AddManager</servlet-name>
+		<url-pattern>/admin/addManager</url-pattern>
+	</servlet-mapping>
+	
+	
+	<filter>
+		<filter-name>UserFilter</filter-name> 
+		<filter-class>ar.edu.itba.it.paw.web.UserFilter</filter-class>
+	</filter> 
+	<filter-mapping>
+		<filter-name>UserFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>ManagerFilter</filter-name> 
+		<filter-class>ar.edu.itba.it.paw.web.ManagerFilter</filter-class>
+	</filter> 
+	<filter-mapping>
+		<filter-name>ManagerFilter</filter-name>
+		<url-pattern>/managers/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>AdminFilter</filter-name> 
+		<filter-class>ar.edu.itba.it.paw.web.AdminFilter</filter-class>
+	</filter> 
+	<filter-mapping>
+		<filter-name>AdminFilter</filter-name>
+		<url-pattern>/admin/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+ 		<filter-name>transactionFilter</filter-name> 
+  		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class> 
+ 		<init-param>
+  			<param-name>targetBeanName</param-name> 
+  			<param-value>transactionFilter</param-value> 
+  		</init-param>
+  		<init-param>
+  			<param-name>contextAttribute</param-name> 
+  			<param-value>org.springframework.web.servlet.FrameworkServlet.CONTEXT.spring</param-value> 
+  		</init-param>
+    </filter>
+<!--     <filter-mapping> -->
+<!--         <filter-name>transactionFilter</filter-name> -->
+<!--         <url-pattern>/bin/*</url-pattern> -->
+<!--     </filter-mapping>  -->
+    
+    <listener>
+    	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<context-param>
+    	<param-name>contextConfigLocation</param-name>
+   		<param-value>/WEB-INF/sprintSpring-servlet.xml</param-value>
+	</context-param>
+
+	
+  <display-name>Archetype Created Web Application</display-name>
 </web-app>
