@@ -1,39 +1,42 @@
 package ar.edu.itba.it.paw.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
 
 public class Calification {
 	
-	private Integer stars;
-	
-	private String comment;
-	
+	private Integer puntaje;
+	private String descripcion;
+	private int userId;
+
 	public Calification(){
 		
 	}
 	
 	public Calification(int stars, String comment) {
-		this.setStars(stars);
-		this.setComment(comment);
+		this.setPuntaje(stars);
+		this.setDescripcion(comment);
 	}
 
-	public double getStars() {
-		return stars;
+	public double getPuntaje() {
+		return puntaje;
 	}
 
-	public void setStars(int stars) {
-		this.stars = stars;
+	public void setPuntaje(int puntaje) {
+		this.puntaje = puntaje;
 	}
 
-	public String getComment() {
-		return comment;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
 }

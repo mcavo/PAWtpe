@@ -1,19 +1,12 @@
 package ar.edu.itba.it.paw.Repositories;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import ar.edu.itba.it.paw.DAO.DBManager;
 import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.Restaurant;
 

@@ -25,11 +25,13 @@ import ar.edu.itba.it.paw.models.Section;
 public class RestaurantRepository extends AbstractHibernateRepository{
 
 	private AddressRepository addressRepository;
+	private CalificationRepository calificationRepository;
 	
 	@Autowired
-	public RestaurantRepository(SessionFactory sessionFactory, AddressRepository addressRepository) {
+	public RestaurantRepository(SessionFactory sessionFactory, AddressRepository addressRepository, CalificationRepository calificationRepository) {
 		super(sessionFactory);
 		this.addressRepository = addressRepository;
+		this.calificationRepository = calificationRepository;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -79,7 +81,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			r.setTypesOfFood(tipos);
 			address = getAddressByRestaurant(r);
 			r.setAddress(address);
-			r.setCalifications((new CalificationDAOImpl()).getCalifications(r));
+			r.setCalifications(calificationRepository.getCalifications(r));
 		}
 		return rests;
 	}
@@ -127,7 +129,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			r.setTypesOfFood(tipos);
 			address = getAddressByRestaurant(r);
 			r.setAddress(address);
-			r.setCalifications((new CalificationDAOImpl()).getCalifications(r));
+			r.setCalifications(this.calificationRepository.getCalifications(r));
 		}
 		return rests;
 	}
@@ -164,7 +166,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			r.setTypesOfFood(tipos);
 			address = getAddressByRestaurant(r);
 			r.setAddress(address);
-			r.setCalifications((new CalificationDAOImpl()).getCalifications(r));
+			r.setCalifications(this.calificationRepository.getCalifications(r));
 		}
 		return rests;	
 	}
@@ -181,7 +183,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			r.setTypesOfFood(tipos);
 			address = getAddressByRestaurant(r);
 			r.setAddress(address);
-			r.setCalifications((new CalificationDAOImpl()).getCalifications(r));
+			r.setCalifications(calificationRepository.getCalifications(r));
 		}
 		return results;
 	}
@@ -273,7 +275,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		Restaurant r = rests.get(0);
 		r.setTypesOfFood(getTypesOfFoodByRestaurant(r));
 		r.setMenu(getMenuByRestaurant(r));
-		r.setCalifications((new CalificationDAOImpl()).getCalifications(r));
+		r.setCalifications(calificationRepository.getCalifications(r));
 		return r;
 		
 		/*int restId = -1;

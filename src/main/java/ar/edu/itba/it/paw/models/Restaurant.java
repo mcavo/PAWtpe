@@ -96,7 +96,7 @@ public class Restaurant {
 			
 		double saux = (double) 0;
 		for (Entry<Integer,Calification> set : califications.entrySet()) {
-			saux += set.getValue().getStars();
+			saux += set.getValue().getPuntaje();
 		}
 		saux/=califications.size();
 		score=saux;
