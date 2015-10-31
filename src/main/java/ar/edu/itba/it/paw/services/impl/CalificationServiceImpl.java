@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.itba.it.paw.DAO.CalificationDAO;
+import ar.edu.itba.it.paw.Repositories.CalificationRepository;
 import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.services.CalificationService;
@@ -14,14 +15,14 @@ import ar.edu.itba.it.paw.services.RestaurantService;
 @Service
 public class CalificationServiceImpl implements CalificationService{
 
-	private CalificationDAO calificationDAO;
+	private CalificationRepository calificationRepository;
 	private RestaurantService restaurantService;
 	
 	public CalificationServiceImpl(){}
 	
 	@Autowired
-	public CalificationServiceImpl(CalificationDAO calificationDao, RestaurantService restaurantService){
-		this.calificationDAO = calificationDao;
+	public CalificationServiceImpl(CalificationRepository calificationRepository, RestaurantService restaurantService){
+		this.calificationRepository = calificationRepository;
 		this.restaurantService = restaurantService;
 	}
 	
@@ -45,7 +46,7 @@ public class CalificationServiceImpl implements CalificationService{
 			//tirar excepcion de comentario vacio
 			return;
 		}
-		calificationDAO.addCalification(usrId, restId, rate, comments);
+		calificationRepository.addCalification(usrId, restId, rate, comments);
 		Calification q = new Calification(rate, comments);
 		restaurantService.addCalification(usrId, rest, q);
 	}
@@ -55,6 +56,6 @@ public class CalificationServiceImpl implements CalificationService{
 			//app error
 			return null;
 		}
-		return calificationDAO.getCalifications(restaurant);
+		return calificationRepository.getCalifications(restaurant);
 	}
 }
