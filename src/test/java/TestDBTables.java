@@ -3,7 +3,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import ar.edu.itba.it.paw.DAO.DBManager;
+import ar.edu.itba.it.paw.DBManager;
 
 public class TestDBTables {
 

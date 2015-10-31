@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.DAO;
+package ar.edu.itba.it.paw;
 
 import java.net.URI;
 import java.net.URISyntaxException;

@@ -24,13 +24,16 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
+	<mvc:annotation-driven conversion-service="conversionService"/>
+	<bean id="conversionService" class="ar.edu.itba.it.paw.web.converters.EnhancedFormattingConversionServiceFactoryBean"/>
+	
     <bean id="userInterceptor" class="ar.edu.itba.it.paw.interceptors.UserInterceptor"/>
     
-    <bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
-        <property name="interceptors">
-            <ref bean="userInterceptor"/>
-        </property>
-    </bean>
+<!--     <bean id="handlerMapping" class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"> -->
+<!--         <property name="interceptors"> -->
+<!--             <ref bean="userInterceptor"/> -->
+<!--         </property> -->
+<!--     </bean> -->
     
 </beans>
          

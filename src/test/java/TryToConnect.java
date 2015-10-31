@@ -2,7 +2,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import ar.edu.itba.it.paw.DAO.DBManager;
+import ar.edu.itba.it.paw.DBManager;
 
 public class TryToConnect {
 

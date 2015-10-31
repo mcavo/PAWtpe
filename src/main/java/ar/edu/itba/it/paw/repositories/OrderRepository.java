@@ -12,6 +12,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import ar.edu.itba.it.paw.DBManager;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Order;
 import ar.edu.itba.it.paw.models.Restaurant;
