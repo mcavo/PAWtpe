@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.itba.it.paw.DAO.impl.OrderDAOImpl;
+import ar.edu.itba.it.paw.Repositories.OrderRepository;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Order;
 import ar.edu.itba.it.paw.models.Restaurant;
@@ -16,13 +17,13 @@ import ar.edu.itba.it.paw.services.OrderService;
 @Service
 public class OrderServiceImpl implements OrderService{
 
-	private OrderDAOImpl orderDAO;
+	private OrderRepository repository;
 	
 	public OrderServiceImpl(){}
 	
 	@Autowired
-	public OrderServiceImpl(OrderDAOImpl orderDao){
-		this.orderDAO = orderDao;
+	public OrderServiceImpl(OrderRepository orderRepository){
+		this.repository = orderRepository;
 	}
 	
 	private boolean checkOrder(int usrId, Restaurant rest, HashMap<Dish, String> oMap){
@@ -61,7 +62,7 @@ public class OrderServiceImpl implements OrderService{
 				//cant excepcion
 				return false;
 			}
-			if(!orderDAO.checkDish(rest, dish)){
+			if(!this.repository.checkDish(rest, dish)){
 				//dish no existe excp
 				return false;
 			}
@@ -85,19 +86,19 @@ public class OrderServiceImpl implements OrderService{
 			if (aux!=0)
 				map.put(set.getKey(), aux);
 		}
-		orderDAO.sendOrder(Integer.valueOf(usrId), rest.getId(), map);
+		this.repository.sendOrder(Integer.valueOf(usrId), rest, map);
 		return true;
 	}
 	
-	public Dish getDishByRestIdName(int restId, String nameProd){
+	/*public Dish getDishByRestIdName(int restId, String nameProd){
 		if(restId == 0 || nameProd == null || nameProd.isEmpty()){
 			//app error
 			return null;
 		}
-		return orderDAO.getDishByRestAndName(restId, nameProd);
-	}
+		return this.repository.getDishByRestAndName(restId, nameProd);
+	}*/
 	
 	public List<Order> getHistoryOrder(Restaurant rest){
-		return orderDAO.getHistory(rest);
+		return this.repository.getHistory(rest);
 	}
 }

@@ -11,7 +11,7 @@ public interface OrderDAO {
 
 	public boolean checkDish(Restaurant rest, Dish dish);
 	
-	public void sendOrder(int usrId, int restId, HashMap<Dish, Integer> oMap);
+	public void sendOrder(int usrId, Restaurant rest, HashMap<Dish, Integer> oMap);
 	
 	public Dish getDishByRestAndName(int restId, String nameProd);
 	
