@@ -16,7 +16,11 @@ public class AbstractHibernateRepository {
 		}
 
 		public <T> T get(Class<T> type, Serializable id) {
-			return (T) getSession().get(type, id);
+			Session session = getSession();
+			Transaction tx = session.beginTransaction();
+			T obj = (T) getSession().get(type, id);
+			tx.commit();
+			return obj;
 		}
 
 		@SuppressWarnings("unchecked")

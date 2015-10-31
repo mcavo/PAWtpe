@@ -1,18 +1,42 @@
 package ar.edu.itba.it.paw.models;
 
-import java.time.LocalDate;
+import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+@Entity
+@Table(name = "usuario")
 public class User implements UserPermissions {
+	
+	@Transient
 	private String email;
+	
+	@Column(name = "nombre")
 	private String firstName;
+	
+	@Column(name = "apellido")
 	private String lastName;
-	private LocalDate birth;
-	private boolean isManager;
-	private boolean isAdmin;
-	private Address address;
+	
+	@Column(name = "nacimiento")
+	private Date birth;
+	private Boolean isManager;
+	private Boolean isAdmin;
+	//private Address address;
+	
+	@Column(name = "dirid")
+	private int dirId;
+	
+	@Id
+	@Column(name = "userid")
 	private int id;
+	
+	public User(){}
 
-	public User(String firstName, String lastName, LocalDate birth) {
+	public User(String firstName, String lastName, Date birth) {
 		// TODO Auto-generated constructor stub
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
@@ -35,11 +59,11 @@ public class User implements UserPermissions {
 		this.email = email;
 	}
 
-	public LocalDate getBirth() {
+	public Date getBirth() {
 		return birth;
 	}
 
-	public void setBirth(LocalDate birth) {
+	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
 
@@ -47,12 +71,20 @@ public class User implements UserPermissions {
 		this.isManager = isManager;
 	}
 
-	public Address getAddress() {
+	/*public Address getAddress() {
 		return address;
 	}
 
 	public void setAddress(Address address) {
 		this.address = address;
+	}*/
+	
+	public int getDirId() {
+		return dirId;
+	}
+
+	public void setDirId(int dirId) {
+		this.dirId = dirId;
 	}
 	
 	public int getAge() { // testear esto

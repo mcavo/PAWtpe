@@ -63,9 +63,9 @@ public class UserDAOImpl implements UserDAO{
 		if(empty){
 			return null;
 		}
-		User user = new User(nombre, apellido, nacimiento.toLocalDate());
+		User user = new User(nombre, apellido, nacimiento);
 		user.setId(id);
-		user.setAddress(this.addressRepository.getAddressById(dirid));
+		//user.setAddress(this.addressRepository.getAddressById(dirid));
 		return user;
 	}
 
@@ -107,7 +107,7 @@ public class UserDAOImpl implements UserDAO{
 		credential.setRol(role);
 		credentialRepository.add(credential);
 		userid = credentialRepository.getCredentialID(user.getEmail());
-		int addressid = new AddressDAOImpl().setAddress(user.getAddress());
+		//int addressid = new AddressDAOImpl().setAddress(user.getAddress());
 	
 		String query = "INSERT INTO usuario (userid, nombre, apellido, nacimiento, dirid ) VALUES (? , ?, ?, ?, ?);";
 		DBManager.getInstance();
@@ -118,8 +118,8 @@ public class UserDAOImpl implements UserDAO{
 			pstmt.setInt(1, userid);
 			pstmt.setString(2, user.getFirstName());
 			pstmt.setString(3, user.getLastName());
-			pstmt.setDate(4, Date.valueOf(user.getBirth()));
-			pstmt.setInt(5, addressid); 
+			pstmt.setDate(4, (Date) user.getBirth());
+			//pstmt.setInt(5, addressid); 
 			
 			pstmt.execute();
 	        pstmt.close();
