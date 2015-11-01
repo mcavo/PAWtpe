@@ -1,9 +1,5 @@
 package ar.edu.itba.it.paw.repositories;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,7 +12,6 @@ import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import ar.edu.itba.it.paw.DBManager;
 import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Restaurant;
 
@@ -54,22 +49,8 @@ public class CalificationRepository extends AbstractHibernateRepository{
 	          session=null;
 	        }
 	    }
-		/*try {
-			Connection conn = DBManager.getInstance().getConnection();
-			String sql = "insert into Calificacion (userid, restid, descripcion, puntaje) VALUES (?, ?, ?, ?);";
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, userId);
-			pstmt.setInt(2, restId);
-			pstmt.setString(3, comment);
-			pstmt.setInt(4, rate);
-			
-			pstmt.execute();
-			pstmt.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 	}
+	
 	@SuppressWarnings("unchecked")
 	public HashMap<Integer, Calification> getCalifications(Restaurant restaurant) {
 		List<Calification> califications = null;

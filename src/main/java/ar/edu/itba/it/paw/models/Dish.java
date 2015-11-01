@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -28,8 +30,12 @@ public class Dish {
 	@Column(name = "seccion")
 	private String section;
 
-	@Column(name = "restid")
-	private int restId;
+	@ManyToOne
+	@JoinColumn(name="restid")
+	private Restaurant rest;
+	
+	//@Column(name = "restid")
+	//private int restId;
 
 
 	public Dish(){}
@@ -81,13 +87,13 @@ public class Dish {
 		this.section = section;
 	}
 	
-	public int getRestId() {
+	/*public int getRestId() {
 		return restId;
 	}
 
 	public void setRestId(int restId) {
 		this.restId = restId;
-	}
+	}*/
 	
 	@Override
 	public int hashCode() {
@@ -95,6 +101,14 @@ public class Dish {
 		int result = 1;
 		result = prime * result + id;
 		return result;
+	}
+
+	public Restaurant getRest() {
+		return rest;
+	}
+
+	public void setRest(Restaurant rest) {
+		this.rest = rest;
 	}
 
 	@Override

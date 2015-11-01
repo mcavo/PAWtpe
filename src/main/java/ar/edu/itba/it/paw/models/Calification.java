@@ -1,6 +1,6 @@
 package ar.edu.itba.it.paw.models;
 
-
+//no esta mapeado porque no tiene id e hibernate no lo acepta
 public class Calification {
 	
 	private Integer puntaje;

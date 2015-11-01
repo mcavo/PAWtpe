@@ -60,9 +60,9 @@ public class ManagerRepository extends AbstractHibernateRepository{
 	    return rest;
 	}
 
-	public void addDish(int restId, String section, String dish, int price, String desc) {
+	public void addDish(Restaurant rest, String section, String dish, int price, String desc) {
 		Dish d = new Dish();
-		d.setRestId(restId);
+		d.setRest(rest);
 		d.setDescription(desc);
 		d.setPrice(price);
 		d.setProduct(dish);

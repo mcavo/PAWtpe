@@ -50,7 +50,7 @@ public class ManagerServiceImpl implements ManagerService{
 			//ya existe
 			return;
 		}
-		managerRepository.addDish(rest.getId(), section, dish, Integer.valueOf(price), desc);
+		managerRepository.addDish(rest, section, dish, Integer.valueOf(price), desc);
 	}
 
 	public Restaurant getRestaurant(User usr) {
