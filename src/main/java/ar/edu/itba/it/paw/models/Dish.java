@@ -33,10 +33,6 @@ public class Dish {
 	@ManyToOne
 	@JoinColumn(name="restid")
 	private Restaurant rest;
-	
-	//@Column(name = "restid")
-	//private int restId;
-
 
 	public Dish(){}
 	
@@ -86,14 +82,6 @@ public class Dish {
 	public void setSection(String section) {
 		this.section = section;
 	}
-	
-	/*public int getRestId() {
-		return restId;
-	}
-
-	public void setRestId(int restId) {
-		this.restId = restId;
-	}*/
 	
 	@Override
 	public int hashCode() {

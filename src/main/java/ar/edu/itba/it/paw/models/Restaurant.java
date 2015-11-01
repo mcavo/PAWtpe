@@ -5,12 +5,15 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -21,8 +24,10 @@ public class Restaurant {
 	@Column(name = "nombre")
 	private String nombre;
 
-	@Transient
-	private LinkedList<User> managers;
+	@OneToMany
+	@JoinColumn(name="gerid")
+	private Set<User> managers;
+	//private LinkedList<User> managers;
 	
 	@Column(name = "montomin")
 	private double montomin;
@@ -118,14 +123,14 @@ public class Restaurant {
 		this.name = name;
 	}*/
 	
-	public LinkedList<User> getManager() {
+	public Set<User> getManager() {
 		if(managers==null) {
 			
 		}
 		return managers;
 	}
 
-	public void setManagers(LinkedList<User> managers) {
+	public void setManagers(Set<User> managers) {
 		this.managers = managers;
 	}
 

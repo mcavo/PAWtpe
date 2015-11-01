@@ -45,7 +45,7 @@ public class CalificationServiceImpl implements CalificationService{
 			//tirar excepcion de comentario vacio
 			return;
 		}
-		calificationRepository.addCalification(usrId, restId, rate, comments);
+		//calificationRepository.addCalification(usrId, restId, rate, comments);
 		Calification q = new Calification(rate, comments);
 		restaurantService.addCalification(usrId, rest, q);
 	}

@@ -14,9 +14,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.SessionUserManager;
 import ar.edu.itba.it.paw.UserManager;
+import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
+import ar.edu.itba.it.paw.repositories.CalificationRepository;
 import ar.edu.itba.it.paw.repositories.RestaurantRepository;
 import ar.edu.itba.it.paw.services.CalificationService;
 import ar.edu.itba.it.paw.services.OrderService;
@@ -26,14 +28,14 @@ import ar.edu.itba.it.paw.services.RestaurantService;
 public class RestaurantController {
 	
 	private final RestaurantService restaurantService;
-	private final CalificationService calificationService;
+	private final CalificationRepository calificationRepository;
 	private final OrderService orderService;
 	private final RestaurantRepository restaurantRepository;
 	
 	@Autowired
-	public RestaurantController(RestaurantService restaurantService, RestaurantRepository restaurantRepo, CalificationService calificationService, OrderService orderService){
+	public RestaurantController(RestaurantService restaurantService, RestaurantRepository restaurantRepo, CalificationRepository calificationRepo, OrderService orderService){
 		this.restaurantService = restaurantService;
-		this.calificationService = calificationService;
+		this.calificationRepository = calificationRepo;
 		this.orderService = orderService;
 		this.restaurantRepository = restaurantRepo;
 	}
@@ -62,7 +64,7 @@ public class RestaurantController {
 		mav.setViewName("showRestaurant");
 		User user = (User) request.getAttribute("user");
 		if(user != null){
-			request.setAttribute("okToQualify", calificationService.canQualify(restaurant, user.getId()));
+			request.setAttribute("okToQualify", !restaurant.getQualifications().keySet().contains(user.getId()));
 		}else{
 			request.setAttribute("okToQualify", false);
 		}
@@ -88,7 +90,8 @@ public class RestaurantController {
 		if (!userManager.existsUser()) {
 			throw new Exception("No hay un usuario loggeado");
 		}
-		calificationService.addCalification(user.getId(), restaurant, stars, comments);
+		calificationRepository.addCalification(user, restaurant, stars, comments);
+		restaurant.getQualifications().put(user.getId(), new Calification(Integer.valueOf(stars), comments));
 		request.setAttribute("rest", restaurant);
 		
 		return mav;

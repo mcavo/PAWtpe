@@ -14,23 +14,39 @@ import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Restaurant;
+import ar.edu.itba.it.paw.models.User;
 
 @Repository
 public class CalificationRepository extends AbstractHibernateRepository{
-
+	
 	@Autowired
 	public CalificationRepository(SessionFactory sessionFactory) {
-		super(sessionFactory);
+		super(sessionFactory);		
 	}
 
-	public void addCalification(int userId, int restId, int rate, String comment){
+	public void addCalification(User user, Restaurant rest, String stars, String comment){
+		int restId = rest.getId();
+		//int userId = Integer.valueOf(usrId);
+		if(user.getId() == 0 || restId == 0){
+			//app error
+			return;
+		}
+		int rate = Integer.valueOf(stars);
+		if(rate < 0 || rate > 5){
+			//app error
+			return;
+		}
+		if(comment.isEmpty()){
+			//tirar excepcion de comentario vacio
+			return;
+		}
 		Session session=null;
 	    try 
 	    {
 		    Session sessionSQL = super.getSession();
 		    Transaction tx = sessionSQL.beginTransaction();
 		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("insert into calificacion (userid, restid, descripcion, puntaje) VALUES (?, ?, ?, ?);");
-		    query.setParameter(0, userId); 
+		    query.setParameter(0, user.getId()); 
 		    query.setParameter(1, restId);
 		    query.setParameter(2, comment);
 		    query.setParameter(3, rate);
