@@ -23,7 +23,7 @@ public class Order {
 	private Map<Dish,Integer> ordlist;
 	
 	@ManyToOne
-	@JoinColumn(name = "userid", nullable = false)
+	@JoinColumn(name = "userid")
 	private User user;
 
 	@ManyToOne

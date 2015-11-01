@@ -277,28 +277,6 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		r.setMenu(getMenuByRestaurant(r));
 		r.setCalifications(calificationRepository.getCalifications(r));
 		return r;
-		
-		/*int restId = -1;
-		Restaurant rest = null;
-		try{
-			Connection conn = DBManager.getInstance().getConnection();
-			String sql = "SELECT * FROM restaurante WHERE nombre like ? and dirid = ?;";
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, name);
-			pstmt.setInt(2, addressId);
-			ResultSet rs = pstmt.executeQuery();	 
-			while ( rs.next() ) {
-				restId = rs.getInt("id");
-				rest = new Restaurant(restId, rs.getString("nombre"), rs.getDouble("montomin"), rs.getFloat("desde"), rs.getFloat("hasta"), null, getTypesOfFoodByRestId(restId), getMenuByRestId(restId), rs.getFloat("costoenvio"));
-			 }
-	         rs.close();
-	         pstmt.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return rest;
-		*/
 	}
 	
 	public void setRestaurant(Restaurant rest) throws Exception {
@@ -317,38 +295,6 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			throw new Exception("No tuvo dirección");
 		}
 		setTypes(rest.getTypesOfFood(), id);
-		
-		/*String sql = "INSERT INTO restaurante (dirid, nombre, descripcion, desde, hasta, montomin, costoenvio) VALUES (?, ?, ?, ?, ?, ?, ?);";
-		validateAddress(rest.getAddress(), rest.getNombre());
-		int addressId = this.addressRepository.setAddress(rest.getAddress());
-		if(addressId == -1){
-			return; //TODO: throw exception ??
-		}
-		
-		Connection dbConnection;
-		DBManager db = DBManager.getInstance();
-		try {
-			dbConnection = db.getConnection();
-			PreparedStatement pstmt = dbConnection.prepareStatement(sql);
-			pstmt.setInt(1, addressId);
-			pstmt.setString(2, rest.getName());
-			pstmt.setString(3, rest.getDescription());
-			pstmt.setFloat(4, rest.getStartService());
-			pstmt.setFloat(5, rest.getEndService());
-			pstmt.setDouble(6, rest.getMinimumPurchase());
-			pstmt.setFloat(7, rest.getCost());
-			pstmt.execute();
-			pstmt.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		int id = getRestaurantId(addressId);
-		if (id == -1) {
-			throw new Exception("No tuvo dirección");
-		}
-		setTypes(rest.getTypesOfFood(), id);
-		*/
 	}
 	
 	
@@ -363,27 +309,6 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 				throw new Exception("Address already in use");
 			}
 		}
-		
-		/*String sql = "SELECT * FROM restaurante WHERE dirid = ? AND nombre = ?";
-		List<Integer> addressIds = addressDao.getAddressesIds(address);
-		Connection dbConnection;
-		DBManager db = DBManager.getInstance();
-		dbConnection = db.getConnection();
-		try {
-			for (Integer id : addressIds) {
-				PreparedStatement pstmt = dbConnection.prepareStatement(sql);
-				pstmt.setInt(1, id);
-				pstmt.setString(2, name);
-				ResultSet rs = pstmt.executeQuery();
-				if (rs.next()) {
-					throw new Exception("Address already in use");
-				}
-				rs.close();
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 	}
 	
 	@SuppressWarnings("unused")
@@ -391,23 +316,6 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		for(String type : types) {
 			setByOne(type, id);
 		}
-		/*
-		Connection dbConnection;
-		DBManager db = DBManager.getInstance();
-		try {
-			dbConnection = db.getConnection();
-			for(String type : types) {
-				PreparedStatement pstmt = dbConnection.prepareStatement(sql);
-				pstmt.setInt(1, id);
-				pstmt.setString(2, type);
-				pstmt.execute();
-				pstmt.close();
-			}				
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
 	}
 	
 	private void setByOne(String type, int id){
