@@ -12,15 +12,13 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.repositories.RestaurantRepository;
-import ar.edu.itba.it.paw.services.CalificationService;
-import ar.edu.itba.it.paw.services.RestaurantService;
 
 @Controller
 public class HomepageController {
 	private RestaurantRepository restaurantRepository;
 	
 	@Autowired
-	public HomepageController(RestaurantRepository restaurantRepository, CalificationService calificationService) {
+	public HomepageController(RestaurantRepository restaurantRepository) {
 		this.restaurantRepository = restaurantRepository;
 	}
 	

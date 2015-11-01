@@ -11,19 +11,18 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
+import ar.edu.itba.it.paw.repositories.ManagerRepository;
 import ar.edu.itba.it.paw.repositories.OrderRepository;
-import ar.edu.itba.it.paw.services.ManagerService;
-import ar.edu.itba.it.paw.services.OrderService;
 
 @Controller
 public class ManagerController {
 
-	private ManagerService managerService;
+	private ManagerRepository managerRepository;
 	private OrderRepository orderRepository;
 	
 	@Autowired
-	public ManagerController(ManagerService service, OrderRepository orderRepo) {
-		this.managerService = service;
+	public ManagerController(ManagerRepository managerRepo, OrderRepository orderRepo) {
+		this.managerRepository = managerRepo;
 		this.orderRepository = orderRepo;
 	}
 	
@@ -32,7 +31,7 @@ public class ManagerController {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) request.getAttribute("user");
 		if(user != null){
-			request.setAttribute("rest", managerService.getRestaurant(user));
+			request.setAttribute("rest", managerRepository.getRestaurant(user));
 			mav.setViewName("addDish");
 		}else{
 			return new ModelAndView("redirect:../homepage/");
@@ -45,7 +44,7 @@ public class ManagerController {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) request.getAttribute("user");
 		if(user != null){
-			managerService.addDish(managerService.getRestaurant(user), section, dish, price, description);
+			managerRepository.addDish(managerRepository.getRestaurant(user), section, dish, Integer.valueOf(price), description);
 			mav.setViewName("addDish");
 		}else{
 			return new ModelAndView("redirect:../homepage/");
@@ -58,7 +57,7 @@ public class ManagerController {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) request.getAttribute("user");
 		if(user != null){
-			Restaurant rest = managerService.getRestaurant(user);
+			Restaurant rest = managerRepository.getRestaurant(user);
 			mav.addObject("rest", rest);
 			request.setAttribute("olist", orderRepository.getHistory(rest));
 			mav.setViewName("showOrders");

@@ -10,8 +10,10 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Restaurant;
+import ar.edu.itba.it.paw.models.User;
 
 @Repository
 public class ManagerRepository extends AbstractHibernateRepository{
@@ -26,7 +28,7 @@ public class ManagerRepository extends AbstractHibernateRepository{
 		this.credentialRepository = credentialRepo;
 	}
 
-	@SuppressWarnings("unchecked")
+	/*@SuppressWarnings("unchecked")
 	public Restaurant getRestByManagerId(int managerId) {
 		Restaurant rest = null;
 		Session session=null;
@@ -58,9 +60,25 @@ public class ManagerRepository extends AbstractHibernateRepository{
 	        }
 	    }
 	    return rest;
-	}
+	}*/
 
 	public void addDish(Restaurant rest, String section, String dish, int price, String desc) {
+		if(Integer.valueOf(price) < 0 || dish == null || desc == null){
+			//precio menor a 0 excp
+			return;
+		}
+		if(rest == null){
+			//app error
+			return;
+		}
+		if(!existsSection(section)){
+			//no existe seccion
+			return;
+		}
+		if(existsDish(dish)){
+			//ya existe
+			return;
+		}
 		Dish d = new Dish();
 		d.setRest(rest);
 		d.setDescription(desc);
@@ -77,7 +95,7 @@ public class ManagerRepository extends AbstractHibernateRepository{
 
 	
 	@SuppressWarnings("unchecked")
-	public Restaurant getRestaurant(int managerId) {
+	public Restaurant getRestaurant(User manager) {
 		Restaurant rest = null;
 		
 		Session session=null;
@@ -86,7 +104,7 @@ public class ManagerRepository extends AbstractHibernateRepository{
 		    Session sessionSQL = super.getSession();
 		    Transaction tx = sessionSQL.beginTransaction();
 		    //ARREGLAR LA QUERY!
-		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("select restid from gerente where gerente.userid = ?").setParameter(0, managerId); 
+		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("select restid from gerente where gerente.userid = ?").setParameter(0, manager.getId()); 
 		    //query.addScalar("userid", Hibernate.INTEGER);
 		    //query.addScalar("restid", Hibernate.INTEGER);
 		    ArrayList<Object> rows = (ArrayList<Object>) query.list();
@@ -142,4 +160,46 @@ public class ManagerRepository extends AbstractHibernateRepository{
 	        }
 	    }
 	}
+	
+	public Credential validateEmail(String email) throws Exception {
+		Credential cred = null;
+		/*try {
+			ValidateDataService.validateMail(email);
+			cred = credentialDAO.getCredentialsByEmail(email);
+			if (cred == null || !(cred.getRol().equals("usuario"))){
+				throw new Exception("bad parameter");	
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("bad parameter");
+		}*/
+		return cred;
+	}
+	
+	/*public void SetManager(Credential cred,String name, String street, String number, String neighborhood, String city, String province, String floor, String apartment) throws Exception {
+		Restaurant rest = restaurantService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
+		if (rest == null) {
+			return;
+		}
+		setManager(rest.getId(), cred.getId());
+	}
+
+	public List<Credential> getManagersAvailables() {
+		//return credentialDAO.getManagersAvailables();
+		return null;
+	}
+
+	public boolean addManager(String email, String restid) {
+		Credential cred;
+		try {
+			cred = validateEmail(email);
+			if (cred==null || !restaurantService.validateId(restid))
+				return false;
+			setManager(cred.getId(),Integer.parseInt(restid));
+			return true;
+		} catch (Exception e) {
+			return false;
+		}	
+	}
+	*/
 }
