@@ -149,10 +149,10 @@ public class RestaurantController {
 	public ModelAndView register(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) req.getAttribute("user");
-		if(user == null){
-			return new ModelAndView("redirect:../homepage/");
+		if(user != null && user.getIsAdmin()){
+			mav.setViewName("registerRestaurant");
+			return mav;
 		}
-		mav.setViewName("registerRestaurant");
-		return mav;
+		return new ModelAndView("redirect:../homepage/");
 	}
 }
