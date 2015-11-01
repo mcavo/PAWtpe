@@ -11,18 +11,22 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.SessionUserManager;
 import ar.edu.itba.it.paw.UserManager;
+import ar.edu.itba.it.paw.exceptions.CredentialNoMatchException;
 import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.User;
-import ar.edu.itba.it.paw.services.UserService;
+import ar.edu.itba.it.paw.repositories.CredentialRepository;
+import ar.edu.itba.it.paw.repositories.UserRepository;
 
 @Controller
 public class LoginController {
 
-	private UserService UserService;
+	private UserRepository userRepository;
+	private CredentialRepository credentialRepository;
 	
 	@Autowired
-	public LoginController(UserService userService){
-		this.UserService = userService;
+	public LoginController(UserRepository userRepo, CredentialRepository credentialRepo){
+		this.userRepository = userRepo;
+		this.credentialRepository = credentialRepo;
 	}
 	
 	@RequestMapping(value="/login", method = RequestMethod.GET)
@@ -38,11 +42,22 @@ public class LoginController {
 	
 	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public String post(HttpServletRequest request, @RequestParam("email") String email, @RequestParam("pwd") String pwd) {
-		Credential cred = UserService.getUserCredentials(email, pwd);
+		Credential cred = null;
+		try {
+			cred = credentialRepository.getCredentials(email, pwd);
+		} catch (CredentialNoMatchException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		};
 		if(cred == null){
 			return "redirect:";
 		}else{
-			User user = UserService.getUserById(cred);
+			User user = userRepository.getUser(cred);
+			if(user == null){
+				//debería utilizar el get básico
+				//app error
+				return "";
+			}
 			UserManager userManager = new SessionUserManager(request);
 			userManager.setUser(user);
 			return "redirect:../homepage/";

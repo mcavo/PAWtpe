@@ -12,18 +12,18 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.edu.itba.it.paw.SessionUserManager;
 import ar.edu.itba.it.paw.UserManager;
 import ar.edu.itba.it.paw.models.User;
-import ar.edu.itba.it.paw.services.UserService;
+import ar.edu.itba.it.paw.repositories.UserRepository;
 
 
 @Controller
 public class SignupController {
-	private UserService userService;
+	private UserRepository userRepository;
 	
 	public SignupController() {	}
 		
 	@Autowired	
-	public SignupController(UserService userService) {
-		this.userService = userService;
+	public SignupController(UserRepository userRepo) {
+		this.userRepository = userRepo;
 	}
 	
 	@RequestMapping(value="/signup", method = RequestMethod.GET)
@@ -40,7 +40,7 @@ public class SignupController {
 	public ModelAndView signup(HttpServletRequest request, @RequestParam("email") String email, @RequestParam("pwd") String pwd, @RequestParam("firstname") String firstname, @RequestParam("lastname") String lastname, @RequestParam("street") String street, @RequestParam("number") String number, @RequestParam("neighborhood") String neighborhood, @RequestParam("city") String city, @RequestParam("province") String province, @RequestParam("floor") String floor, @RequestParam("apartment") String apartment, @RequestParam("day") String day, @RequestParam("month") String month, @RequestParam("year") String year) {
 		User user = null;
 		try {
-			user = this.userService.signUp(email, pwd, firstname, lastname, day, month, year, false, street, number, city, province, neighborhood, floor, apartment);
+			user = this.userRepository.signUp(email, pwd, firstname, lastname, day, month, year, false, street, number, city, province, neighborhood, floor, apartment);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ModelAndView("redirect:../signup/");

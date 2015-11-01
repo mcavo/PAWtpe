@@ -5,19 +5,19 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import ar.edu.itba.it.paw.models.User;
-import ar.edu.itba.it.paw.services.UserService;
+import ar.edu.itba.it.paw.repositories.UserRepository;
 
 @Component
 public class UserConverter implements Converter<String, User> {
 
-	private UserService users;
+	private UserRepository users;
 	
 	@Autowired
-	public UserConverter(UserService users) {
+	public UserConverter(UserRepository users) {
 		this.users = users;
 	}
 	
 	public User convert(String arg0) {
-		return users.get(Integer.valueOf(arg0)); 
+		return users.getUserById(Integer.valueOf(arg0)); 
 	}
 }

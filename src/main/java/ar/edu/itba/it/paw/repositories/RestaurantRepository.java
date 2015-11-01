@@ -1,6 +1,8 @@
 package ar.edu.itba.it.paw.repositories;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,6 +21,7 @@ import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Menu;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.Section;
+import ar.edu.itba.it.paw.services.ValidateDataService;
 
 @Repository
 public class RestaurantRepository extends AbstractHibernateRepository{
@@ -82,6 +85,14 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			r.setAddress(address);
 			r.setCalifications(calificationRepository.getCalifications(r));
 		}
+		if(rests!=null)
+			rests.sort(new Comparator<Restaurant> () {
+
+				public int compare(Restaurant o1, Restaurant o2) {
+					return o1.getNombre().compareTo(o2.getNombre());
+				}
+			
+			});
 		return rests;
 	}
 	
@@ -130,6 +141,14 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			r.setAddress(address);
 			r.setCalifications(this.calificationRepository.getCalifications(r));
 		}
+		if(rests!=null)
+			rests.sort(new Comparator<Restaurant> () {
+
+				public int compare(Restaurant o1, Restaurant o2) {
+					return o1.getNombre().compareTo(o2.getNombre());
+				}
+			
+			});
 		return rests;
 	}
 	
@@ -185,6 +204,13 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			r.setAddress(address);
 			r.setCalifications(calificationRepository.getCalifications(r));
 		}
+		if(results!=null)
+			results.sort(new Comparator<Restaurant> () {
+				public int compare(Restaurant o1, Restaurant o2) {
+					return o1.getNombre().compareTo(o2.getNombre());
+				}
+			
+			});
 		return results;
 	}
 	
@@ -279,7 +305,9 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		return r;
 	}
 	
-	public void setRestaurant(Restaurant rest) throws Exception {
+	public void setRestaurant(String name , String description , String[] types , String timeFrom , String timeTo , String street , String number , String city , String province , String floor , String apartment , String neighborhood, String minimum, String cost) throws Exception {
+		Restaurant rest = validateRestaurant(name, description, types, timeFrom, timeTo, street, number, city, province, floor, apartment, neighborhood, minimum, cost);
+		
 		validateAddress(rest.getAddress(), rest.getNombre());
 		int addressId = this.addressRepository.setAddress(rest.getAddress());
 		if(addressId == -1){
@@ -297,6 +325,47 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		setTypes(rest.getTypesOfFood(), id);
 	}
 	
+	
+	private Restaurant validateRestaurant(String name , String description , String[] types , String timeFrom , String timeTo , String street , String number , String city , String province , String floor , String apartment , String neighborhood, String minimum, String cost) throws Exception{
+		ArrayList<String> validTypes;
+		int floorV = -1;
+		int numberV; 
+		float costV;
+		double minimumPurchase;
+		float from;
+		float to;
+		try {
+			from = Float.valueOf(timeFrom.replace(':', '.'));
+			to = Float.valueOf(timeTo.replace(':', '.'));
+			if (!floor.isEmpty()) {
+				floorV = Integer.valueOf(floor);
+				ValidateDataService.validateFloor(floorV);
+			}
+			numberV = Integer.valueOf(number);
+			ValidateDataService.validateStringLength(name, 30);
+			if (description != null && !description.isEmpty()) {
+				ValidateDataService.validateStringLength(description, 500);	
+			}
+			ValidateDataService.validateInterval(from, to);
+			ValidateDataService.validateStringLength(street, 30);
+			ValidateDataService.validateStringLength(city, 30);
+			ValidateDataService.validateStringLength(province, 30);
+			ValidateDataService.validateStringLength(neighborhood, 40);
+			if (apartment != null && !apartment.isEmpty()) {
+				ValidateDataService.validateApartment(apartment);	
+			}
+			validTypes = ValidateDataService.validateTypes(types);
+			costV = ValidateDataService.validateCost(cost);
+			minimumPurchase = ValidateDataService.validateMinimum(minimum);
+			
+		} catch (Exception e) {
+			throw new Exception("Invalid parameters");
+		}
+		Address address = new Address(street, numberV, floorV, apartment, neighborhood, city, province);
+		Restaurant rest = new Restaurant(-1, name, minimumPurchase, from, to, address, validTypes, null, costV);
+		
+		return rest;
+	}
 	
 	@SuppressWarnings("unused")
 	private void validateAddress(Address address, String name) throws Exception {

@@ -21,19 +21,16 @@ import ar.edu.itba.it.paw.models.User;
 import ar.edu.itba.it.paw.repositories.CalificationRepository;
 import ar.edu.itba.it.paw.repositories.OrderRepository;
 import ar.edu.itba.it.paw.repositories.RestaurantRepository;
-import ar.edu.itba.it.paw.services.RestaurantService;
 
 @Controller
 public class RestaurantController {
 	
-	private final RestaurantService restaurantService;
 	private final CalificationRepository calificationRepository;
 	private final OrderRepository orderRepository;
 	private final RestaurantRepository restaurantRepository;
 	
 	@Autowired
-	public RestaurantController(RestaurantService restaurantService, RestaurantRepository restaurantRepo, CalificationRepository calificationRepo, OrderRepository orderRepo){
-		this.restaurantService = restaurantService;
+	public RestaurantController(RestaurantRepository restaurantRepo, CalificationRepository calificationRepo, OrderRepository orderRepo){
 		this.calificationRepository = calificationRepo;
 		this.orderRepository = orderRepo;
 		this.restaurantRepository = restaurantRepo;
@@ -42,7 +39,7 @@ public class RestaurantController {
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("rlist", restaurantService.getAllRestaurants());
+		mav.addObject("rlist", restaurantRepository.getAll());
 		mav.setViewName("restaurantList");
 		return mav;
 	}
@@ -50,7 +47,7 @@ public class RestaurantController {
 	@RequestMapping(value="/list", method = RequestMethod.POST)
 	public ModelAndView list(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("rlist", restaurantService.getRestaurants(req.getParameter("type")));
+		mav.addObject("rlist", restaurantRepository.filterBy(req.getParameter("type")));
 		mav.setViewName("restaurantList");
 		return mav;
 	}
@@ -73,7 +70,7 @@ public class RestaurantController {
 	@RequestMapping(value="/popular", method = RequestMethod.GET)
 	public ModelAndView popular() {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("rlist", restaurantService.getPopularRestaurants());
+		mav.addObject("rlist", restaurantRepository.getMostPopular());
 		mav.setViewName("restaurantList");
 		return mav;
 	}
@@ -138,7 +135,7 @@ public class RestaurantController {
 	public ModelAndView register(@RequestParam("name") String name, @RequestParam("street") String street, @RequestParam("number") String number, @RequestParam("neighborhood") String neighborhood, @RequestParam("city") String city, @RequestParam("province") String province, @RequestParam("floor") String floor, @RequestParam("apartment") String apartment, @RequestParam(value="description", required=false) String description,  @RequestParam("from") String from,  @RequestParam("to") String to,  @RequestParam("minimum") String minimum,  @RequestParam("cost") String cost, @RequestParam("checkboxes") String[] types) {
 		ModelAndView mav = new ModelAndView();
 		try {
-			restaurantService.setRestaurant(name, description, types, from, to, street, number, city, province, floor, apartment, neighborhood, minimum, cost);
+			restaurantRepository.setRestaurant(name, description, types, from, to, street, number, city, province, floor, apartment, neighborhood, minimum, cost);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return mav;
