@@ -159,8 +159,6 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		}
 		Restaurant r = rests.get(0);
 		Menu menu = getMenuByRestaurant(r);
-		//Address address = addressDao.getAddressById(getAddressId(id));
-		//Hibernate thing:
 		Address address = getAddressByRestaurant(r);
 		List<String> tipos = getTypesOfFoodByRestaurant(r);
 		Restaurant rest = new Restaurant(id, r.getNombre(), r.getMontomin(), r.getDesde(), r.getHasta(), address, tipos, menu, r.getCostoenvio());		
@@ -187,6 +185,13 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			r.setAddress(address);
 			r.setCalifications(this.calificationRepository.getCalifications(r));
 		}
+		if(rests!=null)
+			rests.sort(new Comparator<Restaurant> () {
+				public int compare(Restaurant o1, Restaurant o2) {
+					return o1.getNombre().compareTo(o2.getNombre());
+				}
+			
+			});
 		return rests;	
 	}
 
