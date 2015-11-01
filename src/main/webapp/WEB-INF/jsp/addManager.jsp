@@ -2,7 +2,7 @@
 
 <div class="container">
 	<div class="col-md-10 col-md-offset-1">
-		<form action="addmanager" method="post">
+		<form action="addManager" method="post">
 
 			<div class="panel panel-default">
 				<div class="panel-heading">
@@ -15,9 +15,9 @@
 							<div class="col-sm-8 col-sm-offset-2">
 								<div class="form-group">
 									<label>Posibles Gerentes:</label>
-									<select name="manager-mail" required>
+									<select name="manager-id" required>
 										<c:forEach items="${clist}" var="managerWannaBe">
-											<option value="${managerWannaBe.mail}">
+											<option value="${managerWannaBe.id}">
 												${managerWannaBe.mail}</option>
 										</c:forEach>
 									</select>

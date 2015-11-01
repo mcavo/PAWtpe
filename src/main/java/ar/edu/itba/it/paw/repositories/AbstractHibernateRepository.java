@@ -50,7 +50,7 @@ public class AbstractHibernateRepository {
 		
 		public void update(Object o){
 			Session session = getSession();
-			Transaction tx = session.getTransaction();
+			Transaction tx = session.beginTransaction();
 			session.update(o);
 			tx.commit();
 		}

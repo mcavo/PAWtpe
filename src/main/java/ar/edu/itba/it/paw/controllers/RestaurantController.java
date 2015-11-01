@@ -51,7 +51,6 @@ public class RestaurantController {
 		mav.setViewName("restaurantList");
 		return mav;
 	}
-	
 
 	@RequestMapping(value="/details", method = RequestMethod.GET)
 	public ModelAndView details(HttpServletRequest request, @RequestParam("code") Restaurant restaurant) {	
@@ -92,7 +91,6 @@ public class RestaurantController {
 		
 		return mav;
 	}
-	
 	
 	@RequestMapping(value="/menu", method = RequestMethod.GET)
 	public ModelAndView menu(HttpServletRequest request, @RequestParam("code") Restaurant restaurant) {

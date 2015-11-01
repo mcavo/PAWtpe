@@ -330,7 +330,6 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		setTypes(rest.getTypesOfFood(), id);
 	}
 	
-	
 	private Restaurant validateRestaurant(String name , String description , String[] types , String timeFrom , String timeTo , String street , String number , String city , String province , String floor , String apartment , String neighborhood, String minimum, String cost) throws Exception{
 		ArrayList<String> validTypes;
 		int floorV = -1;
@@ -372,7 +371,6 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		return rest;
 	}
 	
-	@SuppressWarnings("unused")
 	private void validateAddress(Address address, String name) throws Exception {
 		List<Integer> addressIds = this.addressRepository.getAddressesIds(address);
 		
@@ -385,7 +383,6 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		}
 	}
 	
-	@SuppressWarnings("unused")
 	private void setTypes(List<String> types, int id) {
 		for(String type : types) {
 			setByOne(type, id);
@@ -419,8 +416,6 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 
 	}
 	
-	
-	@SuppressWarnings("unused")
 	private int getRestaurantId(int dirId) {
 		List<Restaurant> rests = find("from Restaurant where dirid = ?", dirId);
 		if(!rests.isEmpty()){
@@ -448,7 +443,6 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		return id;
 		*/
 	}
-
 	
 	public boolean validateId(int id) {
 		return get(Restaurant.class, id) != null;

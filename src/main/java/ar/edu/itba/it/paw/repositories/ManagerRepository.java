@@ -161,45 +161,32 @@ public class ManagerRepository extends AbstractHibernateRepository{
 	    }
 	}
 	
-	public Credential validateEmail(String email) throws Exception {
-		Credential cred = null;
-		/*try {
-			ValidateDataService.validateMail(email);
-			cred = credentialDAO.getCredentialsByEmail(email);
+	public boolean validateUser(int userid) throws Exception {
+		try {
+			Credential cred = credentialRepository.get(userid);
 			if (cred == null || !(cred.getRol().equals("usuario"))){
-				throw new Exception("bad parameter");	
+				return false;	
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception("bad parameter");
-		}*/
-		return cred;
-	}
-	
-	/*public void SetManager(Credential cred,String name, String street, String number, String neighborhood, String city, String province, String floor, String apartment) throws Exception {
-		Restaurant rest = restaurantService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
-		if (rest == null) {
-			return;
 		}
-		setManager(rest.getId(), cred.getId());
+		return true;
 	}
 
 	public List<Credential> getManagersAvailables() {
-		//return credentialDAO.getManagersAvailables();
-		return null;
+		return credentialRepository.getManagersAvailables();
 	}
-
-	public boolean addManager(String email, String restid) {
-		Credential cred;
+	
+	public boolean addManager(int userid, int restid) {
 		try {
-			cred = validateEmail(email);
-			if (cred==null || !restaurantService.validateId(restid))
+			if (!validateUser(userid) || !restaurantRepository.validateId(restid))
 				return false;
-			setManager(cred.getId(),Integer.parseInt(restid));
+			setManager(userid, restid);
 			return true;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}	
 	}
-	*/
 }

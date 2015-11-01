@@ -26,20 +26,7 @@
 		<servlet-name>Error</servlet-name>
 		<url-pattern>/Error</url-pattern>
 	</servlet-mapping>
-	<servlet>
-		<description>
-		</description>
-		<display-name>AddManager</display-name>
-		<servlet-name>AddManager</servlet-name>
-		<servlet-class>ar.edu.itba.it.paw.servlets.AddManager</servlet-class>
-	</servlet>
-	
-	<servlet-mapping>
-		<servlet-name>AddManager</servlet-name>
-		<url-pattern>/admin/addManager</url-pattern>
-	</servlet-mapping>
-	
-	
+		
 	<filter>
 		<filter-name>UserFilter</filter-name> 
 		<filter-class>ar.edu.itba.it.paw.web.UserFilter</filter-class>

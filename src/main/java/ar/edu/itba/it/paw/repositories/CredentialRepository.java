@@ -15,7 +15,6 @@ import ar.edu.itba.it.paw.exceptions.CredentialNoMatchException;
 import ar.edu.itba.it.paw.exceptions.DuplicateEmailException;
 import ar.edu.itba.it.paw.exceptions.NoCredentialException;
 import ar.edu.itba.it.paw.models.Credential;
-import ar.edu.itba.it.paw.models.Restaurant;
 
 @Repository
 public class CredentialRepository extends AbstractHibernateRepository {
@@ -62,7 +61,9 @@ public class CredentialRepository extends AbstractHibernateRepository {
 	    {
 		    Session sessionSQL = super.getSession();
 		    Transaction tx = sessionSQL.beginTransaction();
-		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("FROM credencial AS c WHERE NOT EXISTS (SELECT * FROM gerente AS g WHERE c.id = g.userid ) AND EXISTS (SELECT * FROM usuario AS s WHERE s.userid = c.id))"); 
+		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("SELECT * FROM credencial c WHERE NOT EXISTS "
+		    														+ "(SELECT * FROM gerente g WHERE c.id = g.userid ) "
+		    														+ "AND EXISTS (SELECT * FROM usuario s WHERE s.userid = c.id)"); 
 		    query.addScalar("id", Hibernate.INTEGER);
 		    query.addScalar("rol", Hibernate.STRING);
 		    query.addScalar("mail", Hibernate.STRING);

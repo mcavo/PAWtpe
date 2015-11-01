@@ -32,7 +32,7 @@
 			<ul class="nav navbar-nav">
 				<c:choose>
 					<c:when test="${user.isAdmin}">
-						<li><a href="/PAWTPE/admin/addManager">Agregar manager</a></li>
+						<li><a href="/PAWTPE/bin/manager/addManager">Agregar manager</a></li>
 						<li><a href="/PAWTPE/admin/registerRestaurant">Agregar restaurante</a></li>
 					</c:when>
 					<c:when test="${user.isManager}">
