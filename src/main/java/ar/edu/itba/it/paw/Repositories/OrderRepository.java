@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.DAO.DBManager;
-import ar.edu.itba.it.paw.DAO.impl.UserDAOImpl;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Order;
 import ar.edu.itba.it.paw.models.Restaurant;
@@ -24,12 +23,12 @@ import ar.edu.itba.it.paw.models.Restaurant;
 @Repository
 public class OrderRepository extends AbstractHibernateRepository{
 
-	private UserDAOImpl userDAO;
+	private UserRepository userRepository;
 	
 	@Autowired
-	public OrderRepository(SessionFactory sessionFactory, UserDAOImpl userDao) {
+	public OrderRepository(SessionFactory sessionFactory, UserRepository userRepo) {
 		super(sessionFactory);
-		this.userDAO = userDao;
+		this.userRepository = userRepository;
 	}
 
 	public boolean checkDish(Restaurant rest, Dish dish) {
@@ -162,7 +161,7 @@ public class OrderRepository extends AbstractHibernateRepository{
 
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
-				order = new Order(rest, userDAO.getUserById(rs.getInt("userid")), rs.getInt("estado"));
+				order = new Order(rest, userRepository.getUserById(rs.getInt("userid")), rs.getInt("estado"));
 				order.setOrdlist(getOrderList(rs.getInt("id")));
 				history.add(order);
 			}

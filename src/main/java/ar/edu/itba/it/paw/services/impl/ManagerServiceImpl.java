@@ -5,8 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.edu.itba.it.paw.DAO.impl.CredentialDAOImpl;
-import ar.edu.itba.it.paw.DAO.impl.ManagerDAOImpl;
 import ar.edu.itba.it.paw.Repositories.ManagerRepository;
 import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.Restaurant;
