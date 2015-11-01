@@ -128,4 +128,9 @@ public class RestaurantServiceImpl implements RestaurantService{
 		return this.restaurantRepository.getMostPopular();
 	}
 
+	@Override
+	public Restaurant getRestaurant(int id) {
+		return this.restaurantRepository.getById(id);
+	}
+
 }

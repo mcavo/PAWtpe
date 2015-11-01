@@ -20,7 +20,7 @@
 					<ul class="nav nav-pills nav-justified">
 						<li class="active"><a href="#">Menú</a></li>
 						<li><a
-							href="/PAWTPE/bin/restaurant/details?name=${rest.nombre}&srt=${rest.address.street}&numb=${rest.address.number}&neigh=${rest.address.neighborhood}&city=${rest.address.city}&prov=${rest.address.province}&flr=${rest.address.floor}&apt=${rest.address.apartment}">Información</a></li>
+							href="/PAWTPE/bin/restaurant/details?code=${rest.id}">Información</a></li>
 					</ul>
 				</div>
 

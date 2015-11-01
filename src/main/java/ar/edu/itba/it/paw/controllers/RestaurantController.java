@@ -56,14 +56,13 @@ public class RestaurantController {
 	
 
 	@RequestMapping(value="/details", method = RequestMethod.GET)
-	public ModelAndView details(HttpServletRequest request, @RequestParam("name") String name, @RequestParam("srt") String street, @RequestParam("numb") String number, @RequestParam("neigh") String neighborhood, @RequestParam("city") String city, @RequestParam("prov") String province, @RequestParam("flr") String floor, @RequestParam("apt") String apartment) {
+	public ModelAndView details(HttpServletRequest request, @RequestParam("code") Restaurant restaurant) {	
 		ModelAndView mav = new ModelAndView();
-		Restaurant rest = restaurantService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
-		mav.addObject("rest", rest);
+		mav.addObject("rest", restaurant);
 		mav.setViewName("showRestaurant");
 		User user = (User) request.getAttribute("user");
 		if(user != null){
-			request.setAttribute("okToQualify", calificationService.canQualify(rest, user.getId()));
+			request.setAttribute("okToQualify", calificationService.canQualify(restaurant, user.getId()));
 		}else{
 			request.setAttribute("okToQualify", false);
 		}
@@ -78,29 +77,28 @@ public class RestaurantController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/details", method = RequestMethod.POST)
-	public ModelAndView details(HttpServletRequest request, @RequestParam("name") String name, @RequestParam("srt") String street, @RequestParam("numb") String number, @RequestParam("neigh") String neighborhood, @RequestParam("city") String city, @RequestParam("prov") String province, @RequestParam("flr") String floor, @RequestParam("apt") String apartment,@RequestParam("rating") String stars, @RequestParam(value="comment", required=false) String comments ) throws Exception { 
+	@RequestMapping(value="/details", method = RequestMethod.POST) 
+	public ModelAndView details(HttpServletRequest request, @RequestParam("code") Restaurant restaurant, @RequestParam("rating") String stars, @RequestParam(value="comment", required=false) String comments) throws Exception {	
 		ModelAndView mav = new ModelAndView();
 		User user = (User) request.getAttribute("user");
-		Restaurant rest = restaurantService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
 		//rest.setCalifications(calificationService.getCalifications(rest));
-		mav.addObject("rest", rest);
+		mav.addObject("rest", restaurant);
 		mav.setViewName("showRestaurant");
 		UserManager userManager = new SessionUserManager(request);
 		if (!userManager.existsUser()) {
 			throw new Exception("No hay un usuario loggeado");
 		}
-		calificationService.addCalification(user.getId(), rest, stars, comments);
-		request.setAttribute("rest", rest);
+		calificationService.addCalification(user.getId(), restaurant, stars, comments);
+		request.setAttribute("rest", restaurant);
 		
 		return mav;
 	}
 	
 	
 	@RequestMapping(value="/menu", method = RequestMethod.GET)
-	public ModelAndView menu(@RequestParam("name") String name, @RequestParam("srt") String street, @RequestParam("numb") String number, @RequestParam("neigh") String neighborhood, @RequestParam("city") String city, @RequestParam("prov") String province, @RequestParam("flr") String floor, @RequestParam("apt") String apartment) {
+	public ModelAndView menu(HttpServletRequest request, @RequestParam("code") Restaurant restaurant) {
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("rest", restaurantService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment));
+		mav.addObject("rest", restaurant);
 		mav.setViewName("menuRestaurant");
 		return mav;
 	}

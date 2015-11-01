@@ -17,7 +17,7 @@
 	<c:forEach items="${weekRests}" var="rest">
 
 
-		<a href="/PAWTPE/bin/restaurant/menu?name=${rest.nombre}&srt=${rest.address.street}&numb=${rest.address.number}&neigh=${rest.address.neighborhood}&city=${rest.address.city}&prov=${rest.address.province}&flr=${rest.address.floor}&apt=${rest.address.apartment}"">
+		<a href="/PAWTPE/bin/restaurant/menu?code=${rest.id}">
 					<div class="bs-callout bs-callout-info">
 						<h4>${rest.nombre}</h4>
 						<p>

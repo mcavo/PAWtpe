@@ -13,6 +13,8 @@ public interface RestaurantService {
 	
 	public Restaurant getRestaurant(String name, String street, String number, String neighborhood, String city, String province, String floor, String apartment);
 	
+	public Restaurant getRestaurant(int id);
+	
 	public void addCalification(int usrId, Restaurant rest, Calification q);
 	
 	public void setRestaurant(String name , String description , String[] types , String timeFrom , String timeTo , String street , String number , String city , String province , String floor , String apartment , String neighborhood, String minimum, String cost) throws Exception;
