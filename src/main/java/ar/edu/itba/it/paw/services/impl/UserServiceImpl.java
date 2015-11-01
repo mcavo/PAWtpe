@@ -9,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.itba.it.paw.HibernateConnection;
-import ar.edu.itba.it.paw.DAO.CredentialDAO;
-import ar.edu.itba.it.paw.DAO.UserDAO;
 import ar.edu.itba.it.paw.Exceptions.CredentialNoMatchException;
 import ar.edu.itba.it.paw.Repositories.CredentialRepository;
 import ar.edu.itba.it.paw.Repositories.UserRepository;
@@ -23,15 +21,13 @@ import ar.edu.itba.it.paw.services.UserService;
 public class UserServiceImpl implements UserService{
 
 	private UserRepository userRepository;
-	private CredentialDAO credentialDAO;
 	private CredentialRepository credentialRepository;
 			
 	public UserServiceImpl(){}
 	
 	@Autowired
-	public UserServiceImpl(UserRepository userRepo, CredentialDAO credentialDao, CredentialRepository credentialRepository){
+	public UserServiceImpl(UserRepository userRepo, CredentialRepository credentialRepository){
 		this.userRepository = userRepo;
-		this.credentialDAO = credentialDao;
 		this.credentialRepository = credentialRepository;
 	}
 	
