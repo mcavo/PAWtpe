@@ -69,8 +69,8 @@ public class TryToConnect {
 			//dbConnection.createStatement().execute("INSERT INTO barrio(nombre) values ('Nordelta')");
 			//dbConnection.createStatement().execute("INSERT INTO barrio(nombre) values ('Belgrano')");
 			//dbConnection.createStatement().execute("INSERT INTO barrio(nombre) values ('Flores')");
-			dbConnection.createStatement().execute("ALTER TABLE ");
-			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM barrio");
+			//dbConnection.createStatement().execute("ALTER TABLE ");
+			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM gerente");
 
 			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM pedido where restid = 1");
 			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM information_schema.columns WHERE table_name  = 'credencial'");

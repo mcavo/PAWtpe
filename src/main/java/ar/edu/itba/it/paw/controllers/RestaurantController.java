@@ -130,8 +130,12 @@ public class RestaurantController {
 	}
 	
 	@RequestMapping(value="/register", method = RequestMethod.POST)
-	public ModelAndView register(@RequestParam("name") String name, @RequestParam("street") String street, @RequestParam("number") String number, @RequestParam("neighborhood") String neighborhood, @RequestParam("city") String city, @RequestParam("province") String province, @RequestParam("floor") String floor, @RequestParam("apartment") String apartment, @RequestParam(value="description", required=false) String description,  @RequestParam("from") String from,  @RequestParam("to") String to,  @RequestParam("minimum") String minimum,  @RequestParam("cost") String cost, @RequestParam("checkboxes") String[] types) {
+	public ModelAndView register(HttpServletRequest req, @RequestParam("name") String name, @RequestParam("street") String street, @RequestParam("number") String number, @RequestParam("neighborhood") String neighborhood, @RequestParam("city") String city, @RequestParam("province") String province, @RequestParam("floor") String floor, @RequestParam("apartment") String apartment, @RequestParam(value="description", required=false) String description,  @RequestParam("from") String from,  @RequestParam("to") String to,  @RequestParam("minimum") String minimum,  @RequestParam("cost") String cost, @RequestParam("checkboxes") String[] types) {
 		ModelAndView mav = new ModelAndView();
+		User user = (User) req.getAttribute("user");
+		if(user == null){
+			return new ModelAndView("redirect:../homepage/");
+		}
 		try {
 			restaurantRepository.setRestaurant(name, description, types, from, to, street, number, city, province, floor, apartment, neighborhood, minimum, cost);
 		} catch (Exception e) {
@@ -142,8 +146,12 @@ public class RestaurantController {
 	}
 	
 	@RequestMapping(value="/register", method = RequestMethod.GET)
-	public ModelAndView register() {
+	public ModelAndView register(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
+		User user = (User) req.getAttribute("user");
+		if(user == null){
+			return new ModelAndView("redirect:../homepage/");
+		}
 		mav.setViewName("registerRestaurant");
 		return mav;
 	}

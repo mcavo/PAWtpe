@@ -36,7 +36,7 @@ public class ManagerController {
 	public ModelAndView addDish(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) request.getAttribute("user");
-		if(user != null){
+		if(user != null && user.getIsManager()){
 			request.setAttribute("rest", managerRepository.getRestaurant(user));
 			mav.setViewName("addDish");
 		}else{
@@ -49,7 +49,7 @@ public class ManagerController {
 	public ModelAndView addDish(HttpServletRequest request, @RequestParam("section") String section, @RequestParam("dish") String dish, @RequestParam("price") String price, @RequestParam("description") String description) {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) request.getAttribute("user");
-		if(user != null){
+		if(user != null && user.getIsManager()){
 			managerRepository.addDish(managerRepository.getRestaurant(user), section, dish, Integer.valueOf(price), description);
 			mav.setViewName("addDish");
 		}else{
@@ -62,7 +62,7 @@ public class ManagerController {
 	public ModelAndView showOrders(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) request.getAttribute("user");
-		if(user != null){
+		if(user != null && user.getIsManager()){
 			Restaurant rest = managerRepository.getRestaurant(user);
 			mav.addObject("rest", rest);
 			request.setAttribute("olist", orderRepository.getHistory(rest));
@@ -79,22 +79,28 @@ public class ManagerController {
 	}
 	
 	@RequestMapping(value="/addManager", method = RequestMethod.GET)
-	public ModelAndView addManager() {
+	public ModelAndView addManager(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
-		List<Restaurant> rlist;
-		List<Credential> clist;
-		rlist = restaurantRepository.getAll();
-		clist = managerRepository.getManagersAvailables();
-		mav.addObject("rlist", rlist);
-		mav.addObject("clist", clist);
-		mav.setViewName("addManager");
-		return mav;
+		User user = (User) request.getAttribute("user");
+		if(user != null && user.getIsAdmin()){
+			List<Restaurant> rlist;
+			List<Credential> clist;
+			rlist = restaurantRepository.getAll();
+			clist = managerRepository.getManagersAvailables();
+			mav.addObject("rlist", rlist);
+			mav.addObject("clist", clist);
+			mav.setViewName("addManager");
+			return mav;
+		}else{
+			return new ModelAndView("redirect:../homepage/");
+		}
 	}
 
 	@RequestMapping(value="/addManager", method = RequestMethod.POST)
-	public String addManager(@RequestParam("manager-id") int userid, @RequestParam("restaurant-id") int restid) {
+	public String addManager(HttpServletRequest request, @RequestParam("manager-id") int userid, @RequestParam("restaurant-id") int restid) {
 		//Falta alguna validación más??
-		if (!managerRepository.addManager(userid, restid)) {
+		User user = (User) request.getAttribute("user");
+		if (user != null && user.getIsAdmin() && !managerRepository.addManager(userid, restid)) {
 			return "redirect:addManager";
 		}
 		return "redirect:../homepage/";
