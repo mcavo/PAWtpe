@@ -1,3 +1,11 @@
+CREATE TABLE barrio (
+	id SERIAL NOT NULL,
+	nombre varchar(30) NOT NULL,
+	PRIMARY KEY(id),
+	UNIQUE(nombre)
+);
+
+
 CREATE TABLE direccion (
 	id SERIAL NOT NULL,
 	calle varchar(30) NOT NULL,
@@ -6,8 +14,9 @@ CREATE TABLE direccion (
 	numero int NOT NULL,
 	piso int,
 	departamento char,
-	barrio VARCHAR(40) NOT NULL,
-	PRIMARY KEY(id)
+	idbarrio int NOT NULL,
+	PRIMARY KEY(id),
+	FOREIGN KEY(idbarrio) REFERENCES barrio(id) ON DELETE CASCADE
 );
 
 CREATE TABLE credencial (
