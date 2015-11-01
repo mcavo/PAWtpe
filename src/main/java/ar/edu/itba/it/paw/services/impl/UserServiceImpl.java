@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import ar.edu.itba.it.paw.HibernateConnection;
-import ar.edu.itba.it.paw.Exceptions.CredentialNoMatchException;
-import ar.edu.itba.it.paw.Repositories.CredentialRepository;
-import ar.edu.itba.it.paw.Repositories.UserRepository;
+import ar.edu.itba.it.paw.exceptions.CredentialNoMatchException;
 import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.User;
+import ar.edu.itba.it.paw.repositories.CredentialRepository;
+import ar.edu.itba.it.paw.repositories.UserRepository;
 import ar.edu.itba.it.paw.services.UserService;
 
 @Service
@@ -80,8 +80,8 @@ public class UserServiceImpl implements UserService{
 		//User user = new User(email, firstName, lastName, birth, isManager, address);
 		User user = createUser(email, firstName, lastName, birth);//new User(firstName, lastName, birth);
 		user.setManager(isManager);
-		//hibernate:user.setAddress(address);
-		user.setDirId(address.getId());
+		user.setAddress(address);
+		//user.setDirId(address.getId());
 		return userRepository.setUser(user, pwd); //TODO: esta exceptción debería ser cambiada por una más personalizada.
 	}
 

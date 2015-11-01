@@ -7,10 +7,10 @@ import java.util.Map.Entry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.edu.itba.it.paw.Repositories.OrderRepository;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Order;
 import ar.edu.itba.it.paw.models.Restaurant;
+import ar.edu.itba.it.paw.repositories.OrderRepository;
 import ar.edu.itba.it.paw.services.OrderService;
 
 @Service
@@ -89,13 +89,13 @@ public class OrderServiceImpl implements OrderService{
 		return true;
 	}
 	
-	/*public Dish getDishByRestIdName(int restId, String nameProd){
+	public Dish getDishByRestIdName(int restId, String nameProd){
 		if(restId == 0 || nameProd == null || nameProd.isEmpty()){
 			//app error
 			return null;
 		}
 		return this.repository.getDishByRestAndName(restId, nameProd);
-	}*/
+	}
 	
 	public List<Order> getHistoryOrder(Restaurant rest){
 		return this.repository.getHistory(rest);

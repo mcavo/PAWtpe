@@ -1,4 +1,7 @@
-package ar.edu.itba.it.paw.Controllers;
+package ar.edu.itba.it.paw.controllers;
+
+import java.util.Enumeration;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,9 +14,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.SessionUserManager;
 import ar.edu.itba.it.paw.UserManager;
+import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
+import ar.edu.itba.it.paw.repositories.RestaurantRepository;
 import ar.edu.itba.it.paw.services.CalificationService;
+import ar.edu.itba.it.paw.services.OrderService;
 import ar.edu.itba.it.paw.services.RestaurantService;
 
 @Controller
@@ -21,11 +27,15 @@ public class RestaurantController {
 	
 	private final RestaurantService restaurantService;
 	private final CalificationService calificationService;
+	private final OrderService orderService;
+	private final RestaurantRepository restaurantRepository;
 	
 	@Autowired
-	public RestaurantController(RestaurantService restaurantService, CalificationService calificationService){
+	public RestaurantController(RestaurantService restaurantService, RestaurantRepository restaurantRepo, CalificationService calificationService, OrderService orderService){
 		this.restaurantService = restaurantService;
 		this.calificationService = calificationService;
+		this.orderService = orderService;
+		this.restaurantRepository = restaurantRepo;
 	}
 	
 	@RequestMapping(value="/list", method = RequestMethod.GET)
@@ -73,7 +83,7 @@ public class RestaurantController {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) request.getAttribute("user");
 		Restaurant rest = restaurantService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment);
-		rest.setCalifications(calificationService.getCalifications(rest));
+		//rest.setCalifications(calificationService.getCalifications(rest));
 		mav.addObject("rest", rest);
 		mav.setViewName("showRestaurant");
 		UserManager userManager = new SessionUserManager(request);
@@ -92,6 +102,34 @@ public class RestaurantController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("rest", restaurantService.getRestaurant(name, street, number, neighborhood, city, province, floor, apartment));
 		mav.setViewName("menuRestaurant");
+		return mav;
+	}
+	
+	@RequestMapping(value="/sendOrder", method = RequestMethod.POST)
+	public ModelAndView sendOrder(HttpServletRequest req/*, @RequestParam("name") String name, @RequestParam("srt") String street, @RequestParam("numb") String number, @RequestParam("neigh") String neighborhood, @RequestParam("city") String city, @RequestParam("prov") String province, @RequestParam("flr") String floor, @RequestParam("apt") String apartment*/) {
+		ModelAndView mav = new ModelAndView();
+		String restId = req.getParameter("restId");
+		Restaurant rest = restaurantRepository.getById(Integer.valueOf(restId));
+		mav.addObject("rest", rest);
+		User user = (User) req.getAttribute("user");
+		if(user == null){
+			return new ModelAndView("redirect:../homepage/");
+		}
+		Enumeration en = req.getParameterNames();
+		HashMap<Dish, String> map = new HashMap<Dish, String>();
+		while (en.hasMoreElements()) {
+			Object objOri = en.nextElement();
+			String param = (String) objOri;
+			String value = req.getParameter(param);
+			
+			Dish d = orderService.getDishByRestIdName(rest.getId(),param);
+			if(d != null)
+				map.put(d,value);	
+		}
+		if(!orderService.sendOrder(user.getId(), rest, map)){
+			return new ModelAndView("redirect:../homepage/");
+		}
+		mav.setViewName("showRestaurant");
 		return mav;
 	}
 	

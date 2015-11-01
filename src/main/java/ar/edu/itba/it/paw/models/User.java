@@ -5,6 +5,9 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -25,10 +28,10 @@ public class User implements UserPermissions {
 	private Date birth;
 	private Boolean isManager;
 	private Boolean isAdmin;
-	//private Address address;
 	
-	@Column(name = "dirid")
-	private int dirId;
+	@ManyToOne
+	@JoinColumn(name="dirid")
+	private Address address;
 	
 	@Id
 	@Column(name = "userid")
@@ -71,20 +74,12 @@ public class User implements UserPermissions {
 		this.isManager = isManager;
 	}
 
-	/*public Address getAddress() {
+	public Address getAddress() {
 		return address;
 	}
 
 	public void setAddress(Address address) {
 		this.address = address;
-	}*/
-	
-	public int getDirId() {
-		return dirId;
-	}
-
-	public void setDirId(int dirId) {
-		this.dirId = dirId;
 	}
 	
 	public int getAge() { // testear esto
@@ -128,4 +123,5 @@ public class User implements UserPermissions {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	
 }

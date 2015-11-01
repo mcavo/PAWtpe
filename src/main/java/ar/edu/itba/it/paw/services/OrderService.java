@@ -11,7 +11,7 @@ public interface OrderService {
 
 	public boolean sendOrder(int usrId, Restaurant rest, HashMap<Dish, String> oMap);
 	
-	//public Dish getDishByRestIdName(int restId, String nameProd);
+	public Dish getDishByRestIdName(int restId, String nameProd);
 	
 	public List<Order> getHistoryOrder(Restaurant rest);
 }

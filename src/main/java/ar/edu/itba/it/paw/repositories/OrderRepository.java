@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.Repositories;
+package ar.edu.itba.it.paw.repositories;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -113,44 +113,42 @@ public class OrderRepository extends AbstractHibernateRepository{
 		}
 	}
 	
-	//parece que nadie lo usa!
-//	public Dish getDishByRestAndName(int restId, String nameProd) {
-//		List<Dish> dishes = find("from Dish where restid = ? and nombre like ?", restId, nameProd);
-//		if(dishes.isEmpty()){
-//			return null;
-//		}
-//		return dishes.get(0);
-//		/*
-//		Dish dish = null;
-//		try {
-//			Connection conn = DBManager.getInstance().getConnection();
-//			String sql = "select * from plato where restid = ? and nombre like ?";
-//			PreparedStatement pstmt = conn.prepareStatement(sql);
-//			pstmt.setInt(1, restId);
-//			pstmt.setString(2, nameProd);
-//
-//			ResultSet rs = pstmt.executeQuery();
-//			while (rs.next()) {
-//				dish = new Dish(rs.getInt("id"), rs.getString("nombre"), rs.getFloat("precio"), rs.getString("descripcion"));
-//			}
-//			rs.close();
-//			pstmt.close();
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		retu
-//		*/
-//	}
+	public Dish getDishByRestAndName(int restId, String nameProd) {
+		List<Dish> dishes = find("from Dish where restid = ? and nombre like ?", restId, nameProd);
+		if(dishes.isEmpty()){
+			return null;
+		}
+		return dishes.get(0);
+		/*
+		Dish dish = null;
+		try {
+			Connection conn = DBManager.getInstance().getConnection();
+			String sql = "select * from plato where restid = ? and nombre like ?";
+			PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, restId);
+			pstmt.setString(2, nameProd);
+
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				dish = new Dish(rs.getInt("id"), rs.getString("nombre"), rs.getFloat("precio"), rs.getString("descripcion"));
+			}
+			rs.close();
+			pstmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		retu
+		*/
+	}
 	
 	public List<Order> getHistory(Restaurant rest) {
-		/*List<Order> history = find("from Order where restid = ?", rest.getId());
+		List<Order> history = find("from Order where restid = ?", rest.getId());
 		for (Order order : history) {
-			order.setRest(rest);
-			order.setUser(user);
+			order.setOrdlist(getOrderList(order.getId()));
 		}
-		*/
 		
+		/*
 		List<Order> history = new LinkedList<Order>();
 		Order order = null;
 		try {
@@ -171,6 +169,7 @@ public class OrderRepository extends AbstractHibernateRepository{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 		return history;
 	}
 

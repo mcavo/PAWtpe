@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.Repositories;
+package ar.edu.itba.it.paw.repositories;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

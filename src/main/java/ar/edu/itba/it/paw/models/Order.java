@@ -5,9 +5,13 @@ import java.util.Map.Entry;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -18,10 +22,12 @@ public class Order {
 	@Transient
 	private Map<Dish,Integer> ordlist;
 	
-	@Transient
+	@ManyToOne
+	@JoinColumn(name = "userid", nullable = false)
 	private User user;
-	
-	@Transient
+
+	@ManyToOne
+	@JoinColumn(name="restid")
 	private Restaurant rest;
 	
 	@Column(name = "estado")
@@ -49,6 +55,18 @@ public class Order {
 		this.ordlist = ordlist;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+	
 	public User getUser() {
 		return user;
 	}

@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.Repositories;
+package ar.edu.itba.it.paw.repositories;
 
 import java.sql.Timestamp;
 import java.util.Date;
@@ -145,6 +145,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		Address address = getAddressByRestaurant(r);
 		List<String> tipos = getTypesOfFoodByRestaurant(r);
 		Restaurant rest = new Restaurant(id, r.getNombre(), r.getMontomin(), r.getDesde(), r.getHasta(), address, tipos, menu, r.getCostoenvio());		
+		rest.setCalifications(this.calificationRepository.getCalifications(r));
 		return rest;
 	}
 	

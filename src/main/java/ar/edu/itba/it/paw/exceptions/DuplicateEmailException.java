@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.Exceptions;
+package ar.edu.itba.it.paw.exceptions;
 
 import ar.edu.itba.it.paw.models.Credential;
 

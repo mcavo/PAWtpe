@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.Exceptions;
+package ar.edu.itba.it.paw.exceptions;
 
 public class NoCredentialException extends Exception {
 	/**

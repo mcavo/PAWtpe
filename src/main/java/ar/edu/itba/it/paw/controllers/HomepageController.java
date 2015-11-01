@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.Controllers;
+package ar.edu.itba.it.paw.controllers;
 
 import java.util.HashMap;
 import java.util.List;

@@ -7,10 +7,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.edu.itba.it.paw.Repositories.RestaurantRepository;
 import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Restaurant;
+import ar.edu.itba.it.paw.repositories.RestaurantRepository;
 import ar.edu.itba.it.paw.services.RestaurantService;
 import ar.edu.itba.it.paw.services.ValidateDataService;
 

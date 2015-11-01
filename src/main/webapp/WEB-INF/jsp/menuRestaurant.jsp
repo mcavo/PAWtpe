@@ -91,7 +91,8 @@
 										<br> <br>
 									</div>
 									<c:if test="${user != null}">
-										<form action="#" method="POST" id="order">
+										<form action="sendOrder" method="POST" id="order">
+											<input type="hidden"  name="restId" value="${rest.id}">
 											<input type="submit" class="btn btn-info"
 												value="Confirmar pedido">
 										</form>

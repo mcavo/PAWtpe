@@ -5,9 +5,9 @@ import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.edu.itba.it.paw.Repositories.CalificationRepository;
 import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Restaurant;
+import ar.edu.itba.it.paw.repositories.CalificationRepository;
 import ar.edu.itba.it.paw.services.CalificationService;
 import ar.edu.itba.it.paw.services.RestaurantService;
 

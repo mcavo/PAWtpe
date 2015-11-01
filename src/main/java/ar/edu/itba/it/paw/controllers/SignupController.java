@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.Controllers;
+package ar.edu.itba.it.paw.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 
