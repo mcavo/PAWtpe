@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import ar.edu.itba.it.paw.DAO.impl.CredentialDAOImpl;
 import ar.edu.itba.it.paw.DAO.impl.ManagerDAOImpl;
+import ar.edu.itba.it.paw.Repositories.ManagerRepository;
 import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
@@ -15,14 +16,14 @@ import ar.edu.itba.it.paw.services.ManagerService;
 @Service
 public class ManagerServiceImpl implements ManagerService{
 
-	private ManagerDAOImpl managerDAO;
+	private ManagerRepository managerRepository;
 	private RestaurantServiceImpl restaurantService;
 	
 	public ManagerServiceImpl(){}
 	
 	@Autowired
-	public ManagerServiceImpl(ManagerDAOImpl managerDao, RestaurantServiceImpl restaurantService){
-		this.managerDAO = managerDao;
+	public ManagerServiceImpl(ManagerRepository managerRepo, RestaurantServiceImpl restaurantService){
+		this.managerRepository = managerRepo;
 		this.restaurantService = restaurantService;
 	}
 	
@@ -31,7 +32,7 @@ public class ManagerServiceImpl implements ManagerService{
 			//app error: no es manager
 			return null;
 		}
-		return managerDAO.getRestByManagerId(manager.getId());
+		return managerRepository.getRestByManagerId(manager.getId());
 	}
 
 	public void addDish(Restaurant rest, String section, String dish, String price, String desc) {
@@ -43,15 +44,15 @@ public class ManagerServiceImpl implements ManagerService{
 			//app error
 			return;
 		}
-		if(!managerDAO.existsSection(section)){
+		if(!managerRepository.existsSection(section)){
 			//no existe seccion
 			return;
 		}
-		if(managerDAO.existsDish(dish)){
+		if(managerRepository.existsDish(dish)){
 			//ya existe
 			return;
 		}
-		managerDAO.addDish(rest.getId(), section, dish, Integer.valueOf(price), desc);
+		managerRepository.addDish(rest.getId(), section, dish, Integer.valueOf(price), desc);
 	}
 
 	public Restaurant getRestaurant(User usr) {
@@ -59,7 +60,7 @@ public class ManagerServiceImpl implements ManagerService{
 			//app exc
 			return null;
 		}
-		return managerDAO.getRestaurant(usr.getId());
+		return managerRepository.getRestaurant(usr.getId());
 	}
 	
 	public Credential validateEmail(String email) throws Exception {
@@ -82,7 +83,7 @@ public class ManagerServiceImpl implements ManagerService{
 		if (rest == null) {
 			return;
 		}
-		managerDAO.setManager(rest.getId(), cred.getId());
+		managerRepository.setManager(rest.getId(), cred.getId());
 	}
 
 	public List<Credential> getManagersAvailables() {
@@ -96,7 +97,7 @@ public class ManagerServiceImpl implements ManagerService{
 			cred = validateEmail(email);
 			if (cred==null || !restaurantService.validateId(restid))
 				return false;
-			managerDAO.setManager(cred.getId(),Integer.parseInt(restid));
+			managerRepository.setManager(cred.getId(),Integer.parseInt(restid));
 			return true;
 		} catch (Exception e) {
 			return false;

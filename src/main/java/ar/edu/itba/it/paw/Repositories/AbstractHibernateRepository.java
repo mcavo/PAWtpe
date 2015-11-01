@@ -47,5 +47,12 @@ public class AbstractHibernateRepository {
 			tx.commit();
 			return obj;
 		}
+		
+		public void update(Object o){
+			Session session = getSession();
+			Transaction tx = session.getTransaction();
+			session.update(o);
+			tx.commit();
+		}
 
 }

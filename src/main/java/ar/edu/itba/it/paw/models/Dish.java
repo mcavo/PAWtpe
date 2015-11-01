@@ -28,6 +28,10 @@ public class Dish {
 	@Column(name = "seccion")
 	private String section;
 
+	@Column(name = "restid")
+	private int restId;
+
+
 	public Dish(){}
 	
 	public Dish(int id, String product, float price, String description) {
@@ -75,6 +79,14 @@ public class Dish {
 
 	public void setSection(String section) {
 		this.section = section;
+	}
+	
+	public int getRestId() {
+		return restId;
+	}
+
+	public void setRestId(int restId) {
+		this.restId = restId;
 	}
 	
 	@Override

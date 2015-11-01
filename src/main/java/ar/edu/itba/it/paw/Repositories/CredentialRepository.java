@@ -2,7 +2,12 @@ package ar.edu.itba.it.paw.Repositories;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +15,7 @@ import ar.edu.itba.it.paw.Exceptions.CredentialNoMatchException;
 import ar.edu.itba.it.paw.Exceptions.DuplicateEmailException;
 import ar.edu.itba.it.paw.Exceptions.NoCredentialException;
 import ar.edu.itba.it.paw.models.Credential;
+import ar.edu.itba.it.paw.models.Restaurant;
 
 @Repository
 public class CredentialRepository extends AbstractHibernateRepository {
@@ -48,16 +54,48 @@ public class CredentialRepository extends AbstractHibernateRepository {
 		return credential.getMail();
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Credential> getManagersAvailables() {
-		return find("FROM credencial AS c WHERE NOT EXISTS (SELECT * FROM gerente AS g WHERE c.id = g.userid ) AND EXISTS (SELECT * FROM usuario AS s WHERE s.userid = c.id);");
+		List<Credential> credentials = null;
+		Session session=null;
+	    try 
+	    {
+		    Session sessionSQL = super.getSession();
+		    Transaction tx = sessionSQL.beginTransaction();
+		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("FROM credencial AS c WHERE NOT EXISTS (SELECT * FROM gerente AS g WHERE c.id = g.userid ) AND EXISTS (SELECT * FROM usuario AS s WHERE s.userid = c.id))"); 
+		    query.addScalar("id", Hibernate.INTEGER);
+		    query.addScalar("rol", Hibernate.STRING);
+		    query.addScalar("mail", Hibernate.STRING);
+		    credentials = query.setResultTransformer(Transformers.aliasToBean(Credential.class)).list();
+		    tx.commit();
+	    }
+	    catch(Exception e)
+	    {
+	    	e.printStackTrace();
+	    }
+	    finally
+	    {
+	        if(session !=null && session.isOpen())
+	        {
+	          session.close();
+	          session=null;
+	        }
+	    }
+	    return credentials;
+	}
+	
+	public void setRol(String rol, int id){
+		Credential c = get(id);
+		c.setRol("rol");
+		update(c);
 	}
 	
 	private boolean existsMail(String mail) {
-		return !find("from credencial where mail = ?", mail).isEmpty();
+		return !find("from Credential where mail = ?", mail).isEmpty();
 	}
 	
 	private Credential credentialWithMail(String email) throws NoCredentialException {
-		List<Credential> list = find("from credencial where mail = ?", email);
+		List<Credential> list = find("from Credential where mail = ?", email);
 		if (!list.isEmpty()) {
 			return list.get(0);	
 		}
@@ -65,7 +103,7 @@ public class CredentialRepository extends AbstractHibernateRepository {
 	}
 	
 	private Credential credentialWithId(int id) throws NoCredentialException {
-		List<Credential> list = find("from credencial where id = ?", id);
+		List<Credential> list = find("from Credential where id = ?", id);
 		if (!list.isEmpty()) {
 			return list.get(0);	
 		}
