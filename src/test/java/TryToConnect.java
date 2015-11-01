@@ -52,13 +52,27 @@ public class TryToConnect {
 			//dbConnection.createStatement().execute("UPDATE credencial SET rol='admin' WHERE mail='mvictoria.cavo@gmail.com';");
 			//dbConnection.createStatement().execute("ALTER TABLE pedido ALTER COLUMN estado SET NOT NULL;");
 			//dbConnection.createStatement().execute("INSERT INTO direccion (calle, provincia, localidad, numero, barrio) values ('Av. Olazábal', 'Buenos Aires', 'Capital Federal', 5151,'Villa Urquiza');");				
-			//dbConnection.createStatement().execute("DELETE FROM usuario WHERE userid=2;");
+			//dbConnection.createStatement().execute("DELETE FROM direccion WHERE barrio='hibernate neigh';");
 			//dbConnection.createStatement().execute("INSERT INTO usuario values (1,'María Victoria', 'Cavo', 6, );");
 			/**/
+			//dbConnection.createStatement().execute("UPDATE direccion SET barrio='Flores' WHERE barrio='Buenos'");
+			//dbConnection.createStatement().execute("UPDATE direccion SET barrio='Puerto Madero' WHERE barrio='mares'");
+			//dbConnection.createStatement().execute("DELETE FROM direccion WHERE barrio='No' OR barrio='SDFASDF' OR barrio='dasda'");
+			//dbConnection.createStatement().execute("INSERT INTO barrio(nombre) values ('Caballito')");
+			//dbConnection.createStatement().execute("INSERT INTO barrio(nombre) values ('Floresta')");
+			//dbConnection.createStatement().execute("INSERT INTO barrio(nombre) values ('Puerto Madero')");
+			//dbConnection.createStatement().execute("INSERT INTO barrio(nombre) values ('Palermo')");
+			//dbConnection.createStatement().execute("INSERT INTO barrio(nombre) values ('Almagro')");
+			//dbConnection.createStatement().execute("INSERT INTO barrio(nombre) values ('San Cristobal')");
+			//dbConnection.createStatement().execute("INSERT INTO barrio(nombre) values ('Villa Urquiza')");
+			//dbConnection.createStatement().execute("INSERT INTO barrio(nombre) values ('Balvanera')");
+			//dbConnection.createStatement().execute("INSERT INTO barrio(nombre) values ('Nordelta')");
+			//dbConnection.createStatement().execute("INSERT INTO barrio(nombre) values ('Belgrano')");
+			//dbConnection.createStatement().execute("INSERT INTO barrio(nombre) values ('Flores')");
+			dbConnection.createStatement().execute("ALTER TABLE ");
+			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM barrio");
 
-			ResultSet set1 = dbConnection.createStatement().executeQuery("SELECT * FROM direccion");
-
-			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM pedido where restid = 1");
+			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM pedido where restid = 1");
 			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM information_schema.columns WHERE table_name  = 'credencial'");
 			//dbConnection.createStatement().execute("ALTER TABLE restaurante ALTER COLUMN descripcion DROP NOT NULL;");
 			//dbConnection.createStatement().execute("DELETE FROM plato WHERE id=3;");
@@ -66,7 +80,7 @@ public class TryToConnect {
 			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM restaurante");
 			
 			while(set.next()) {
-				for(int i=1 ; i<=8; i++)
+				for(int i=1 ; i<=2; i++)
 					System.out.print(set.getString(i)+" | ");
 				System.out.println("");
 			}
