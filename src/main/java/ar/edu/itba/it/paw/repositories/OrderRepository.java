@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Order;
 import ar.edu.itba.it.paw.models.Restaurant;
+import ar.edu.itba.it.paw.models.User;
 
 @Repository
 public class OrderRepository extends AbstractHibernateRepository{
@@ -32,8 +33,17 @@ public class OrderRepository extends AbstractHibernateRepository{
 		return !dishes.isEmpty();
 	}
 	
-	public void sendOrder(int usrId, Restaurant rest, HashMap<Dish, Integer> oMap) {
-		Order order = new Order(rest, this.userRepository.getUserById(usrId), 1);
+	public void sendOrder(User user, Restaurant rest, HashMap<Dish, Integer> oMap) {
+		if(!checkOrder(user.getId(), rest, oMap)){
+			//show excp
+		}
+		HashMap<Dish,Integer> map = new HashMap<Dish,Integer>();
+		for (Entry<Dish, Integer> set: oMap.entrySet()) {
+			int aux = set.getValue();
+			if (aux!=0)
+				map.put(set.getKey(), aux);
+		}
+		Order order = new Order(rest, this.userRepository.getUserById(user.getId()), 1);
 		int id = (int) save(order);
 		loadProducts(id, oMap);
 		
@@ -63,6 +73,55 @@ public class OrderRepository extends AbstractHibernateRepository{
 			e.printStackTrace();
 		}
 		*/
+	}
+	
+	private boolean checkOrder(int usrId, Restaurant rest, HashMap<Dish, Integer> oMap){
+		/*int usrIdV;
+		try {
+		usrIdV = Integer.valueOf(usrId);
+		} catch (java.lang.NumberFormatException e) {
+			return false;
+		}
+		if(usrIdV <= 0 || rest == null || oMap == null){
+			//app error
+			return false;
+		}*/
+		if(usrId <= 0 || rest == null || oMap == null){
+			//app error
+			return false;
+		}
+		
+		if(oMap.isEmpty()){
+			//excepcion pedido vacio
+			return false;
+		}
+
+		int total = 0;
+		for (Entry<Dish, Integer> set: oMap.entrySet()) {
+			
+			int cant; 
+			Dish dish = set.getKey();
+			//try {
+				cant = set.getValue();
+			/*} catch (java.lang.NumberFormatException e) {
+				return false;
+			}*/
+			
+			if(cant < 0){
+				//cant excepcion
+				return false;
+			}
+			if(!checkDish(rest, dish)){
+				//dish no existe excp
+				return false;
+			}
+			total += dish.getPrice()*cant;
+		}
+		if(total < rest.getMontomin()){
+			//monto minimo no llegado
+			return false;
+		}
+		return true;
 	}
 	
 	private void loadProducts(int orderId, HashMap<Dish, Integer> oMap) {
@@ -98,8 +157,8 @@ public class OrderRepository extends AbstractHibernateRepository{
 	    }
 	}
 	
-	public Dish getDishByRestAndName(int restId, String nameProd) {
-		List<Dish> dishes = find("from Dish where restid = ? and nombre like ?", restId, nameProd);
+	public Dish getDishByRestAndName(Restaurant rest, String nameProd) {
+		List<Dish> dishes = find("from Dish where restid = ? and nombre like ?", rest.getId(), nameProd);
 		if(dishes.isEmpty()){
 			return null;
 		}

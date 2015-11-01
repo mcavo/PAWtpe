@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
+import ar.edu.itba.it.paw.repositories.OrderRepository;
 import ar.edu.itba.it.paw.services.ManagerService;
 import ar.edu.itba.it.paw.services.OrderService;
 
@@ -18,12 +19,12 @@ import ar.edu.itba.it.paw.services.OrderService;
 public class ManagerController {
 
 	private ManagerService managerService;
-	private OrderService orderService;
+	private OrderRepository orderRepository;
 	
 	@Autowired
-	public ManagerController(ManagerService service, OrderService orderService) {
+	public ManagerController(ManagerService service, OrderRepository orderRepo) {
 		this.managerService = service;
-		this.orderService = orderService;
+		this.orderRepository = orderRepo;
 	}
 	
 	@RequestMapping(value="/addDish", method = RequestMethod.GET)
@@ -59,7 +60,7 @@ public class ManagerController {
 		if(user != null){
 			Restaurant rest = managerService.getRestaurant(user);
 			mav.addObject("rest", rest);
-			request.setAttribute("olist", orderService.getHistoryOrder(rest));
+			request.setAttribute("olist", orderRepository.getHistory(rest));
 			mav.setViewName("showOrders");
 		}else{
 			return new ModelAndView("redirect:../homepage/");

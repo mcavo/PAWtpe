@@ -19,6 +19,7 @@ import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
 import ar.edu.itba.it.paw.repositories.CalificationRepository;
+import ar.edu.itba.it.paw.repositories.OrderRepository;
 import ar.edu.itba.it.paw.repositories.RestaurantRepository;
 import ar.edu.itba.it.paw.services.CalificationService;
 import ar.edu.itba.it.paw.services.OrderService;
@@ -29,14 +30,14 @@ public class RestaurantController {
 	
 	private final RestaurantService restaurantService;
 	private final CalificationRepository calificationRepository;
-	private final OrderService orderService;
+	private final OrderRepository orderRepository;
 	private final RestaurantRepository restaurantRepository;
 	
 	@Autowired
-	public RestaurantController(RestaurantService restaurantService, RestaurantRepository restaurantRepo, CalificationRepository calificationRepo, OrderService orderService){
+	public RestaurantController(RestaurantService restaurantService, RestaurantRepository restaurantRepo, CalificationRepository calificationRepo, OrderRepository orderRepo){
 		this.restaurantService = restaurantService;
 		this.calificationRepository = calificationRepo;
-		this.orderService = orderService;
+		this.orderRepository = orderRepo;
 		this.restaurantRepository = restaurantRepo;
 	}
 	
@@ -117,19 +118,20 @@ public class RestaurantController {
 			return new ModelAndView("redirect:../homepage/");
 		}
 		Enumeration en = req.getParameterNames();
-		HashMap<Dish, String> map = new HashMap<Dish, String>();
+		HashMap<Dish, Integer> map = new HashMap<Dish, Integer>();
 		while (en.hasMoreElements()) {
 			Object objOri = en.nextElement();
 			String param = (String) objOri;
 			String value = req.getParameter(param);
 			
-			Dish d = orderService.getDishByRestIdName(rest.getId(),param);
+			Dish d = orderRepository.getDishByRestAndName(rest,param);
 			if(d != null)
-				map.put(d,value);	
+				map.put(d,Integer.valueOf(value));	
 		}
-		if(!orderService.sendOrder(user.getId(), rest, map)){
+		orderRepository.sendOrder(user, rest, map);
+		/*if(!orderRepository.sendOrder(user.getId(), rest, map)){
 			return new ModelAndView("redirect:../homepage/");
-		}
+		}*/
 		mav.setViewName("showRestaurant");
 		return mav;
 	}
