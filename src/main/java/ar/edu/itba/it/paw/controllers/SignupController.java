@@ -24,6 +24,7 @@ public class SignupController {
 	
 	public SignupController() {	}
 		
+
 	@Autowired
 	public SignupController(UserService userService, SignupValidator signupValidator) {
 		this.userService = userService;
@@ -58,6 +59,7 @@ public class SignupController {
 			request.setAttribute("message","El usuario ya existe");
 			return mav;
 		}
+
 		return new ModelAndView("redirect:../homepage/");
 	}
 }
