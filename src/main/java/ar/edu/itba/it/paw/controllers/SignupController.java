@@ -11,11 +11,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.SessionUserManager;
 import ar.edu.itba.it.paw.UserManager;
-
 import ar.edu.itba.it.paw.forms.SignupForm;
 import ar.edu.itba.it.paw.services.UserService;
 import ar.edu.itba.it.paw.validators.SignupValidator;
-
 
 
 @Controller
@@ -23,12 +21,10 @@ public class SignupController {
 
 	private UserService userService;
 	private SignupValidator signupValidator;
-
 	
 	public SignupController() {	}
 		
-	@Autowired	
-
+	@Autowired
 	public SignupController(UserService userService, SignupValidator signupValidator) {
 		this.userService = userService;
 		this.signupValidator = signupValidator;
@@ -46,11 +42,9 @@ public class SignupController {
 		mav.addObject("signupForm", new SignupForm());
 		return mav;
 	}
-	
 
 	@RequestMapping(value="signup", method = RequestMethod.POST)
 	public ModelAndView signup(HttpServletRequest request, SignupForm form, Errors e) {
-
 		UserManager userManager = new SessionUserManager(request);
 		if (userManager.existsUser()) {
 			return new ModelAndView("redirect:../homepage/");
