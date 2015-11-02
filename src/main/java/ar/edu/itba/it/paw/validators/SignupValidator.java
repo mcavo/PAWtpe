@@ -34,18 +34,13 @@ public class SignupValidator implements Validator {
 		String email = form.getEmail();
 		int day, month, year;
 		try {
-			System.out.println(form.getBirthDay());
-			System.out.println(form.getBirthMonth());
-			System.out.println(form.getBirthYear());
 			day = Integer.parseInt(form.getBirthDay());
 			month = Integer.parseInt(form.getBirthMonth());
 			year = Integer.parseInt(form.getBirthYear());
 			if(!validateBirth(year, month, day)) {
-				System.out.println("cumple");
 				e.reject("Error al registrarse");
 			}
 		} catch (NumberFormatException ex) {
-			System.out.println("fecha");
 			e.reject("Error al registrarse");
 			return;
 		}
@@ -53,16 +48,13 @@ public class SignupValidator implements Validator {
 		String pwd2 = form.getPwd2();
 
 		if (firstname.length() == 0 || lastname.length() == 0 || email.length() == 0 || pwd.length() == 0 || pwd2.length() == 0) {
-			System.out.println("Vacio");
 			e.reject("Error al registrarse");
 		}
 		if (!pwd.equals(pwd2)) {
-			System.out.println("contras");
 			e.reject("Error al registrarse");
 		}
 		
 		if(!validateMail(email)) {
-			System.out.println("email");
 			e.reject("Error al registrarse");
 		}
 	}

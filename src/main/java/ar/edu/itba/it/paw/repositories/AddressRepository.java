@@ -33,35 +33,6 @@ public class AddressRepository extends AbstractHibernateRepository{
 		
 		return id;
 		
-		/*Connection con = DBManager.getInstance().getConnection();
-		String query = "INSERT INTO direccion (calle,provincia, localidad, numero, piso, departamento, barrio) VALUES (?, ?, ?, ?, ?, ?, ?);";
-		try {
-			PreparedStatement pstmt = con.prepareStatement(query);
-
-			pstmt.setString(1, address.getStreet());
-			pstmt.setString(2, address.getProvince());
-			pstmt.setString(3, address.getCity());
-			pstmt.setInt(4, address.getNumber());
-			if (address.getFloor() != -1) { 
-				pstmt.setInt(5, address.getFloor());
-			} else {
-				pstmt.setNull(5, java.sql.Types.INTEGER);
-			}
-			if (address.getApartment() != null && !address.getApartment().isEmpty()) { 
-				pstmt.setString(6, address.getApartment()); 
-			} else {
-				pstmt.setNull(6, java.sql.Types.VARCHAR);
-			}
-			pstmt.setString(7, address.getNeighborhood());
-			
-			pstmt.execute();
-			pstmt.close();
-		} catch (SQLException e) {
-			// TODO: si falla hay que canselar todo y tirar el error correspondiente
-			e.printStackTrace();
-		}
-		return this.getAddressID(address);
-		*/
 	}
 	
 	public int getAddressID(Address address) {

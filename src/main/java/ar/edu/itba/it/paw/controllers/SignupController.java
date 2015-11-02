@@ -55,19 +55,15 @@ public class SignupController {
 		if (userManager.existsUser()) {
 			return new ModelAndView("redirect:../homepage/");
 		}
-		System.out.println("Hola3");
 		signupValidator.validate(form, e);
 		ModelAndView mav = new ModelAndView("redirect:../signup/");
 		if (e.hasErrors()) {
-			System.out.println("Hola4");
 			request.setAttribute("message","Datos de registro inválidos");
 			return mav;
 		} else if (!userManager.setUser(this.userService.signUp(form.build(),form.getPwd()))) {
-			System.out.println("Hola5");
 			request.setAttribute("message","El usuario ya existe");
 			return mav;
 		}
-		System.out.println("Hola6");
 		return new ModelAndView("redirect:../homepage/");
 	}
 }
