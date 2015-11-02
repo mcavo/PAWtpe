@@ -69,8 +69,8 @@ public class TryToConnect {
 			//dbConnection.createStatement().execute("INSERT INTO barrio(nombre) values ('Nordelta')");
 			//dbConnection.createStatement().execute("INSERT INTO barrio(nombre) values ('Belgrano')");
 			//dbConnection.createStatement().execute("INSERT INTO barrio(nombre) values ('Flores')");
-			dbConnection.createStatement().execute("ALTER TABLE ");
-			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM barrio");
+			//dbConnection.createStatement().execute("ALTER TABLE ");
+			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM usuario WHERE userid=40");
 
 			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM pedido where restid = 1");
 			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM information_schema.columns WHERE table_name  = 'credencial'");
@@ -80,7 +80,7 @@ public class TryToConnect {
 			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM restaurante");
 			
 			while(set.next()) {
-				for(int i=1 ; i<=2; i++)
+				for(int i=1 ; i<=4; i++)
 					System.out.print(set.getString(i)+" | ");
 				System.out.println("");
 			}

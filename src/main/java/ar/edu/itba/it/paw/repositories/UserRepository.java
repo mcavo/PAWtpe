@@ -37,7 +37,7 @@ public class UserRepository extends AbstractHibernateRepository{
 		return get(User.class, userid).getId();
 	}
 	
-	public User setUser(User user, String pwd) throws Exception {
+	public User setUser(User user, String pwd) {
 		String role;
 		role = user.getIsManager() ? "manager" : "usuario"; 
 		int userid = -1;
@@ -45,32 +45,17 @@ public class UserRepository extends AbstractHibernateRepository{
 		Credential credential = new Credential();
 		credential.setMail(user.getEmail());
 		credential.setRol(role);
-		credentialRepository.add(credential);
-		userid = credentialRepository.getCredentialID(user.getEmail());
+		credential.setPsw(pwd);
+		try { 
+			credentialRepository.add(credential);
+			userid = credentialRepository.getCredentialID(user.getEmail());
+		} catch (Exception e) {
+			return null;
+		}
 		user.setId(userid);
+		save(user.getAddress());
 		save(user);
 		
 		return user;
-		/*String query = "INSERT INTO usuario (userid, nombre, apellido, nacimiento, dirid ) VALUES (? , ?, ?, ?, ?);";
-		DBManager.getInstance();
-		Connection con = DBManager.getInstance().getConnection();
-		
-		try {
-			PreparedStatement pstmt = con.prepareStatement(query);
-			pstmt.setInt(1, userid);
-			pstmt.setString(2, user.getFirstName());
-			pstmt.setString(3, user.getLastName());
-			pstmt.setDate(4, Date.valueOf(user.getBirth()));
-			pstmt.setInt(5, addressid); 
-			
-			pstmt.execute();
-	        pstmt.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		user.setId(userid);
-		return user;
-		*/
 	}
 }
