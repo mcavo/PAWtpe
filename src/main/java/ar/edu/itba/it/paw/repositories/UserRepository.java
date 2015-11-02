@@ -1,6 +1,6 @@
 package ar.edu.itba.it.paw.repositories;
 
-import java.time.DateTimeException;
+import java.io.Serializable;
 import java.util.Date;
 
 import org.hibernate.SessionFactory;
@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.exceptions.NoCredentialException;
-import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.User;
 
@@ -64,8 +63,7 @@ public class UserRepository extends AbstractHibernateRepository{
 			return null;
 		}
 		user.setId(userid);
-		save(user.getAddress());
-		save(user);
+		saveUser(user);
 		
 		return user;
 	}
@@ -79,4 +77,10 @@ public class UserRepository extends AbstractHibernateRepository{
 		user.setIsAdmin(rol.equals("admin"));
 
 	}
+	
+	public Serializable saveUser(User user) {
+		addressRepository.saveAddress(user.getAddress());
+		return save(user);
+	}
+	
 }

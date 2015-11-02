@@ -19,6 +19,7 @@ import org.springframework.stereotype.Repository;
 import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Menu;
+import ar.edu.itba.it.paw.models.Neighborhood;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.Section;
 import ar.edu.itba.it.paw.services.ValidateDataService;
@@ -321,7 +322,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		rest.setDirid(addressId);
 		Timestamp now = new Timestamp((new Date()).getTime());
 		rest.setRegis(now);
-		int id = (Integer) save(rest);
+		int id = saveRestaurant(rest);
 		rest.setId(id);
 		int idBydir = getRestaurantId(addressId);
 		if (idBydir == -1) {
@@ -365,7 +366,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		} catch (Exception e) {
 			throw new Exception("Invalid parameters");
 		}
-		Address address = new Address(street, numberV, floorV, apartment, neighborhood, city, province);
+		Address address = new Address(street, numberV, floorV, apartment, new Neighborhood(neighborhood), city, province);
 		Restaurant rest = new Restaurant(-1, name, minimumPurchase, from, to, address, validTypes, null, costV);
 		
 		return rest;
@@ -442,6 +443,11 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		}
 		return id;
 		*/
+	}
+	
+	public int saveRestaurant(Restaurant rest) throws Exception {
+		save(rest);
+		return (int) save(rest);
 	}
 	
 	public boolean validateId(int id) {

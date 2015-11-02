@@ -5,6 +5,13 @@ CREATE TABLE barrio (
 	UNIQUE(nombre)
 );
 
+CREATE TABLE preguntas (
+	id SERIAL NOT NULL,
+	pregunta varchar(100) NOT NULL,
+	PRIMARY KEY(id),
+	UNIQUE(pregunta)
+);
+
 
 CREATE TABLE direccion (
 	id SERIAL NOT NULL,

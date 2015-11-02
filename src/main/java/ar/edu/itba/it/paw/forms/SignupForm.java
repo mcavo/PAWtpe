@@ -3,6 +3,7 @@ package ar.edu.itba.it.paw.forms;
 import java.util.Date;
 
 import ar.edu.itba.it.paw.models.Address;
+import ar.edu.itba.it.paw.models.Neighborhood;
 import ar.edu.itba.it.paw.models.User;
 
 public class SignupForm {
@@ -84,7 +85,7 @@ public class SignupForm {
 		Integer f = null;
 		if(floor!=null && !floor.equals(""))
 			f = Integer.parseInt(floor);
-		return new Address(street, n, f, apartment, neigh, city, prov);
+		return new Address(street, n, f, apartment, new Neighborhood(neigh), city, prov);
 	}
 
 	public String getEmail() {

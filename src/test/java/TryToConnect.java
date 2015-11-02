@@ -1,4 +1,5 @@
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -72,16 +73,17 @@ public class TryToConnect {
 			//dbConnection.createStatement().execute("ALTER TABLE ");
 
 			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM gerente");
-
+			
 			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM pedido where restid = 1");
 			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM information_schema.columns WHERE table_name  = 'credencial'");
 			//dbConnection.createStatement().execute("ALTER TABLE restaurante ALTER COLUMN descripcion DROP NOT NULL;");
 			//dbConnection.createStatement().execute("DELETE FROM plato WHERE id=3;");
 			//dbConnection.createStatement().execute("ALTER TABLE restaurante ALTER COLUMN regis SET DEFAULT CURRENT_TIMESTAMP;");
 			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM restaurante");
-			
+			System.out.println("DIRECCION");
+			System.out.println("---------");
 			while(set.next()) {
-				for(int i=1 ; i<=4; i++)
+				for(int i=1 ; i<=8; i++)
 					System.out.print(set.getString(i)+" | ");
 				System.out.println("");
 			}

@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.repositories;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.models.Address;
+import ar.edu.itba.it.paw.models.Neighborhood;
 import ar.edu.itba.it.paw.models.Restaurant;
 
 @Repository
@@ -105,5 +107,15 @@ public class AddressRepository extends AbstractHibernateRepository{
 			return null;
 		}
 		return result.get(0);
+	}
+
+	public Serializable saveAddress(Address address) {
+		int n = (int) saveNeighborhood(address.getNeighborhood());
+		address.getNeighborhood().setId(n);
+		return save(address);
+	}
+	
+	public Serializable saveNeighborhood(Neighborhood neighborhood) {
+		return save(neighborhood);
 	}
 }
