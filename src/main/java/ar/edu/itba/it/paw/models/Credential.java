@@ -15,6 +15,9 @@ public class Credential {
 	@Column(name = "mail")
 	private String mail;
 	
+	@Column(name = "psw")
+	private String psw;
+	
 	public Credential() {
 		
 	}
@@ -43,6 +46,10 @@ public class Credential {
 	}
 	public void setMail(String mail) {
 		this.mail = mail;
+	}
+	
+	public void setPsw(String psw) {
+		this.psw=psw;
 	}
 
 	@Override
