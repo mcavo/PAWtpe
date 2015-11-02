@@ -41,7 +41,7 @@ public class Address {
 		
 	}
 	
-	public Address(String street, int number, int floor, String apartment, String neighborhood, String city, String province) {
+	public Address(String street, Integer number, Integer floor, String apartment, String neighborhood, String city, String province) {
 	//public Address(String street, int number, String city, String province, String neighborhood) {
 		this.setStreet(street);
 		this.setNumber(number);
@@ -68,7 +68,7 @@ public class Address {
 		return number;
 	}
 
-	public void setNumber(int number) {
+	public void setNumber(Integer number) {
 		this.number = number;
 	}
 
@@ -103,7 +103,7 @@ public class Address {
 		return floor;
 	}
 
-	public void setFloor(int floor) {
+	public void setFloor(Integer floor) {
 		this.floor = floor;
 	}
 

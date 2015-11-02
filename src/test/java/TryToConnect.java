@@ -80,7 +80,7 @@ public class TryToConnect {
 			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM restaurante");
 			
 			while(set.next()) {
-				for(int i=1 ; i<=2; i++)
+				for(int i=1 ; i<=4; i++)
 					System.out.print(set.getString(i)+" | ");
 				System.out.println("");
 			}

@@ -26,9 +26,12 @@ public class SessionUserManager implements UserManager{
 	}
 	
 	
-	public void setUser(User usr) {
+	public boolean setUser(User usr) {
+		if(usr==null)
+			return false;
 		HttpSession session = request.getSession();
 		session.setAttribute(USR, usr);
+		return true;
 	}
 	
 	public void resetUser(String usr) {

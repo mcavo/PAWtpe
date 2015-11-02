@@ -8,7 +8,7 @@ public interface UserManager {
 	
 	public User getUser();
 		
-	public void setUser(User name);
+	public boolean setUser(User name);
 	
 	public void resetUser(String name);
 
