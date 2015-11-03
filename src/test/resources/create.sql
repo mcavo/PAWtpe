@@ -14,9 +14,9 @@ CREATE TABLE preguntas (
 
 CREATE TABLE delivery (
 	restid INTEGER NOT NULL,
-	idbarrio INTEGER NOT NULL,
+	barrioid INTEGER NOT NULL,
 	PRIMARY KEY(restid,barrioid),
-	FOREIGN KEY(idbarrio) REFERENCES barrio(id) ON DELETE CASCADE,
+	FOREIGN KEY(barrioid) REFERENCES barrio(id) ON DELETE CASCADE,
 	FOREIGN KEY(restid) REFERENCES restaurante(id) ON DELETE CASCADE
 );
 
@@ -28,9 +28,9 @@ CREATE TABLE direccion (
 	numero int NOT NULL,
 	piso int,
 	departamento char,
-	idbarrio int NOT NULL,
+	barrioid int NOT NULL,
 	PRIMARY KEY(id),
-	FOREIGN KEY(idbarrio) REFERENCES barrio(id) ON DELETE CASCADE
+	FOREIGN KEY(barrioid) REFERENCES barrio(id) ON DELETE CASCADE
 );
 
 CREATE TABLE credencial (
@@ -48,9 +48,15 @@ CREATE TABLE usuario (
 	apellido VARCHAR(30) NOT NULL,
 	nacimiento DATE NOT NULL,
 	dirid INTEGER NOT NULL,
+	
+	pregid INTEGER,
+	respuesta VARCHAR(100),
+	
 	PRIMARY KEY(userid),
 	FOREIGN KEY(userid) REFERENCES credencial(id) ON DELETE CASCADE,
-	FOREIGN KEY(dirid) REFERENCES direccion(id) ON DELETE CASCADE
+	FOREIGN KEY(dirid) REFERENCES direccion(id) ON DELETE CASCADE,
+	
+	FOREIGN KEY(pregid) REFERENCES preguntas(id) ON DELETE CASCADE, 
 );
 
 CREATE TABLE restaurante (
