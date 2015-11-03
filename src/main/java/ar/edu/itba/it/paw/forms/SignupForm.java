@@ -85,7 +85,7 @@ public class SignupForm {
 		Integer f = null;
 		if(floor!=null && !floor.equals(""))
 			f = Integer.parseInt(floor);
-		return new Address(street, n, f, apartment, new Neighborhood(neigh), city, prov);
+		return new Address(street, n, f, apartment, Integer.parseInt(neigh), city, prov);
 	}
 
 	public String getEmail() {

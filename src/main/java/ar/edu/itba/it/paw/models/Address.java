@@ -23,9 +23,8 @@ public class Address {
 	@Column(name = "numero")
 	private Integer number;
 	
-	@ManyToOne
-	@JoinColumn(name="barrioid")
-	private Neighborhood neighborhood;
+	@Column(name="barrioid")
+	private Integer neighborhood;
 	
 	@Column(name = "localidad")
 	private String city;
@@ -44,7 +43,7 @@ public class Address {
 		
 	}
 	
-	public Address(String street, Integer number, Integer floor, String apartment, Neighborhood neighborhood, String city, String province) {
+	public Address(String street, Integer number, Integer floor, String apartment, Integer neighborhood, String city, String province) {
 	//public Address(String street, int number, String city, String province, String neighborhood) {
 		this.setStreet(street);
 		this.setNumber(number);
@@ -75,11 +74,11 @@ public class Address {
 		this.number = number;
 	}
 
-	public Neighborhood getNeighborhood() {
+	public Integer getNeighborhood() {
 		return neighborhood;
 	}
 
-	public void setNeighborhood(Neighborhood neighborhood) {
+	public void setNeighborhood(Integer neighborhood) {
 		this.neighborhood = neighborhood;
 	}
 
