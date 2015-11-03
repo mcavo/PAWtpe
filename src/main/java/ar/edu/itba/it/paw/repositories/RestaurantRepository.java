@@ -22,6 +22,7 @@ import ar.edu.itba.it.paw.models.Menu;
 import ar.edu.itba.it.paw.models.Neighborhood;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.Section;
+import ar.edu.itba.it.paw.models.User;
 import ar.edu.itba.it.paw.services.ValidateDataService;
 
 @Repository
@@ -453,5 +454,39 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 	
 	public boolean validateId(int id) {
 		return get(Restaurant.class, id) != null;
+	}
+
+	@SuppressWarnings("unchecked")
+	public boolean userCanOrder(User user, Restaurant rest) {
+		int neighId = user.getAddress().getNeighborhood();
+		boolean out = false;
+		
+		Session session=null;
+	    try 
+	    {
+		    Session sessionSQL = super.getSession();
+		    Transaction tx = sessionSQL.beginTransaction();
+		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("SELECT count(*) FROM delivery WHERE restid = ? and idbarrio = ?");
+		    query.setParameter(0, rest.getId()); 
+		    query.setParameter(1, neighId); 
+		    List<Object[]> rows = query.list();
+		    tx.commit();
+		    if(!rows.isEmpty()){
+		    	out = true;
+		    }
+	    }
+	    catch(Exception e)
+	    {
+	    	e.printStackTrace();
+	    }
+	    finally
+	    {
+	        if(session !=null && session.isOpen())
+	        {
+	          session.close();
+	          session=null;
+	        }
+	    }
+	    return out;
 	}
 }

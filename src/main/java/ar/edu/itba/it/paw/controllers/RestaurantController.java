@@ -97,6 +97,13 @@ public class RestaurantController {
 	public ModelAndView menu(HttpServletRequest request, @RequestParam("code") Restaurant restaurant) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("rest", restaurant);
+		User user = (User) request.getAttribute("user");
+		boolean ok2order = false;
+		if(user != null){
+			//una vez que este la tabla delivery descomentar!
+			//ok2order = restaurantRepository.userCanOrder(user, restaurant);
+		}
+		mav.addObject("canOrder", ok2order);
 		mav.setViewName("menuRestaurant");
 		return mav;
 	}

@@ -91,11 +91,16 @@
 										<br> <br>
 									</div>
 									<c:if test="${user != null}">
-										<form action="sendOrder" method="POST" id="order">
-											<input type="hidden"  name="restId" value="${rest.id}">
-											<input type="submit" class="btn btn-info"
-												value="Confirmar pedido">
-										</form>
+										<c:if test="${canOrder}">	
+											<form action="sendOrder" method="POST" id="order">
+												<input type="hidden"  name="restId" value="${rest.id}">
+												<input type="submit" class="btn btn-info"
+													value="Confirmar pedido">
+											</form>
+										</c:if>
+										<c:if test="${!canOrder}">
+											<label>NO PUEDE HACER EL PEDIDO PORQUE NO HAY DELIVERY A SU BARRIO</label>
+										</c:if>
 									</c:if>
 								</div>
 							</div>
