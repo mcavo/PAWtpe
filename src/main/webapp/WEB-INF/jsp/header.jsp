@@ -51,6 +51,7 @@
 						<li><a href="../signup/">Regístrate</a></li>
 					</c:when>    
     				<c:otherwise>
+    					<li><a href="/PAWTPE/bin/restaurant/status">Pedido</a></li>
     					<li><a href="#">${user.firstName}</a></li> 
     					<li><a href="../logout/">Salir</a></li>
     				</c:otherwise>

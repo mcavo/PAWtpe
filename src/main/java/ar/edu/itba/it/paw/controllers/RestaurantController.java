@@ -2,12 +2,14 @@ package ar.edu.itba.it.paw.controllers;
 
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.SessionUserManager;
 import ar.edu.itba.it.paw.UserManager;
+import ar.edu.itba.it.paw.forms.SignupForm;
 import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Restaurant;
@@ -139,6 +142,27 @@ public class RestaurantController {
 		mav.addObject("newOrderId", (orderId>0));
 		mav.setViewName("showRestaurant");
 		return mav;
+	}
+	
+	@RequestMapping(value="/status", method = RequestMethod.GET)
+	public ModelAndView status() {
+		List<String> list = new LinkedList<String>();
+		list.add("Entregado");
+		list.add("Cancelado");
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("statusList", list);
+		mav.setViewName("setStatus");
+		return mav;
+	}
+	
+	@RequestMapping(value="/status", method = RequestMethod.POST)
+	public String status(HttpServletRequest request) {
+		User user = (User) request.getAttribute("user");
+		if(user == null){
+			return "redirect:../homepage/";
+		}
+		orderRepository.updateStatus(user, request.getParameter("orderID"), request.getParameter("estado"));
+		return "redirect:../homepage/";
 	}
 	
 	@RequestMapping(value="/register", method = RequestMethod.POST)

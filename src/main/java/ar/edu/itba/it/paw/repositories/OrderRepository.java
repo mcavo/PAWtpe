@@ -214,4 +214,18 @@ public class OrderRepository extends AbstractHibernateRepository{
 	private Dish getDishById(int id) {
 		return get(Dish.class, id);
 	}
+
+	public void updateStatus(User user, String orderId, String status) {
+		int setStat = Integer.valueOf(status);
+		int id = Integer.valueOf(orderId);
+		if(setStat != 1 && setStat != 2){
+			return;
+		}
+		Order order = get(Order.class, id);
+		if(order.getUser().getId() != user.getId()){
+			return;
+		}
+		order.setStatus(setStat);
+		update(order);
+	}
 }
