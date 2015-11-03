@@ -72,7 +72,14 @@ public class TryToConnect {
 			//dbConnection.createStatement().execute("INSERT INTO barrio(nombre) values ('Flores')");
 			//dbConnection.createStatement().execute("ALTER TABLE ");
 
-			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM credencial;");
+			dbConnection.createStatement().execute("CREATE TABLE delivery ("
+					+ "restid INTEGER NOT NULL,"
+					+ "idbarrio INTEGER NOT NULL,"
+					+ "PRIMARY KEY(restid,idbarrio),"
+					+ "FOREIGN KEY(idbarrio) REFERENCES barrio(id) ON DELETE CASCADE,"
+					+ "FOREIGN KEY(restid) REFERENCES restaurante(id) ON DELETE CASCADE"
+					+ ");");
+			ResultSet set = dbConnection.createStatement().executeQuery("SELECT id,dirid FROM restaurante;");
 			dbConnection.createStatement().execute("DELETE FROM credencial WHERE id=42;");
 			
 			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM pedido where restid = 1");
@@ -84,7 +91,7 @@ public class TryToConnect {
 			System.out.println("DIRECCION");
 			System.out.println("---------");
 			while(set.next()) {
-				for(int i=1 ; i<=3; i++)
+				for(int i=1 ; i<=2; i++)
 					System.out.print(set.getString(i)+" | ");
 				System.out.println("");
 			}

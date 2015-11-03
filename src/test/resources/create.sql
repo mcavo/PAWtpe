@@ -12,6 +12,13 @@ CREATE TABLE preguntas (
 	UNIQUE(pregunta)
 );
 
+CREATE TABLE delivery (
+	restid INTEGER NOT NULL,
+	idbarrio INTEGER NOT NULL,
+	PRIMARY KEY(restid,barrioid),
+	FOREIGN KEY(idbarrio) REFERENCES barrio(id) ON DELETE CASCADE,
+	FOREIGN KEY(restid) REFERENCES restaurante(id) ON DELETE CASCADE
+);
 
 CREATE TABLE direccion (
 	id SERIAL NOT NULL,
