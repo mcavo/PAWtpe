@@ -43,7 +43,7 @@ public class OrderRepository extends AbstractHibernateRepository{
 			if (aux!=0)
 				map.put(set.getKey(), aux);
 		}
-		Order order = new Order(rest, this.userRepository.getUserById(user.getId()), 1);
+		Order order = new Order(rest, this.userRepository.getUserById(user.getId()), 0);
 		int id = (int) save(order);
 		loadProducts(id, oMap);
 		return id;
@@ -222,7 +222,7 @@ public class OrderRepository extends AbstractHibernateRepository{
 			return;
 		}
 		Order order = get(Order.class, id);
-		if(order.getUser().getId() != user.getId()){
+		if(order.getUser().getId() != user.getId() || order.getStatus() > 0){
 			return;
 		}
 		order.setStatus(setStat);
