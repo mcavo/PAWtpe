@@ -14,7 +14,6 @@ import ar.edu.itba.it.paw.UserManager;
 import ar.edu.itba.it.paw.forms.SignupForm;
 import ar.edu.itba.it.paw.repositories.AddressRepository;
 import ar.edu.itba.it.paw.repositories.UserRepository;
-import ar.edu.itba.it.paw.services.UserService;
 import ar.edu.itba.it.paw.validators.SignupValidator;
 
 
