@@ -72,7 +72,8 @@ public class TryToConnect {
 			//dbConnection.createStatement().execute("INSERT INTO barrio(nombre) values ('Flores')");
 			//dbConnection.createStatement().execute("ALTER TABLE ");
 
-			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM gerente");
+			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM credencial;");
+			dbConnection.createStatement().execute("DELETE FROM credencial WHERE id=42;");
 			
 			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM pedido where restid = 1");
 			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM information_schema.columns WHERE table_name  = 'credencial'");
@@ -83,7 +84,7 @@ public class TryToConnect {
 			System.out.println("DIRECCION");
 			System.out.println("---------");
 			while(set.next()) {
-				for(int i=1 ; i<=8; i++)
+				for(int i=1 ; i<=3; i++)
 					System.out.print(set.getString(i)+" | ");
 				System.out.println("");
 			}

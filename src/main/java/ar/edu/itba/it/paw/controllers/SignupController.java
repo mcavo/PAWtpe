@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.edu.itba.it.paw.SessionUserManager;
 import ar.edu.itba.it.paw.UserManager;
 import ar.edu.itba.it.paw.forms.SignupForm;
+import ar.edu.itba.it.paw.repositories.AddressRepository;
 import ar.edu.itba.it.paw.services.UserService;
 import ar.edu.itba.it.paw.validators.SignupValidator;
 
@@ -21,14 +22,16 @@ public class SignupController {
 
 	private UserService userService;
 	private SignupValidator signupValidator;
+	private AddressRepository addressRepository;
 	
 	public SignupController() {	}
 		
 
 	@Autowired
-	public SignupController(UserService userService, SignupValidator signupValidator) {
+	public SignupController(UserService userService, SignupValidator signupValidator, AddressRepository addressRepository) {
 		this.userService = userService;
 		this.signupValidator = signupValidator;
+		this.addressRepository=addressRepository;
 	}
 	
 	@RequestMapping(value="signup", method = RequestMethod.GET)
@@ -36,10 +39,9 @@ public class SignupController {
 		ModelAndView mav = new ModelAndView();
 		UserManager userManager = new SessionUserManager(request);
 		if (userManager.existsUser()) {
-			System.out.println("Hola1");
 			return new ModelAndView();
 		}
-		System.out.println("Hola2");
+		mav.addObject("neighList", addressRepository.getNeigh());
 		mav.addObject("signupForm", new SignupForm());
 		return mav;
 	}

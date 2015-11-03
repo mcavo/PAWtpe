@@ -65,8 +65,9 @@
 						<div class="form-group has-feedback col-sm-3">
 							<div class="col-sm-10 col-sm-offset-1">
 								<div class="form-group">
-									<form:input path="birthMonth" type="number" class="form-control"
-										id="month" min="1" max="12" placeholder="MM" name="month"></form:input>
+									<form:input path="birthMonth" type="number"
+										class="form-control" id="month" min="1" max="12"
+										placeholder="MM" name="month"></form:input>
 								</div>
 							</div>
 						</div>
@@ -181,10 +182,17 @@
 								<form:label path="neigh" for="neighbohood"
 									class="control-label col-sm-4">Barrio:</form:label>
 								<div class="col-sm-8">
+								<form:select path="neigh" id="neighborhood">
+									<form:options items="${neighList}" itemValue="id"
+										itemLabel="name" />
+									</form:select>
+									<!-- 
 									<form:input path="neigh" type="text" maxlength="40"
 										class="form-control" id="neighborhood" placeholder="Barrio"
 										name="neighborhood"></form:input>
+									 -->
 								</div>
+								
 							</div>
 						</div>
 						<div class="col-md-4">

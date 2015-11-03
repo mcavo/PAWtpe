@@ -2,28 +2,26 @@ package ar.edu.itba.it.paw.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "barrio")
 public class Neighborhood {
-	
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+
+	@Id
 	@Column(name = "id")
 	private Integer id;
-	
-	//Only to use with javabean
+
+	// Only to use with javabean
 	public Neighborhood() {
 	}
-	
+
 	public Neighborhood(String name) {
-		this.name=name;
+		this.name = name;
 	}
-	
-	@Column(name = "nombre",unique=true)
+
+	@Column(name = "nombre", unique = true)
 	private String name;
 
 	public Integer getId() {

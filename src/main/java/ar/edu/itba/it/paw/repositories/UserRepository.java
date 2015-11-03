@@ -68,6 +68,7 @@ public class UserRepository extends AbstractHibernateRepository{
 		return user;
 	}
 	
+	@SuppressWarnings("unused")
 	private User createUser(String mail, String firstName, String lastName, Date birth) {
 		return new User(firstName, lastName, birth);
 	}

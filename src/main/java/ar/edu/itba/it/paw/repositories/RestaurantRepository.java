@@ -445,7 +445,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		*/
 	}
 	
-	public int saveRestaurant(Restaurant rest) throws Exception {
+	public int saveRestaurant(Restaurant rest) {
 		save(rest);
 		return (int) save(rest);
 	}
