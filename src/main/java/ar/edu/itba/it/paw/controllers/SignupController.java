@@ -13,6 +13,7 @@ import ar.edu.itba.it.paw.SessionUserManager;
 import ar.edu.itba.it.paw.UserManager;
 import ar.edu.itba.it.paw.forms.SignupForm;
 import ar.edu.itba.it.paw.repositories.AddressRepository;
+import ar.edu.itba.it.paw.repositories.UserRepository;
 import ar.edu.itba.it.paw.services.UserService;
 import ar.edu.itba.it.paw.validators.SignupValidator;
 
@@ -20,7 +21,7 @@ import ar.edu.itba.it.paw.validators.SignupValidator;
 @Controller
 public class SignupController {
 
-	private UserService userService;
+	private UserRepository userRepository;
 	private SignupValidator signupValidator;
 	private AddressRepository addressRepository;
 	
@@ -28,8 +29,8 @@ public class SignupController {
 		
 
 	@Autowired
-	public SignupController(UserService userService, SignupValidator signupValidator, AddressRepository addressRepository) {
-		this.userService = userService;
+	public SignupController(UserRepository userRepo, SignupValidator signupValidator, AddressRepository addressRepository) {
+		this.userRepository = userRepo;
 		this.signupValidator = signupValidator;
 		this.addressRepository=addressRepository;
 	}
@@ -57,7 +58,7 @@ public class SignupController {
 		if (e.hasErrors()) {
 			request.setAttribute("message","Datos de registro inválidos");
 			return mav;
-		} else if (!userManager.setUser(this.userService.signUp(form.build(),form.getPwd()))) {
+		} else if (!userManager.setUser(this.userRepository.setUser(form.build(),form.getPwd()))) {
 			request.setAttribute("message","El usuario ya existe");
 			return mav;
 		}
