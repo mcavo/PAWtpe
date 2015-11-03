@@ -5,7 +5,7 @@ import java.util.Date;
 import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.User;
 
-public class SignupForm {
+public class EditProfileForm {
 
 	String firstname;
 	String lastname;
@@ -25,8 +25,7 @@ public class SignupForm {
 	String question;
 	String answer;
 
-	public SignupForm() {
-	}
+	public EditProfileForm() {}
 
 	@SuppressWarnings("deprecation")
 	public User build() {

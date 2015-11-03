@@ -31,6 +31,13 @@ public class CredentialRepository extends AbstractHibernateRepository {
 		save(credential);
 	}
 	
+	public void update(Credential credential) throws Exception {
+//		if(!existsId(credential..g)) {
+//			throw new DuplicateEmailException(credential);
+//		}
+		update(credential);	
+	}
+	
 	public Credential get(int id) {
 		return get(Credential.class, id);
 	}
@@ -88,7 +95,12 @@ public class CredentialRepository extends AbstractHibernateRepository {
 	public void setRol(String rol, int id){
 		Credential c = get(id);
 		c.setRol(rol);
-		update(c);
+		try {
+			update(c);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	private boolean existsMail(String mail) {

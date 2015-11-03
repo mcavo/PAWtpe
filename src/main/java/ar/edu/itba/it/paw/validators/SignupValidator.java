@@ -31,6 +31,8 @@ public class SignupValidator implements Validator {
 		String firstname = form.getFirstname();
 		String lastname = form.getLastname();
 		// Address address = form.getAddress();
+		String question = form.getQuestion();
+		String answer = form.getAnswer();
 		String email = form.getEmail();
 		int day, month, year, neigh;
 		try {
@@ -38,7 +40,7 @@ public class SignupValidator implements Validator {
 			month = Integer.parseInt(form.getBirthMonth());
 			year = Integer.parseInt(form.getBirthYear());
 			neigh = Integer.parseInt(form.getNeigh());
-			if(!validateBirth(year, month, day) || neigh < 1) {
+			if(!validateBirth(year, month, day) || neigh < 1 || (answer.length() <= 0 && 100 < answer.length())) {
 				e.reject("Error al registrarse");
 			}
 		} catch (NumberFormatException ex) {
