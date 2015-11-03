@@ -26,20 +26,26 @@ public class CalificationRepository extends AbstractHibernateRepository{
 
 	public void addCalification(User user, Restaurant rest, String stars, String comment){
 		int restId = rest.getId();
+		int rate;
 		//int userId = Integer.valueOf(usrId);
-		if(user.getId() == 0 || restId == 0){
-			//app error
+		try{
+			if(user.getId() == 0 || restId == 0){
+				//app error
+				return;
+			}
+			rate = Integer.valueOf(stars);
+			if(rate < 0 || rate > 5){
+				//app error
+				return;
+			}
+			if(comment.isEmpty()){
+				//tirar excepcion de comentario vacio
+				return;
+			}
+		}catch(Exception e){
 			return;
 		}
-		int rate = Integer.valueOf(stars);
-		if(rate < 0 || rate > 5){
-			//app error
-			return;
-		}
-		if(comment.isEmpty()){
-			//tirar excepcion de comentario vacio
-			return;
-		}
+		
 		Session session=null;
 	    try 
 	    {

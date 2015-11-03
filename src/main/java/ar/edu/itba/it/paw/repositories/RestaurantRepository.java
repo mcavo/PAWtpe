@@ -466,7 +466,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 	    {
 		    Session sessionSQL = super.getSession();
 		    Transaction tx = sessionSQL.beginTransaction();
-		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("SELECT count(*) FROM delivery WHERE restid = ? and idbarrio = ?");
+		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("SELECT * FROM delivery WHERE restid = ? and barrioid = ?");
 		    query.setParameter(0, rest.getId()); 
 		    query.setParameter(1, neighId); 
 		    List<Object[]> rows = query.list();

@@ -82,10 +82,10 @@ public class RestaurantController {
 		//rest.setCalifications(calificationService.getCalifications(rest));
 		mav.addObject("rest", restaurant);
 		mav.setViewName("showRestaurant");
-		UserManager userManager = new SessionUserManager(request);
+		/*UserManager userManager = new SessionUserManager(request);
 		if (!userManager.existsUser()) {
 			throw new Exception("No hay un usuario loggeado");
-		}
+		}*/
 		calificationRepository.addCalification(user, restaurant, stars, comments);
 		restaurant.getQualifications().put(user.getId(), new Calification(Integer.valueOf(stars), comments));
 		request.setAttribute("rest", restaurant);
@@ -100,8 +100,7 @@ public class RestaurantController {
 		User user = (User) request.getAttribute("user");
 		boolean ok2order = false;
 		if(user != null){
-			//una vez que este la tabla delivery descomentar!
-			//ok2order = restaurantRepository.userCanOrder(user, restaurant);
+			ok2order = restaurantRepository.userCanOrder(user, restaurant);
 		}
 		mav.addObject("canOrder", ok2order);
 		mav.setViewName("menuRestaurant");
