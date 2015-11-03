@@ -32,12 +32,13 @@ public class SignupValidator implements Validator {
 		String lastname = form.getLastname();
 		// Address address = form.getAddress();
 		String email = form.getEmail();
-		int day, month, year;
+		int day, month, year, neigh;
 		try {
 			day = Integer.parseInt(form.getBirthDay());
 			month = Integer.parseInt(form.getBirthMonth());
 			year = Integer.parseInt(form.getBirthYear());
-			if(!validateBirth(year, month, day)) {
+			neigh = Integer.parseInt(form.getNeigh());
+			if(!validateBirth(year, month, day) || neigh < 1) {
 				e.reject("Error al registrarse");
 			}
 		} catch (NumberFormatException ex) {

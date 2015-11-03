@@ -339,6 +339,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		double minimumPurchase;
 		float from;
 		float to;
+		int neigh;
 		try {
 			from = Float.valueOf(timeFrom.replace(':', '.'));
 			to = Float.valueOf(timeTo.replace(':', '.'));
@@ -347,6 +348,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 				ValidateDataService.validateFloor(floorV);
 			}
 			numberV = Integer.valueOf(number);
+			neigh = Integer.valueOf(neighborhood);
 			ValidateDataService.validateStringLength(name, 30);
 			if (description != null && !description.isEmpty()) {
 				ValidateDataService.validateStringLength(description, 500);	
@@ -355,7 +357,6 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			ValidateDataService.validateStringLength(street, 30);
 			ValidateDataService.validateStringLength(city, 30);
 			ValidateDataService.validateStringLength(province, 30);
-			ValidateDataService.validateStringLength(neighborhood, 40);
 			if (apartment != null && !apartment.isEmpty()) {
 				ValidateDataService.validateApartment(apartment);	
 			}
@@ -366,7 +367,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		} catch (Exception e) {
 			throw new Exception("Invalid parameters");
 		}
-		Address address = new Address(street, numberV, floorV, apartment, new Neighborhood(neighborhood), city, province);
+		Address address = new Address(street, numberV, floorV, apartment, neigh, city, province);
 		Restaurant rest = new Restaurant(-1, name, minimumPurchase, from, to, address, validTypes, null, costV);
 		
 		return rest;
