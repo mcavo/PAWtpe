@@ -33,7 +33,7 @@ public class OrderRepository extends AbstractHibernateRepository{
 		return !dishes.isEmpty();
 	}
 	
-	public void sendOrder(User user, Restaurant rest, HashMap<Dish, Integer> oMap) {
+	public int sendOrder(User user, Restaurant rest, HashMap<Dish, Integer> oMap) {
 		if(!checkOrder(user.getId(), rest, oMap)){
 			//show excp
 		}
@@ -46,6 +46,7 @@ public class OrderRepository extends AbstractHibernateRepository{
 		Order order = new Order(rest, this.userRepository.getUserById(user.getId()), 1);
 		int id = (int) save(order);
 		loadProducts(id, oMap);
+		return id;
 		
 		/*String sql = "insert into pedido (restid, userid, horario, estado) VALUES (?, ?, ?, ?)";
 		int orderId = 0;

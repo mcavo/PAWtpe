@@ -128,10 +128,15 @@ public class RestaurantController {
 			if(d != null)
 				map.put(d,Integer.valueOf(value));	
 		}
-		orderRepository.sendOrder(user, rest, map);
+		Integer orderId = orderRepository.sendOrder(user, rest, map);
+		if(orderId <= 0){
+			return new ModelAndView("redirect:../homepage/");
+		}
 		/*if(!orderRepository.sendOrder(user.getId(), rest, map)){
 			return new ModelAndView("redirect:../homepage/");
 		}*/
+		mav.addObject("orderId", orderId.toString());
+		mav.addObject("newOrderId", (orderId>0));
 		mav.setViewName("showRestaurant");
 		return mav;
 	}

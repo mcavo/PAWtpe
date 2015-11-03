@@ -5,6 +5,11 @@
 		<div class="row">
 			<div>
 				<H3>${rest.nombre}</H3>
+				<c:if test="${newOrderId}">
+					<p>
+						Su numero de pedido es: ${orderId}
+					</p>
+				</c:if>
 				<h4>
 					<p>
 						<span class="label label-warning">${rest.score}</span>

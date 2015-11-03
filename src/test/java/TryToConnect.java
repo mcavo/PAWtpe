@@ -73,7 +73,7 @@ public class TryToConnect {
 			//dbConnection.createStatement().execute("ALTER TABLE ");
 
 			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM credencial;");
-			dbConnection.createStatement().execute("DELETE FROM credencial WHERE id=42;");
+			//dbConnection.createStatement().execute("DELETE FROM credencial WHERE id=42;");
 			
 			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM pedido where restid = 1");
 			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM information_schema.columns WHERE table_name  = 'credencial'");
