@@ -146,11 +146,7 @@ public class RestaurantController {
 	
 	@RequestMapping(value="/status", method = RequestMethod.GET)
 	public ModelAndView status() {
-		List<String> list = new LinkedList<String>();
-		list.add("Entregado");
-		list.add("Cancelado");
 		ModelAndView mav = new ModelAndView();
-		mav.addObject("statusList", list);
 		mav.setViewName("setStatus");
 		return mav;
 	}
