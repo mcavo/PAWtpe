@@ -4,6 +4,7 @@ import java.util.Date;
 
 import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.User;
+import ar.edu.itba.it.paw.services.DateService;
 
 public class EditProfileForm {
 
@@ -13,8 +14,6 @@ public class EditProfileForm {
 	String birthMonth;
 	String birthYear;
 	String email;
-	String pwd;
-	String pwd2;
 	String street;
 	String number;
 	String floor;
@@ -27,13 +26,15 @@ public class EditProfileForm {
 
 	public EditProfileForm() {}
 
-	@SuppressWarnings("deprecation")
 	public User build() {
-		User us = new User(firstname, lastname, new Date(Integer.parseInt(birthYear),Integer.parseInt(birthMonth),Integer.parseInt(birthDay)));
+		Date d = DateService.date(Integer.parseInt(birthYear),Integer.parseInt(birthMonth),Integer.parseInt(birthDay));
+		User us = new User(firstname, lastname, d);
 		us.setAddress(this.getAddress());
 		us.setEmail(email);
 		us.setIsAdmin(false);
 		us.setManager(false);
+		us.setQuestionid(Integer.parseInt(question));
+		us.setAnswer(answer);
 		return us;
 	}
 
@@ -96,18 +97,6 @@ public class EditProfileForm {
 		this.email = email;
 	}
 
-
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
-	}
-
-	public String getPwd() {
-		return pwd;
-	}
-	public void setPwd2(String pwd) {
-		this.pwd = pwd;
-	}
-
 	public String getStreet() {
 		return street;
 	}
@@ -166,10 +155,6 @@ public class EditProfileForm {
 
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
-	}
-
-	public String getPwd2() {
-		return pwd;
 	}
 	
 	public void setQuestion(String question) {

@@ -31,13 +31,6 @@ public class CredentialRepository extends AbstractHibernateRepository {
 		save(credential);
 	}
 	
-	public void update(Credential credential) throws Exception {
-//		if(!existsId(credential..g)) {
-//			throw new DuplicateEmailException(credential);
-//		}
-		update(credential);	
-	}
-	
 	public Credential get(int id) {
 		return get(Credential.class, id);
 	}

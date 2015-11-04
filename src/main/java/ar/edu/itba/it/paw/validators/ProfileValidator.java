@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import ar.edu.itba.it.paw.forms.SignupForm;
+import ar.edu.itba.it.paw.forms.EditProfileForm;
 
 @Component
 public class ProfileValidator implements Validator {
@@ -21,12 +21,12 @@ public class ProfileValidator implements Validator {
 
 		@Override
 		public boolean supports(Class<?> clazz) {
-			return SignupForm.class.equals(clazz);
+			return EditProfileForm.class.equals(clazz);
 		}
 
 		@Override
 		public void validate(Object o, Errors e) {
-			SignupForm form = (SignupForm) o;
+			EditProfileForm form = (EditProfileForm) o;
 			String firstname = form.getFirstname();
 			String lastname = form.getLastname();
 			// Address address = form.getAddress();
@@ -90,6 +90,4 @@ public class ProfileValidator implements Validator {
 			}
 			return true;
 		}
-
-
 }

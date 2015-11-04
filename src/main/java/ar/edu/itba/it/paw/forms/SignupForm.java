@@ -1,9 +1,8 @@
 package ar.edu.itba.it.paw.forms;
 
-import java.util.Date;
-
 import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.User;
+import ar.edu.itba.it.paw.services.DateService;
 
 public class SignupForm {
 
@@ -28,13 +27,14 @@ public class SignupForm {
 	public SignupForm() {
 	}
 
-	@SuppressWarnings("deprecation")
 	public User build() {
-		User us = new User(firstname, lastname, new Date(Integer.parseInt(birthYear),Integer.parseInt(birthMonth),Integer.parseInt(birthDay)));
+		User us = new User(firstname, lastname, DateService.date(Integer.parseInt(birthYear),Integer.parseInt(birthMonth),Integer.parseInt(birthDay)));
 		us.setAddress(this.getAddress());
 		us.setEmail(email);
 		us.setIsAdmin(false);
 		us.setManager(false);
+		us.setQuestionid(Integer.parseInt(question));
+		us.setAnswer(answer);
 		return us;
 	}
 
