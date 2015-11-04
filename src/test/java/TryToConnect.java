@@ -72,11 +72,12 @@ public class TryToConnect {
 			//dbConnection.createStatement().execute("INSERT INTO barrio(nombre) values ('Flores')");
 			//dbConnection.createStatement().execute("ALTER TABLE ");
 			//dbConnection.createStatement().execute("DROP TABLE delivery;");
-			dbConnection.createStatement().execute("ALTER TABLE usuario ADD FOREIGN KEY (pregid) REFERENCES preguntas(id);");
-			dbConnection.createStatement().execute("ALTER TABLE direccion ADD FOREIGN KEY (barrioid) REFERENCES barrio(id);");
-			//dbConnection.createStatement().execute("ALTER TABLE usuario ADD COLUMN pregid INTEGER");
-			//dbConnection.createStatement().execute("ALTER TABLE usuario ADD COLUMN respuesta VARCHAR(100)");
-			ResultSet set = dbConnection.createStatement().executeQuery("SELECT userid,dirid FROM usuario;");
+			//dbConnection.createStatement().execute("ALTER TABLE usuario ADD FOREIGN KEY (pregid) REFERENCES preguntas(id);");
+			//dbConnection.createStatement().execute("UPDATE delivery SET costo=0.0 WHERE costo IS NULL; ");
+			//dbConnection.createStatement().execute("ALTER TABLE delivery ALTER COLUMN costo SET NOT NULL;");
+			//dbConnection.createStatement().execute("ALTER TABLE restaurante ADD COLUMN deliverydesde FLOAT");
+			//dbConnection.createStatement().execute("ALTER TABLE restaurante ADD COLUMN deliveryhasta FLOAT");
+			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM information_schema.columns WHERE table_name = 'restaurante';");
 			//dbConnection.createStatement().execute("DELETE FROM credencial WHERE id=42;");
 			
 			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM pedido where restid = 1");
@@ -88,7 +89,7 @@ public class TryToConnect {
 			System.out.println("DIRECCION");
 			System.out.println("---------");
 			while(set.next()) {
-				for(int i=1 ; i<=2; i++)
+				for(int i=1 ; i<=11; i++)
 					System.out.print(set.getString(i)+" | ");
 				System.out.println("");
 			}
