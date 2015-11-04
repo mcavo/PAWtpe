@@ -24,6 +24,11 @@
 			</div>
 		</div>
 	</form>
+	<div class="col-sm-offset-4 col-sm-4">
+			<div class="col-sm-offset-2 col-sm-8">
+				<a href="/PAWTPE/bin/user/getq">Olvido su contraseña?</a>
+			</div>
+	</div>
 </div>
 
 <%@ include file="footer.jsp" %>

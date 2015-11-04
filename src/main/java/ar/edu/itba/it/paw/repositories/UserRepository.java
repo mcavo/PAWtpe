@@ -2,8 +2,13 @@ package ar.edu.itba.it.paw.repositories;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -35,7 +40,7 @@ public class UserRepository extends AbstractHibernateRepository{
 		return get(User.class, id);
 	}
 
-	public int getUserId(String mail) {
+	/*public int getUserId(String mail) {
 		//int userid = credentialDAO.getCredentialID(mail);
 		int userid;
 		try {
@@ -45,7 +50,7 @@ public class UserRepository extends AbstractHibernateRepository{
 			userid = -1;
 		}
 		return get(User.class, userid).getId();
-	}
+	}*/
 	
 	public User setUser(User user, String pwd) {
 		String role;
@@ -82,6 +87,50 @@ public class UserRepository extends AbstractHibernateRepository{
 	public Serializable saveUser(User user) {
 		addressRepository.saveAddress(user.getAddress());
 		return save(user);
+	}
+
+	public boolean updatePassword(String userId, String newPwd, String respuesta) {
+		int id = Integer.valueOf(userId);
+		if(!find("from User where id = ? and respuesta = ?", id, respuesta).isEmpty()){
+			credentialRepository.setPwd(newPwd, id);
+			return true;
+		}
+		return false;
+	}
+
+	@SuppressWarnings("unchecked")
+	public String getQuestion(int userId) {
+		List<String> preguntas = null;
+		Session session=null;
+	    try 
+	    {
+		    Session sessionSQL = super.getSession();
+		    Transaction tx = sessionSQL.beginTransaction();
+		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("SELECT pregunta FROM preguntas WHERE id = (select pregid from usuario where id = ?)").setParameter(0, userId); 
+		    preguntas = query.list();
+		    tx.commit();
+	    }
+	    catch(Exception e)
+	    {
+	    	e.printStackTrace();
+	    }
+	    finally
+	    {
+	        if(session !=null && session.isOpen())
+	        {
+	          session.close();
+	          session=null;
+	        }
+	    }
+	    
+	    if(preguntas == null || preguntas.isEmpty()){
+	    	return "";
+	    }
+		return preguntas.get(0);
+	}
+
+	public boolean existsUser(int userId, String name, String lastName) {
+		return !find("from User where id = ? and nombre = ? and apellido = ?", userId, name, lastName).isEmpty();
 	}
 	
 }

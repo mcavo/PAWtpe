@@ -36,6 +36,10 @@ public class User implements UserPermissions {
 	@Column(name = "userid")
 	private int id;
 	
+	@Id
+	@Column(name = "pregid")
+	private int question;
+	
 	public User(){}
 
 	public User(String firstName, String lastName, Date birth) {
@@ -122,5 +126,14 @@ public class User implements UserPermissions {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	
+	public int getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(int question) {
+		this.question = question;
+	}
+
 	
 }

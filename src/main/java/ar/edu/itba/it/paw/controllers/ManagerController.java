@@ -32,32 +32,6 @@ public class ManagerController {
 		this.restaurantRepository = restuarantRepository;
 	}
 	
-	@RequestMapping(value="/addDish", method = RequestMethod.GET)
-	public ModelAndView addDish(HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView();
-		User user = (User) request.getAttribute("user");
-		if(user != null && user.getIsManager()){
-			request.setAttribute("rest", managerRepository.getRestaurant(user));
-			mav.setViewName("addDish");
-		}else{
-			return new ModelAndView("redirect:../homepage/");
-		}
-		return mav;
-	}
-	
-	@RequestMapping(value="/addDish", method = RequestMethod.POST)
-	public ModelAndView addDish(HttpServletRequest request, @RequestParam("section") String section, @RequestParam("dish") String dish, @RequestParam("price") String price, @RequestParam("description") String description) {
-		ModelAndView mav = new ModelAndView();
-		User user = (User) request.getAttribute("user");
-		if(user != null && user.getIsManager()){
-			managerRepository.addDish(managerRepository.getRestaurant(user), section, dish, Integer.valueOf(price), description);
-			mav.setViewName("addDish");
-		}else{
-			return new ModelAndView("redirect:../homepage/");
-		}
-		return mav;
-	}
-	
 	@RequestMapping(value="/showOrders", method = RequestMethod.GET)
 	public ModelAndView showOrders(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();

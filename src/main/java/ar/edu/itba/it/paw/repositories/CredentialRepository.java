@@ -91,6 +91,12 @@ public class CredentialRepository extends AbstractHibernateRepository {
 		update(c);
 	}
 	
+	public void setPwd(String pwd, int id){
+		Credential c = get(id);
+		c.setPsw(pwd);
+		update(c);
+	}
+	
 	private boolean existsMail(String mail) {
 		return !find("from Credential where mail = ?", mail).isEmpty();
 	}

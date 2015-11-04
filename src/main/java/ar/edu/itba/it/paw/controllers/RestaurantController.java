@@ -23,6 +23,7 @@ import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
 import ar.edu.itba.it.paw.repositories.CalificationRepository;
+import ar.edu.itba.it.paw.repositories.ManagerRepository;
 import ar.edu.itba.it.paw.repositories.OrderRepository;
 import ar.edu.itba.it.paw.repositories.RestaurantRepository;
 
@@ -32,12 +33,14 @@ public class RestaurantController {
 	private final CalificationRepository calificationRepository;
 	private final OrderRepository orderRepository;
 	private final RestaurantRepository restaurantRepository;
+	private final ManagerRepository managerRepository;
 	
 	@Autowired
-	public RestaurantController(RestaurantRepository restaurantRepo, CalificationRepository calificationRepo, OrderRepository orderRepo){
+	public RestaurantController(RestaurantRepository restaurantRepo, CalificationRepository calificationRepo, ManagerRepository managerRepo, OrderRepository orderRepo){
 		this.calificationRepository = calificationRepo;
 		this.orderRepository = orderRepo;
 		this.restaurantRepository = restaurantRepo;
+		this.managerRepository = managerRepo;
 	}
 	
 	@RequestMapping(value="/list", method = RequestMethod.GET)
@@ -177,6 +180,32 @@ public class RestaurantController {
 	public ModelAndView register() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("registerRestaurant");
+		return mav;
+	}
+	
+	@RequestMapping(value="/addDish", method = RequestMethod.GET)
+	public ModelAndView addDish(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		User user = (User) request.getAttribute("user");
+		if(user != null && user.getIsManager()){
+			request.setAttribute("rest", managerRepository.getRestaurant(user));
+			mav.setViewName("addDish");
+		}else{
+			return new ModelAndView("redirect:../homepage/");
+		}
+		return mav;
+	}
+	
+	@RequestMapping(value="/addDish", method = RequestMethod.POST)
+	public ModelAndView addDish(HttpServletRequest request, @RequestParam("section") String section, @RequestParam("dish") String dish, @RequestParam("price") String price, @RequestParam("description") String description) {
+		ModelAndView mav = new ModelAndView();
+		User user = (User) request.getAttribute("user");
+		if(user != null && user.getIsManager()){
+			managerRepository.addDish(managerRepository.getRestaurant(user), section, dish, Integer.valueOf(price), description);
+			mav.setViewName("addDish");
+		}else{
+			return new ModelAndView("redirect:../homepage/");
+		}
 		return mav;
 	}
 	

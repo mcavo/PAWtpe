@@ -26,33 +26,6 @@
 		<servlet-name>Error</servlet-name>
 		<url-pattern>/Error</url-pattern>
 	</servlet-mapping>
-		
-	<filter>
-		<filter-name>UserFilter</filter-name> 
-		<filter-class>ar.edu.itba.it.paw.web.UserFilter</filter-class>
-	</filter> 
-	<filter-mapping>
-		<filter-name>UserFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	
-	<filter>
-		<filter-name>ManagerFilter</filter-name> 
-		<filter-class>ar.edu.itba.it.paw.web.ManagerFilter</filter-class>
-	</filter> 
-	<filter-mapping>
-		<filter-name>ManagerFilter</filter-name>
-		<url-pattern>/managers/*</url-pattern>
-	</filter-mapping>
-	
-	<filter>
-		<filter-name>AdminFilter</filter-name> 
-		<filter-class>ar.edu.itba.it.paw.web.AdminFilter</filter-class>
-	</filter> 
-	<filter-mapping>
-		<filter-name>AdminFilter</filter-name>
-		<url-pattern>/admin/*</url-pattern>
-	</filter-mapping>
 	
 	<filter>
  		<filter-name>transactionFilter</filter-name> 

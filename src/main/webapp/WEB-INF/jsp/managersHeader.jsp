@@ -25,18 +25,18 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">Food on Board</a>
+			<a class="navbar-brand" href="PAWTPE/bin/homepage/">Food on Board</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<c:choose>
 					<c:when test="${user.isAdmin}">
-						<li><a href="/PAWTPE/bin/manager/addManager">Agregar manager</a></li>
+						<li><a href="/PAWTPE/bin/addManager/">Agregar manager</a></li>
 						<li><a href="/PAWTPE/bin/restaurant/register">Agregar restaurante</a></li>
 					</c:when>
 					<c:when test="${user.isManager}">
-						<li><a href="/PAWTPE/bin/manager/addDish">Agregar menu</a></li>
-						<li><a href="/PAWTPE/bin/manager/showOrders">Ver historial</a></li>
+						<li><a href="/PAWTPE/bin/restaurant/addDish/">Agregar menu</a></li>
+						<li><a href="/PAWTPE/bin/showOrders/">Ver historial</a></li>
 					</c:when> 
 				</c:choose>
 				<li><a href="../restaurant/list">Restaurantes</a></li>

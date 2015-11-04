@@ -32,12 +32,12 @@
 			<ul class="nav navbar-nav">
 				<c:choose>
 					<c:when test="${user.isAdmin}">
-						<li><a href="/PAWTPE/bin/manager/addManager">Agregar manager</a></li>
-						<li><a href="/PAWTPE/admin/registerRestaurant">Agregar restaurante</a></li>
+						<li><a href="/PAWTPE/bin/addManager/">Agregar manager</a></li>
+						<li><a href="/PAWTPE/bin/restaurant/register">Agregar restaurante</a></li>
 					</c:when>
 					<c:when test="${user.isManager}">
-						<li><a href="/PAWTPE/bin/manager/addDish">Agregar menu</a></li>
-						<li><a href="/PAWTPE/bin/manager/showOrders">Ver historial</a></li>
+						<li><a href="/PAWTPE/bin/restaurant/addDish">Agregar menu</a></li>
+						<li><a href="/PAWTPE/bin/showOrders/">Ver historial</a></li>
 					</c:when> 
 				</c:choose>
 				<li><a href="/PAWTPE/bin/restaurant/list">Restaurantes</a></li>
@@ -52,7 +52,8 @@
 					</c:when>    
     				<c:otherwise>
     					<li><a href="/PAWTPE/bin/restaurant/status">Pedido</a></li>
-    					<li><a href="#">${user.firstName}</a></li> 
+    					<li><a href="">${user.firstName}</a></li> 
+    					<!-- li><a href="../user/ask/">Cambiar contraseña</a></li-->
     					<li><a href="../logout/">Salir</a></li>
     				</c:otherwise>
     			</c:choose>
