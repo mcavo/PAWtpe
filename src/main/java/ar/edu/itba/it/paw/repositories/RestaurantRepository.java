@@ -471,8 +471,11 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		    query.setParameter(1, neighId); 
 		    List<Object[]> rows = query.list();
 		    tx.commit();
-		    if(!rows.isEmpty()){
+		    
+		    for (Object[] row: rows) {
 		    	out = true;
+		    	float cost = (float) row[2];
+		    	rest.setCostoenvio(cost);
 		    }
 	    }
 	    catch(Exception e)

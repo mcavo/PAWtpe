@@ -118,11 +118,11 @@ public class RestaurantController {
 		ModelAndView mav = new ModelAndView();
 		String restId = req.getParameter("restId");
 		Restaurant rest = restaurantRepository.getById(Integer.valueOf(restId));
-		mav.addObject("rest", rest);
 		User user = (User) req.getAttribute("user");
 		if(user == null){
 			return new ModelAndView("redirect:../homepage/");
 		}
+		mav.addObject("rest", rest);
 		Enumeration en = req.getParameterNames();
 		HashMap<Dish, Integer> map = new HashMap<Dish, Integer>();
 		while (en.hasMoreElements()) {
