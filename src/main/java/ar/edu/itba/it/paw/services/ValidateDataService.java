@@ -11,7 +11,6 @@ public class ValidateDataService {
 	private static final String[] TYPES_FOOD = {"arabe", "argentina", "armenia", "autor", "china", "deli", "italiana", "japonesa", "mexicana", "norteamericana", "parrilla", "peruana", "vegetariana"};
 	
 	public ValidateDataService() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public static void validateMail(String email) throws Exception {

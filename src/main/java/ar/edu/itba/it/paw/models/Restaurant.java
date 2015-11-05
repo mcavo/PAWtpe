@@ -88,7 +88,6 @@ public class Restaurant {
 	}
 	
 	public Restaurant(int id, String name, Float minimumPurchase, Float startService, Float endService, Address address, List<String> typeOfFood, Menu menu, Float cost, Float delfrom,Float delto, Set<Neighborhood> deliveryneigh) {
-		// TODO Auto-generated constructor stub
 		this.setName(name);
 		this.setMinamount(minimumPurchase);
 		this.setFrom(startService);
@@ -271,7 +270,6 @@ public class Restaurant {
 	}
 	
 	public int getId() {
-		// TODO Auto-generated method stub
 		return this.id;
 	}
 	

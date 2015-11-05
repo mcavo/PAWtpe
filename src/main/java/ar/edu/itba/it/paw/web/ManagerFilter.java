@@ -16,7 +16,6 @@ import ar.edu.itba.it.paw.models.User;
 public class ManagerFilter implements Filter{
 
 	public void init(FilterConfig filterConfig) throws ServletException {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -33,7 +32,6 @@ public class ManagerFilter implements Filter{
 	}
 
 	public void destroy() {
-		// TODO Auto-generated method stub
 		
 	}
 

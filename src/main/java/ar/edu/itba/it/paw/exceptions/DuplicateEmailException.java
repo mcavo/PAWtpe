@@ -11,7 +11,6 @@ public class DuplicateEmailException extends Exception {
 	private Credential credential;
 	
 	public DuplicateEmailException() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public DuplicateEmailException(Credential credential) {

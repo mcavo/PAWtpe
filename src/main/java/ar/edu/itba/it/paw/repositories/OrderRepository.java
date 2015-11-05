@@ -47,53 +47,14 @@ public class OrderRepository extends AbstractHibernateRepository{
 		int id = (int) save(order);
 		loadProducts(id, oMap);
 		return id;
-		
-		/*String sql = "insert into pedido (restid, userid, horario, estado) VALUES (?, ?, ?, ?)";
-		int orderId = 0;
-		try {
-			Connection conn = DBManager.getInstance().getConnection();
-			PreparedStatement pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, rest.getId());
-			pstmt.setInt(2, usrId);
-			pstmt.setInt(4, 0);
-
-			java.util.Date date = new java.util.Date(System.currentTimeMillis()); 
-			java.sql.Timestamp timestamp = new java.sql.Timestamp(date.getTime()); 
-			pstmt.setTimestamp(3, timestamp);
-			pstmt.execute();
-			pstmt.close();
-			try {
-				orderId = getOrderId(usrId, rest, timestamp);
-				loadProducts(orderId, oMap);
-			} catch (Exception e) {
-				// rollback!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
 	}
 	
 	private boolean checkOrder(int usrId, Restaurant rest, HashMap<Dish, Integer> oMap){
-		/*int usrIdV;
-		try {
-		usrIdV = Integer.valueOf(usrId);
-		} catch (java.lang.NumberFormatException e) {
-			return false;
-		}
-		if(usrIdV <= 0 || rest == null || oMap == null){
-			//app error
-			return false;
-		}*/
 		if(usrId <= 0 || rest == null || oMap == null){
-			//app error
 			return false;
 		}
 		
 		if(oMap.isEmpty()){
-			//excepcion pedido vacio
 			return false;
 		}
 
@@ -102,24 +63,17 @@ public class OrderRepository extends AbstractHibernateRepository{
 			
 			int cant; 
 			Dish dish = set.getKey();
-			//try {
 				cant = set.getValue();
-			/*} catch (java.lang.NumberFormatException e) {
-				return false;
-			}*/
 			
 			if(cant < 0){
-				//cant excepcion
 				return false;
 			}
 			if(!checkDish(rest, dish)){
-				//dish no existe excp
 				return false;
 			}
 			total += dish.getPrice()*cant;
 		}
 		if(total < rest.getMinamount()){
-			//monto minimo no llegado
 			return false;
 		}
 		return true;

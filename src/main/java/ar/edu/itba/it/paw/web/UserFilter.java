@@ -20,10 +20,8 @@ public class UserFilter implements Filter {
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
-		//Ver si esta logueado
 		UserManager userManager = new SessionUserManager(request);
 		if (userManager.existsUser()) {
-			//User user = UserService.getUserById(userManager.getUserId());
 			request.setAttribute("user", userManager.getUser());
 		}else{
 			request.setAttribute("user", null);
@@ -32,12 +30,10 @@ public class UserFilter implements Filter {
 	}
 
 	public void init(FilterConfig arg0) throws ServletException {
-		// TODO Auto-generated method stub
 		
 	}
 	
 	public void destroy() {
-		// TODO Auto-generated method stub
 		
 	}
 

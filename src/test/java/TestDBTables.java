@@ -8,13 +8,10 @@ import ar.edu.itba.it.paw.DBManager;
 public class TestDBTables {
 
 	public TestDBTables() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Connection dbConnection;
-//		DBManager db = DBManager.getInstance();
 		dbConnection = DBManager.getInstance().getConnection();
 
 		ResultSet set;
@@ -54,7 +51,6 @@ public class TestDBTables {
 			}
 			set.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

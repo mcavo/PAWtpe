@@ -9,7 +9,6 @@ public class CredentialNoMatchException extends Exception {
 	private String pwd;
 	
 	public CredentialNoMatchException() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public CredentialNoMatchException(String email, String pwd) {

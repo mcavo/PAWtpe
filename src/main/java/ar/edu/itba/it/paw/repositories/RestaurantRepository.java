@@ -275,7 +275,6 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		try {
 			menu = new Menu(sections);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -325,7 +324,6 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			}
 			rest.setDeliveryneigh(set);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
@@ -487,26 +485,6 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			return rests.get(0).getId();
 		}
 		return -1;
-		/*
-		int id = -1;
-		String sql = "SELECT id FROM restaurante WHERE dirid = ?";
-		Connection dbConnection;
-		DBManager db = DBManager.getInstance();
-		dbConnection = db.getConnection();
-		try {
-			PreparedStatement pstmt = dbConnection.prepareStatement(sql);
-			pstmt.setInt(1, dirId);
-			ResultSet rs = pstmt.executeQuery();
-			if (rs.next()) {
-				id = rs.getInt("id");
-			}
-			rs.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return id;
-		*/
 	}
 	
 	public int saveRestaurant(Restaurant rest) {

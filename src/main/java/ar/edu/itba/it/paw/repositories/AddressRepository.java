@@ -38,8 +38,6 @@ public class AddressRepository extends AbstractHibernateRepository {
 	}
 
 	public int getAddressID(Address address) {
-		// TODO: reveer esta query. No sé si es lo mejor. Necesito conseguir el
-		// id de la última tupla que agregué.
 		int floor = -1;
 		String aprt = "";
 		if (address.getFloor() != -1) {
@@ -73,11 +71,7 @@ public class AddressRepository extends AbstractHibernateRepository {
 		return l;
 	}
 
-	public List<Integer> getIds(Address address) {// String street, int number,
-													// String neighborhood,
-													// String city, String
-													// province, int floor,
-													// String apartment) {
+	public List<Integer> getIds(Address address) {
 		List<Integer> ids = new LinkedList<Integer>();
 		List<Address> results = find(
 				"FROM Address WHERE calle like ? and numero = ? and barrio like ? and localidad like ? "

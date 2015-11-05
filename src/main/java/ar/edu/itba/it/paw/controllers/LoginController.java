@@ -46,7 +46,6 @@ public class LoginController {
 		try {
 			cred = credentialRepository.getCredentials(email, pwd);
 		} catch (CredentialNoMatchException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		};
 		if(cred == null){
@@ -54,8 +53,6 @@ public class LoginController {
 		}else{
 			User user = userRepository.getUser(cred);
 			if(user == null){
-				//debería utilizar el get básico
-				//app error
 				return "";
 			}
 			UserManager userManager = new SessionUserManager(request);

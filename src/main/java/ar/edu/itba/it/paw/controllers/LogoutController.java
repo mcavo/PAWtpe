@@ -14,7 +14,6 @@ import ar.edu.itba.it.paw.UserManager;
 public class LogoutController {
 
 	public LogoutController() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	@RequestMapping(value="/logout", method = RequestMethod.GET)
