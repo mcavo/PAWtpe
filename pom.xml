@@ -10,12 +10,15 @@
 	<url>http://mvnrepository.com/</url>
 
 	<dependencies>
-		<!-- <dependency> <groupId>javax.servlet.jsp.jstl</groupId> <artifactId>javax.servlet.jsp.jstl-api</artifactId> 
-			<version>1.2.1</version> </dependency> -->
+		<dependency>
+			<groupId>javax.servlet.jsp.jstl</groupId>
+			<artifactId>javax.servlet.jsp.jstl-api</artifactId>
+			<version>1.2.1</version>
+		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
-<!-- 			<scope>compile</scope> -->
+			<!-- <scope>compile</scope> -->
 			<version>2.3</version>
 		</dependency>
 
@@ -97,7 +100,7 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
-<!-- 			<scope>compile</scope> -->
+			<!-- <scope>compile</scope> -->
 		</dependency>
 
 		<dependency>
@@ -137,6 +140,12 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.4.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<version>8.0.1</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>log4j</groupId>
