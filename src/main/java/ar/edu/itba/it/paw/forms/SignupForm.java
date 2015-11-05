@@ -8,21 +8,21 @@ import ar.edu.itba.it.paw.models.User;
 
 public class SignupForm {
 
-	String firstname;
-	String lastname;
-	String birthDay;
-	String birthMonth;
-	String birthYear;
-	String email;
-	String pwd;
-	String pwd2;
-	String street;
-	String number;
-	String floor;
-	String apartment;
-	String neigh;
-	String city;
-	String prov;
+	private String firstname;
+	private String lastname;
+	private String birthDay;
+	private String birthMonth;
+	private String birthYear;
+	private String email;
+	private String pwd;
+	private String pwd2;
+	private String street;
+	private String number;
+	private String floor;
+	private String apartment;
+	private String neigh;
+	private String city;
+	private String prov;
 
 	public SignupForm() {
 	}
