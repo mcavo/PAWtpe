@@ -118,7 +118,7 @@ public class RestaurantController {
 	}
 	
 	@RequestMapping(value="/sendOrder", method = RequestMethod.POST)
-	public ModelAndView sendOrder(HttpServletRequest req/*, @RequestParam("name") String name, @RequestParam("srt") String street, @RequestParam("numb") String number, @RequestParam("neigh") String neighborhood, @RequestParam("city") String city, @RequestParam("prov") String province, @RequestParam("flr") String floor, @RequestParam("apt") String apartment*/) {
+	public ModelAndView sendOrder(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
 		String restId = req.getParameter("restId");
 		Restaurant rest = restaurantRepository.getById(Integer.valueOf(restId));

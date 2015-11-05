@@ -2,7 +2,6 @@
 
 <div class="container">
 	<form role="form" action="ask" method="post">
-	<c:when test="${user.firstName==null}">
 		<input type="hidden" name="userId" value="${userId}">
 		<br>
 		<div class="form-group row">
@@ -19,10 +18,6 @@
 				</div>
 			</div>
 		</div>
-	</c:when>
-	<c:otherwise>
-		<input type="hidden" name="userId" value="${user.id}">
-    </c:otherwise>
 		<div class="form-group col-md-6">
 							<label for="inputPassword" class="control-label col-sm-2 ">Nueva contraseña</label>
 							<div class="col-sm-8 col-sm-offset-1">

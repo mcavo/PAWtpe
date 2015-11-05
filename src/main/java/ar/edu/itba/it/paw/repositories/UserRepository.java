@@ -109,7 +109,7 @@ public class UserRepository extends AbstractHibernateRepository{
 	    {
 		    Session sessionSQL = super.getSession();
 		    Transaction tx = sessionSQL.beginTransaction();
-		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("SELECT pregunta FROM preguntas WHERE id = (select pregid from usuario where id = ?)").setParameter(0, userId); 
+		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("SELECT pregunta FROM preguntas WHERE id = (select pregid from usuario where userid = ?)").setParameter(0, userId); 
 		    preguntas = query.list();
 		    tx.commit();
 	    }
@@ -133,6 +133,6 @@ public class UserRepository extends AbstractHibernateRepository{
 	}
 
 	public boolean existsUser(int userId, String name, String lastName) {
-		return !find("from User where id = ? and nombre = ? and apellido = ?", userId, name, lastName).isEmpty();
+		return !find("from User where userid = ? and nombre = ? and apellido = ?", userId, name, lastName).isEmpty();
 	}
 }

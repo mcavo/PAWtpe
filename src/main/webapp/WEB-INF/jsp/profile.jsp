@@ -104,11 +104,6 @@
 							<div class="help-block with-errors"></div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="form-group col-md-4 col-md-offset-4">
-							<a href="#">Cambiar contraseña</a>
-						</div>
-					</div>
 				</div>
 			</div>
 			<div class="panel panel-default">
