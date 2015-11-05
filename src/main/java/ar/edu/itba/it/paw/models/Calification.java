@@ -1,5 +1,8 @@
 package ar.edu.itba.it.paw.models;
 
+import ar.edu.itba.it.paw.services.NumberService;
+import ar.edu.itba.it.paw.services.StringService;
+
 //no esta mapeado porque no tiene id e hibernate no lo acepta
 public class Calification {
 	
@@ -21,6 +24,8 @@ public class Calification {
 	}
 
 	public void setPuntaje(int puntaje) {
+		NumberService.validateMax(puntaje, 5);
+		NumberService.validateMin(puntaje, 0);
 		this.puntaje = puntaje;
 	}
 
@@ -29,6 +34,7 @@ public class Calification {
 	}
 
 	public void setDescripcion(String descripcion) {
+		StringService.validateMaximumLength(descripcion, 500);
 		this.descripcion = descripcion;
 	}
 

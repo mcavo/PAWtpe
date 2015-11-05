@@ -34,9 +34,9 @@ public class ValidateDataService {
 		}
 	}
 	
-	public static void validateApartment(String str) throws Exception {
+	public static void validateApartment(String str) {
 		if(str.length() > 1) {
-			throw new Exception();
+			throw new IllegalArgumentException();
 		}
 	}
 	
@@ -55,7 +55,7 @@ public class ValidateDataService {
 	// nombre - apellido - calle - provincia -localidad - barrio. (Campos obligatorios de tipo string) 
 	public static void validateStringLength(String str, int max) throws Exception {
 		if (!(str.length() > 0 && (str.length() <= max))) {
-			throw new Exception("Invalid parameter");
+			throw new IllegalArgumentException("Invalid parameter");
 		}
 	}
 	
@@ -65,7 +65,7 @@ public class ValidateDataService {
 		}
 	}
 	
-	private static String validateType(String type) throws Exception {
+	private static String validateType(String type) {
 		boolean valid = false;
 		for (String validsTypes : TYPES_FOOD) {
 			if (type.length() < 30 && validsTypes.equals(type)) {
@@ -73,12 +73,12 @@ public class ValidateDataService {
 			}
 		}
 		if (!valid) {
-			throw new Exception();
+			throw new IllegalArgumentException();
 		}
 		return type;
 	}
 	
-	public static ArrayList<String> validateTypes(String[] types) throws Exception {
+	public static ArrayList<String> validateTypes(String[] types) {
 		ArrayList<String> ans = new ArrayList<String>();
 		for (String type : types) {
 			if (!validateType(type).equals("")) {
@@ -86,7 +86,7 @@ public class ValidateDataService {
 			}
 		}
 		if (ans.size() == 0) {
-			throw new Exception();
+			throw new IllegalArgumentException();
 		}
 		return ans;
 	}
@@ -94,14 +94,15 @@ public class ValidateDataService {
 	public static float validateCost(String cost) throws  NumberFormatException, Exception {
 		float value = Float.valueOf(cost);
 		if (value < 0) {
-			throw new Exception(); //TODO: cambiar las exceptiones por algunas más personalizadas. 
+			throw new IllegalArgumentException(); 
 		}
 		return value;
 	}
-	public static float validateMinimum(String minimum) throws  NumberFormatException, Exception {
+
+	public static double validateMinimum(String minimum) {
 		Float value = Float.valueOf(minimum);
 		if (value < 0) {
-			throw new Exception(); //TODO: cambiar las exceptiones por algunas más personalizadas. 
+			throw new IllegalArgumentException(); 
 		}
 		return value;
 	}	

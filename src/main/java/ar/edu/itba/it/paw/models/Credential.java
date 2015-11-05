@@ -1,6 +1,13 @@
 package ar.edu.itba.it.paw.models;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import ar.edu.itba.it.paw.services.StringService;
 @Entity
 @Table(name = "credencial")
 public class Credential {
@@ -22,7 +29,9 @@ public class Credential {
 		
 	}
 	
-	public Credential(int id, String rol, String mail){
+	public Credential(int id, String rol, String mail) {
+		validateRol(rol);
+		StringService.validateMail(mail);
 		this.id = id;
 		this.rol = rol;
 		this.mail = mail;
@@ -38,6 +47,7 @@ public class Credential {
 		return rol;
 	}
 	public void setRol(String rol) {
+		validateRol(rol);
 		this.rol = rol;
 	}
 	
@@ -45,10 +55,12 @@ public class Credential {
 		return mail;
 	}
 	public void setMail(String mail) {
+		StringService.validateMail(mail);
 		this.mail = mail;
 	}
 	
 	public void setPsw(String psw) {
+		StringService.validateMaximumLength(psw, 16);
 		this.psw=psw;
 	}
 
@@ -84,5 +96,11 @@ public class Credential {
 		} else if (!rol.equals(other.rol))
 			return false;
 		return true;
+	}
+	
+	private void validateRol(String rol) {
+		if (!(rol.equals("usuario") || rol.equals("manager") || rol.equals("admin"))) {
+			throw new IllegalArgumentException("invalid rol exception");
+		}
 	}
 }

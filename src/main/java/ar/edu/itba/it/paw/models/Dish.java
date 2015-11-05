@@ -18,7 +18,6 @@ public class Dish {
 	
 	@Column(name = "precio")
 	private float price;
-//	private String sectionMenu;
 	
 	@Column(name = "descripcion")
 	private String description;

@@ -40,24 +40,11 @@ public class UserRepository extends AbstractHibernateRepository{
 	public User getUserById(int id){
 		return get(User.class, id);
 	}
-
-	/*public int getUserId(String mail) {
-		//int userid = credentialDAO.getCredentialID(mail);
-		int userid;
-		try {
-			userid = credentialRepository.getCredentialID(mail);
-		} catch (NoCredentialException e1) {
-			// TODO Auto-generated catch block
-			userid = -1;
-		}
-		return get(User.class, userid).getId();
-	}*/
 	
 	public User setUser(User user, String pwd) {
 		String role;
 		role = user.getIsManager() ? "manager" : "usuario"; 
 		int userid = -1;
-		//int userid = credentialDAO.setCredentials(user.getEmail(), pwd, role); //Excpetion use to give feedback to the user if the email is still used
 		Credential credential = new Credential();
 		credential.setMail(user.getEmail());
 		credential.setRol(role);

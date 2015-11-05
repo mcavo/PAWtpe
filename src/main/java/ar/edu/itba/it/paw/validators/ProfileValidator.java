@@ -85,7 +85,7 @@ public class ProfileValidator implements Validator {
 		public static boolean validateMail(String email) {
 			Pattern pattern = Pattern.compile(EMAIL_PATTERN, Pattern.CASE_INSENSITIVE);
 			Matcher matcher = pattern.matcher(email);
-			if (email.length() > 40 && !matcher.matches()) {
+			if (email.length() > 40 || !matcher.matches()) {
 				return false;
 			}
 			return true;

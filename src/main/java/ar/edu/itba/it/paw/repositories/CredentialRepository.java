@@ -91,7 +91,6 @@ public class CredentialRepository extends AbstractHibernateRepository {
 		try {
 			update(c);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

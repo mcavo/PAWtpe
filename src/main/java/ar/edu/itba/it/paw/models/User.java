@@ -10,6 +10,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import ar.edu.itba.it.paw.services.StringService;
+
 @Entity
 @Table(name = "usuario")
 public class User implements UserPermissions {
@@ -45,7 +47,6 @@ public class User implements UserPermissions {
 	public User(){}
 
 	public User(String firstName, String lastName, Date birth) {
-		// TODO Auto-generated constructor stub
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
 		this.setBirth(birth);
@@ -64,6 +65,7 @@ public class User implements UserPermissions {
 	}
 
 	public void setEmail(String email) {
+		StringService.validateMail(email);
 		this.email = email;
 	}
 
@@ -84,20 +86,10 @@ public class User implements UserPermissions {
 	}
 
 	public void setAddress(Address address) {
-		this.address = address;
-	}
-	
-	public int getAge() { // testear esto
-		/*LocalDate today = LocalDate.now();
-		int answer = this.birth.getYear() - today.getYear();
-		if (this.birth.getMonthValue() - today.getMonthValue() > 0) {
-			return answer;
-		} else if (this.birth.getDayOfMonth() - today.getDayOfMonth() < 0){
-			return answer - 1;
+		if (address == null) {
+			throw new IllegalArgumentException();
 		}
-		return answer; 
-		*/
-		return 0;
+		this.address = address;
 	}
 	
 	/* User Permissions */
@@ -118,6 +110,7 @@ public class User implements UserPermissions {
 	}
 
 	public void setFirstName(String firstName) {
+		StringService.validateMaximumLength(firstName, 30);
 		this.firstName = firstName;
 	}
 
@@ -126,6 +119,7 @@ public class User implements UserPermissions {
 	}
 
 	public void setLastName(String lastName) {
+		StringService.validateMaximumLength(lastName, 30);
 		this.lastName = lastName;
 	}
 	
@@ -142,6 +136,7 @@ public class User implements UserPermissions {
 	}
 
 	public void setAnswer(String answer) {
+		StringService.validateMaximumLength(answer, 100);
 		this.answer = answer;
 	}
 }

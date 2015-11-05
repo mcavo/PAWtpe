@@ -1,9 +1,10 @@
 package ar.edu.itba.it.paw.models;
 
+import ar.edu.itba.it.paw.services.StringService;
+
 public class Admin {
 	private String name;
 	private String email;
-//	private String phone;
 	
 	public Admin(String name, String email) {
 		this.setName(name);
@@ -15,6 +16,7 @@ public class Admin {
 	}
 
 	public void setName(String name) {
+		StringService.validateMaximumLength(name, 30);
 		this.name = name;
 	}
 
@@ -23,6 +25,7 @@ public class Admin {
 	}
 
 	public void setEmail(String email) {
+		StringService.validateMail(email);
 		this.email = email;
 	}
 

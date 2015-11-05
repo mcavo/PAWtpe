@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import ar.edu.itba.it.paw.services.StringService;
+
 @Entity
 @Table(name = "direccion")
 public class Address {
@@ -42,7 +44,6 @@ public class Address {
 	}
 	
 	public Address(String street, Integer number, Integer floor, String apartment, Integer neighborhood, String city, String province) {
-	//public Address(String street, int number, String city, String province, String neighborhood) {
 		this.setStreet(street);
 		this.setNumber(number);
 		this.setNeighborhood(neighborhood);
@@ -58,6 +59,7 @@ public class Address {
 	}
 
 	public void setStreet(String street) {
+		StringService.validateMaximumLength(street, 30);
 		this.street = street;
 	}
 
@@ -85,6 +87,7 @@ public class Address {
 	}
 
 	public void setCity(String city) {
+		StringService.validateMaximumLength(city, 30);
 		this.city = city;
 	}
 
@@ -93,6 +96,7 @@ public class Address {
 	}
 
 	public void setProvince(String province) {
+		StringService.validateMaximumLength(province, 30);
 		this.province = province;
 	}
 
@@ -104,6 +108,9 @@ public class Address {
 	}
 
 	public void setFloor(Integer floor) {
+		if (floor != null) {
+			validateFloor(floor);	
+		}
 		this.floor = floor;
 	}
 
@@ -112,6 +119,9 @@ public class Address {
 	}
 
 	public void setApartment(String apartment) {
+		if (apartment != null) {
+			validateApartment(apartment);	
+		}
 		this.apartment = apartment;
 	}
 
@@ -124,5 +134,17 @@ public class Address {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public static void validateFloor(int i) {
+		if (i < -1) {
+			throw new IllegalArgumentException("Invalid floor");
+		}
+	}
+	
+	public static void validateApartment(String str) {
+		if(str.length() > 1) {
+			throw new IllegalArgumentException("Invalid apartment");
+		}
 	}
 }
