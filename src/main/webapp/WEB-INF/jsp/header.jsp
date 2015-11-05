@@ -26,18 +26,18 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="/PAWTPE/bin/homepage/">Food on Board</a>
+			<a class="navbar-brand" href="/PAWTPE/bin/homepage">Food on Board</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<c:choose>
 					<c:when test="${user.isAdmin}">
-						<li><a href="/PAWTPE/bin/addManager/">Agregar manager</a></li>
+						<li><a href="/PAWTPE/bin/addManager">Agregar manager</a></li>
 						<li><a href="/PAWTPE/bin/restaurant/register">Agregar restaurante</a></li>
 					</c:when>
 					<c:when test="${user.isManager}">
 						<li><a href="/PAWTPE/bin/restaurant/addDish">Agregar menu</a></li>
-						<li><a href="/PAWTPE/bin/showOrders/">Ver historial</a></li>
+						<li><a href="/PAWTPE/bin/showOrders">Ver historial</a></li>
 					</c:when> 
 				</c:choose>
 				<li><a href="/PAWTPE/bin/restaurant/list">Restaurantes</a></li>
@@ -47,14 +47,14 @@
 			<ul class="nav navbar-nav navbar-right">
 				<c:choose>
 					<c:when test="${user.firstName==null}">
-						<li><a href="../login/">Ingresa</a></li>
-						<li><a href="../signup/">Regístrate</a></li>
+						<li><a href="../login">Ingresa</a></li>
+						<li><a href="../signup">Regístrate</a></li>
 					</c:when>    
     				<c:otherwise>
     					<li><a href="/PAWTPE/bin/restaurant/status">Pedido</a></li>
     					<li><a href="../profile/edit">${user.firstName}</a></li> 
-    					<!-- li><a href="../user/ask/">Cambiar contraseña</a></li-->
-    					<li><a href="../logout/">Salir</a></li>
+    					<!-- li><a href="../user/ask">Cambiar contraseña</a></li-->
+    					<li><a href="../logout">Salir</a></li>
     				</c:otherwise>
     			</c:choose>
 			</ul>

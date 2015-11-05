@@ -124,7 +124,7 @@ public class RestaurantController {
 		Restaurant rest = restaurantRepository.getById(Integer.valueOf(restId));
 		User user = (User) req.getAttribute("user");
 		if(user == null){
-			return new ModelAndView("redirect:../homepage/");
+			return new ModelAndView("redirect:../homepage");
 		}
 		mav.addObject("rest", rest);
 		Enumeration en = req.getParameterNames();
@@ -140,7 +140,7 @@ public class RestaurantController {
 		}
 		Integer orderId = orderRepository.sendOrder(user, rest, map);
 		if(orderId <= 0){
-			return new ModelAndView("redirect:../homepage/");
+			return new ModelAndView("redirect:../homepage");
 		}
 		/*if(!orderRepository.sendOrder(user.getId(), rest, map)){
 			return new ModelAndView("redirect:../homepage/");
@@ -162,17 +162,17 @@ public class RestaurantController {
 	public String status(HttpServletRequest request) {
 		User user = (User) request.getAttribute("user");
 		if(user == null){
-			return "redirect:../homepage/";
+			return "redirect:../homepage";
 		}
 		orderRepository.updateStatus(user, request.getParameter("orderID"), request.getParameter("estado"));
-		return "redirect:../homepage/";
+		return "redirect:../homepage";
 	}
 	
 	@RequestMapping(value="/register", method = RequestMethod.GET)
 	public ModelAndView register(HttpServletRequest request) {
 		User user = (User) request.getAttribute("user");
 		if(user == null || !user.getIsAdmin()){
-			return new ModelAndView("redirect:../homepage/");
+			return new ModelAndView("redirect:../homepage");
 		}
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("registerRestaurant");
@@ -186,10 +186,10 @@ public class RestaurantController {
 	public ModelAndView register(HttpServletRequest request, RegisterRestForm form, Errors e) {
 		User user = (User) request.getAttribute("user");
 		if(user == null || !user.getIsAdmin()){
-			return new ModelAndView("redirect:../homepage/");
+			return new ModelAndView("redirect:../homepage");
 		}
 		registerRestValidator.validate(form, e);
-		ModelAndView mav = new ModelAndView("redirect:../signup/");
+		ModelAndView mav = new ModelAndView("redirect:../signup");
 		if (e.hasErrors()) {
 			request.setAttribute("message","Datos de registro de restaurante inválidos");
 			return mav;
@@ -198,7 +198,7 @@ public class RestaurantController {
 			return mav;
 		}
 
-		return new ModelAndView("redirect:../homepage/");
+		return new ModelAndView("redirect:../homepage");
 	}
 	
 	@RequestMapping(value="/addDish", method = RequestMethod.GET)
@@ -209,7 +209,7 @@ public class RestaurantController {
 			request.setAttribute("rest", managerRepository.getRestaurant(user));
 			mav.setViewName("addDish");
 		}else{
-			return new ModelAndView("redirect:../homepage/");
+			return new ModelAndView("redirect:../homepage");
 		}
 		return mav;
 	}
@@ -222,7 +222,7 @@ public class RestaurantController {
 			managerRepository.addDish(managerRepository.getRestaurant(user), section, dish, Integer.valueOf(price), description);
 			mav.setViewName("addDish");
 		}else{
-			return new ModelAndView("redirect:../homepage/");
+			return new ModelAndView("redirect:../homepage");
 		}
 		return mav;
 	}
