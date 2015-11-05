@@ -14,7 +14,7 @@
 						<div class="form-group">
 							<form:input path="name" type="text" class="form-control"
 								id="inputName" placeholder="Nombre del restaurante" name="name"
-								required></form:input>
+								required="required"></form:input>
 						</div>
 
 						<div class="form-group">
@@ -131,7 +131,7 @@
 							<div class="col-sm-10">
 								<form:input path="street" type="text" maxlength="30"
 									class="form-control" id="inputStreet" placeholder="Calle"
-									name="street" required></form:input>
+									name="street" required="required"></form:input>
 							</div>
 						</div>
 					</div>
@@ -139,9 +139,9 @@
 						<div class="form-group has-feedback">
 							<label for="inputNumber" class="control-label col-sm-4">Altura:</label>
 							<div class="col-sm-8">
-								<form:input path="number" type="number" min=0
+								<form:input path="number" type="number" min="0"
 									class="form-control" id="inputNumber" placeholder="Altura"
-									name="number" required></form:input>
+									name="number" required="required"></form:input>
 							</div>
 						</div>
 					</div>
@@ -149,7 +149,7 @@
 						<div class="form-group has-feedback">
 							<label for="inputFloor" class="control-label col-sm-3">Piso:</label>
 							<div class="col-sm-9">
-								<form:input path="floor" type="number" min=0
+								<form:input path="floor" type="number" min="0"
 									class="form-control" id="inputFloor" placeholder="Piso"
 									name="floor"></form:input>
 							</div>
@@ -159,7 +159,7 @@
 						<div class="form-group has-feedback">
 							<label for="inputApartment" class="control-label col-sm-3">Depto:</label>
 							<div class="col-sm-9">
-								<form:input path="apartment" type="text" maxlength=1
+								<form:input path="apartment" type="text" maxlength="1"
 									class="form-control" id="inputApartment" placeholder="Depto"
 									name="apartment"></form:input>
 							</div>
@@ -183,8 +183,9 @@
 						<div class="form-group has-feedback">
 							<label for="inputCity" class="control-label col-sm-4">Localidad:</label>
 							<div class="col-sm-8">
-								<form:input path="city" type="text" class="form-control" maxlength=30
-									id="inputCity" placeholder="Localidad" name="city" required></form:input>
+								<form:input path="city" type="text" class="form-control"
+									maxlength="30" id="inputCity" placeholder="Localidad"
+									name="city" required="required"></form:input>
 							</div>
 						</div>
 					</div>
@@ -192,13 +193,13 @@
 						<div class="form-group has-feedback">
 							<label for="inputProvince" class="control-label col-sm-4">Provincia</label>
 							<div class="col-sm-8">
-								<form:input path="prov" type="text" class="form-control" maxlength=30
-									id="inputProvince" placeholder="Provincia" required
-									name="province"></form:input>
+								<form:input path="prov" type="text" class="form-control"
+									maxlength="30" id="inputProvince" placeholder="Provincia"
+									required="required" name="province"></form:input>
 							</div>
 						</div>
 					</div>
-					
+
 				</div>
 				<br>
 				<div class="row">
@@ -211,16 +212,16 @@
 						<label for="inputFrom" class="control-label col-md-4">Hora
 							de apertura:</label>
 						<div class="form-group col-md-8">
-							<form:input path="from" type="time" class="form-control" id="inputFrom"
-								placeholder="DD" required name="from"></form:input>
+							<form:input path="from" type="time" class="form-control"
+								id="inputFrom" placeholder="DD" required="required" name="from"></form:input>
 						</div>
 					</div>
 					<div class="form-group col-md-6">
 						<label for="inputTo" class="control-label col-md-4">Hora
 							de cierre:</label>
 						<div class="form-group col-md-8">
-							<form:input path="to" type="time" class="form-control" id="inputTo"
-								placeholder="DD" required name="to"></form:input>
+							<form:input path="to" type="time" class="form-control"
+								id="inputTo" placeholder="DD" required="required" name="to"></form:input>
 						</div>
 					</div>
 					<div class="help-block with-errors"></div>
@@ -235,19 +236,58 @@
 						<label for="inputFrom" class="control-label col-md-4">Monto
 							mínimo:</label>
 						<div class="input-group form-group col-md-6 col-md-offset-1">
-							<span class="input-group-addon">$</span> <form:input path="minAmount" type="number"
-								min=0 class="form-control"
-								aria-label="Amount (to the nearest dollar)" name="minimum"
-								required></form:input> <span class="input-group-addon">.00</span>
+							<span class="input-group-addon">$</span>
+							<form:input path="minamount" type="number" min="0"
+								class="form-control" aria-label="Amount (to the nearest dollar)"
+								name="minimum" required="required"></form:input>
+							<span class="input-group-addon">.00</span>
 						</div>
+					</div>
+					<div class="help-block with-errors"></div>
+				</div>
+				<div class="row">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">Información de delivery</h3>
+						</div>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="inputFrom" class="control-label col-md-4">Hora
+							de apertura:</label>
+						<div class="form-group col-md-8">
+							<form:input path="deliveryfrom" type="time" class="form-control"
+								id="deliveryinputFrom" placeholder="DD" required="required"
+								name="from"></form:input>
+						</div>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="inputTo" class="control-label col-md-4">Hora
+							de cierre:</label>
+						<div class="form-group col-md-8">
+							<form:input path="deliveryto" type="time" class="form-control"
+								id="deliveryinputTo" placeholder="DD" required="required"
+								name="to"></form:input>
+						</div>
+					</div>
+					<div class="col-md-6 checkbox">
+						<c:forEach items="${neighList}" var="neigh">
+							<div class="checkbox form-group">
+								<form:input path="delneigh" type="checkbox" name="checkboxes"
+									id="neighdel-${neigh.id}" value="${neigh.id}"></form:input>
+								${neigh.name}
+
+							</div>
+						</c:forEach>
+
 					</div>
 					<div class="form-group form-group col-md-6">
 						<label for="inputTo" class="control-label col-md-4">Costo
 							de envío: </label>
 						<div class="input-group form-group col-md-6 col-md-offset-1">
-							<span class="input-group-addon">$</span> <input type="number"
-								min=0 class="form-control"
-								aria-label="Amount (to the nearest dollar)" name="cost" required>
+							<span class="input-group-addon">$</span>
+							<form:input path="delamount" type="number" min="0"
+								class="form-control" aria-label="Amount (to the nearest dollar)"
+								name="cost"></form:input>
 							<span class="input-group-addon">.00</span>
 						</div>
 					</div>

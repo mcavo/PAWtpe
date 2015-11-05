@@ -2,7 +2,6 @@ package ar.edu.itba.it.paw.controllers;
 
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.itba.it.paw.SessionUserManager;
-import ar.edu.itba.it.paw.UserManager;
+import ar.edu.itba.it.paw.forms.RegisterRestForm;
 import ar.edu.itba.it.paw.forms.SignupForm;
 import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
+import ar.edu.itba.it.paw.repositories.AddressRepository;
 import ar.edu.itba.it.paw.repositories.CalificationRepository;
 import ar.edu.itba.it.paw.repositories.ManagerRepository;
 import ar.edu.itba.it.paw.repositories.OrderRepository;
@@ -34,13 +33,15 @@ public class RestaurantController {
 	private final OrderRepository orderRepository;
 	private final RestaurantRepository restaurantRepository;
 	private final ManagerRepository managerRepository;
+	private final AddressRepository addressRepository;
 	
 	@Autowired
-	public RestaurantController(RestaurantRepository restaurantRepo, CalificationRepository calificationRepo, ManagerRepository managerRepo, OrderRepository orderRepo){
+	public RestaurantController(RestaurantRepository restaurantRepo, CalificationRepository calificationRepo, ManagerRepository managerRepo, OrderRepository orderRepo, AddressRepository addressRepository){
 		this.calificationRepository = calificationRepo;
 		this.orderRepository = orderRepo;
 		this.restaurantRepository = restaurantRepo;
 		this.managerRepository = managerRepo;
+		this.addressRepository=addressRepository;
 	}
 	
 	@RequestMapping(value="/list", method = RequestMethod.GET)
@@ -165,19 +166,29 @@ public class RestaurantController {
 	}
 	
 	@RequestMapping(value="/register", method = RequestMethod.GET)
-	public ModelAndView register() {
+	public ModelAndView register(HttpServletRequest request) {
+		User user = (User) request.getAttribute("user");
+		if(user == null || !user.getIsAdmin()){
+			return new ModelAndView("redirect:../homepage/");
+		}
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("registerRestaurant");
+		mav.addObject("neighList", addressRepository.getNeigh());
+		mav.addObject("registerRestForm", new RegisterRestForm());
 		return mav;
 	}
 	
 	@RequestMapping(value="/register", method = RequestMethod.POST)
-	public ModelAndView register(@RequestParam("name") String name, @RequestParam("street") String street, @RequestParam("number") String number, @RequestParam("neighborhood") String neighborhood, @RequestParam("city") String city, @RequestParam("province") String province, @RequestParam("floor") String floor, @RequestParam("apartment") String apartment, @RequestParam(value="description", required=false) String description,  @RequestParam("from") String from,  @RequestParam("to") String to,  @RequestParam("minimum") String minimum,  @RequestParam("cost") String cost, @RequestParam("checkboxes") String[] types) {
+	public ModelAndView register(HttpServletRequest request, RegisterRestForm form, Errors e) {
+		User user = (User) request.getAttribute("user");
+		if(user == null || !user.getIsAdmin()){
+			return new ModelAndView("redirect:../homepage/");
+		}
 		ModelAndView mav = new ModelAndView();
 		try {
-			restaurantRepository.setRestaurant(name, description, types, from, to, street, number, city, province, floor, apartment, neighborhood, minimum, cost);
-		} catch (Exception e) {
-			e.printStackTrace();
+			//restaurantRepository.setRestaurant(name, description, types, from, to, street, number, city, province, floor, apartment, neighborhood, minimum, cost);
+		} catch (Exception er) {
+			er.printStackTrace();
 			return mav;
 		}
 		return new ModelAndView("redirect:../homepage/");

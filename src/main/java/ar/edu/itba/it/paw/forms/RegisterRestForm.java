@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.forms;
 
+import ar.edu.itba.it.paw.models.Restaurant;
+
 public class RegisterRestForm {
 	
 	private String name;
@@ -14,7 +16,122 @@ public class RegisterRestForm {
 	private String prov;
 	private String from;
 	private String to;
-	private String deliveryFrom;
-	private String deliveryTo;
+	private String minamount;
+	private String delamount;
+	private String[] delneigh;
+	private String deliveryfrom;
+	private String deliveryto;
+	
+	public RegisterRestForm() {
+	}
+	
+	public Restaurant build() {
+		return null;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public String[] getTfood() {
+		return tfood;
+	}
+	public void setTfood(String[] tfood) {
+		this.tfood = tfood;
+	}
+	public String getStreet() {
+		return street;
+	}
+	public void setStreet(String street) {
+		this.street = street;
+	}
+	public String getNumber() {
+		return number;
+	}
+	public void setNumber(String number) {
+		this.number = number;
+	}
+	public String getFloor() {
+		return floor;
+	}
+	public void setFloor(String floor) {
+		this.floor = floor;
+	}
+	public String getApartment() {
+		return apartment;
+	}
+	public void setApartment(String apartment) {
+		this.apartment = apartment;
+	}
+	public String getNeigh() {
+		return neigh;
+	}
+	public void setNeigh(String neigh) {
+		this.neigh = neigh;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	public String getProv() {
+		return prov;
+	}
+	public void setProv(String prov) {
+		this.prov = prov;
+	}
+	public String getFrom() {
+		return from;
+	}
+	public void setFrom(String from) {
+		this.from = from;
+	}
+	public String getTo() {
+		return to;
+	}
+	public void setTo(String to) {
+		this.to = to;
+	}
+	public String getMinamount() {
+		return minamount;
+	}
+	public void setMinamount(String minamount) {
+		this.minamount = minamount;
+	}
+	public String getDelamount() {
+		return delamount;
+	}
+	public void setDelamount(String delamount) {
+		this.delamount = delamount;
+	}
+	public String[] getDelneigh() {
+		return delneigh;
+	}
+	public void setDelneigh(String[] delneigh) {
+		this.delneigh = delneigh;
+	}
+	public String getDeliveryfrom() {
+		return deliveryfrom;
+	}
+	public void setDeliveryfrom(String deliveryfrom) {
+		this.deliveryfrom = deliveryfrom;
+	}
+	public String getDeliveryto() {
+		return deliveryto;
+	}
+	public void setDeliveryto(String deliveryto) {
+		this.deliveryto = deliveryto;
+	}
+	
+	
 
 }

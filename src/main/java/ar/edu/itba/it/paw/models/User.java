@@ -37,7 +37,7 @@ public class User implements UserPermissions {
 	private int id;
 	
 	@Column(name = "pregid")
-	private int question;
+	private Integer question;
 	
 	@Column(name="respuesta")
 	private String answer;
@@ -129,11 +129,11 @@ public class User implements UserPermissions {
 		this.lastName = lastName;
 	}
 	
-	public int getQuestion() {
+	public Integer getQuestion() {
 		return question;
 	}
 
-	public void setQuestion(int question) {
+	public void setQuestion(Integer question) {
 		this.question = question;
 	}
 
