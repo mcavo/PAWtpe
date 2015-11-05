@@ -42,7 +42,7 @@ public class ManagerController {
 			request.setAttribute("olist", orderRepository.getHistory(rest));
 			mav.setViewName("showOrders");
 		}else{
-			return new ModelAndView("redirect:../homepage");
+			return new ModelAndView("redirect:/bin/homepage");
 		}
 		return mav;
 	}
@@ -66,7 +66,7 @@ public class ManagerController {
 			mav.setViewName("addManager");
 			return mav;
 		}else{
-			return new ModelAndView("redirect:../homepage");
+			return new ModelAndView("redirect:/bin/homepage");
 		}
 	}
 
@@ -77,6 +77,6 @@ public class ManagerController {
 		if (user != null && user.getIsAdmin() && !managerRepository.addManager(userid, restid)) {
 			return "redirect:addManager";
 		}
-		return "redirect:../homepage";
+		return "redirect:/bin/homepage";
 	}
 }

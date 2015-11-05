@@ -23,7 +23,7 @@
 		<div class="col-md-8">
 			<div class="col-md-12">
 				<ul class="nav nav-pills nav-justified">
-					<li ><a href="/PAWTPE/bin/restaurant/menu?code=${rest.id}">Menú</a></li>
+					<li ><a href="/bin/restaurant/menu?code=${rest.id}">Menú</a></li>
 					<li class="active"><a
 						href="#">Información</a></li>
 				</ul>

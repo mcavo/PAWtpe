@@ -54,10 +54,10 @@ public class SignupController {
 	public ModelAndView signup(HttpServletRequest request, SignupForm form, Errors e) {
 		UserManager userManager = new SessionUserManager(request);
 		if (userManager.existsUser()) {
-			return new ModelAndView("redirect:../homepage");
+			return new ModelAndView("redirect:/bin/homepage");
 		}
 		signupValidator.validate(form, e);
-		ModelAndView mav = new ModelAndView("redirect:../signup");
+		ModelAndView mav = new ModelAndView("redirect:/bin/signup");
 		if (e.hasErrors()) {
 			request.setAttribute("message","Datos de registro inválidos");
 			return mav;
@@ -66,6 +66,6 @@ public class SignupController {
 			return mav;
 		}
 
-		return new ModelAndView("redirect:../homepage");
+		return new ModelAndView("redirect:/bin/homepage");
 	}
 }

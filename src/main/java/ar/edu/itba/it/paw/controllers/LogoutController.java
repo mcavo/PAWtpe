@@ -22,6 +22,6 @@ public class LogoutController {
 		if (userManager.existsUser()) {
 			userManager.resetUser(null);
 		}
-		return new ModelAndView("redirect:../homepage");
+		return new ModelAndView("redirect:/bin/homepage");
 	}
 }

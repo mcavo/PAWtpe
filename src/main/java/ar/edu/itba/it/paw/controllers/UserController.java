@@ -62,6 +62,6 @@ public class UserController {
 	@RequestMapping(value="/ask", method = RequestMethod.POST)
 	public String askQuestion(@RequestParam("userId") String userId, @RequestParam("respuesta") String resp, @RequestParam("pwd") String pwd) {
 		userRepository.updatePassword(userId, pwd, resp);
-		return "redirect:../homepage";
+		return "redirect:/bin/homepage";
 	}
 }

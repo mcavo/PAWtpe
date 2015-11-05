@@ -41,7 +41,7 @@ public class ProfileController {
 	public ModelAndView edit(HttpServletRequest request) {
 		User user = (User) request.getAttribute("user");
 		if (user == null) {
-			return new ModelAndView("redirect:../homepage/");
+			return new ModelAndView("redirect:/bin/homepage/");
 		}
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("profile");
@@ -59,7 +59,7 @@ public class ProfileController {
 	public ModelAndView update(HttpServletRequest request, EditProfileForm form, Errors e) {
 		UserManager userManager = new SessionUserManager(request);
 		profileValidator.validate(form, e);
-		ModelAndView mav = new ModelAndView("redirect:../profile/edit");
+		ModelAndView mav = new ModelAndView("redirect:/bin/profile/edit");
 		User us = form.build();
 		User curr = (User) request.getAttribute("user");
 		us.setId(curr.getId());
@@ -72,6 +72,6 @@ public class ProfileController {
 			request.setAttribute("message","El usuario no puede ser editado");
 			return mav;
 		}
-		return new ModelAndView("redirect:../homepage/");
+		return new ModelAndView("redirect:/bin/homepage/");
 	}
 }

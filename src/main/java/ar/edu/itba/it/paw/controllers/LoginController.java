@@ -36,7 +36,7 @@ public class LoginController {
 		if (user == null) {
 			return mav;
 		}else{
-			return new ModelAndView("redirect:../homepage");
+			return new ModelAndView("redirect:/bin/homepage");
 		}
 	}
 	
@@ -57,7 +57,7 @@ public class LoginController {
 			}
 			UserManager userManager = new SessionUserManager(request);
 			userManager.setUser(user);
-			return "redirect:../homepage";
+			return "redirect:/bin/homepage";
 		}
 	}
 }

@@ -7,7 +7,7 @@
 		<h2>Pedir comida nunca fue tan fácil</h2>
 		<p>Estás a un click de lo que buscás.</p>
 		<p>
-			<a class="btn btn-lg btn-primary" href="/PAWTPE/bin/signup" role="button">Sign in
+			<a class="btn btn-lg btn-primary" href="/bin/signup" role="button">Sign in
 				»</a>
 		</p>
 	</div>
@@ -17,7 +17,7 @@
 	<c:forEach items="${weekRests}" var="rest">
 
 
-		<a href="/PAWTPE/bin/restaurant/menu?code=${rest.id}">
+		<a href="/bin/restaurant/menu?code=${rest.id}">
 					<div class="bs-callout bs-callout-info">
 						<h4>${rest.nombre}</h4>
 						<p>
