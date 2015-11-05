@@ -2,7 +2,6 @@ package models;
 
 import org.junit.Test;
 
-import ar.edu.itba.it.paw.models.Admin;
 import ar.edu.itba.it.paw.models.Calification;
 
 public class CalificationTest {

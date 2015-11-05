@@ -15,6 +15,7 @@ public class AbstractHibernateRepository {
 			this.sessionFactory = sessionFactory;
 		}
 
+		@SuppressWarnings("unchecked")
 		public <T> T get(Class<T> type, Serializable id) {
 			Session session = getSession();
 			Transaction tx = session.beginTransaction();

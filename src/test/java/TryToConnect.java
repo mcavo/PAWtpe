@@ -1,5 +1,4 @@
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -7,7 +6,6 @@ import ar.edu.itba.it.paw.DBManager;
 
 public class TryToConnect {
 
-	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		Connection dbConnection;
 		DBManager db = DBManager.getInstance();

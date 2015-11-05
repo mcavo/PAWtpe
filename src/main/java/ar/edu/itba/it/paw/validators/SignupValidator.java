@@ -1,6 +1,5 @@
 package ar.edu.itba.it.paw.validators;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;

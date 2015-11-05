@@ -1,11 +1,8 @@
 package models;
 
-import java.util.Date;
-
 import org.junit.Test;
 
 import ar.edu.itba.it.paw.models.Address;
-import ar.edu.itba.it.paw.models.User;
 
 public class AddressTest {
 

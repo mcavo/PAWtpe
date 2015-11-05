@@ -33,7 +33,7 @@ public class RegisterRestForm {
 	
 	public Restaurant build() {
 		Address address = getAddress();
-		List<String> l = new ArrayList();
+		List<String> l = new ArrayList<String>();
 		for(String s : tfood) {
 			l.add(s);
 		}
