@@ -71,12 +71,18 @@ public class TryToConnect {
 			//dbConnection.createStatement().execute("INSERT INTO barrio(nombre) values ('Belgrano')");
 			//dbConnection.createStatement().execute("INSERT INTO barrio(nombre) values ('Flores')");
 			//dbConnection.createStatement().execute("ALTER TABLE ");
-
 			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM pedido;");
+			//dbConnection.createStatement().execute("DROP TABLE delivery;");
+			//dbConnection.createStatement().execute("ALTER TABLE usuario ADD FOREIGN KEY (pregid) REFERENCES preguntas(id);");
+			//dbConnection.createStatement().execute("UPDATE delivery SET costo=0.0 WHERE costo IS NULL; ");
+			//dbConnection.createStatement().execute("ALTER TABLE delivery ALTER COLUMN costo SET NOT NULL;");
+			//dbConnection.createStatement().execute("ALTER TABLE restaurante ADD COLUMN deliverydesde FLOAT");
+			//dbConnection.createStatement().execute("ALTER TABLE restaurante ADD COLUMN deliveryhasta FLOAT");
+			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM information_schema.columns WHERE table_name = 'restaurante';");
 			//dbConnection.createStatement().execute("DELETE FROM credencial WHERE id=42;");
 			
 			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM pedido where restid = 1");
-			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM information_schema.columns WHERE table_name  = 'delivery'");
+//			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM information_schema.columns WHERE table_name  = 'delivery'");
 			//dbConnection.createStatement().execute("ALTER TABLE restaurante ALTER COLUMN descripcion DROP NOT NULL;");
 			//dbConnection.createStatement().execute("DELETE FROM plato WHERE id=3;");
 			//dbConnection.createStatement().execute("ALTER TABLE restaurante ALTER COLUMN regis SET DEFAULT CURRENT_TIMESTAMP;");

@@ -12,6 +12,9 @@ public class Neighborhood {
 	@Id
 	@Column(name = "id")
 	private Integer id;
+	
+	@Column(name = "nombre", unique = true)
+	private String name;
 
 	// Only to use with javabean
 	public Neighborhood() {
@@ -20,9 +23,6 @@ public class Neighborhood {
 	public Neighborhood(String name) {
 		this.name = name;
 	}
-
-	@Column(name = "nombre", unique = true)
-	private String name;
 
 	public Integer getId() {
 		return id;

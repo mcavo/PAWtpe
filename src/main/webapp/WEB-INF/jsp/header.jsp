@@ -52,7 +52,7 @@
 					</c:when>    
     				<c:otherwise>
     					<li><a href="/PAWTPE/bin/restaurant/status">Pedido</a></li>
-    					<li><a href="">${user.firstName}</a></li> 
+    					<li><a href="../profile/edit">${user.firstName}</a></li> 
     					<!-- li><a href="../user/ask/">Cambiar contraseña</a></li-->
     					<li><a href="../logout/">Salir</a></li>
     				</c:otherwise>

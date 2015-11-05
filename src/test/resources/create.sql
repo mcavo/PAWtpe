@@ -12,6 +12,16 @@ CREATE TABLE preguntas (
 	UNIQUE(pregunta)
 );
 
+CREATE TABLE delivery (
+	restid INTEGER NOT NULL,
+	barrioid INTEGER NOT NULL,
+	
+	costo FLOAT NOT NULL,
+	
+	PRIMARY KEY(restid,barrioid),
+	FOREIGN KEY(barrioid) REFERENCES barrio(id) ON DELETE CASCADE,
+	FOREIGN KEY(restid) REFERENCES restaurante(id) ON DELETE CASCADE
+);
 
 CREATE TABLE direccion (
 	id SERIAL NOT NULL,
@@ -21,9 +31,9 @@ CREATE TABLE direccion (
 	numero int NOT NULL,
 	piso int,
 	departamento char,
-	idbarrio int NOT NULL,
+	barrioid int NOT NULL,
 	PRIMARY KEY(id),
-	FOREIGN KEY(idbarrio) REFERENCES barrio(id) ON DELETE CASCADE
+	FOREIGN KEY(barrioid) REFERENCES barrio(id) ON DELETE CASCADE
 );
 
 CREATE TABLE credencial (
@@ -41,14 +51,16 @@ CREATE TABLE usuario (
 	apellido VARCHAR(30) NOT NULL,
 	nacimiento DATE NOT NULL,
 	dirid INTEGER NOT NULL,
+	pregid INTEGER,
+	respuesta VARCHAR(100),
 	PRIMARY KEY(userid),
 	FOREIGN KEY(userid) REFERENCES credencial(id) ON DELETE CASCADE,
-	FOREIGN KEY(dirid) REFERENCES direccion(id) ON DELETE CASCADE
+	FOREIGN KEY(dirid) REFERENCES direccion(id) ON DELETE CASCADE,	
+	FOREIGN KEY(pregid) REFERENCES preguntas(id) ON DELETE CASCADE, 
 );
 
 CREATE TABLE restaurante (
 	id SERIAL NOT NUL,
-	gerid INTEGER NOT NULL,
 	dirid INTEGER NOT NULL,
 	nombre VARCHAR(30) NOT NULL,
 	descripcion VARCHAR(500) NOT NULL,
@@ -56,7 +68,9 @@ CREATE TABLE restaurante (
 	hasta FLOAT NOT NULL,
 	montomin FLOAT NOT NULL,
 	regis TIMESTAMP NOT NULL SET DEFAULT CURRENT_TIMESTAMP,
-	costoenvio FLOAT,	
+	costoenvio FLOAT,
+	deliverydesde FLOAT NOT NULL,
+	deliveryhasta FLOAT NOT NULL,
 	PRIMARY KEY(id),
 	UNIQUE(dirid), 
 	FOREIGN KEY(gerid) REFERENCES TO usuario(userid) ON DELETE CASCADE, 

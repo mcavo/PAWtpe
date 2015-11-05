@@ -13,6 +13,7 @@ import ar.edu.itba.it.paw.SessionUserManager;
 import ar.edu.itba.it.paw.UserManager;
 import ar.edu.itba.it.paw.forms.SignupForm;
 import ar.edu.itba.it.paw.repositories.AddressRepository;
+import ar.edu.itba.it.paw.repositories.QuestionsRepository;
 import ar.edu.itba.it.paw.repositories.UserRepository;
 import ar.edu.itba.it.paw.validators.SignupValidator;
 
@@ -23,15 +24,17 @@ public class SignupController {
 	private UserRepository userRepository;
 	private SignupValidator signupValidator;
 	private AddressRepository addressRepository;
+	private QuestionsRepository questionRepository;
 	
 	public SignupController() {	}
 		
 
 	@Autowired
-	public SignupController(UserRepository userRepo, SignupValidator signupValidator, AddressRepository addressRepository) {
+	public SignupController(UserRepository userRepo, SignupValidator signupValidator, AddressRepository addressRepository, QuestionsRepository questionRepository) {
 		this.userRepository = userRepo;
 		this.signupValidator = signupValidator;
 		this.addressRepository=addressRepository;
+		this.questionRepository = questionRepository;
 	}
 	
 	@RequestMapping(value="signup", method = RequestMethod.GET)
@@ -42,6 +45,7 @@ public class SignupController {
 			return new ModelAndView();
 		}
 		mav.addObject("neighList", addressRepository.getNeigh());
+		mav.addObject("questList", questionRepository.getQuestions()); //TODO: change for real questions
 		mav.addObject("signupForm", new SignupForm());
 		return mav;
 	}

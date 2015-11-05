@@ -31,6 +31,7 @@ public class UserRepository extends AbstractHibernateRepository{
 	
 	public User getUser(Credential cred){
 		User user = getUserById(cred.getId());
+		user.setEmail(cred.getMail());
 		user.setManager(cred.getRol().equals("gerente"));
 		user.setIsAdmin(cred.getRol().equals("admin"));
 		return user;
@@ -73,6 +74,22 @@ public class UserRepository extends AbstractHibernateRepository{
 		return user;
 	}
 	
+	public User updateUser(User user) {
+		String role;
+		role = user.getIsManager() ? "manager" : "usuario"; 
+		Credential credential = credentialRepository.get(user.getId());
+		credential.setMail(user.getEmail());
+		credential.setRol(role);
+		try { 
+			credentialRepository.update(credential);
+			addressRepository.update(user.getAddress());
+			update(user);
+		} catch (Exception e) {
+			return null;
+		}
+		return user;
+	}
+	
 	@SuppressWarnings("unused")
 	private User createUser(String mail, String firstName, String lastName, Date birth) {
 		return new User(firstName, lastName, birth);
@@ -81,7 +98,6 @@ public class UserRepository extends AbstractHibernateRepository{
 	public static void setIfManager(User user, String rol) {
 		user.setManager(rol.equals("gerente"));
 		user.setIsAdmin(rol.equals("admin"));
-
 	}
 	
 	public Serializable saveUser(User user) {
@@ -132,5 +148,4 @@ public class UserRepository extends AbstractHibernateRepository{
 	public boolean existsUser(int userId, String name, String lastName) {
 		return !find("from User where id = ? and nombre = ? and apellido = ?", userId, name, lastName).isEmpty();
 	}
-	
 }

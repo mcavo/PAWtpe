@@ -88,7 +88,12 @@ public class CredentialRepository extends AbstractHibernateRepository {
 	public void setRol(String rol, int id){
 		Credential c = get(id);
 		c.setRol(rol);
-		update(c);
+		try {
+			update(c);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void setPwd(String pwd, int id){
