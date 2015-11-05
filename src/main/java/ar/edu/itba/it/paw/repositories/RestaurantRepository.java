@@ -1,11 +1,12 @@
 package ar.edu.itba.it.paw.repositories;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Hibernate;
 import org.hibernate.SQLQuery;
@@ -91,7 +92,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			rests.sort(new Comparator<Restaurant> () {
 
 				public int compare(Restaurant o1, Restaurant o2) {
-					return o1.getNombre().compareTo(o2.getNombre());
+					return o1.getName().compareTo(o2.getName());
 				}
 			
 			});
@@ -147,7 +148,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			rests.sort(new Comparator<Restaurant> () {
 
 				public int compare(Restaurant o1, Restaurant o2) {
-					return o1.getNombre().compareTo(o2.getNombre());
+					return o1.getName().compareTo(o2.getName());
 				}
 			
 			});
@@ -163,7 +164,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		Menu menu = getMenuByRestaurant(r);
 		Address address = getAddressByRestaurant(r);
 		List<String> tipos = getTypesOfFoodByRestaurant(r);
-		Restaurant rest = new Restaurant(id, r.getNombre(), r.getMontomin(), r.getDesde(), r.getHasta(), address, tipos, menu, r.getCostoenvio());		
+		Restaurant rest = new Restaurant(id, r.getName(), r.getMinamount(), r.getFrom(), r.getTo(), address, tipos, menu, r.getDelamount(),r.getDeliveryfrom(),r.getDeliveryto(),r.getDeliveryneigh());		
 		rest.setCalifications(this.calificationRepository.getCalifications(r));
 		return rest;
 	}
@@ -190,7 +191,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		if(rests!=null)
 			rests.sort(new Comparator<Restaurant> () {
 				public int compare(Restaurant o1, Restaurant o2) {
-					return o1.getNombre().compareTo(o2.getNombre());
+					return o1.getName().compareTo(o2.getName());
 				}
 			
 			});
@@ -214,7 +215,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		if(results!=null)
 			results.sort(new Comparator<Restaurant> () {
 				public int compare(Restaurant o1, Restaurant o2) {
-					return o1.getNombre().compareTo(o2.getNombre());
+					return o1.getName().compareTo(o2.getName());
 				}
 			
 			});
@@ -312,13 +313,25 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		return r;
 	}
 	
-	public void setRestaurant(String name , String description , String[] types , String timeFrom , String timeTo , String street , String number , String city , String province , String floor , String apartment , String neighborhood, String minimum, String cost) throws Exception {
-		Restaurant rest = validateRestaurant(name, description, types, timeFrom, timeTo, street, number, city, province, floor, apartment, neighborhood, minimum, cost);
-		
-		validateAddress(rest.getAddress(), rest.getNombre());
+	public boolean setRestaurant( Restaurant rest) {
+		//Restaurant rest = validateRestaurant(name, description, types, timeFrom, timeTo, street, number, city, province, floor, apartment, neighborhood, minimum, cost,delfrom,delto,neighs);
+		try {
+			validateAddress(rest.getAddress(), rest.getName());
+			Set<Neighborhood> set =rest.getDeliveryneigh();
+			for(Neighborhood n: set) {
+				Neighborhood naux = addressRepository.getneighById(n.getId());
+				set.remove(n);
+				set.add(naux);
+			}
+			rest.setDeliveryneigh(set);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
 		int addressId = this.addressRepository.setAddress(rest.getAddress());
 		if(addressId == -1){
-			return; //TODO: throw exception ??
+			return false;
 		}
 		rest.setDirid(addressId);
 		Timestamp now = new Timestamp((new Date()).getTime());
@@ -327,13 +340,19 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		rest.setId(id);
 		int idBydir = getRestaurantId(addressId);
 		if (idBydir == -1) {
-			throw new Exception("No tuvo dirección");
+			return false;
 		}
-		setTypes(rest.getTypesOfFood(), id);
+		try {
+			setTypes(rest.getTypesOfFood(), id);
+			setNeighs(rest.getDeliveryneigh(),id,rest.getDelamount());
+		} catch(Exception f) {
+			return false;
+		}
+		return true;
 	}
-	
-	private Restaurant validateRestaurant(String name , String description , String[] types , String timeFrom , String timeTo , String street , String number , String city , String province , String floor , String apartment , String neighborhood, String minimum, String cost) throws Exception{
-		ArrayList<String> validTypes;
+	/*
+	private Restaurant validateRestaurant(String name , String description , String[] types , String timeFrom , String timeTo , String street , String number , String city , String province , String floor , String apartment , String neighborhood, String minimum, String cost,String timeDelfrom,String timeDelto,String[] delneighs) throws Exception{
+		List<String> validTypes;
 		int floorV = -1;
 		int numberV; 
 		float costV;
@@ -341,20 +360,29 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		float from;
 		float to;
 		int neigh;
+		float deliveryfrom, deliveryto;
+		Set<Integer> validNeighs;
 		try {
 			from = Float.valueOf(timeFrom.replace(':', '.'));
 			to = Float.valueOf(timeTo.replace(':', '.'));
+			deliveryfrom = Float.valueOf(timeDelfrom.replace(':', '.'));
+			deliveryto = Float.valueOf(timeDelto.replace(':', '.'));
 			if (!floor.isEmpty()) {
 				floorV = Integer.valueOf(floor);
 				ValidateDataService.validateFloor(floorV);
 			}
 			numberV = Integer.valueOf(number);
 			neigh = Integer.valueOf(neighborhood);
+			validNeighs = new HashSet<Integer>();
+			for(String s : delneighs) {
+				validNeighs.add(Integer.parseInt(s));
+			}
 			ValidateDataService.validateStringLength(name, 30);
 			if (description != null && !description.isEmpty()) {
 				ValidateDataService.validateStringLength(description, 500);	
 			}
 			ValidateDataService.validateInterval(from, to);
+			ValidateDataService.validateInterval(deliveryfrom, deliveryto);
 			ValidateDataService.validateStringLength(street, 30);
 			ValidateDataService.validateStringLength(city, 30);
 			ValidateDataService.validateStringLength(province, 30);
@@ -369,10 +397,10 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			throw new Exception("Invalid parameters");
 		}
 		Address address = new Address(street, numberV, floorV, apartment, neigh, city, province);
-		Restaurant rest = new Restaurant(-1, name, minimumPurchase, from, to, address, validTypes, null, costV);
+		Restaurant rest = new Restaurant(-1, name, minimumPurchase, from, to, address, validTypes, null, costV,deliveryfrom,deliveryto,validNeighs);
 		
 		return rest;
-	}
+	}*/
 	
 	private void validateAddress(Address address, String name) throws Exception {
 		List<Integer> addressIds = this.addressRepository.getAddressesIds(address);
@@ -392,6 +420,12 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		}
 	}
 	
+	private void setNeighs(Set<Neighborhood> set, int id,float delamount) {
+		for(Neighborhood neigh : set) {
+			setNeighByOne(neigh, id,delamount);
+		}
+	}
+	
 	private void setByOne(String type, int id){
 		Session session=null;
 	    try 
@@ -401,6 +435,34 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("INSERT INTO tipos (restid, tipo) VALUES (?, ?);");
 		    query.setParameter(0, id); 
 		    query.setParameter(1, type);
+		    query.executeUpdate();
+		    tx.commit();
+	    }
+	    catch(Exception e)
+	    {
+	    	e.printStackTrace();
+	    }
+	    finally
+	    {
+	        if(session !=null && session.isOpen())
+	        {
+	          session.close();
+	          session=null;
+	        }
+	    }
+
+	}
+	
+	private void setNeighByOne(Neighborhood neigh, int id,float delamount){
+		Session session=null;
+	    try 
+	    {
+		    Session sessionSQL = super.getSession();
+		    Transaction tx = sessionSQL.beginTransaction();
+		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("INSERT INTO delivery (restid, barrioid, costo) VALUES (?, ?, ?);");
+		    query.setParameter(0, id); 
+		    query.setParameter(1, neigh.getId());
+		    query.setParameter(2, delamount);
 		    query.executeUpdate();
 		    tx.commit();
 	    }
@@ -475,7 +537,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		    for (Object[] row: rows) {
 		    	out = true;
 		    	float cost = (float) row[2];
-		    	rest.setCostoenvio(cost);
+		    	rest.setDelamount(cost);
 		    }
 	    }
 	    catch(Exception e)

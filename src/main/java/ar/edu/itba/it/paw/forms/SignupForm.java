@@ -6,6 +6,7 @@ import ar.edu.itba.it.paw.services.DateService;
 
 public class SignupForm {
 
+
 	String firstname;
 	String lastname;
 	String birthDay;
@@ -23,6 +24,7 @@ public class SignupForm {
 	String prov;
 	String question;
 	String answer;
+
 
 	public SignupForm() {
 	}

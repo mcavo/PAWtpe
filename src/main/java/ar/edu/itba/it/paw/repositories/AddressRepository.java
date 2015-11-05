@@ -61,7 +61,12 @@ public class AddressRepository extends AbstractHibernateRepository {
 
 		return results.get(0).getId();
 	}
-
+	
+	public Neighborhood	getneighById(int id) {
+		List<Neighborhood> l = find("FROM Neighborhood WHERE id=?",id);
+		return l.get(0);
+	}
+	
 	public List<Neighborhood> getNeigh() {
 
 		List<Neighborhood> l = find("FROM Neighborhood");

@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -20,22 +21,29 @@ import javax.persistence.Transient;
 @Table(name = "restaurante")
 public class Restaurant {
 	
-	@Column(name = "nombre")
-	private String nombre;
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "id")
+	private int id;
 
 	@OneToMany
 	@JoinColumn(name="gerid")
 	private Set<User> managers;
 	//private LinkedList<User> managers;
 	
+	@ManyToMany
+	private Set<Neighborhood> deliveryneigh;
+	
+	@Column(name = "nombre")
+	private String name;
+	
 	@Column(name = "montomin")
-	private double montomin;
+	private Float montomin;
 	
 	@Column(name = "desde")
-	private Float desde;
+	private Float from;
 	
 	@Column(name = "hasta")
-	private Float hasta;
+	private Float to;
 	
 	@Transient
 	private Address address;
@@ -44,7 +52,7 @@ public class Restaurant {
 	private List<String> typesOfFood;
 	
 	@Column(name = "descripcion")
-	private String descripcion;
+	private String description;
 	
 	@Transient
 	private HashMap<Integer, Calification> califications;
@@ -55,6 +63,12 @@ public class Restaurant {
 	@Transient
 	private double score = (double)0;
 	
+	@Column(name="deliverydesde")
+	private Float deliveryfrom;
+	
+	@Column(name="deliveryhasta")
+	private Float deliveryto;
+	
 	//@Temporal(TemporalType.DATE)
 	//@Transient
 	//private Date startDate;
@@ -62,12 +76,8 @@ public class Restaurant {
 	@Column(name = "regis")
 	private Timestamp regis;
 	
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "id")
-	private int id;
-	
 	@Column(name = "costoenvio")
-	private Float costoenvio;
+	private Float delamount;
 	
 	@Column(name = "dirid")
 	private int dirid;
@@ -77,19 +87,66 @@ public class Restaurant {
 		
 	}
 	
-	public Restaurant(int id, String name, double minimumPurchase, Float startService, Float endService, Address address, List<String> typeOfFood, Menu menu, Float cost) {
+	public Restaurant(int id, String name, Float minimumPurchase, Float startService, Float endService, Address address, List<String> typeOfFood, Menu menu, Float cost, Float delfrom,Float delto, Set<Neighborhood> deliveryneigh) {
 		// TODO Auto-generated constructor stub
-		this.setNombre(name);
-		this.setMontomin(minimumPurchase);
-		this.setDesde(startService);
-		this.setHasta(endService);
+		this.setName(name);
+		this.setMinamount(minimumPurchase);
+		this.setFrom(startService);
+		this.setTo(endService);
 		this.setAddress(address);
 		this.setTypesOfFood(typeOfFood);
 		this.setMenu(menu);
 		this.id = id;
-		this.setCostoenvio(cost);
+		this.setDelamount(cost);
+		this.setDeliveryfrom(delfrom);
+		this.setDeliveryto(delto);
+		this.setDeliveryneigh(deliveryneigh);
 	}
 	
+	public Set<Neighborhood> getDeliveryneigh() {
+		return deliveryneigh;
+	}
+
+	public void setDeliveryneigh(Set<Neighborhood> deliveryneigh) {
+		this.deliveryneigh = deliveryneigh;
+	}
+
+	public Float getMontomin() {
+		return montomin;
+	}
+
+	public void setMontomin(Float montomin) {
+		this.montomin = montomin;
+	}
+
+	public Float getDeliveryfrom() {
+		return deliveryfrom;
+	}
+
+	public void setDeliveryfrom(Float deliveryfrom) {
+		this.deliveryfrom = deliveryfrom;
+	}
+
+	public Float getDeliveryto() {
+		return deliveryto;
+	}
+
+	public void setDeliveryto(Float deliveryto) {
+		this.deliveryto = deliveryto;
+	}
+
+	public Set<User> getManagers() {
+		return managers;
+	}
+
+	public HashMap<Integer, Calification> getCalifications() {
+		return califications;
+	}
+
+	public void setDelamount(Float delamount) {
+		this.delamount = delamount;
+	}
+
 	private void calculateScore() {
 		if(califications==null || califications.isEmpty()) {
 			this.score = (double) 0;
@@ -110,12 +167,12 @@ public class Restaurant {
 		calculateScore();
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getName() {
+		return name;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setName(String nombre) {
+		this.name = nombre;
 	}
 
 	/*public void setNombre(String nombre) {
@@ -133,20 +190,20 @@ public class Restaurant {
 		this.managers = managers;
 	}
 
-	public double getMontomin() {
+	public Float getMinamount() {
 		return montomin;
 	}
 
-	public void setMontomin(double montomin) {
+	public void setMinamount(Float montomin) {
 		this.montomin = montomin;
 	}
 
-	public Float getDesde() {
-		return desde;
+	public Float getFrom() {
+		return from;
 	}
 
-	public void setDesde(Float desde) {
-		this.desde = desde;
+	public void setFrom(Float desde) {
+		this.from = desde;
 	}
 
 	public Address getAddress() {
@@ -157,12 +214,12 @@ public class Restaurant {
 		this.address = address;
 	}
 
-	public Float getHasta() {
-		return hasta;
+	public Float getTo() {
+		return to;
 	}
 
-	public void setHasta(Float hasta) {
-		this.hasta = hasta;
+	public void setTo(Float hasta) {
+		this.to = hasta;
 	}
 
 	public List<String> getTypesOfFood() {
@@ -173,12 +230,12 @@ public class Restaurant {
 		this.typesOfFood = typesOfFood;
 	}
 
-	public String getDescripcion() {
-		return descripcion;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setDescription(String descripcion) {
+		this.description = descripcion;
 	}
 
 	public Menu getMenu() {
@@ -224,14 +281,11 @@ public class Restaurant {
 		return califications.size();
 	}
 
-	public float getCostoenvio() {
-		return costoenvio;
+	
+	public Float getDelamount() {
+		return delamount;
 	}
 
-	public void setCostoenvio(float costoenvio) {
-		this.costoenvio = costoenvio;
-	}
-	
 	public int getDirid() {
 		return dirid;
 	}

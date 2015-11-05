@@ -118,7 +118,7 @@ public class OrderRepository extends AbstractHibernateRepository{
 			}
 			total += dish.getPrice()*cant;
 		}
-		if(total < rest.getMontomin()){
+		if(total < rest.getMinamount()){
 			//monto minimo no llegado
 			return false;
 		}

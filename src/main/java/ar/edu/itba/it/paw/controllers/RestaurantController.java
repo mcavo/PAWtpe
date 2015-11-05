@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.forms.RegisterRestForm;
-import ar.edu.itba.it.paw.forms.SignupForm;
 import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Restaurant;
@@ -25,6 +24,7 @@ import ar.edu.itba.it.paw.repositories.CalificationRepository;
 import ar.edu.itba.it.paw.repositories.ManagerRepository;
 import ar.edu.itba.it.paw.repositories.OrderRepository;
 import ar.edu.itba.it.paw.repositories.RestaurantRepository;
+import ar.edu.itba.it.paw.validators.RegisterRestValidator;
 
 @Controller
 public class RestaurantController {
@@ -34,14 +34,17 @@ public class RestaurantController {
 	private final RestaurantRepository restaurantRepository;
 	private final ManagerRepository managerRepository;
 	private final AddressRepository addressRepository;
+	private final RegisterRestValidator registerRestValidator;
+	
 	
 	@Autowired
-	public RestaurantController(RestaurantRepository restaurantRepo, CalificationRepository calificationRepo, ManagerRepository managerRepo, OrderRepository orderRepo, AddressRepository addressRepository){
+	public RestaurantController(RestaurantRepository restaurantRepo, CalificationRepository calificationRepo, ManagerRepository managerRepo, OrderRepository orderRepo, AddressRepository addressRepository, RegisterRestValidator registerRestValidator){
 		this.calificationRepository = calificationRepo;
 		this.orderRepository = orderRepo;
 		this.restaurantRepository = restaurantRepo;
 		this.managerRepository = managerRepo;
 		this.addressRepository=addressRepository;
+		this.registerRestValidator=registerRestValidator;
 	}
 	
 	@RequestMapping(value="/list", method = RequestMethod.GET)
@@ -175,6 +178,7 @@ public class RestaurantController {
 		mav.setViewName("registerRestaurant");
 		mav.addObject("neighList", addressRepository.getNeigh());
 		mav.addObject("registerRestForm", new RegisterRestForm());
+
 		return mav;
 	}
 	
@@ -184,13 +188,16 @@ public class RestaurantController {
 		if(user == null || !user.getIsAdmin()){
 			return new ModelAndView("redirect:../homepage/");
 		}
-		ModelAndView mav = new ModelAndView();
-		try {
-			//restaurantRepository.setRestaurant(name, description, types, from, to, street, number, city, province, floor, apartment, neighborhood, minimum, cost);
-		} catch (Exception er) {
-			er.printStackTrace();
+		registerRestValidator.validate(form, e);
+		ModelAndView mav = new ModelAndView("redirect:../signup/");
+		if (e.hasErrors()) {
+			request.setAttribute("message","Datos de registro de restaurante inválidos");
+			return mav;
+		} else if (!restaurantRepository.setRestaurant(form.build())) {
+			request.setAttribute("message","El usuario ya existe");
 			return mav;
 		}
+
 		return new ModelAndView("redirect:../homepage/");
 	}
 	

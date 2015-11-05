@@ -98,8 +98,8 @@ public class ValidateDataService {
 		}
 		return value;
 	}
-	public static double validateMinimum(String minimum) throws  NumberFormatException, Exception {
-		Double value = Double.valueOf(minimum);
+	public static float validateMinimum(String minimum) throws  NumberFormatException, Exception {
+		Float value = Float.valueOf(minimum);
 		if (value < 0) {
 			throw new Exception(); //TODO: cambiar las exceptiones por algunas más personalizadas. 
 		}

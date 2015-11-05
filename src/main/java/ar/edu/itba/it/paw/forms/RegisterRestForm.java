@@ -1,7 +1,13 @@
 package ar.edu.itba.it.paw.forms;
 
-import ar.edu.itba.it.paw.models.Restaurant;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import ar.edu.itba.it.paw.models.Address;
+import ar.edu.itba.it.paw.models.Neighborhood;
+import ar.edu.itba.it.paw.models.Restaurant;
 public class RegisterRestForm {
 	
 	private String name;
@@ -26,7 +32,29 @@ public class RegisterRestForm {
 	}
 	
 	public Restaurant build() {
-		return null;
+		Address address = getAddress();
+		List<String> l = new ArrayList();
+		for(String s : tfood) {
+			l.add(s);
+		}
+		Set<Neighborhood> set = new HashSet<Neighborhood>();
+		for(String s : delneigh) {
+			set.add(new Neighborhood(Integer.parseInt(s)));
+		}
+		Restaurant r = new Restaurant(-1,name,Float.parseFloat(minamount),Float.valueOf(from.replace(':', '.')),Float.valueOf(to.replace(':', '.')),address,l,null,Float.parseFloat(delamount),Float.valueOf(deliveryfrom.replace(':', '.')),Float.valueOf(deliveryto.replace(':', '.')), set);
+		
+		return r;
+	}
+	
+	public Address getAddress() {
+		Integer n = null;
+		System.out.println("floor: "+floor+";");
+		if(number!=null && !number.equals(""))
+			n = Integer.parseInt(number);
+		Integer f = null;
+		if(floor!=null && !floor.equals(""))
+			f = Integer.parseInt(floor);
+		return new Address(street, n, f, apartment, Integer.parseInt(neigh), city, prov);
 	}
 	
 	public String getName() {

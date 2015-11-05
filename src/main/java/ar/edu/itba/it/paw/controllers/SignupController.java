@@ -45,7 +45,7 @@ public class SignupController {
 			return new ModelAndView();
 		}
 		mav.addObject("neighList", addressRepository.getNeigh());
-		mav.addObject("questList", questionRepository.getQuestions()); //TODO: change for real questions
+		mav.addObject("questList", questionRepository.getQuestions());
 		mav.addObject("signupForm", new SignupForm());
 		return mav;
 	}

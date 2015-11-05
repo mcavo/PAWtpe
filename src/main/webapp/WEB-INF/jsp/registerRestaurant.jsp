@@ -15,6 +15,7 @@
 							<form:input path="name" type="text" class="form-control"
 								id="inputName" placeholder="Nombre del restaurante" name="name"
 								required="required"></form:input>
+
 						</div>
 
 						<div class="form-group">
@@ -142,6 +143,7 @@
 								<form:input path="number" type="number" min="0"
 									class="form-control" id="inputNumber" placeholder="Altura"
 									name="number" required="required"></form:input>
+
 							</div>
 						</div>
 					</div>
@@ -193,12 +195,16 @@
 						<div class="form-group has-feedback">
 							<label for="inputProvince" class="control-label col-sm-4">Provincia</label>
 							<div class="col-sm-8">
+
 								<form:input path="prov" type="text" class="form-control"
 									maxlength="30" id="inputProvince" placeholder="Provincia"
 									required="required" name="province"></form:input>
 							</div>
 						</div>
 					</div>
+
+
+
 
 				</div>
 				<br>
