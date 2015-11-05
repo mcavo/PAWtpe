@@ -41,22 +41,6 @@ public class User implements UserPermissions {
 	
 	@Column(name="respuesta")
 	private String answer;
-	
-	public Integer getQuestionid() {
-		return questionid;
-	}
-
-	public void setQuestionid(Integer questionid) {
-		this.questionid = questionid;
-	}
-
-	public String getAnswer() {
-		return answer;
-	}
-
-	public void setAnswer(String answer) {
-		this.answer = answer;
-	}
 
 	public User(){}
 
@@ -144,5 +128,20 @@ public class User implements UserPermissions {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	
+
+	public Integer getQuestionid() {
+		return questionid;
+	}
+
+	public void setQuestionid(Integer questionid) {
+		this.questionid = questionid;
+	}
+
+	public String getAnswer() {
+		return answer;
+	}
+
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
 }

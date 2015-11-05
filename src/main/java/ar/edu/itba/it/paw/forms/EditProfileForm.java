@@ -1,10 +1,12 @@
 package ar.edu.itba.it.paw.forms;
 
+import java.util.Date;
+
 import ar.edu.itba.it.paw.models.Address;
 import ar.edu.itba.it.paw.models.User;
 import ar.edu.itba.it.paw.services.DateService;
 
-public class SignupForm {
+public class EditProfileForm {
 
 	String firstname;
 	String lastname;
@@ -12,8 +14,6 @@ public class SignupForm {
 	String birthMonth;
 	String birthYear;
 	String email;
-	String pwd;
-	String pwd2;
 	String street;
 	String number;
 	String floor;
@@ -24,11 +24,11 @@ public class SignupForm {
 	String question;
 	String answer;
 
-	public SignupForm() {
-	}
+	public EditProfileForm() {}
 
 	public User build() {
-		User us = new User(firstname, lastname, DateService.date(Integer.parseInt(birthYear),Integer.parseInt(birthMonth),Integer.parseInt(birthDay)));
+		Date d = DateService.date(Integer.parseInt(birthYear),Integer.parseInt(birthMonth),Integer.parseInt(birthDay));
+		User us = new User(firstname, lastname, d);
 		us.setAddress(this.getAddress());
 		us.setEmail(email);
 		us.setIsAdmin(false);
@@ -97,18 +97,6 @@ public class SignupForm {
 		this.email = email;
 	}
 
-
-	public void setPwd(String pwd) {
-		this.pwd = pwd;
-	}
-
-	public String getPwd() {
-		return pwd;
-	}
-	public void setPwd2(String pwd) {
-		this.pwd = pwd;
-	}
-
 	public String getStreet() {
 		return street;
 	}
@@ -167,10 +155,6 @@ public class SignupForm {
 
 	public void setFirstname(String firstname) {
 		this.firstname = firstname;
-	}
-
-	public String getPwd2() {
-		return pwd;
 	}
 	
 	public void setQuestion(String question) {
