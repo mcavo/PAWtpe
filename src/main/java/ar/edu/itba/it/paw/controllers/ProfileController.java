@@ -37,7 +37,6 @@ public class ProfileController {
 		this.questionsRepository = questionRepository;
 	}
 		
-	@SuppressWarnings("deprecation")
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView edit(HttpServletRequest request) {
 		User user = (User) request.getAttribute("user");
