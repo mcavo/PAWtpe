@@ -3,7 +3,6 @@ package ar.edu.itba.it.paw.repositories;
 import java.sql.Timestamp;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -24,7 +23,6 @@ import ar.edu.itba.it.paw.models.Neighborhood;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.Section;
 import ar.edu.itba.it.paw.models.User;
-import ar.edu.itba.it.paw.services.ValidateDataService;
 
 @Repository
 public class RestaurantRepository extends AbstractHibernateRepository{
