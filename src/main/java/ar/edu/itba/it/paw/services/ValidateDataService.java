@@ -99,7 +99,7 @@ public class ValidateDataService {
 		return value;
 	}
 
-	public static double validateMinimum(String minimum) {
+	public static float validateMinimum(String minimum) {
 		Float value = Float.valueOf(minimum);
 		if (value < 0) {
 			throw new IllegalArgumentException(); 
