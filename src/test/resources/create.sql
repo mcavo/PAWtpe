@@ -12,16 +12,6 @@ CREATE TABLE preguntas (
 	UNIQUE(pregunta)
 );
 
-CREATE TABLE delivery (
-	restid INTEGER NOT NULL,
-	barrioid INTEGER NOT NULL,
-	
-	costo FLOAT NOT NULL,
-	
-	PRIMARY KEY(restid,barrioid),
-	FOREIGN KEY(barrioid) REFERENCES barrio(id) ON DELETE CASCADE,
-	FOREIGN KEY(restid) REFERENCES restaurante(id) ON DELETE CASCADE
-);
 
 CREATE TABLE direccion (
 	id SERIAL NOT NULL,
@@ -75,6 +65,17 @@ CREATE TABLE restaurante (
 	UNIQUE(dirid), 
 	FOREIGN KEY(gerid) REFERENCES TO usuario(userid) ON DELETE CASCADE, 
 	FOREIGN KEY(dirid) REFERENCES TO direccion(id) ON DELETE CASCADE
+);
+
+CREATE TABLE delivery (
+	restid INTEGER NOT NULL,
+	barrioid INTEGER NOT NULL,
+	
+	costo FLOAT NOT NULL,
+	
+	PRIMARY KEY(restid,barrioid),
+	FOREIGN KEY(barrioid) REFERENCES barrio(id) ON DELETE CASCADE,
+	FOREIGN KEY(restid) REFERENCES restaurante(id) ON DELETE CASCADE
 );
 
 CREATE TABLE calificacion (

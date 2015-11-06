@@ -4,7 +4,7 @@
 	<div class="col-md-10 col-md-offset-1">
 		<div class="row">
 			<div>
-				<H3>${rest.nombre}</H3>
+				<H3>${rest.name}</H3>
 				<c:if test="${newOrderId}">
 					<p>
 						Su numero de pedido es: ${orderId}
@@ -31,7 +31,7 @@
 		</div>
 		<br> <br>
 
-		${rest.descripcion}
+		${rest.description}
 
 		<!-- INFORMACION DEL RESTAURANTE -->
 

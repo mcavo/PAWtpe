@@ -5,7 +5,7 @@
 		<div class="col-md-10 col-md-offset-1">
 			<div class="row">
 				<div>
-					<H3>${rest.nombre}</H3>
+					<H3>${rest.name}</H3>
 					<h4>
 						<p>
 							<span class="label label-warning">${rest.score}</span>
@@ -80,7 +80,7 @@
 								</div>
 								<div class="costoEnvio">
 									<div class="col-sm-8">Envío:</div>
-									<div class='col-sm-4' id="sprice">$ ${rest.costoenvio}</div>
+									<div class='col-sm-4' id="sprice">$ ${rest.delamount}</div>
 								</div>
 								<div class="total">
 									<br> <br>

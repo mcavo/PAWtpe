@@ -28,7 +28,7 @@
 									<label>Restaurantes:</label>
 									<select name="restaurant-id" required>
 										<c:forEach items="${rlist}" var="rest">
-											<option value="${rest.id}">${rest.nombre} - 
+											<option value="${rest.id}">${rest.name} - 
 												${rest.address.street} ${rest.address.number}<c:if test="${rest.address.floor}!=0"> ${rest.address.floor}º</c:if>
 												<c:if test="${rest.address.apartment}!=null"> ${rest.address.apartment}</c:if>,
 												${rest.address.neighborhood}, ${rest.address.city},

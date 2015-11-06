@@ -26,7 +26,7 @@
 	</form>
 	<div class="col-sm-offset-4 col-sm-4">
 			<div class="col-sm-offset-2 col-sm-8">
-				<a href="/PAWTPE/bin/user/getq">Olvido su contraseña?</a>
+				<a href="/bin/user/getq">Olvido su contraseña?</a>
 			</div>
 	</div>
 </div>

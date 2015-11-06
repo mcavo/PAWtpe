@@ -37,7 +37,7 @@
 			<c:forEach items="${rlist}" var="rest">
 				<a href="/PAWTPE/bin/restaurant/details?code=${rest.id}">
 					<div class="bs-callout bs-callout-info">
-						<h4>${rest.nombre}</h4>
+						<h4>${rest.name}</h4>
 						<p>
 							<c:forEach items="${rest.typesOfFood}" var="tof">
 								<span class="label label-primary">${tof}</span>
@@ -45,7 +45,7 @@
 						</p>
 						<p class="restcard-adress">${rest.address.street} ${rest.address.number}<c:if test="${rest.address.floor}!=null">${rest.address.floor}º</c:if><c:if test="${rest.address.apartment}!=null"> ${rest.address.apartment}</c:if>, ${rest.address.neighborhood}, ${rest.address.province}</p>
 						
-						<p class="restcard-schedule">Abierto de ${rest.desde} a ${rest.hasta} hs</p>
+						<p class="restcard-schedule">Abierto de ${rest.from} a ${rest.to} hs</p>
 						<p> <span class="label label-warning">${rest.score}</span> ${rest.countComments} calificaciones </p>
 					</div>
 				</a>
