@@ -49,5 +49,10 @@ INSERT INTO delivery (restid,barrioid,costo) VALUES (2,5,20);
 INSERT INTO delivery (restid,barrioid,costo) VALUES (2,10,20);
 INSERT INTO delivery (restid,barrioid,costo) VALUES (2,9,20);
 
-INSERT INTO tipos (restid,tipo) VALUES (2,'americana');
-INSERT INTO tipos (restid,tipo) VALUES (1,'mexicana');
+INSERT INTO tipos (restid,tipo) VALUES (2,'Norteamericana');
+INSERT INTO tipos (restid,tipo) VALUES (1,'Mexicana');
+
+INSERT INTO gerente (userid,restid) VALUES (2,1);
+INSERT INTO gerente (userid,restid) VALUES (3,2);
+
+
