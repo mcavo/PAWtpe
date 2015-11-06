@@ -146,6 +146,10 @@ public class Restaurant {
 		this.delamount = delamount;
 	}
 
+	public void setCostoenvio(Float delamount) {
+		this.delamount = delamount;
+	}
+	
 	private void calculateScore() {
 		if(califications==null || califications.isEmpty()) {
 			this.score = (double) 0;
@@ -173,10 +177,6 @@ public class Restaurant {
 	public void setName(String nombre) {
 		this.name = nombre;
 	}
-
-	/*public void setNombre(String nombre) {
-		this.name = name;
-	}*/
 	
 	public Set<User> getManager() {
 		if(managers==null) {
@@ -205,6 +205,10 @@ public class Restaurant {
 		this.from = desde;
 	}
 
+	public void setDesde(Float desde) {
+		this.from = desde;
+	}
+	
 	public Address getAddress() {
 		return address;
 	}
@@ -221,6 +225,10 @@ public class Restaurant {
 		this.to = hasta;
 	}
 
+	public void setHasta(Float hasta) {
+		this.to = hasta;
+	}
+	
 	public List<String> getTypesOfFood() {
 		return typesOfFood;
 	}
@@ -237,6 +245,10 @@ public class Restaurant {
 		this.description = descripcion;
 	}
 
+	public void setDescripcion(String descripcion) {
+		this.description = descripcion;
+	}
+	
 	public Menu getMenu() {
 		return menu;
 	}
@@ -290,5 +302,9 @@ public class Restaurant {
 
 	public void setDirid(int dirid) {
 		this.dirid = dirid;
+	}
+	
+	public void setNombre(String nombre) {
+		this.name = nombre;
 	}
 }

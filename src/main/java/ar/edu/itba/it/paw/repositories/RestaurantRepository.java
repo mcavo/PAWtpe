@@ -51,7 +51,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		    											+ "(select p1.restid from pedido p1 group by p1.restid having count(*) >= "
 		    												+ "(select count(*) from pedido p2 where p2.restid <> p1.restid))"); 
 		    query.addScalar("nombre", Hibernate.STRING);
-		    query.addScalar("montomin", Hibernate.DOUBLE);
+		    query.addScalar("montomin", Hibernate.FLOAT);
 		    query.addScalar("desde", Hibernate.FLOAT);
 		    query.addScalar("hasta", Hibernate.FLOAT);
 		    query.addScalar("id", Hibernate.INTEGER);
