@@ -11,11 +11,7 @@ import ar.edu.itba.it.paw.services.StringService;
 
 @Entity
 @Table(name = "direccion")
-public class Address {
-	
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "id")
-	private Integer id;
+public class Address extends PersistentEntity {
 	
 	@Column(name = "calle")
 	private String street;
@@ -123,17 +119,6 @@ public class Address {
 			validateApartment(apartment);	
 		}
 		this.apartment = apartment;
-	}
-
-	public int getId() {
-		if(this.id == null){
-			return -1;
-		}
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 	
 	public static void validateFloor(int i) {

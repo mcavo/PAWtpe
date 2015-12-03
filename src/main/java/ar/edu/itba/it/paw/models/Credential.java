@@ -10,11 +10,7 @@ import javax.persistence.Table;
 import ar.edu.itba.it.paw.services.StringService;
 @Entity
 @Table(name = "credencial")
-public class Credential {
-
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "id")
-	private int id;
+public class Credential extends PersistentEntity {
 	
 	@Column(name = "rol")
 	private String rol;
@@ -32,17 +28,11 @@ public class Credential {
 	public Credential(int id, String rol, String mail) {
 		validateRol(rol);
 		StringService.validateMail(mail);
-		this.id = id;
+		super.setId(id);
 		this.rol = rol;
 		this.mail = mail;
 	}
 	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
 	public String getRol() {
 		return rol;
 	}
@@ -68,7 +58,7 @@ public class Credential {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
+		result = prime * result + this.getId();
 		result = prime * result + ((mail == null) ? 0 : mail.hashCode());
 		result = prime * result + ((rol == null) ? 0 : rol.hashCode());
 		return result;
@@ -83,7 +73,7 @@ public class Credential {
 		if (getClass() != obj.getClass())
 			return false;
 		Credential other = (Credential) obj;
-		if (id != other.id)
+		if (this.getId() != other.getId())
 			return false;
 		if (mail == null) {
 			if (other.mail != null)

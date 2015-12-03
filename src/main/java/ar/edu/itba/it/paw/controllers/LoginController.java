@@ -46,10 +46,11 @@ public class LoginController {
 		try {
 			cred = credentialRepository.getCredentials(email, pwd);
 		} catch (CredentialNoMatchException e) {
-			e.printStackTrace();
+			return "redirect:login";
 		};
+		//esto pasa?
 		if(cred == null){
-			return "redirect:";
+			return "redirect:login";
 		}else{
 			User user = userRepository.getUser(cred);
 			if(user == null){

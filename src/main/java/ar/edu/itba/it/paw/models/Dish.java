@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "plato")
-public class Dish {
+public class Dish extends PersistentEntity {
 	
 	@Column(name = "nombre")
 	private String product;
@@ -21,10 +21,6 @@ public class Dish {
 	
 	@Column(name = "descripcion")
 	private String description;
-	
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "id")
-	private int id;
 	
 	@Column(name = "seccion")
 	private String section;
@@ -39,7 +35,7 @@ public class Dish {
 		this.setProduct(product);
 		this.setPrice(price);
 		this.setDescription(description);
-		this.id = id;
+		this.setId(id);
 	}
 
 	public String getProduct() {
@@ -66,14 +62,6 @@ public class Dish {
 		this.description = description;
 	}
 
-	public void setId(int id){
-		this.id = id;
-	}
-	
-	public int getId() {
-		return this.id;
-	}
-
 	public String getSection() {
 		return section;
 	}
@@ -86,7 +74,7 @@ public class Dish {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
+		result = prime * result + this.getId();
 		return result;
 	}
 
@@ -110,7 +98,7 @@ public class Dish {
 			return false;
 		}
 		Dish other = (Dish) obj;
-		if (id != other.id) {
+		if (this.getId() != other.getId()) {
 			return false;
 		}
 		return true;

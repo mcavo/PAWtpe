@@ -19,11 +19,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "restaurante")
-public class Restaurant {
-	
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "id")
-	private int id;
+public class Restaurant extends PersistentEntity {
 
 	@OneToMany
 	@JoinColumn(name="gerid")
@@ -95,7 +91,7 @@ public class Restaurant {
 		this.setAddress(address);
 		this.setTypesOfFood(typeOfFood);
 		this.setMenu(menu);
-		this.id = id;
+		this.setId(id);;
 		this.setDelamount(cost);
 		this.setDeliveryfrom(delfrom);
 		this.setDeliveryto(delto);
@@ -275,14 +271,6 @@ public class Restaurant {
 
 	public HashMap<Integer, Calification> getQualifications() {
 		return this.califications;
-	}
-
-	public void setId(int id){
-		this.id = id;
-	}
-	
-	public int getId() {
-		return this.id;
 	}
 	
 	public int getCountComments(){

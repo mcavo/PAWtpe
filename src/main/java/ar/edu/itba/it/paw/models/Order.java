@@ -15,7 +15,7 @@ import javax.persistence.Transient;
 
 @Entity
 @Table(name = "pedido")
-public class Order {
+public class Order extends PersistentEntity {
 	
 	@Transient
 	private Map<Dish,Integer> ordlist;
@@ -30,10 +30,6 @@ public class Order {
 	
 	@Column(name = "estado")
 	private Integer status;
-	
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "id")
-	private int id;
 	
 	public Order(){
 		
@@ -51,14 +47,6 @@ public class Order {
 
 	public void setOrdlist(Map<Dish, Integer> ordlist) {
 		this.ordlist = ordlist;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public void setStatus(Integer status) {
