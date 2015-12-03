@@ -50,14 +50,14 @@ public class CalificationRepository extends AbstractHibernateRepository{
 	    try 
 	    {
 		    Session sessionSQL = super.getSession();
-		    Transaction tx = sessionSQL.beginTransaction();
+		    //Transaction tx = sessionSQL.beginTransaction();
 		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("insert into calificacion (userid, restid, descripcion, puntaje) VALUES (?, ?, ?, ?);");
 		    query.setParameter(0, user.getId()); 
 		    query.setParameter(1, restId);
 		    query.setParameter(2, comment);
 		    query.setParameter(3, rate);
 		    query.executeUpdate();
-		    tx.commit();
+		    //tx.commit();
 	    }
 	    catch(Exception e)
 	    {
@@ -80,13 +80,13 @@ public class CalificationRepository extends AbstractHibernateRepository{
 	    try 
 	    {
 		    Session sessionSQL = super.getSession();
-		    Transaction tx = sessionSQL.beginTransaction();
+		    //Transaction tx = sessionSQL.beginTransaction();
 		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("SELECT * from calificacion where restid = ?").setParameter(0, restaurant.getId()); 
 		    query.addScalar("userId", Hibernate.INTEGER);
 		    query.addScalar("descripcion", Hibernate.STRING);
 		    query.addScalar("puntaje", Hibernate.INTEGER);
 		    califications = query.setResultTransformer(Transformers.aliasToBean(Calification.class)).list();
-		    tx.commit();
+		    //tx.commit();
 	    }
 	    catch(Exception e)
 	    {

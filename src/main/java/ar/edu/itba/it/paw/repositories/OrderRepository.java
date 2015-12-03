@@ -90,13 +90,13 @@ public class OrderRepository extends AbstractHibernateRepository{
 	    try 
 	    {
 		    Session sessionSQL = super.getSession();
-		    Transaction tx = sessionSQL.beginTransaction();
+		    //Transaction tx = sessionSQL.beginTransaction();
 		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("insert into prodPedidos (pedid, platoid, cant) VALUES (?, ?, ?)");
 		    query.setParameter(0, orderId); 
 		    query.setParameter(1, dishId);
 		    query.setParameter(2, cant);
 		    query.executeUpdate();
-		    tx.commit();
+		    //tx.commit();
 	    }
 	    catch(Exception e)
 	    {
@@ -137,10 +137,10 @@ public class OrderRepository extends AbstractHibernateRepository{
 	    try 
 	    {
 		    Session sessionSQL = super.getSession();
-		    Transaction tx = sessionSQL.beginTransaction();
+		    //Transaction tx = sessionSQL.beginTransaction();
 		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("select * from prodPedidos where pedid = ?").setParameter(0, orderId); 
 		    List<Object[]> rows = query.list();
-		    tx.commit();
+		    //tx.commit();
 		    
 		    int platoid;
 		    int cant;

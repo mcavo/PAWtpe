@@ -60,7 +60,7 @@ public class CredentialRepository extends AbstractHibernateRepository {
 	    try 
 	    {
 		    Session sessionSQL = super.getSession();
-		    Transaction tx = sessionSQL.beginTransaction();
+		    //Transaction tx = sessionSQL.beginTransaction();
 		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("SELECT * FROM credencial c WHERE NOT EXISTS "
 		    														+ "(SELECT * FROM gerente g WHERE c.id = g.userid ) "
 		    														+ "AND EXISTS (SELECT * FROM usuario s WHERE s.userid = c.id)"); 
@@ -68,7 +68,7 @@ public class CredentialRepository extends AbstractHibernateRepository {
 		    query.addScalar("rol", Hibernate.STRING);
 		    query.addScalar("mail", Hibernate.STRING);
 		    credentials = query.setResultTransformer(Transformers.aliasToBean(Credential.class)).list();
-		    tx.commit();
+		    //tx.commit();
 	    }
 	    catch(Exception e)
 	    {

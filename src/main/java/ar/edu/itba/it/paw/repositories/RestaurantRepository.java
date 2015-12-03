@@ -45,7 +45,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 	    try 
 	    {
 		    Session sessionSQL = super.getSession();
-		    Transaction tx = sessionSQL.beginTransaction();
+		    //Transaction tx = sessionSQL.beginTransaction();
 		    //ARREGLAR LA QUERY!
 		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("Select * FROM restaurante WHERE id in "
 		    											+ "(select p1.restid from pedido p1 group by p1.restid having count(*) >= "
@@ -60,7 +60,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		    query.addScalar("costoenvio", Hibernate.FLOAT);
 		    query.addScalar("dirid", Hibernate.INTEGER);
 		    rests = query.setResultTransformer(Transformers.aliasToBean(Restaurant.class)).list();
-		    tx.commit();
+		    //tx.commit();
 	    }
 	    catch(Exception e)
 	    {
@@ -104,7 +104,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 	    try 
 	    {
 		    Session sessionSQL = super.getSession();
-		    Transaction tx = sessionSQL.beginTransaction();
+		    //Transaction tx = sessionSQL.beginTransaction();
 		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("Select * FROM restaurante WHERE id in (select distinct restid from tipos where tipo like ?)").setParameter(0, typeOfFood); 
 		    query.addScalar("nombre", Hibernate.STRING);
 		    query.addScalar("montomin", Hibernate.DOUBLE);
@@ -116,7 +116,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		    query.addScalar("costoenvio", Hibernate.FLOAT);
 		    query.addScalar("dirid", Hibernate.INTEGER);
 		    rests = query.setResultTransformer(Transformers.aliasToBean(Restaurant.class)).list();
-		    tx.commit();
+		    //tx.commit();
 	    }
 	    catch(Exception e)
 	    {
@@ -227,10 +227,10 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 	    try 
 	    {
 		    Session sessionSQL = super.getSession();
-		    Transaction tx = sessionSQL.beginTransaction();
+		    //Transaction tx = sessionSQL.beginTransaction();
 		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("SELECT tipo FROM tipos WHERE restid = ?").setParameter(0, r.getId()); 
 		    tof = query.list();
-		    tx.commit();
+		    //tx.commit();
 	    }
 	    catch(Exception e)
 	    {
@@ -427,12 +427,12 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 	    try 
 	    {
 		    Session sessionSQL = super.getSession();
-		    Transaction tx = sessionSQL.beginTransaction();
+		    //Transaction tx = sessionSQL.beginTransaction();
 		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("INSERT INTO tipos (restid, tipo) VALUES (?, ?);");
 		    query.setParameter(0, id); 
 		    query.setParameter(1, type);
 		    query.executeUpdate();
-		    tx.commit();
+		    //tx.commit();
 	    }
 	    catch(Exception e)
 	    {
@@ -454,13 +454,13 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 	    try 
 	    {
 		    Session sessionSQL = super.getSession();
-		    Transaction tx = sessionSQL.beginTransaction();
+		    //Transaction tx = sessionSQL.beginTransaction();
 		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("INSERT INTO delivery (restid, barrioid, costo) VALUES (?, ?, ?);");
 		    query.setParameter(0, id); 
 		    query.setParameter(1, neigh.getId());
 		    query.setParameter(2, delamount);
 		    query.executeUpdate();
-		    tx.commit();
+		    //tx.commit();
 	    }
 	    catch(Exception e)
 	    {
@@ -503,12 +503,12 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 	    try 
 	    {
 		    Session sessionSQL = super.getSession();
-		    Transaction tx = sessionSQL.beginTransaction();
+		    //Transaction tx = sessionSQL.beginTransaction();
 		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("SELECT * FROM delivery WHERE restid = ? and barrioid = ?");
 		    query.setParameter(0, rest.getId()); 
 		    query.setParameter(1, neighId); 
 		    List<Object[]> rows = query.list();
-		    tx.commit();
+		    //tx.commit();
 		    
 		    for (Object[] row: rows) {
 		    	out = true;

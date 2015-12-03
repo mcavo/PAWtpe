@@ -17,43 +17,32 @@ public class AbstractHibernateRepository {
 
 		@SuppressWarnings("unchecked")
 		public <T> T get(Class<T> type, Serializable id) {
-			Session session = getSession();
-			Transaction tx = session.beginTransaction();
-			T obj = (T) getSession().get(type, id);
-			tx.commit();
-			return obj;
+			return (T) getSession().get(type, id);
 		}
 
 		@SuppressWarnings("unchecked")
 		public <T> List<T> find(String hql, Object... params) {
 			Session session = getSession();
-			Transaction tx = sessionFactory.getCurrentSession().beginTransaction();
+
 			Query query = session.createQuery(hql);
 			for (int i = 0; i < params.length; i++) {
 				query.setParameter(i, params[i]);
 			}
 			List<T> list = query.list();
-			tx.commit();
 			return list;
 		}
 
-		protected org.hibernate.Session getSession() {
+		protected org.hibernate.classic.Session getSession() {
 			return sessionFactory.getCurrentSession();
 		}
 
 		public Serializable save(Object o) {
-			Session session = getSession();
-			Transaction tx = session.beginTransaction();
-			Serializable obj = session.save(o);
-			tx.commit();
-			return obj;
+			return getSession().save(o);
 		}
 		
 		public void update(Object o){
 			Session session = getSession();
-			Transaction tx = session.beginTransaction();
 			session.update(o);
-			tx.commit();
 		}
 
 }

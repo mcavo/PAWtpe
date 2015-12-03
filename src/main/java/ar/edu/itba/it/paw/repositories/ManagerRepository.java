@@ -102,13 +102,13 @@ public class ManagerRepository extends AbstractHibernateRepository{
 	    try 
 	    {
 		    Session sessionSQL = super.getSession();
-		    Transaction tx = sessionSQL.beginTransaction();
+		    //Transaction tx = sessionSQL.beginTransaction();
 		    //ARREGLAR LA QUERY!
 		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("select restid from gerente where gerente.userid = ?").setParameter(0, manager.getId()); 
 		    //query.addScalar("userid", Hibernate.INTEGER);
 		    //query.addScalar("restid", Hibernate.INTEGER);
 		    ArrayList<Object> rows = (ArrayList<Object>) query.list();
-		    tx.commit();
+		    //tx.commit();
 
 		    for (int i = 0; i < rows.size(); i++) {
 		    	rest = this.restaurantRepository.getById((Integer) rows.get(i));
@@ -138,13 +138,13 @@ public class ManagerRepository extends AbstractHibernateRepository{
 	    try 
 	    {
 		    Session sessionSQL = super.getSession();
-		    Transaction tx = sessionSQL.beginTransaction();
+		    //Transaction tx = sessionSQL.beginTransaction();
 		    //ARREGLAR LA QUERY!
 		    SQLQuery queryInsert = (SQLQuery) sessionSQL.createSQLQuery("INSERT INTO gerente (userid, restid) VALUES (?, ?)"); 
 		    queryInsert.setParameter(0, userId);
 		    queryInsert.setParameter(1, restId);
 		    queryInsert.executeUpdate();
-		    tx.commit();
+		    //tx.commit();
 		    this.credentialRepository.setRol("gerente", userId);
 	    }
 	    catch(Exception e)

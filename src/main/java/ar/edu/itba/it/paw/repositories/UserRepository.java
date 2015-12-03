@@ -119,10 +119,10 @@ public class UserRepository extends AbstractHibernateRepository{
 	    try 
 	    {
 		    Session sessionSQL = super.getSession();
-		    Transaction tx = sessionSQL.beginTransaction();
+		    //Transaction tx = sessionSQL.beginTransaction();
 		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("SELECT pregunta FROM preguntas WHERE id = (select pregid from usuario where userid = ?)").setParameter(0, userId); 
 		    preguntas = query.list();
-		    tx.commit();
+		    //tx.commit();
 	    }
 	    catch(Exception e)
 	    {
