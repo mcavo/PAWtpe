@@ -27,7 +27,6 @@ public class TransactionFilter extends OncePerRequestFilter {
 			HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		try {
-			System.out.println("intentando ejecutar");
 			// Starting a database transaction
 			sessionFactory.getCurrentSession().beginTransaction();
 

@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.itba.it.paw.exceptions.CreateCalificationException;
+import ar.edu.itba.it.paw.exceptions.NoRestaurantException;
 import ar.edu.itba.it.paw.forms.RegisterRestForm;
 import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Dish;
+import ar.edu.itba.it.paw.models.Message;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
 import ar.edu.itba.it.paw.repositories.AddressRepository;
@@ -86,7 +89,7 @@ public class RestaurantController {
 	}
 	
 	@RequestMapping(value="/details", method = RequestMethod.POST) 
-	public ModelAndView details(HttpServletRequest request, @RequestParam("code") Restaurant restaurant, @RequestParam("rating") String stars, @RequestParam(value="comment", required=false) String comments) throws Exception {	
+	public ModelAndView details(HttpServletRequest request, @RequestParam("code") Restaurant restaurant, @RequestParam("rating") String stars, @RequestParam(value="comment", required=false) String comments) {	
 		ModelAndView mav = new ModelAndView();
 		User user = (User) request.getAttribute("user");
 		//rest.setCalifications(calificationService.getCalifications(rest));
@@ -96,7 +99,11 @@ public class RestaurantController {
 		if (!userManager.existsUser()) {
 			throw new Exception("No hay un usuario loggeado");
 		}*/
-		calificationRepository.addCalification(user, restaurant, stars, comments);
+		try {
+			calificationRepository.addCalification(user, restaurant, stars, comments);
+		} catch (CreateCalificationException e) {
+			mav.addObject("message", new Message("warning", "No se pudo realizar la calificación"));
+		}
 		restaurant.getQualifications().put(user.getId(), new Calification(Integer.valueOf(stars), comments));
 		request.setAttribute("rest", restaurant);
 		
@@ -206,7 +213,11 @@ public class RestaurantController {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) request.getAttribute("user");
 		if(user != null && user.getIsManager()){
-			request.setAttribute("rest", managerRepository.getRestaurant(user));
+			try {
+				request.setAttribute("rest", managerRepository.getRestaurant(user));
+			} catch (NoRestaurantException e) {
+				mav.addObject("worning", "No hay restaurants disponibles para el usuario: " + e.getManager().getFirstName());
+			}
 			mav.setViewName("addDish");
 		}else{
 			return new ModelAndView("redirect:/bin/homepage");
@@ -219,7 +230,11 @@ public class RestaurantController {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) request.getAttribute("user");
 		if(user != null && user.getIsManager()){
-			managerRepository.addDish(managerRepository.getRestaurant(user), section, dish, Integer.valueOf(price), description);
+			try {
+				managerRepository.addDish(managerRepository.getRestaurant(user), section, dish, Integer.valueOf(price), description);
+			}catch (NoRestaurantException e) {
+				mav.addObject("worning", "No hay restaurants disponibles para el usuario: " + e.getManager().getFirstName());
+			}
 			mav.setViewName("addDish");
 		}else{
 			return new ModelAndView("redirect:/bin/homepage");

@@ -6,7 +6,6 @@ import org.hibernate.Hibernate;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Repository;
 import ar.edu.itba.it.paw.exceptions.CredentialNoMatchException;
 import ar.edu.itba.it.paw.exceptions.DuplicateEmailException;
 import ar.edu.itba.it.paw.exceptions.NoCredentialException;
+import ar.edu.itba.it.paw.exceptions.NoManagersAvailableException;
 import ar.edu.itba.it.paw.models.Credential;
 
 @Repository
@@ -54,12 +54,13 @@ public class CredentialRepository extends AbstractHibernateRepository {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<Credential> getManagersAvailables() {
+	public List<Credential> getManagersAvailables() throws NoManagersAvailableException {
 		List<Credential> credentials = null;
-		Session session=null;
+//		Session session=null;
+		Session sessionSQL = null;
 	    try 
 	    {
-		    Session sessionSQL = super.getSession();
+		    sessionSQL = super.getSession();
 		    //Transaction tx = sessionSQL.beginTransaction();
 		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("SELECT * FROM credencial c WHERE NOT EXISTS "
 		    														+ "(SELECT * FROM gerente g WHERE c.id = g.userid ) "
@@ -73,14 +74,18 @@ public class CredentialRepository extends AbstractHibernateRepository {
 	    catch(Exception e)
 	    {
 	    	e.printStackTrace();
+	    	throw new NoManagersAvailableException();
 	    }
 	    finally
 	    {
-	        if(session !=null && session.isOpen())
+	        if(sessionSQL !=null && sessionSQL.isOpen())
 	        {
-	          session.close();
-	          session=null;
+	          sessionSQL.close();
+	          sessionSQL=null;
 	        }
+	    }
+	    if (credentials == null) {
+	    	throw new NoManagersAvailableException();
 	    }
 	    return credentials;
 	}

@@ -12,6 +12,7 @@ import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import ar.edu.itba.it.paw.exceptions.CreateCalificationException;
 import ar.edu.itba.it.paw.models.Calification;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
@@ -24,7 +25,7 @@ public class CalificationRepository extends AbstractHibernateRepository{
 		super(sessionFactory);		
 	}
 
-	public void addCalification(User user, Restaurant rest, String stars, String comment){
+	public void addCalification(User user, Restaurant rest, String stars, String comment) throws CreateCalificationException{
 		int restId = rest.getId();
 		int rate;
 		//int userId = Integer.valueOf(usrId);
@@ -61,7 +62,7 @@ public class CalificationRepository extends AbstractHibernateRepository{
 	    }
 	    catch(Exception e)
 	    {
-	    	e.printStackTrace();
+	    	throw new CreateCalificationException();
 	    }
 	    finally
 	    {

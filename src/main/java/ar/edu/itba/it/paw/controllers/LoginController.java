@@ -13,6 +13,7 @@ import ar.edu.itba.it.paw.SessionUserManager;
 import ar.edu.itba.it.paw.UserManager;
 import ar.edu.itba.it.paw.exceptions.CredentialNoMatchException;
 import ar.edu.itba.it.paw.models.Credential;
+import ar.edu.itba.it.paw.models.Message;
 import ar.edu.itba.it.paw.models.User;
 import ar.edu.itba.it.paw.repositories.CredentialRepository;
 import ar.edu.itba.it.paw.repositories.UserRepository;
@@ -41,24 +42,25 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="/login", method = RequestMethod.POST)
-	public String post(HttpServletRequest request, @RequestParam("email") String email, @RequestParam("pwd") String pwd) {
+	public ModelAndView post(HttpServletRequest request, @RequestParam("email") String email, @RequestParam("pwd") String pwd) {
 		Credential cred = null;
+		ModelAndView mav = new ModelAndView();
 		try {
 			cred = credentialRepository.getCredentials(email, pwd);
 		} catch (CredentialNoMatchException e) {
-			return "redirect:login";
+			mav.setViewName("login");
+			mav.addObject("message", new Message("warning", "Credencial no válida"));
+			return mav;
 		};
-		//esto pasa?
-		if(cred == null){
-			return "redirect:login";
-		}else{
-			User user = userRepository.getUser(cred);
-			if(user == null){
-				return "";
-			}
-			UserManager userManager = new SessionUserManager(request);
-			userManager.setUser(user);
-			return "redirect:/bin/homepage";
+
+		User user = userRepository.getUser(cred);
+		if(user == null){
+			mav.setViewName("login");				
+			mav.addObject("message", new Message("warning", "Credencial no válida"));
+			return mav;		
 		}
+		UserManager userManager = new SessionUserManager(request);
+		userManager.setUser(user);
+		return new ModelAndView("redirect:/bin/homepage");
 	}
 }

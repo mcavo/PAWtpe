@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.itba.it.paw.exceptions.NoManagersAvailableException;
+import ar.edu.itba.it.paw.exceptions.NoRestaurantException;
 import ar.edu.itba.it.paw.models.Credential;
+import ar.edu.itba.it.paw.models.Message;
 import ar.edu.itba.it.paw.models.Restaurant;
 import ar.edu.itba.it.paw.models.User;
 import ar.edu.itba.it.paw.repositories.ManagerRepository;
@@ -37,9 +40,14 @@ public class ManagerController {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) request.getAttribute("user");
 		if(user != null && user.getIsManager()){
-			Restaurant rest = managerRepository.getRestaurant(user);
-			mav.addObject("rest", rest);
-			request.setAttribute("olist", orderRepository.getHistory(rest));
+			Restaurant rest;
+			try {
+				rest = managerRepository.getRestaurant(user);
+				mav.addObject("rest", rest);
+				request.setAttribute("olist", orderRepository.getHistory(rest));
+			} catch (NoRestaurantException e) {
+				mav.addObject("warning", "No hay ningún restaurant asignado a" + e.getManager().getFirstName());
+			}
 			mav.setViewName("showOrders");
 		}else{
 			return new ModelAndView("redirect:/bin/homepage");
@@ -55,13 +63,17 @@ public class ManagerController {
 	@RequestMapping(value="/addManager", method = RequestMethod.GET)
 	public ModelAndView addManager(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
+		List<Restaurant> rlist = null;
+		List<Credential> clist = null;
 		User user = (User) request.getAttribute("user");
 		if(user != null && user.getIsAdmin()){
-			List<Restaurant> rlist;
-			List<Credential> clist;
-			rlist = restaurantRepository.getAll();
-			clist = managerRepository.getManagersAvailables();
-			mav.addObject("rlist", rlist);
+			try {
+				rlist = restaurantRepository.getAll();
+				clist = managerRepository.getManagersAvailables();
+				mav.addObject("rlist", rlist);
+			} catch (NoManagersAvailableException e) {
+				mav.addObject("message", new Message("warning","No hay managers disponibles"));
+			}
 			mav.addObject("clist", clist);
 			mav.setViewName("addManager");
 			return mav;

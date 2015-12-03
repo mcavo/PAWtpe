@@ -6,10 +6,11 @@ import java.util.List;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import ar.edu.itba.it.paw.exceptions.NoManagersAvailableException;
+import ar.edu.itba.it.paw.exceptions.NoRestaurantException;
 import ar.edu.itba.it.paw.models.Credential;
 import ar.edu.itba.it.paw.models.Dish;
 import ar.edu.itba.it.paw.models.Restaurant;
@@ -90,12 +91,12 @@ public class ManagerRepository extends AbstractHibernateRepository{
 	}
 	
 	public boolean existsSection(String section) {
-		return !find("from Dish where seccion like ?", section).isEmpty();
+		return section != null && section.length() > 0;
 	}
 
 	
 	@SuppressWarnings("unchecked")
-	public Restaurant getRestaurant(User manager) {
+	public Restaurant getRestaurant(User manager) throws NoRestaurantException {
 		Restaurant rest = null;
 		
 		Session session=null;
@@ -117,6 +118,7 @@ public class ManagerRepository extends AbstractHibernateRepository{
 	    catch(Exception e)
 	    {
 	    	e.printStackTrace();
+	    	throw new NoRestaurantException(manager);
 	    }
 	    finally
 	    {
@@ -168,13 +170,12 @@ public class ManagerRepository extends AbstractHibernateRepository{
 				return false;	
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw new Exception("bad parameter");
 		}
 		return true;
 	}
 
-	public List<Credential> getManagersAvailables() {
+	public List<Credential> getManagersAvailables() throws NoManagersAvailableException {
 		return credentialRepository.getManagersAvailables();
 	}
 	
@@ -185,7 +186,6 @@ public class ManagerRepository extends AbstractHibernateRepository{
 			setManager(userid, restid);
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
 			return false;
 		}	
 	}
