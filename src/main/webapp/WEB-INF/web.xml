@@ -1,20 +1,22 @@
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	version="2.4">
-
 	<servlet>
-      <servlet-name>sprintSpring</servlet-name>
-      <servlet-class>
-         org.springframework.web.servlet.DispatcherServlet
-      </servlet-class>
-      <load-on-startup>1</load-on-startup>
-   </servlet>
+		<servlet-name>spring</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 
-   <servlet-mapping>
-      <servlet-name>sprintSpring</servlet-name>
-      <url-pattern>/bin/*</url-pattern>
-   </servlet-mapping>
-	
+	<servlet-mapping>
+		<servlet-name>spring</servlet-name>
+		<url-pattern>/bin/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/css/*</url-pattern>
+	</servlet-mapping>
+
 	<servlet>
 		<description>
 		</description>
@@ -26,33 +28,49 @@
 		<servlet-name>Error</servlet-name>
 		<url-pattern>/Error</url-pattern>
 	</servlet-mapping>
-	
-	<filter>
- 		<filter-name>transactionFilter</filter-name> 
-  		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class> 
- 		<init-param>
-  			<param-name>targetBeanName</param-name> 
-  			<param-value>transactionFilter</param-value> 
-  		</init-param>
-  		<init-param>
-  			<param-name>contextAttribute</param-name> 
-  			<param-value>org.springframework.web.servlet.FrameworkServlet.CONTEXT.spring</param-value> 
-  		</init-param>
-    </filter>
-<!--     <filter-mapping> -->
-<!--         <filter-name>transactionFilter</filter-name> -->
-<!--         <url-pattern>/bin/*</url-pattern> -->
-<!--     </filter-mapping>  -->
-    
-    <listener>
-    	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
-	
-	<context-param>
-    	<param-name>contextConfigLocation</param-name>
-   		<param-value>/WEB-INF/sprintSpring-servlet.xml</param-value>
-	</context-param>
 
-	
-  <display-name>Archetype Created Web Application</display-name>
+	<!-- <listener> -->
+	<!-- <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class> -->
+	<!-- </listener> -->
+
+	<!-- <context-param> -->
+	<!-- <param-name>contextConfigLocation</param-name> -->
+	<!-- <param-value>/WEB-INF/sprintSpring-servlet.xml</param-value> -->
+	<!-- </context-param> -->
+
+	<filter>
+		<filter-name>transactionFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>
+			<param-name>targetBeanName</param-name>
+			<param-value>transactionFilter</param-value>
+		</init-param>
+		<init-param>
+			<param-name>contextAttribute</param-name>
+			<param-value>org.springframework.web.servlet.FrameworkServlet.CONTEXT.spring</param-value>
+		</init-param>
+	</filter>
+<!-- 	<filter-mapping> -->
+<!-- 	<filter-name>transactionFilter</filter-name> -->
+<!-- 	<url-pattern>/bin/*</url-pattern> -->
+<!-- 	</filter-mapping> -->
+
+	<filter>
+		<filter-name>homepageFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+		<init-param>
+			<param-name>targetBeanName</param-name>
+			<param-value>homepageFilter</param-value>
+		</init-param>
+		<init-param>
+			<param-name>contextAttribute</param-name>
+			<param-value>org.springframework.web.servlet.FrameworkServlet.CONTEXT.spring</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>homepageFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<display-name>Archetype Created Web Application</display-name>
 </web-app>
