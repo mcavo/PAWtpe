@@ -3,6 +3,7 @@ package ar.edu.itba.it.paw.repositories;
 import java.sql.Timestamp;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -11,7 +12,6 @@ import org.hibernate.Hibernate;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -315,12 +315,15 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		try {
 			validateAddress(rest.getAddress(), rest.getName());
 			Set<Neighborhood> set =rest.getDeliveryneigh();
+			Set<Neighborhood> saux = new HashSet<Neighborhood>(set);
+			//TODO: está bien esto?? qué se supone que hace?
+			//TODO: hay que cambiar esto sí o sí! es un asco!!
 			for(Neighborhood n: set) {
 				Neighborhood naux = addressRepository.getneighById(n.getId());
-				set.remove(n);
-				set.add(naux);
+				saux.remove(n);
+				saux.add(naux);
 			}
-			rest.setDeliveryneigh(set);
+			rest.setDeliveryneigh(saux);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
@@ -486,7 +489,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 	}
 	
 	public int saveRestaurant(Restaurant rest) {
-		save(rest);
+//		save(rest);
 		return (int) save(rest);
 	}
 	
