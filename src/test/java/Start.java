@@ -13,7 +13,7 @@ public class Start {
 	    server.setConnectors(new Connector[] { connector });
 	    WebAppContext bb = new WebAppContext();
 	    bb.setServer(server);
-	    bb.setContextPath("/PAWTPE");
+	    bb.setContextPath("/");
 	    bb.setWar("src/main/webapp");
 	    server.addHandler(bb);
 	    try {
