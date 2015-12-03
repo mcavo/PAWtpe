@@ -189,7 +189,7 @@ public class RestaurantController {
 			return new ModelAndView("redirect:/bin/homepage");
 		}
 		registerRestValidator.validate(form, e);
-		ModelAndView mav = new ModelAndView("redirect:/bin/signup");
+		ModelAndView mav = new ModelAndView("redirect:/bin/restaurant/register");
 		if (e.hasErrors()) {
 			request.setAttribute("message","Datos de registro de restaurante inválidos");
 			return mav;
