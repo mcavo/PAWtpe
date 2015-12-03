@@ -143,7 +143,7 @@ public class UserRepository extends AbstractHibernateRepository{
 		return preguntas.get(0);
 	}
 
-	public boolean existsUser(int userId, String name, String lastName) {
-		return !find("from User where userid = ? and nombre = ? and apellido = ?", userId, name, lastName).isEmpty();
+	public boolean existsUser(int userId) {
+		return getUserById(userId) != null;
 	}
 }
