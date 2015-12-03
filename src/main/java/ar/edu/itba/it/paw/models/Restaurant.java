@@ -8,9 +8,6 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -79,8 +76,7 @@ public class Restaurant extends PersistentEntity {
 	private int dirid;
 
 	//Only for javabean
-	public Restaurant() {
-		
+	public Restaurant() {	
 	}
 	
 	public Restaurant(int id, String name, Float minimumPurchase, Float startService, Float endService, Address address, List<String> typeOfFood, Menu menu, Float cost, Float delfrom,Float delto, Set<Neighborhood> deliveryneigh) {
@@ -103,7 +99,7 @@ public class Restaurant extends PersistentEntity {
 	}
 
 	public void setDeliveryneigh(Set<Neighborhood> deliveryneigh) {
-		this.deliveryneigh = deliveryneigh;
+		this.deliveryneigh.addAll(deliveryneigh);
 	}
 
 	public Float getMontomin() {
@@ -160,12 +156,23 @@ public class Restaurant extends PersistentEntity {
 		score=saux;
 	}
 
-
 	public void setCalifications(HashMap<Integer, Calification> qMap) {
-		this.califications = qMap;
+		for (Entry<Integer, Calification> calif : qMap.entrySet()){
+			Integer key = calif.getKey();
+			if (califications.containsKey(key)) {
+				qMap.remove(key);
+			}
+		}
+		this.califications.putAll(qMap);
 		calculateScore();
 	}
 
+	public void addCalification(Integer user_id, Calification calif) {
+		if (!califications.containsKey(user_id)) {
+			califications.put(user_id,calif);
+		}
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -182,7 +189,11 @@ public class Restaurant extends PersistentEntity {
 	}
 
 	public void setManagers(Set<User> managers) {
-		this.managers = managers;
+		this.managers.addAll(managers);
+	}
+	
+	public void addManager(User manager) {
+		this.managers.add(manager);
 	}
 
 	public Float getMinamount() {
@@ -230,7 +241,7 @@ public class Restaurant extends PersistentEntity {
 	}
 
 	public void setTypesOfFood(List<String> typesOfFood) {
-		this.typesOfFood = typesOfFood;
+		this.typesOfFood.addAll(typesOfFood);
 	}
 
 	public String getDescription() {
