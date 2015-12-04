@@ -3,6 +3,7 @@
 <div class="container">
 	<form role="form" action="ask" method="post">
 		<input type="hidden" name="userId" value="${userId}">
+		<input type="hidden" name="question" value="${question}">
 		<br>
 		<div class="form-group row">
 			<div class="col-sm-offset-4 col-sm-4">

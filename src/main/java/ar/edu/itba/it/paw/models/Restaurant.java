@@ -73,7 +73,7 @@ public class Restaurant extends PersistentEntity {
 	private Timestamp regis;
 	
 	@Column(name = "costoenvio")
-	private Float delamount;
+	private Double delamount;
 	
 	@Column(name = "dirid")
 	private int dirid;
@@ -83,7 +83,7 @@ public class Restaurant extends PersistentEntity {
 		
 	}
 	
-	public Restaurant(int id, String name, Float minimumPurchase, Float startService, Float endService, Address address, List<String> typeOfFood, Menu menu, Float cost, Float delfrom,Float delto, Set<Neighborhood> deliveryneigh) {
+	public Restaurant(int id, String name, Float minimumPurchase, Float startService, Float endService, Address address, List<String> typeOfFood, Menu menu, Double cost, Float delfrom,Float delto, Set<Neighborhood> deliveryneigh) {
 		this.setName(name);
 		this.setMinamount(minimumPurchase);
 		this.setFrom(startService);
@@ -138,11 +138,11 @@ public class Restaurant extends PersistentEntity {
 		return califications;
 	}
 
-	public void setDelamount(Float delamount) {
-		this.delamount = delamount;
+	public void setDelamount(double cost) {
+		this.delamount = cost;
 	}
 
-	public void setCostoenvio(Float delamount) {
+	public void setCostoenvio(Double delamount) {
 		this.delamount = delamount;
 	}
 	
@@ -280,7 +280,7 @@ public class Restaurant extends PersistentEntity {
 	}
 
 	
-	public Float getDelamount() {
+	public Double getDelamount() {
 		return delamount;
 	}
 

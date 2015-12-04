@@ -53,7 +53,7 @@
 						<li><a href="/bin/signup">Regístrate</a></li>
 					</c:when>
 					<c:otherwise>
-						<li><a href="/bin/restaurant/status">Pedido</a></li>
+						<!-- >li><a href="/bin/restaurant/status">Pedido</a></li -->
 						<li><a href="/bin/profile/edit">${user.firstName}</a></li>
 						<!-- li><a href="/bin/user/ask">Cambiar contraseña</a></li-->
 						<li><a href="/bin/logout">Salir</a></li>
