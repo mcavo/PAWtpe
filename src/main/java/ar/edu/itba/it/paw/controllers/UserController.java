@@ -54,20 +54,19 @@ public class UserController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/ask", method = RequestMethod.GET)
-	public ModelAndView askQuestion() {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("askQuestion");
-		return mav;
-	}
-	
 	@RequestMapping(value="/ask", method = RequestMethod.POST)
-	public ModelAndView askQuestion(@RequestParam("userId") String userId, @RequestParam("respuesta") String resp, @RequestParam("pwd") String pwd) {
+	public ModelAndView askQuestion(@RequestParam("userId") String userId,@RequestParam("question") String question,  @RequestParam("respuesta") String resp, @RequestParam("pwd") String pwd) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("homepage");
+		if(userId.isEmpty()){
+			mav.setViewName("getq");
+			return mav;
+		}
 		if (!userRepository.updatePassword(userId, pwd, resp)) {
 			mav.setViewName("askQuestion");
 			mav.addObject("message", new Message("warning", "La respuesta ingresada no es válida"));
+			mav.addObject("userId", userId);
+			mav.addObject("question", question);
 		}
 		return mav;
 	}

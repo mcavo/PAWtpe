@@ -419,7 +419,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		}
 	}
 	
-	private void setNeighs(Set<Neighborhood> set, int id,float delamount) {
+	private void setNeighs(Set<Neighborhood> set, int id,double delamount) {
 		for(Neighborhood neigh : set) {
 			setNeighByOne(neigh, id,delamount);
 		}
@@ -452,7 +452,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 
 	}
 	
-	private void setNeighByOne(Neighborhood neigh, int id,float delamount){
+	private void setNeighByOne(Neighborhood neigh, int id,double delamount){
 		Session session=null;
 	    try 
 	    {
@@ -515,7 +515,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		    
 		    for (Object[] row: rows) {
 		    	out = true;
-		    	float cost = (float) row[2];
+		    	double cost = (double) row[2];
 		    	rest.setDelamount(cost);
 		    }
 	    }
