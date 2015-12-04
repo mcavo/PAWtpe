@@ -42,7 +42,7 @@ public class SignupController {
 		ModelAndView mav = new ModelAndView();
 		UserManager userManager = new SessionUserManager(request);
 		if (userManager.existsUser()) {
-			return new ModelAndView();
+			return new ModelAndView("redirect:/bin/homepage");
 		}
 		mav.addObject("neighList", addressRepository.getNeigh());
 		mav.addObject("questList", questionRepository.getQuestions());
