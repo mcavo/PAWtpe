@@ -19,12 +19,11 @@ public class HomepageFilter extends OncePerRequestFilter {
 	}
 	
 	private boolean validateUri(String url) {
-		return true;
-//		String[] parts = url.split("pawtpe.herokuapp.com");
-//		if (parts.length == 2) {
-//			return parts[1].equals("/");
-//		}
-//		return (url.equals("http://localhost:8000/"));
+		String[] parts = url.split("pawtpe.herokuapp.com");
+		if (parts.length == 2) {
+			return parts[1].equals("/");
+		}
+		return (url.equals("http://localhost:8000/"));
 	}
 
 	@Override
