@@ -57,7 +57,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		    query.addScalar("id", Hibernate.INTEGER);
 		    query.addScalar("descripcion", Hibernate.STRING);
 		    query.addScalar("regis", Hibernate.TIMESTAMP);
-		    query.addScalar("costoenvio", Hibernate.FLOAT);
+		    query.addScalar("costoenvio", Hibernate.DOUBLE);
 		    query.addScalar("dirid", Hibernate.INTEGER);
 		    rests = query.setResultTransformer(Transformers.aliasToBean(Restaurant.class)).list();
 		    //tx.commit();
