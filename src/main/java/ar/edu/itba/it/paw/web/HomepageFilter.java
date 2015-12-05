@@ -17,14 +17,6 @@ public class HomepageFilter extends OncePerRequestFilter {
 
 	public void destroy() {
 	}
-	
-	private boolean validateUri(String url) {
-		String[] parts = url.split("pawtpe.herokuapp.com");
-		if (parts.length == 2) {
-			return parts[1].equals("/");
-		}
-		return (url.equals("http://localhost:8000/"));
-	}
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -33,7 +25,8 @@ public class HomepageFilter extends OncePerRequestFilter {
 		HttpServletResponse resp = (HttpServletResponse) response;
 		System.out.println(req.getContextPath());
 		System.out.println(req.getRequestURL().toString());
-		if (req.getRequestURI().toString().equals("/")) {
+		String uri = req.getRequestURI().toString();
+		if (uri.equals("/") || uri.equals("/bin/")) {
 			resp.sendRedirect(req.getContextPath() + "/bin/homepage");
 			return ;
 		}
