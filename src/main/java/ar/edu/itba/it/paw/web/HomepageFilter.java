@@ -33,7 +33,7 @@ public class HomepageFilter extends OncePerRequestFilter {
 		HttpServletResponse resp = (HttpServletResponse) response;
 		System.out.println(req.getContextPath());
 		System.out.println(req.getRequestURL().toString());
-		if (validateUri(req.getRequestURL().toString())) {
+		if (req.getRequestURI().toString().equals("/")) {
 			resp.sendRedirect(req.getContextPath() + "/bin/homepage");
 			return ;
 		}
