@@ -26,7 +26,7 @@ public class HomepageFilter extends OncePerRequestFilter {
 		System.out.println(req.getContextPath());
 		System.out.println(req.getRequestURL().toString());
 		String uri = req.getRequestURI().toString();
-		if (uri.equals("/") || uri.equals("/bin/")) {
+		if (uri.equals("/") || uri.equals("/bin/") || uri.equals("/bin")) {
 			resp.sendRedirect(req.getContextPath() + "/bin/homepage");
 			return ;
 		}
