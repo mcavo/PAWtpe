@@ -30,7 +30,7 @@ public class UserRepository extends AbstractHibernateRepository{
 	public User getUser(Credential cred){
 		User user = getUserById(cred.getId());
 		user.setEmail(cred.getMail());
-		user.setManager(cred.getRol().equals("gerente"));
+		user.setManager(cred.getRol().equals("manager"));
 		user.setIsAdmin(cred.getRol().equals("admin"));
 		return user;
 	}
@@ -94,7 +94,7 @@ public class UserRepository extends AbstractHibernateRepository{
 	}
 
 	public static void setIfManager(User user, String rol) {
-		user.setManager(rol.equals("gerente"));
+		user.setManager(rol.equals("manager"));
 		user.setIsAdmin(rol.equals("admin"));
 	}
 	

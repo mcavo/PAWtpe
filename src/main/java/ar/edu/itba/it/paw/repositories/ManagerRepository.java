@@ -147,7 +147,7 @@ public class ManagerRepository extends AbstractHibernateRepository{
 		    queryInsert.setParameter(1, restId);
 		    queryInsert.executeUpdate();
 		    //tx.commit();
-		    this.credentialRepository.setRol("gerente", userId);
+		    this.credentialRepository.setRol("manager", userId);
 	    }
 	    catch(Exception e)
 	    {
