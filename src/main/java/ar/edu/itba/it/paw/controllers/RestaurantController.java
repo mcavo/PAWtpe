@@ -14,19 +14,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.itba.it.paw.domain.address.AddressRepository;
+import ar.edu.itba.it.paw.domain.common.Message;
+import ar.edu.itba.it.paw.domain.restaurant.Calification;
+import ar.edu.itba.it.paw.domain.restaurant.CalificationRepository;
+import ar.edu.itba.it.paw.domain.restaurant.Dish;
+import ar.edu.itba.it.paw.domain.restaurant.OrderRepository;
+import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
+import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepository;
+import ar.edu.itba.it.paw.domain.users.ManagerRepository;
+import ar.edu.itba.it.paw.domain.users.User;
 import ar.edu.itba.it.paw.exceptions.CreateCalificationException;
 import ar.edu.itba.it.paw.exceptions.NoRestaurantException;
 import ar.edu.itba.it.paw.forms.RegisterRestForm;
-import ar.edu.itba.it.paw.models.Calification;
-import ar.edu.itba.it.paw.models.Dish;
-import ar.edu.itba.it.paw.models.Message;
-import ar.edu.itba.it.paw.models.Restaurant;
-import ar.edu.itba.it.paw.models.User;
-import ar.edu.itba.it.paw.repositories.AddressRepository;
-import ar.edu.itba.it.paw.repositories.CalificationRepository;
-import ar.edu.itba.it.paw.repositories.ManagerRepository;
-import ar.edu.itba.it.paw.repositories.OrderRepository;
-import ar.edu.itba.it.paw.repositories.RestaurantRepository;
 import ar.edu.itba.it.paw.validators.RegisterRestValidator;
 
 @Controller

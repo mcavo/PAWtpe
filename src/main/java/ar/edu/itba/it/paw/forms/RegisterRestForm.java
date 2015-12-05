@@ -5,9 +5,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import ar.edu.itba.it.paw.models.Address;
-import ar.edu.itba.it.paw.models.Neighborhood;
-import ar.edu.itba.it.paw.models.Restaurant;
+import ar.edu.itba.it.paw.domain.address.Address;
+import ar.edu.itba.it.paw.domain.address.Neighborhood;
+import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 public class RegisterRestForm {
 	
 	private String name;

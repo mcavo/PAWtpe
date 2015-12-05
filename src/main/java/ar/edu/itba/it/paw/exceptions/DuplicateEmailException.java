@@ -1,6 +1,6 @@
 package ar.edu.itba.it.paw.exceptions;
 
-import ar.edu.itba.it.paw.models.Credential;
+import ar.edu.itba.it.paw.domain.users.Credential;
 
 public class DuplicateEmailException extends Exception {
 

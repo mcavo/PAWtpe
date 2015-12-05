@@ -23,8 +23,6 @@ public class HomepageFilter extends OncePerRequestFilter {
 			throws ServletException, IOException {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
-		System.out.println(req.getContextPath());
-		System.out.println(req.getRequestURL().toString());
 		String uri = req.getRequestURI().toString();
 		if (uri.equals("/") || uri.equals("/bin/") || uri.equals("/bin")) {
 			resp.sendRedirect(req.getContextPath() + "/bin/homepage");

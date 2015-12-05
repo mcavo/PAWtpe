@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.models;
+package ar.edu.itba.it.paw.domain.users;
 
 import ar.edu.itba.it.paw.services.StringService;
 

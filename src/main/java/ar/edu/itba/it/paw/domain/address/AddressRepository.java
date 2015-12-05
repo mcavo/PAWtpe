@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.repositories;
+package ar.edu.itba.it.paw.domain.address;
 
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -8,9 +8,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import ar.edu.itba.it.paw.models.Address;
-import ar.edu.itba.it.paw.models.Neighborhood;
-import ar.edu.itba.it.paw.models.Restaurant;
+import ar.edu.itba.it.paw.domain.common.AbstractHibernateRepository;
+import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 
 @Repository
 public class AddressRepository extends AbstractHibernateRepository {
@@ -91,7 +90,7 @@ public class AddressRepository extends AbstractHibernateRepository {
 		return getIds(address);
 	}
 
-	protected Address getByRestaurant(Restaurant rest) {
+	public Address getByRestaurant(Restaurant rest) {
 		List<Address> result = find("FROM Address WHERE id = (select dirid from Restaurant where id = ?)",
 				rest.getId());
 		if (result.isEmpty()) {

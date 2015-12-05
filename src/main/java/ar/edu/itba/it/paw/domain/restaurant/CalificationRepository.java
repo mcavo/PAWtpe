@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.repositories;
+package ar.edu.itba.it.paw.domain.restaurant;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,10 +12,9 @@ import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import ar.edu.itba.it.paw.domain.common.AbstractHibernateRepository;
+import ar.edu.itba.it.paw.domain.users.User;
 import ar.edu.itba.it.paw.exceptions.CreateCalificationException;
-import ar.edu.itba.it.paw.models.Calification;
-import ar.edu.itba.it.paw.models.Restaurant;
-import ar.edu.itba.it.paw.models.User;
 
 @Repository
 public class CalificationRepository extends AbstractHibernateRepository{

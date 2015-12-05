@@ -2,8 +2,8 @@ package ar.edu.itba.it.paw.forms;
 
 import java.util.Date;
 
-import ar.edu.itba.it.paw.models.Address;
-import ar.edu.itba.it.paw.models.User;
+import ar.edu.itba.it.paw.domain.address.Address;
+import ar.edu.itba.it.paw.domain.users.User;
 import ar.edu.itba.it.paw.services.DateService;
 
 public class EditProfileForm {

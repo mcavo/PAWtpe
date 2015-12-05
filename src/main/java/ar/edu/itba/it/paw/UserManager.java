@@ -1,6 +1,6 @@
 package ar.edu.itba.it.paw;
 
-import ar.edu.itba.it.paw.models.User;
+import ar.edu.itba.it.paw.domain.users.User;
 
 public interface UserManager {
 

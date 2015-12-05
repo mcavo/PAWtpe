@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import ar.edu.itba.it.paw.models.Restaurant;
-import ar.edu.itba.it.paw.repositories.RestaurantRepository;
+import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
+import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepository;
 
 @Component
 public class RestaurantConverter implements Converter<String, Restaurant>{

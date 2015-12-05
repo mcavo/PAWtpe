@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.models;
+package ar.edu.itba.it.paw.domain.common;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

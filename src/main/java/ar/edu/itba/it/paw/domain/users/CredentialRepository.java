@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.repositories;
+package ar.edu.itba.it.paw.domain.users;
 
 import java.util.List;
 
@@ -10,11 +10,11 @@ import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import ar.edu.itba.it.paw.domain.common.AbstractHibernateRepository;
 import ar.edu.itba.it.paw.exceptions.CredentialNoMatchException;
 import ar.edu.itba.it.paw.exceptions.DuplicateEmailException;
 import ar.edu.itba.it.paw.exceptions.NoCredentialException;
 import ar.edu.itba.it.paw.exceptions.NoManagersAvailableException;
-import ar.edu.itba.it.paw.models.Credential;
 
 @Repository
 public class CredentialRepository extends AbstractHibernateRepository {
@@ -56,34 +56,7 @@ public class CredentialRepository extends AbstractHibernateRepository {
 	@SuppressWarnings("unchecked")
 	public List<Credential> getManagersAvailables() throws NoManagersAvailableException {
 		List<Credential> credentials = null;
-//		Session session=null;
-		Session sessionSQL = null;
-	    try 
-	    {
-		    sessionSQL = super.getSession();
-		    //Transaction tx = sessionSQL.beginTransaction();
-		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("SELECT * FROM credencial c WHERE NOT EXISTS "
-		    														+ "(SELECT * FROM gerente g WHERE c.id = g.userid ) "
-		    														+ "AND EXISTS (SELECT * FROM usuario s WHERE s.userid = c.id)"); 
-		    query.addScalar("id", Hibernate.INTEGER);
-		    query.addScalar("rol", Hibernate.STRING);
-		    query.addScalar("mail", Hibernate.STRING);
-		    credentials = query.setResultTransformer(Transformers.aliasToBean(Credential.class)).list();
-		    //tx.commit();
-	    }
-	    catch(Exception e)
-	    {
-	    	e.printStackTrace();
-	    	throw new NoManagersAvailableException();
-	    }
-	    finally
-	    {
-	        if(sessionSQL !=null && sessionSQL.isOpen())
-	        {
-	          sessionSQL.close();
-	          sessionSQL=null;
-	        }
-	    }
+		credentials = super.find("from Credential c where c.rol != 'gerente' and exists (select u from User u where u.id = c.id)");
 	    if (credentials == null) {
 	    	throw new NoManagersAvailableException();
 	    }

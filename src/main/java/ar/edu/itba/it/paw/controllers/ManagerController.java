@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.itba.it.paw.domain.common.Message;
+import ar.edu.itba.it.paw.domain.restaurant.OrderRepository;
+import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
+import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepository;
+import ar.edu.itba.it.paw.domain.users.Credential;
+import ar.edu.itba.it.paw.domain.users.ManagerRepository;
+import ar.edu.itba.it.paw.domain.users.User;
 import ar.edu.itba.it.paw.exceptions.NoManagersAvailableException;
 import ar.edu.itba.it.paw.exceptions.NoRestaurantException;
-import ar.edu.itba.it.paw.models.Credential;
-import ar.edu.itba.it.paw.models.Message;
-import ar.edu.itba.it.paw.models.Restaurant;
-import ar.edu.itba.it.paw.models.User;
-import ar.edu.itba.it.paw.repositories.ManagerRepository;
-import ar.edu.itba.it.paw.repositories.OrderRepository;
-import ar.edu.itba.it.paw.repositories.RestaurantRepository;
 
 @Controller
 public class ManagerController {

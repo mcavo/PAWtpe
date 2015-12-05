@@ -2,7 +2,7 @@ package models;
 
 import org.junit.Test;
 
-import ar.edu.itba.it.paw.models.Admin;
+import ar.edu.itba.it.paw.domain.users.Admin;
 
 public class AdminTest {
 

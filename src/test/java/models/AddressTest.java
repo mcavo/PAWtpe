@@ -2,7 +2,7 @@ package models;
 
 import org.junit.Test;
 
-import ar.edu.itba.it.paw.models.Address;
+import ar.edu.itba.it.paw.domain.address.Address;
 
 public class AddressTest {
 

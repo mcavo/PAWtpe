@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.models;
+package ar.edu.itba.it.paw.domain.users;
 
 public interface UserPermissions {
 	//public boolean isAdmin();

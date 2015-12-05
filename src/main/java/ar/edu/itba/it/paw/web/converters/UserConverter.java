@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
-import ar.edu.itba.it.paw.models.User;
-import ar.edu.itba.it.paw.repositories.UserRepository;
+import ar.edu.itba.it.paw.domain.users.User;
+import ar.edu.itba.it.paw.domain.users.UserRepository;
 
 @Component
 public class UserConverter implements Converter<String, User> {

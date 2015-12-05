@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.repositories;
+package ar.edu.itba.it.paw.domain.users;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -11,8 +11,8 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import ar.edu.itba.it.paw.models.Credential;
-import ar.edu.itba.it.paw.models.User;
+import ar.edu.itba.it.paw.domain.address.AddressRepository;
+import ar.edu.itba.it.paw.domain.common.AbstractHibernateRepository;
 
 @Repository
 public class UserRepository extends AbstractHibernateRepository{
@@ -55,11 +55,7 @@ public class UserRepository extends AbstractHibernateRepository{
 		String role;
 		role = user.getIsManager() ? "manager" : "usuario"; 
 		int userid = -1;
-		//int userid = credentialDAO.setCredentials(user.getEmail(), pwd, role); //Excpetion use to give feedback to the user if the email is still used
-		Credential credential = new Credential();
-		credential.setMail(user.getEmail());
-		credential.setRol(role);
-		credential.setPsw(pwd);
+		Credential credential = new Credential(user.getEmail(), role, pwd);
 		try { 
 			credentialRepository.add(credential);
 			userid = credentialRepository.getCredentialID(user.getEmail());

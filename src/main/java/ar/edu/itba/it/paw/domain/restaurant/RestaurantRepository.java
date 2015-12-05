@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.repositories;
+package ar.edu.itba.it.paw.domain.restaurant;
 
 import java.sql.Timestamp;
 import java.util.Comparator;
@@ -16,13 +16,11 @@ import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import ar.edu.itba.it.paw.models.Address;
-import ar.edu.itba.it.paw.models.Dish;
-import ar.edu.itba.it.paw.models.Menu;
-import ar.edu.itba.it.paw.models.Neighborhood;
-import ar.edu.itba.it.paw.models.Restaurant;
-import ar.edu.itba.it.paw.models.Section;
-import ar.edu.itba.it.paw.models.User;
+import ar.edu.itba.it.paw.domain.address.Address;
+import ar.edu.itba.it.paw.domain.address.AddressRepository;
+import ar.edu.itba.it.paw.domain.address.Neighborhood;
+import ar.edu.itba.it.paw.domain.common.AbstractHibernateRepository;
+import ar.edu.itba.it.paw.domain.users.User;
 
 @Repository
 public class RestaurantRepository extends AbstractHibernateRepository{
@@ -41,39 +39,42 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 	public List<Restaurant> getMostPopular(){
 		//List<Restaurant> results = find("from Restaurant where id in (select distinct restid from Order where max(count(*)) = (select count(restid) from Order group by restid) group by restid)");
 		List<Restaurant> rests = null;
-		Session session=null;
-	    try 
-	    {
-		    Session sessionSQL = super.getSession();
-		    //Transaction tx = sessionSQL.beginTransaction();
-		    //ARREGLAR LA QUERY!
-		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("Select * FROM restaurante WHERE id in "
-		    											+ "(select p1.restid from pedido p1 group by p1.restid having count(*) >= "
-		    												+ "(select count(*) from pedido p2 where p2.restid <> p1.restid))"); 
-		    query.addScalar("nombre", Hibernate.STRING);
-		    query.addScalar("montomin", Hibernate.FLOAT);
-		    query.addScalar("desde", Hibernate.FLOAT);
-		    query.addScalar("hasta", Hibernate.FLOAT);
-		    query.addScalar("id", Hibernate.INTEGER);
-		    query.addScalar("descripcion", Hibernate.STRING);
-		    query.addScalar("regis", Hibernate.TIMESTAMP);
-		    query.addScalar("costoenvio", Hibernate.DOUBLE);
-		    query.addScalar("dirid", Hibernate.INTEGER);
-		    rests = query.setResultTransformer(Transformers.aliasToBean(Restaurant.class)).list();
-		    //tx.commit();
-	    }
-	    catch(Exception e)
-	    {
-	    	e.printStackTrace();
-	    }
-	    finally
-	    {
-	        if(session !=null && session.isOpen())
-	        {
-	          session.close();
-	          session=null;
-	        }
-	    }
+//		Session session=null;
+//	    try 
+//	    {
+//		    Session sessionSQL = super.getSession();
+//		    //Transaction tx = sessionSQL.beginTransaction();
+//		    //ARREGLAR LA QUERY!
+//		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("Select * FROM restaurante WHERE id in "
+//		    											+ "(select p1.restid from pedido p1 group by p1.restid having count(*) >= "
+//		    												+ "(select count(*) from pedido p2 where p2.restid <> p1.restid))"); 
+//		    query.addScalar("nombre", Hibernate.STRING);
+//		    query.addScalar("montomin", Hibernate.FLOAT);
+//		    query.addScalar("desde", Hibernate.FLOAT);
+//		    query.addScalar("hasta", Hibernate.FLOAT);
+//		    query.addScalar("id", Hibernate.INTEGER);
+//		    query.addScalar("descripcion", Hibernate.STRING);
+//		    query.addScalar("regis", Hibernate.TIMESTAMP);
+//		    query.addScalar("costoenvio", Hibernate.DOUBLE);
+//		    query.addScalar("dirid", Hibernate.INTEGER);
+//		    rests = query.setResultTransformer(Transformers.aliasToBean(Restaurant.class)).list();
+//		    //tx.commit();
+//	    }
+//	    catch(Exception e)
+//	    {
+//	    	e.printStackTrace();
+//	    }
+//	    finally
+//	    {
+//	        if(session !=null && session.isOpen())
+//	        {
+//	          session.close();
+//	          session=null;
+//	        }
+//	    }
+		rests = find("select r from Restaurant r WHERE r in "
+				+ "(select o1.rest from Order o1 group by o1.rest.id having count(o1) >= "
+				+ "(select count(o2) from Order o2 where o2.rest.id <> o1.rest.id))");
 	    Menu menu;
 		List<String> tipos;
 		Address address;

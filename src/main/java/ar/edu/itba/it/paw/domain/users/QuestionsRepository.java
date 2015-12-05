@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.repositories;
+package ar.edu.itba.it.paw.domain.users;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import ar.edu.itba.it.paw.models.Question;
+import ar.edu.itba.it.paw.domain.common.AbstractHibernateRepository;
 
 @Repository
 public class QuestionsRepository extends AbstractHibernateRepository {

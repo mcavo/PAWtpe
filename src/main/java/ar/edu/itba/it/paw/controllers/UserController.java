@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import ar.edu.itba.it.paw.domain.common.Message;
+import ar.edu.itba.it.paw.domain.users.CredentialRepository;
+import ar.edu.itba.it.paw.domain.users.UserRepository;
 import ar.edu.itba.it.paw.exceptions.NoCredentialException;
-import ar.edu.itba.it.paw.models.Message;
-import ar.edu.itba.it.paw.repositories.CredentialRepository;
-import ar.edu.itba.it.paw.repositories.UserRepository;
 
 @Controller
 public class UserController {

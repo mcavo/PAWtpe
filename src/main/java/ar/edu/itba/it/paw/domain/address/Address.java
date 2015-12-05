@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.models;
+package ar.edu.itba.it.paw.domain.address;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import ar.edu.itba.it.paw.domain.common.PersistentEntity;
 import ar.edu.itba.it.paw.services.StringService;
 
 @Entity
@@ -35,7 +36,7 @@ public class Address extends PersistentEntity {
 	private String apartment;
 	
 	//Only to use with javabean
-	public Address() {
+	Address() {
 		
 	}
 	

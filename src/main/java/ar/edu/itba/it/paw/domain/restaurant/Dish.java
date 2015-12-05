@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.models;
+package ar.edu.itba.it.paw.domain.restaurant;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import ar.edu.itba.it.paw.domain.common.PersistentEntity;
 
 @Entity
 @Table(name = "plato")
@@ -29,13 +31,21 @@ public class Dish extends PersistentEntity {
 	@JoinColumn(name="restid")
 	private Restaurant rest;
 
-	public Dish(){}
+	Dish(){}
 	
 	public Dish(int id, String product, float price, String description) {
 		this.setProduct(product);
 		this.setPrice(price);
 		this.setDescription(description);
 		this.setId(id);
+	}
+	
+	public Dish(Restaurant rest, String product, float price, String description, String section) {
+		this.setProduct(product);
+		this.setPrice(price);
+		this.setDescription(description);
+		this.rest = rest;
+		this.section = section;
 	}
 
 	public String getProduct() {

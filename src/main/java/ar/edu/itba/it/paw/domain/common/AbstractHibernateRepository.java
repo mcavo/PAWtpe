@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.repositories;
+package ar.edu.itba.it.paw.domain.common;
 
 import java.io.Serializable;
 import java.util.List;

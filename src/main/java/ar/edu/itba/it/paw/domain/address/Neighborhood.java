@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.models;
+package ar.edu.itba.it.paw.domain.address;
 
 import java.util.Set;
 
@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 
 @Entity
 @Table(name = "barrio")
@@ -22,7 +24,7 @@ public class Neighborhood {
 	private Set<Restaurant> restaurant;
 
 	// Only to use with javabean
-	public Neighborhood() {
+	Neighborhood() {
 	}
 
 	public Neighborhood(String name) {

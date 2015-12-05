@@ -2,7 +2,7 @@ package models;
 
 import org.junit.Test;
 
-import ar.edu.itba.it.paw.models.Credential;
+import ar.edu.itba.it.paw.domain.users.Credential;
 
 public class CredentialTest {
 

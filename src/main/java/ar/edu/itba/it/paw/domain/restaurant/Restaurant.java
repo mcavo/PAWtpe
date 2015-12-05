@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.models;
+package ar.edu.itba.it.paw.domain.restaurant;
 
 import java.sql.Timestamp;
 import java.util.HashMap;
@@ -8,14 +8,16 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import ar.edu.itba.it.paw.domain.address.Address;
+import ar.edu.itba.it.paw.domain.address.Neighborhood;
+import ar.edu.itba.it.paw.domain.common.PersistentEntity;
+import ar.edu.itba.it.paw.domain.users.User;
 
 @Entity
 @Table(name = "restaurante")
@@ -79,7 +81,7 @@ public class Restaurant extends PersistentEntity {
 	private int dirid;
 
 	//Only for javabean
-	public Restaurant() {
+	Restaurant() {
 		
 	}
 	

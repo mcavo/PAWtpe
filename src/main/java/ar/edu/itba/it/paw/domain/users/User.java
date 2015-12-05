@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.models;
+package ar.edu.itba.it.paw.domain.users;
 
 import java.util.Date;
 
@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import ar.edu.itba.it.paw.domain.address.Address;
 import ar.edu.itba.it.paw.services.StringService;
 
 @Entity

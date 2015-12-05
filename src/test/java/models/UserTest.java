@@ -4,7 +4,7 @@ import java.util.Date;
 
 import org.junit.Test;
 
-import ar.edu.itba.it.paw.models.User;
+import ar.edu.itba.it.paw.domain.users.User;
 
 public class UserTest {
 	private User user;

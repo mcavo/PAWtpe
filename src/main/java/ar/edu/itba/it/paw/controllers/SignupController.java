@@ -11,10 +11,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.SessionUserManager;
 import ar.edu.itba.it.paw.UserManager;
+import ar.edu.itba.it.paw.domain.address.AddressRepository;
+import ar.edu.itba.it.paw.domain.users.QuestionsRepository;
+import ar.edu.itba.it.paw.domain.users.UserRepository;
 import ar.edu.itba.it.paw.forms.SignupForm;
-import ar.edu.itba.it.paw.repositories.AddressRepository;
-import ar.edu.itba.it.paw.repositories.QuestionsRepository;
-import ar.edu.itba.it.paw.repositories.UserRepository;
 import ar.edu.itba.it.paw.validators.SignupValidator;
 
 

@@ -1,9 +1,10 @@
-package ar.edu.itba.it.paw.models;
+package ar.edu.itba.it.paw.domain.users;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import ar.edu.itba.it.paw.domain.common.PersistentEntity;
 import ar.edu.itba.it.paw.services.StringService;
 @Entity
 @Table(name = "credencial")
@@ -18,16 +19,20 @@ public class Credential extends PersistentEntity {
 	@Column(name = "psw")
 	private String psw;
 	
-	public Credential() {
+	Credential() {
 		
 	}
 	
+	public Credential(String rol, String mail, String psw) {
+		setRol(rol);
+		setMail(mail);
+		setPsw(psw);
+	}
+	
 	public Credential(int id, String rol, String mail) {
-		validateRol(rol);
-		StringService.validateMail(mail);
 		super.setId(id);
-		this.rol = rol;
-		this.mail = mail;
+		setRol(rol);
+		setMail(mail);
 	}
 	
 	public String getRol() {

@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.models;
+package ar.edu.itba.it.paw.domain.restaurant;
 
 import java.util.Map;
 import java.util.Map.Entry;
@@ -12,6 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import ar.edu.itba.it.paw.domain.common.PersistentEntity;
+import ar.edu.itba.it.paw.domain.users.User;
 
 @Entity
 @Table(name = "pedido")
@@ -31,7 +34,7 @@ public class Order extends PersistentEntity {
 	@Column(name = "estado")
 	private Integer status;
 	
-	public Order(){
+	Order(){
 		
 	}
 	

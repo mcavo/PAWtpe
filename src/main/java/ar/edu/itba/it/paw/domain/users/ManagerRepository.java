@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.repositories;
+package ar.edu.itba.it.paw.domain.users;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,12 +9,12 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import ar.edu.itba.it.paw.domain.common.AbstractHibernateRepository;
+import ar.edu.itba.it.paw.domain.restaurant.Dish;
+import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
+import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepository;
 import ar.edu.itba.it.paw.exceptions.NoManagersAvailableException;
 import ar.edu.itba.it.paw.exceptions.NoRestaurantException;
-import ar.edu.itba.it.paw.models.Credential;
-import ar.edu.itba.it.paw.models.Dish;
-import ar.edu.itba.it.paw.models.Restaurant;
-import ar.edu.itba.it.paw.models.User;
 
 @Repository
 public class ManagerRepository extends AbstractHibernateRepository{
@@ -80,12 +80,7 @@ public class ManagerRepository extends AbstractHibernateRepository{
 			//ya existe
 			return;
 		}
-		Dish d = new Dish();
-		d.setRest(rest);
-		d.setDescription(desc);
-		d.setPrice(price);
-		d.setProduct(dish);
-		d.setSection(section);
+		Dish d = new Dish(rest, dish, price, desc, section);
 		int id = (int) save(d);
 		d.setId(id);
 	}

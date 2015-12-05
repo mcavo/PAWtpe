@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.models;
+package ar.edu.itba.it.paw.domain.users;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +16,7 @@ public class Question {
 	@Column(name = "pregunta", unique = true)
 	private String question;
 
-	public Question() {
+	Question() {
 	}
 
 	// Only to use with javabean

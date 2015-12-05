@@ -11,12 +11,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.SessionUserManager;
 import ar.edu.itba.it.paw.UserManager;
+import ar.edu.itba.it.paw.domain.common.Message;
+import ar.edu.itba.it.paw.domain.users.Credential;
+import ar.edu.itba.it.paw.domain.users.CredentialRepository;
+import ar.edu.itba.it.paw.domain.users.User;
+import ar.edu.itba.it.paw.domain.users.UserRepository;
 import ar.edu.itba.it.paw.exceptions.CredentialNoMatchException;
-import ar.edu.itba.it.paw.models.Credential;
-import ar.edu.itba.it.paw.models.Message;
-import ar.edu.itba.it.paw.models.User;
-import ar.edu.itba.it.paw.repositories.CredentialRepository;
-import ar.edu.itba.it.paw.repositories.UserRepository;
 
 @Controller
 public class LoginController {

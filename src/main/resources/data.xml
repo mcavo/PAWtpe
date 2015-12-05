@@ -53,7 +53,7 @@
 
 		<property name="packagesToScan">
 			<list>
-				<value>ar.edu.itba.it.paw.models</value>
+				<value>ar.edu.itba.it.paw.domain</value>
 			</list>
 		</property>
 
