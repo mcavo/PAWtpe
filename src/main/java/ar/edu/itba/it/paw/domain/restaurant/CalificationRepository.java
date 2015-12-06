@@ -35,15 +35,13 @@ public class CalificationRepository extends AbstractHibernateRepository{
 			}
 			rate = Integer.valueOf(stars);
 			if(rate < 0 || rate > 5){
-				//app error
-				return;
+				throw new CreateCalificationException();
 			}
 			if(comment.isEmpty()){
-				//tirar excepcion de comentario vacio
-				return;
+				throw new CreateCalificationException();
 			}
 		}catch(Exception e){
-			return;
+			throw new CreateCalificationException();
 		}
 		
 		Session session=null;

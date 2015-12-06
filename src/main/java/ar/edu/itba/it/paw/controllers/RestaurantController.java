@@ -101,10 +101,11 @@ public class RestaurantController {
 		}*/
 		try {
 			calificationRepository.addCalification(user, restaurant, stars, comments);
+			restaurant.getQualifications().put(user.getId(), new Calification(Integer.valueOf(stars), comments));
 		} catch (CreateCalificationException e) {
 			mav.addObject("message", new Message("warning", "No se pudo realizar la calificación"));
 		}
-		restaurant.getQualifications().put(user.getId(), new Calification(Integer.valueOf(stars), comments));
+		
 		request.setAttribute("rest", restaurant);
 		
 		return mav;
