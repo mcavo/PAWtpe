@@ -17,7 +17,7 @@ public class TestDBTables {
 		ResultSet set;
 		try {
 			Statement st = dbConnection.createStatement(); 
-			set = st.executeQuery("SELECT * FROM restaurante;");
+			set = st.executeQuery("SELECT * FROM delivery;");
 			
 			while(set.next()) {
 //				for(int i=1 ; i<=3; i++)
@@ -41,11 +41,15 @@ public class TestDBTables {
 //					System.out.print("dir: " + set.getString("dirid") + '\n');
 //					System.out.print("nacimiento: " + set.getDate("nacimiento") + '\n' + '\n');
 					
-					System.out.print("id: " + set.getInt("id") + '\n');
-					System.out.print("numero: " + set.getInt("dirid") + '\n');
-					System.out.print("nombre: " + set.getString("nombre") + '\n');
-					System.out.print("mont: " + set.getFloat("montomin") + '\n');
-					System.out.print("depto: " + set.getFloat("hasta") + '\n');
+//					System.out.print("id: " + set.getInt("id") + '\n');
+//					System.out.print("numero: " + set.getInt("dirid") + '\n');
+//					System.out.print("nombre: " + set.getString("nombre") + '\n');
+//					System.out.print("mont: " + set.getFloat("montomin") + '\n');
+//					System.out.print("depto: " + set.getFloat("hasta") + '\n');
+				
+				System.out.print("depto: " + set.getFloat("restid") + '\n');
+				System.out.print("depto: " + set.getFloat("costo") + '\n');
+				System.out.print("depto: " + set.getFloat("barrioid") + '\n');
 					
 				System.out.println("");
 			}
