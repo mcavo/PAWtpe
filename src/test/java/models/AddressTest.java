@@ -13,43 +13,43 @@ public class AddressTest {
 	@Test(expected = IllegalArgumentException.class)
 	public void tooLongStreetTest() {
 		new Address("streetstreetstreetstreetstreetstreetstreetstreetstreetstreetstreet", 
-				10, null, null, 1, "city", "province");
+				10, null, null, null, "city", "province");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void tooLongProvinceTest() {
-		new Address("street", 10, null, null, 1, "city",
+		new Address("street", 10, null, null, null, "city",
 				"provinceprovinceprovinceprovinceprovinceprovinceprovinceprovinceprovinceprovinceprovinceprovinceprovinceprovinceprovince");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void tooLongCityTest() {
-		new Address("street", 10, null, null, 1, "cityityityityityityityityityityityityityityityityityityityityityityity",
+		new Address("street", 10, null, null, null, "cityityityityityityityityityityityityityityityityityityityityityityity",
 				"province");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void invalidFloorTest() {
-		new Address("street", 10, -4, null, 1, "city", "province");
+		new Address("street", 10, -4, null, null, "city", "province");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void invalidAparmentTest() {
-		new Address("street", 10, 0, "aa", 1, "city", "province");
+		new Address("street", 10, 0, "aa", null, "city", "province");
 	}
 	
 	@Test
 	public void okTest() {
-		new Address("street", 10, null, null, 1, "city", "province");
+		new Address("street", 10, null, null, null, "city", "province");
 	}
 	
 	@Test
 	public void okTestAparment() {
-		new Address("street", 10, null, "b", 1, "city", "province");
+		new Address("street", 10, null, "b", null, "city", "province");
 	}
 	
 	@Test
 	public void okTestFloor() {
-		new Address("street", 10, 1, "b", 1, "city", "province");
+		new Address("street", 10, 1, "b", null, "city", "province");
 	}
 }

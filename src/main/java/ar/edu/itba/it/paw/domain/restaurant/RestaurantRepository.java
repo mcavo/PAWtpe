@@ -280,6 +280,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		return menu;
 	}
 	
+	//este metodo deberia volar
 	public Restaurant getRestaurant(String name, Address address){
 		List<Integer> addressIds = this.addressRepository.getIds(address);
 		if(addressIds.isEmpty()){
@@ -500,7 +501,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 
 	@SuppressWarnings("unchecked")
 	public boolean userCanOrder(User user, Restaurant rest) {
-		int neighId = user.getAddress().getNeighborhood();
+		int neighId = user.getAddress().getNeighborhood().getId();
 		boolean out = false;
 		
 		Session session=null;

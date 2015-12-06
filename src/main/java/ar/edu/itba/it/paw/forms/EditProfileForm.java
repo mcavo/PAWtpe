@@ -2,10 +2,14 @@ package ar.edu.itba.it.paw.forms;
 
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+
 import ar.edu.itba.it.paw.domain.address.Address;
+import ar.edu.itba.it.paw.domain.address.AddressRepository;
 import ar.edu.itba.it.paw.domain.users.User;
 import ar.edu.itba.it.paw.services.DateService;
 
+@Component
 public class EditProfileForm {
 
 	String firstname;
@@ -23,13 +27,14 @@ public class EditProfileForm {
 	String prov;
 	String question;
 	String answer;
-
-	public EditProfileForm() {}
-
-	public User build() {
+	
+	public EditProfileForm() {
+	}
+	
+	public User build(AddressRepository addressRepo) {
 		Date d = DateService.date(Integer.parseInt(birthYear),Integer.parseInt(birthMonth),Integer.parseInt(birthDay));
 		User us = new User(firstname, lastname, d);
-		us.setAddress(this.getAddress());
+		us.setAddress(this.getAddress(addressRepo));
 		us.setEmail(email);
 		us.setIsAdmin(false);
 		us.setManager(false);
@@ -78,7 +83,7 @@ public class EditProfileForm {
 		this.birthYear = birthYear;
 	}
 
-	public Address getAddress() {
+	public Address getAddress(AddressRepository addressRepo) {
 		Integer n = null;
 		System.out.println("floor: "+floor+";");
 		if(number!=null && !number.equals(""))
@@ -86,7 +91,7 @@ public class EditProfileForm {
 		Integer f = null;
 		if(floor!=null && !floor.equals(""))
 			f = Integer.parseInt(floor);
-		return new Address(street, n, f, apartment, Integer.parseInt(neigh), city, prov);
+		return new Address(street, n, f, apartment, addressRepo.getneighById(Integer.parseInt(neigh)), city, prov);
 	}
 
 	public String getEmail() {

@@ -1,6 +1,7 @@
 package ar.edu.itba.it.paw.forms;
 
 import ar.edu.itba.it.paw.domain.address.Address;
+import ar.edu.itba.it.paw.domain.address.AddressRepository;
 import ar.edu.itba.it.paw.domain.users.User;
 import ar.edu.itba.it.paw.services.DateService;
 
@@ -25,13 +26,12 @@ public class SignupForm {
 	String question;
 	String answer;
 
-
 	public SignupForm() {
 	}
 
-	public User build() {
+	public User build(AddressRepository addressRepo) {
 		User us = new User(firstname, lastname, DateService.date(Integer.parseInt(birthYear),Integer.parseInt(birthMonth),Integer.parseInt(birthDay)));
-		us.setAddress(this.getAddress());
+		us.setAddress(this.getAddress(addressRepo));
 		us.setEmail(email);
 		us.setIsAdmin(false);
 		us.setManager(false);
@@ -80,7 +80,7 @@ public class SignupForm {
 		this.birthYear = birthYear;
 	}
 
-	public Address getAddress() {
+	public Address getAddress(AddressRepository addressRepo) {
 		Integer n = null;
 		System.out.println("floor: "+floor+";");
 		if(number!=null && !number.equals(""))
@@ -88,7 +88,7 @@ public class SignupForm {
 		Integer f = null;
 		if(floor!=null && !floor.equals(""))
 			f = Integer.parseInt(floor);
-		return new Address(street, n, f, apartment, Integer.parseInt(neigh), city, prov);
+		return new Address(street, n, f, apartment, addressRepo.getneighById(Integer.parseInt(neigh)), city, prov);
 	}
 
 	public String getEmail() {
@@ -106,9 +106,6 @@ public class SignupForm {
 
 	public String getPwd() {
 		return pwd;
-	}
-	public void setPwd2(String pwd) {
-		this.pwd = pwd;
 	}
 
 	public String getStreet() {
@@ -172,9 +169,13 @@ public class SignupForm {
 	}
 
 	public String getPwd2() {
-		return pwd;
+		return pwd2;
 	}
-	
+
+	public void setPwd2(String pwd2) {
+		this.pwd2 = pwd2;
+	}
+
 	public void setQuestion(String question) {
 		this.question = question;
 	}

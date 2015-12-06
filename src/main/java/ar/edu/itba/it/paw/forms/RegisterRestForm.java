@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import ar.edu.itba.it.paw.domain.address.Address;
+import ar.edu.itba.it.paw.domain.address.AddressRepository;
 import ar.edu.itba.it.paw.domain.address.Neighborhood;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 public class RegisterRestForm {
@@ -28,11 +29,12 @@ public class RegisterRestForm {
 	private String deliveryfrom;
 	private String deliveryto;
 	
+	
 	public RegisterRestForm() {
 	}
 	
-	public Restaurant build() {
-		Address address = getAddress();
+	public Restaurant build(AddressRepository addressRepo) {
+		Address address = getAddress(addressRepo);
 		List<String> l = new ArrayList<String>();
 		for(String s : tfood) {
 			l.add(s);
@@ -46,7 +48,7 @@ public class RegisterRestForm {
 		return r;
 	}
 	
-	public Address getAddress() {
+	public Address getAddress(AddressRepository addressRepo) {
 		Integer n = null;
 		System.out.println("floor: "+floor+";");
 		if(number!=null && !number.equals(""))
@@ -54,7 +56,7 @@ public class RegisterRestForm {
 		Integer f = null;
 		if(floor!=null && !floor.equals(""))
 			f = Integer.parseInt(floor);
-		return new Address(street, n, f, apartment, Integer.parseInt(neigh), city, prov);
+		return new Address(street, n, f, apartment, addressRepo.getneighById(Integer.parseInt(neigh)), city, prov);
 	}
 	
 	public String getName() {

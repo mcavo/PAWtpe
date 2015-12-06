@@ -55,7 +55,7 @@ public class UserRepository extends AbstractHibernateRepository{
 		String role;
 		role = user.getIsManager() ? "manager" : "usuario"; 
 		int userid = -1;
-		Credential credential = new Credential(user.getEmail(), role, pwd);
+		Credential credential = new Credential(role, user.getEmail(), pwd);
 		try { 
 			credentialRepository.add(credential);
 			userid = credentialRepository.getCredentialID(user.getEmail());
@@ -137,6 +137,7 @@ public class UserRepository extends AbstractHibernateRepository{
 	    	return "";
 	    }
 		return preguntas.get(0);
+		
 	}
 
 	public boolean existsUser(int userId) {

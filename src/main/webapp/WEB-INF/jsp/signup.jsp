@@ -112,7 +112,7 @@
 							</div>
 						</div>
 						<div class="form-group col-md-6">
-							<form:label path="pwd2" for="inputPassword"
+							<form:label path="pwd2" for="inputPassword2"
 								class="control-label col-sm-2">Confirmación</form:label>
 							<div class="col-sm-8 col-sm-offset-1">
 								<form:input path="pwd2" type="password" class="form-control"
@@ -228,10 +228,10 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group has-feedback">
-								<form:label path="neigh" for="neighbohood"
-									class="control-label col-sm-4">Barrio:</form:label>
+								<form:label path="question" for="question"
+									class="control-label col-sm-4">Pregunta:</form:label>
 								<div class="col-sm-8">
-								<form:select path="neigh" id="neighborhood">
+								<form:select path="question" id="question">
 									<form:options items="${questList}" itemValue="id"
 										itemLabel="question" />
 									</form:select>
@@ -246,11 +246,11 @@
 						</div>
 						<div class="col-md-6">
 							<div class="form-group has-feedback">
-								<label for="inputLastName"
+								<label for="inputAnswer"
 									class="control-label col-sm-1 col-sm-1">Respuesta:</label>
 								<div class="col-sm-8 col-sm-offset-1">
-									<input type="text" class="form-control" id="inputLastName"
-										placeholder="Respuesta" name="lastname" required>
+									<input type="text" class="form-control" id="inputAnswer"
+										placeholder="Respuesta" name="answer" required>
 								</div>
 								<div class="help-block with-errors"></div>
 							</div>

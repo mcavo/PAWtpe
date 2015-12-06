@@ -60,7 +60,7 @@ public class ProfileController {
 		UserManager userManager = new SessionUserManager(request);
 		profileValidator.validate(form, e);
 		ModelAndView mav = new ModelAndView("redirect:/bin/profile/edit");
-		User us = form.build();
+		User us = form.build(this.addressRepository);
 		User curr = (User) request.getAttribute("user");
 		us.setId(curr.getId());
 		us.setManager(curr.getIsManager());

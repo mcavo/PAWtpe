@@ -164,8 +164,9 @@
 									class="control-label col-sm-4">Barrio:</form:label>
 								<div class="col-sm-8">
 									<form:select path="neigh" id="neighborhood">
+										<form:option value="${user.address.neighborhood.name}" />
 										<form:options items="${neighList}" itemValue="id"
-											itemLabel="name" selected="${user.address.neighborhood}" />
+											itemLabel="name"/>
 									</form:select>
 								</div>
 

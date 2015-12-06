@@ -61,7 +61,7 @@ public class SignupController {
 		if (e.hasErrors()) {
 			request.setAttribute("message","Datos de registro inválidos");
 			return mav;
-		} else if (!userManager.setUser(this.userRepository.setUser(form.build(),form.getPwd()))) {
+		} else if (!userManager.setUser(this.userRepository.setUser(form.build(this.addressRepository),form.getPwd()))) {
 			request.setAttribute("message","El usuario ya existe");
 			return mav;
 		}

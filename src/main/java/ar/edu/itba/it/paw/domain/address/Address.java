@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import ar.edu.itba.it.paw.domain.common.PersistentEntity;
@@ -20,8 +22,9 @@ public class Address extends PersistentEntity {
 	@Column(name = "numero")
 	private Integer number;
 	
-	@Column(name="barrioid")
-	private Integer neighborhood;
+	@ManyToOne
+	@JoinColumn(name="barrioid")
+	private Neighborhood neighborhood;
 	
 	@Column(name = "localidad")
 	private String city;
@@ -40,7 +43,7 @@ public class Address extends PersistentEntity {
 		
 	}
 	
-	public Address(String street, Integer number, Integer floor, String apartment, Integer neighborhood, String city, String province) {
+	public Address(String street, Integer number, Integer floor, String apartment, Neighborhood neighborhood, String city, String province) {
 		this.setStreet(street);
 		this.setNumber(number);
 		this.setNeighborhood(neighborhood);
@@ -71,11 +74,11 @@ public class Address extends PersistentEntity {
 		this.number = number;
 	}
 
-	public Integer getNeighborhood() {
+	public Neighborhood getNeighborhood() {
 		return neighborhood;
 	}
 
-	public void setNeighborhood(Integer neighborhood) {
+	public void setNeighborhood(Neighborhood neighborhood) {
 		this.neighborhood = neighborhood;
 	}
 
