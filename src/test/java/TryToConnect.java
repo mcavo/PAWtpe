@@ -76,7 +76,7 @@ public class TryToConnect {
 			//dbConnection.createStatement().execute("ALTER TABLE delivery ALTER COLUMN costo SET NOT NULL;");
 			//dbConnection.createStatement().execute("ALTER TABLE restaurante ADD COLUMN deliverydesde FLOAT");
 			//dbConnection.createStatement().execute("ALTER TABLE restaurante ADD COLUMN deliveryhasta FLOAT");
-			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM tipos;");
+			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM usuario;");
 			//dbConnection.createStatement().execute("DELETE FROM credencial WHERE id=42;");
 			
 			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM pedido where restid = 1");
@@ -88,7 +88,7 @@ public class TryToConnect {
 			//System.out.println("DIRECCION");
 			System.out.println("---------");
 			while(set.next()) {
-				for(int i=1 ; i<=2; i++)
+				for(int i=1 ; i<=7; i++)
 					System.out.print(set.getString(i)+" | ");
 				System.out.println("");
 			}

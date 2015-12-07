@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.it.paw.domain.common.Message;
 import ar.edu.itba.it.paw.domain.users.CredentialRepository;
+import ar.edu.itba.it.paw.domain.users.Question;
 import ar.edu.itba.it.paw.domain.users.UserRepository;
 import ar.edu.itba.it.paw.exceptions.NoCredentialException;
 
@@ -55,7 +56,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value="/ask", method = RequestMethod.POST)
-	public ModelAndView askQuestion(@RequestParam("userId") String userId,@RequestParam("question") String question,  @RequestParam("respuesta") String resp, @RequestParam("pwd") String pwd) {
+	public ModelAndView askQuestion(@RequestParam("userId") String userId,@RequestParam("question") Question question,  @RequestParam("respuesta") String resp, @RequestParam("pwd") String pwd) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("homepage");
 		if(userId.isEmpty()){

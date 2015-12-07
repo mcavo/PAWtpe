@@ -220,8 +220,8 @@
 											itemLabel="question" selected="${user.question}" />
 											<c:forEach var="q" items="${questList}">	
 											<c:choose>
-												<c:when test="${q.id==user.question}">
-													<form:option selected="true" value="${q.id}" label="${q.question}" />
+												<c:when test="${q.id==user.question.id}">
+													<form:option selected="true" value="${user.question.id}" label="${user.question.question}" />
 												</c:when>
 												<c:otherwise>
 													<form:option value="${q.id}" label="${q.question}" />

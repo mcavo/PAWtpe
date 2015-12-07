@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import ar.edu.itba.it.paw.domain.address.Address;
 import ar.edu.itba.it.paw.domain.address.AddressRepository;
+import ar.edu.itba.it.paw.domain.users.Question;
 import ar.edu.itba.it.paw.domain.users.User;
 import ar.edu.itba.it.paw.services.DateService;
 
@@ -25,7 +26,7 @@ public class EditProfileForm {
 	String neigh;
 	String city;
 	String prov;
-	String question;
+	Question question;
 	String answer;
 	
 	public EditProfileForm() {
@@ -38,7 +39,7 @@ public class EditProfileForm {
 		us.setEmail(email);
 		us.setIsAdmin(false);
 		us.setManager(false);
-		us.setQuestion(Integer.parseInt(question));
+		us.setQuestion(question);
 		us.setAnswer(answer);
 		return us;
 	}
@@ -162,11 +163,11 @@ public class EditProfileForm {
 		this.firstname = firstname;
 	}
 	
-	public void setQuestion(String question) {
+	public void setQuestion(Question question) {
 		this.question = question;
 	}
 	
-	public String getQuestion() {
+	public Question getQuestion() {
 		return question;
 	}
 	

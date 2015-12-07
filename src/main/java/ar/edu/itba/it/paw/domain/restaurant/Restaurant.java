@@ -12,11 +12,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.CollectionOfElements;
 
 import ar.edu.itba.it.paw.domain.address.Address;
 import ar.edu.itba.it.paw.domain.address.Neighborhood;
@@ -33,6 +32,7 @@ public class Restaurant extends PersistentEntity {
 	//private LinkedList<User> managers;
 	
 	@ManyToMany
+	@JoinTable(name="delivery", joinColumns=@JoinColumn(name="restid"), inverseJoinColumns=@JoinColumn(name="barrioid"))
 	private Set<Neighborhood> deliveryneigh;
 	
 	@Column(name = "nombre")
@@ -50,7 +50,9 @@ public class Restaurant extends PersistentEntity {
 	@Transient
 	private Address address;
 	
-	@Transient
+	@CollectionOfElements(targetElement = java.lang.String.class)
+	@JoinTable(name = "tipos", joinColumns = @JoinColumn(name = "restid"))
+	@Column(name="tipo")
 	private List<String> typesOfFood;
 	
 	@Column(name = "descripcion")
@@ -70,10 +72,6 @@ public class Restaurant extends PersistentEntity {
 	
 	@Column(name="deliveryhasta")
 	private Float deliveryto;
-	
-	//@Temporal(TemporalType.DATE)
-	//@Transient
-	//private Date startDate;
 	
 	@Column(name = "regis")
 	private Timestamp regis;

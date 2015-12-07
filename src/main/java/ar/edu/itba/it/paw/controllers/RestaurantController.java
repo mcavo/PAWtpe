@@ -202,7 +202,7 @@ public class RestaurantController {
 			request.setAttribute("message","Datos de registro de restaurante inválidos");
 			return mav;
 		} else if (!restaurantRepository.setRestaurant(form.build(this.addressRepository))) {
-			request.setAttribute("message","El usuario ya existe");
+			request.setAttribute("message","El restaurant ya esxiste");
 			return mav;
 		}
 
