@@ -71,4 +71,11 @@ public class UserController {
 		}
 		return mav;
 	}
+	
+	@RequestMapping(value="/ask", method = RequestMethod.GET)
+	public ModelAndView askQuestion() {
+		return new ModelAndView("redirect:/bin/getq");
+	}
+	
+	
 }
