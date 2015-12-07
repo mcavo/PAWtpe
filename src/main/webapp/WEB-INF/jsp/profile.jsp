@@ -164,9 +164,16 @@
 									class="control-label col-sm-4">Barrio:</form:label>
 								<div class="col-sm-8">
 									<form:select path="neigh" id="neighborhood">
-										<form:option value="${user.address.neighborhood.name}" />
-										<form:options items="${neighList}" itemValue="id"
-											itemLabel="name"/>
+										<c:forEach var="neigh" items="${neighList}">	
+											<c:choose>
+												<c:when test="${neigh.id==user.address.neighborhood.id}">
+													<form:option selected="true" value="${user.address.neighborhood.id}" label="${user.address.neighborhood.name}" />
+												</c:when>
+												<c:otherwise>
+													<form:option value="${neigh.id}" label="${neigh.name}" />
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
 									</form:select>
 								</div>
 
@@ -211,6 +218,16 @@
 									<form:select path="question" id="question">
 											<form:options items="${questList}" itemValue="id"
 											itemLabel="question" selected="${user.question}" />
+											<c:forEach var="q" items="${questList}">	
+											<c:choose>
+												<c:when test="${q.id==user.question}">
+													<form:option selected="true" value="${q.id}" label="${q.question}" />
+												</c:when>
+												<c:otherwise>
+													<form:option value="${q.id}" label="${q.question}" />
+												</c:otherwise>
+											</c:choose>
+										</c:forEach>
 									</form:select>
 								</div>
 
