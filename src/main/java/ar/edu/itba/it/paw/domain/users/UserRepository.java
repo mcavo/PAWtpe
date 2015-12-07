@@ -1,6 +1,7 @@
 package ar.edu.itba.it.paw.domain.users;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,7 +88,10 @@ public class UserRepository extends AbstractHibernateRepository{
 	}
 
 	public Question getQuestion(int userId) {
-		return (Question) find("select u.question from User u where u.id = ?", userId).get(0);
+		List<Question> l = find("select u.question from User u where u.id = ?", userId);
+		if(l.isEmpty())
+			return null;
+		return l.get(0);
 	}
 
 	public boolean existsUser(int userId) {
