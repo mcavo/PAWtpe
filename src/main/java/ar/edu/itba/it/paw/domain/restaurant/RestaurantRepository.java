@@ -285,8 +285,6 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		    
 		    for (Object[] row: rows) {
 		    	out = true;
-		    	double cost = (double) row[2];
-		    	rest.setDelamount(cost);
 		    }
 	    }
 	    catch(Exception e)

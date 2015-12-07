@@ -131,7 +131,7 @@ public class RestaurantController {
 		String restId = req.getParameter("restId");
 		Restaurant rest = restaurantRepository.getById(Integer.valueOf(restId));
 		User user = (User) req.getAttribute("user");
-		if(user == null){
+		if(user == null || rest == null){
 			return new ModelAndView("redirect:/bin/homepage");
 		}
 		mav.addObject("rest", rest);
@@ -148,7 +148,10 @@ public class RestaurantController {
 		}
 		Integer orderId = orderRepository.sendOrder(user, rest, map);
 		if(orderId <= 0){
-			return new ModelAndView("redirect:/bin/homepage");
+			req.setAttribute("message",new Message("warning", "El monto minimo de pedido es" + rest.getMontomin().toString()));
+			mav.addObject("code", rest.getId());
+			mav.setViewName("redirect:menu");
+			return mav;
 		}
 		/*if(!orderRepository.sendOrder(user.getId(), rest, map)){
 			return new ModelAndView("redirect:../homepage/");
@@ -217,7 +220,7 @@ public class RestaurantController {
 			try {
 				request.setAttribute("rest", managerRepository.getRestaurant(user));
 			} catch (NoRestaurantException e) {
-				mav.addObject("worning", "No hay restaurants disponibles para el usuario: " + e.getManager().getFirstName());
+				mav.addObject("warning", "No hay restaurants disponibles para el usuario: " + e.getManager().getFirstName());
 			}
 			mav.setViewName("addDish");
 		}else{

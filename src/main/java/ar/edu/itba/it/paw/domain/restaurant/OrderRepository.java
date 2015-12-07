@@ -34,7 +34,7 @@ public class OrderRepository extends AbstractHibernateRepository{
 	
 	public int sendOrder(User user, Restaurant rest, HashMap<Dish, Integer> oMap) {
 		if(!checkOrder(user.getId(), rest, oMap)){
-			//show excp
+			return -1;
 		}
 		HashMap<Dish,Integer> map = new HashMap<Dish,Integer>();
 		for (Entry<Dish, Integer> set: oMap.entrySet()) {
