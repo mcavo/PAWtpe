@@ -54,7 +54,8 @@ public class UserRepository extends AbstractHibernateRepository{
 	
 	public User updateUser(User user) {
 		String role;
-		role = user.getIsManager() ? "manager" : "usuario"; 
+		role = user.getIsManager() ? "manager" : (user.getIsAdmin() ? "admin" : "usuario"); 
+		
 		Credential credential = credentialRepository.get(user.getId());
 		credential.setMail(user.getEmail());
 		credential.setRol(role);

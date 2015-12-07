@@ -63,6 +63,7 @@ public class ProfileController {
 		User us = form.build(this.addressRepository);
 		User curr = (User) request.getAttribute("user");
 		us.setId(curr.getId());
+		us.setIsAdmin(curr.getIsAdmin());
 		us.setManager(curr.getIsManager());
 		us.getAddress().setId(curr.getAddress().getId());
 		if (e.hasErrors()) {
