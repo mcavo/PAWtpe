@@ -79,11 +79,13 @@ CREATE TABLE delivery (
 );
 
 CREATE TABLE calificacion (
+	id SERIAL NOT NULL,
 	userid INTEGER NOT NULL,
 	restid INTEGER NOT NULL,
 	descripcion VARCHAR(500) NOT NULL,
 	puntaje INTEGER NOT NULL,
-	PRIMARY KEY(userid,restid),
+	PRIMARY KEY(id),
+	UNIQUE (userid,restid),
 	FOREIGN KEY(userid) REFERENCES usuario(userid) ON DELETE CASCADE, 
 	FOREIGN KEY(restid) REFERENCES restaurante(id) ON DELETE CASCADE 
 );
