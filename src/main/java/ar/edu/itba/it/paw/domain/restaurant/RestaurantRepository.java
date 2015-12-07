@@ -169,26 +169,6 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		return menu;
 	}
 	
-	//este metodo deberia volar
-	public Restaurant getRestaurant(String name, Address address){
-		List<Integer> addressIds = this.addressRepository.getIds(address);
-		if(addressIds.isEmpty()){
-			//app error!
-			return null;
-		}
-		Restaurant rest = null;
-
-		boolean found = false;
-		for (int i=0; i<addressIds.size() && !found; i++) {
-			rest = matchRestAddress(name, addressIds.get(i));
-			if(rest != null){
-				found = true;
-				rest.setAddress(address);				
-			}
-		}
-		return rest;
-	}
-	
 	public Restaurant matchRestAddress(String name, int addressId){
 		List<Restaurant> rests = find("from Restaurant where nombre like ? and dirid = ?", name, addressId);
 		if(rests.isEmpty()){
