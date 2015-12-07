@@ -6,11 +6,9 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.hibernate.Hibernate;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -38,13 +36,10 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 				+ "(select o1.rest from Order o1 group by o1.rest.id having count(o1) >= "
 				+ "(select count(o2) from Order o2 where o2.rest.id <> o1.rest.id))");
 	    Menu menu;
-		List<String> tipos;
 		Address address;
 		for (Restaurant r : rests) {
 			menu = getMenuByRestaurant(r);
 			r.setMenu(menu);
-			tipos = getTypesOfFoodByRestaurant(r);
-			r.setTypesOfFood(tipos);
 			address = getAddressByRestaurant(r);
 			r.setAddress(address);
 			r.setCalifications(calificationRepository.getCalifications(r));
@@ -60,47 +55,14 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		return rests;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public List<Restaurant> filterBy(String typeOfFood ) {
 		List<Restaurant> rests = null;
-		Session session=null;
-	    try 
-	    {
-		    Session sessionSQL = super.getSession();
-		    //Transaction tx = sessionSQL.beginTransaction();
-		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("Select * FROM restaurante WHERE id in (select distinct restid from tipos where tipo like ?)").setParameter(0, typeOfFood); 
-		    query.addScalar("nombre", Hibernate.STRING);
-		    query.addScalar("montomin", Hibernate.DOUBLE);
-		    query.addScalar("desde", Hibernate.FLOAT);
-		    query.addScalar("hasta", Hibernate.FLOAT);
-		    query.addScalar("id", Hibernate.INTEGER);
-		    query.addScalar("descripcion", Hibernate.STRING);
-		    query.addScalar("regis", Hibernate.TIMESTAMP);
-		    query.addScalar("costoenvio", Hibernate.FLOAT);
-		    query.addScalar("dirid", Hibernate.INTEGER);
-		    rests = query.setResultTransformer(Transformers.aliasToBean(Restaurant.class)).list();
-		    //tx.commit();
-	    }
-	    catch(Exception e)
-	    {
-	    	e.printStackTrace();
-	    }
-	    finally
-	    {
-	        if(session !=null && session.isOpen())
-	        {
-	          session.close();
-	          session=null;
-	        }
-	    }
+		rests = find("from Restaurant r where ? in elements(r.typesOfFood)", typeOfFood); 
 	    Menu menu;
-		List<String> tipos;
 		Address address;
 		for (Restaurant r : rests) {
 			menu = getMenuByRestaurant(r);
 			r.setMenu(menu);
-			tipos = getTypesOfFoodByRestaurant(r);
-			r.setTypesOfFood(tipos);
 			address = getAddressByRestaurant(r);
 			r.setAddress(address);
 			r.setCalifications(this.calificationRepository.getCalifications(r));
@@ -124,8 +86,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		Restaurant r = rests.get(0);
 		Menu menu = getMenuByRestaurant(r);
 		Address address = getAddressByRestaurant(r);
-		List<String> tipos = getTypesOfFoodByRestaurant(r);
-		Restaurant rest = new Restaurant(id, r.getName(), r.getMinamount(), r.getFrom(), r.getTo(), address, tipos, menu, r.getDelamount(),r.getDeliveryfrom(),r.getDeliveryto(),r.getDeliveryneigh());		
+		Restaurant rest = new Restaurant(id, r.getName(), r.getMinamount(), r.getFrom(), r.getTo(), address, r.getTypesOfFood(), menu, r.getDelamount(),r.getDeliveryfrom(),r.getDeliveryto(),r.getDeliveryneigh());		
 		rest.setCalifications(this.calificationRepository.getCalifications(r));
 		return rest;
 	}
@@ -138,13 +99,10 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		List<Restaurant> rests = find("FROM Restaurant WHERE CURRENT_DATE - DATE(regis) <= 7");
 
 		Menu menu;
-		List<String> tipos;
 		Address address;
 		for (Restaurant r : rests) {
 			menu = getMenuByRestaurant(r);
 			r.setMenu(menu);
-			tipos = getTypesOfFoodByRestaurant(r);
-			r.setTypesOfFood(tipos);
 			address = getAddressByRestaurant(r);
 			r.setAddress(address);
 			r.setCalifications(this.calificationRepository.getCalifications(r));
@@ -162,13 +120,10 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 	public List<Restaurant> getAll() {
 		List<Restaurant> results = find("FROM Restaurant");
 		Menu menu;
-		List<String> tipos;
 		Address address;
 		for (Restaurant r : results) {
 			menu = getMenuByRestaurant(r);
 			r.setMenu(menu);
-			tipos = getTypesOfFoodByRestaurant(r);
-			r.setTypesOfFood(tipos);
 			address = getAddressByRestaurant(r);
 			r.setAddress(address);
 			r.setCalifications(calificationRepository.getCalifications(r));
@@ -182,35 +137,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			});
 		return results;
 	}
-	
-	@SuppressWarnings("unchecked")
-	public List<String> getTypesOfFoodByRestaurant(Restaurant r){
-		List<String> tof = new LinkedList<String>();
-		Session session=null;
-	    try 
-	    {
-		    Session sessionSQL = super.getSession();
-		    //Transaction tx = sessionSQL.beginTransaction();
-		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("SELECT tipo FROM tipos WHERE restid = ?").setParameter(0, r.getId()); 
-		    tof = query.list();
-		    //tx.commit();
-	    }
-	    catch(Exception e)
-	    {
-	    	e.printStackTrace();
-	    }
-	    finally
-	    {
-	        if(session !=null && session.isOpen())
-	        {
-	          session.close();
-	          session=null;
-	        }
-	    }
-
-		return tof;
-	}
-	
+		
 	public Menu getMenuByRestaurant(Restaurant r){
 		Menu menu = null;
 		LinkedList<Section> sections = new LinkedList<Section>();
@@ -268,7 +195,6 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			return null;
 		}
 		Restaurant r = rests.get(0);
-		r.setTypesOfFood(getTypesOfFoodByRestaurant(r));
 		r.setMenu(getMenuByRestaurant(r));
 		r.setCalifications(calificationRepository.getCalifications(r));
 		return r;
@@ -288,46 +214,44 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		if (idBydir == -1) {
 			return false;
 		}
-		try {
-			setTypes(rest.getTypesOfFood(), id);
-		} catch(Exception f) {
-			return false;
-		}
+//		try {
+//			setTypes(rest.getTypesOfFood(), id);
+//		} catch(Exception f) {
+//			return false;
+//		}
 		return true;
 	}
 	
-	private void setTypes(List<String> types, int id) {
-		for(String type : types) {
-			setByOne(type, id);
-		}
-	}
+//	private void setTypes(List<String> types, int id) {
+//		for(String type : types) {
+//			setByOne(type, id);
+//		}
+//	}
 	
-	private void setByOne(String type, int id){
-		Session session=null;
-	    try 
-	    {
-		    Session sessionSQL = super.getSession();
-		    //Transaction tx = sessionSQL.beginTransaction();
-		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("INSERT INTO tipos (restid, tipo) VALUES (?, ?);");
-		    query.setParameter(0, id); 
-		    query.setParameter(1, type);
-		    query.executeUpdate();
-		    //tx.commit();
-	    }
-	    catch(Exception e)
-	    {
-	    	e.printStackTrace();
-	    }
-	    finally
-	    {
-	        if(session !=null && session.isOpen())
-	        {
-	          session.close();
-	          session=null;
-	        }
-	    }
-
-	}
+//	private void setByOne(String type, int id){
+//		Session session=null;
+//	    try 
+//	    {
+//		    Session sessionSQL = super.getSession();
+//		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("INSERT INTO tipos (restid, tipo) VALUES (?, ?);");
+//		    query.setParameter(0, id); 
+//		    query.setParameter(1, type);
+//		    query.executeUpdate();
+//	    }
+//	    catch(Exception e)
+//	    {
+//	    	e.printStackTrace();
+//	    }
+//	    finally
+//	    {
+//	        if(session !=null && session.isOpen())
+//	        {
+//	          session.close();
+//	          session=null;
+//	        }
+//	    }
+//
+//	}
 	
 	private int getRestaurantId(int dirId) {
 		List<Restaurant> rests = find("from Restaurant where dirid = ?", dirId);
@@ -338,7 +262,6 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 	}
 	
 	public int saveRestaurant(Restaurant rest) {
-//		save(rest);
 		return (int) save(rest);
 	}
 	
@@ -355,12 +278,10 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 	    try 
 	    {
 		    Session sessionSQL = super.getSession();
-		    //Transaction tx = sessionSQL.beginTransaction();
 		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("SELECT * FROM delivery WHERE restid = ? and barrioid = ?");
 		    query.setParameter(0, rest.getId()); 
 		    query.setParameter(1, neighId); 
 		    List<Object[]> rows = query.list();
-		    //tx.commit();
 		    
 		    for (Object[] row: rows) {
 		    	out = true;

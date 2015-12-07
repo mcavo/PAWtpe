@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.CollectionOfElements;
+
 import ar.edu.itba.it.paw.domain.address.Address;
 import ar.edu.itba.it.paw.domain.address.Neighborhood;
 import ar.edu.itba.it.paw.domain.common.PersistentEntity;
@@ -48,7 +50,9 @@ public class Restaurant extends PersistentEntity {
 	@Transient
 	private Address address;
 	
-	@Transient
+	@CollectionOfElements(targetElement = java.lang.String.class)
+	@JoinTable(name = "tipos", joinColumns = @JoinColumn(name = "restid"))
+	@Column(name="tipo")
 	private List<String> typesOfFood;
 	
 	@Column(name = "descripcion")
