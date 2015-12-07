@@ -20,7 +20,7 @@ public class Neighborhood {
 	@Column(name = "nombre", unique = true)
 	private String name;
 	
-	@ManyToMany(mappedBy="deliveryneigh")
+	@ManyToMany(mappedBy = "deliveryneigh")
 	private Set<Restaurant> restaurant;
 
 	// Only to use with javabean
