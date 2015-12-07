@@ -7,7 +7,6 @@ import java.util.List;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -38,18 +37,6 @@ public class UserRepository extends AbstractHibernateRepository{
 	public User getUserById(int id){
 		return get(User.class, id);
 	}
-
-	/*public int getUserId(String mail) {
-		//int userid = credentialDAO.getCredentialID(mail);
-		int userid;
-		try {
-			userid = credentialRepository.getCredentialID(mail);
-		} catch (NoCredentialException e1) {
-			// TODO Auto-generated catch block
-			userid = -1;
-		}
-		return get(User.class, userid).getId();
-	}*/
 	
 	public User setUser(User user, String pwd) {
 		String role;
@@ -84,11 +71,6 @@ public class UserRepository extends AbstractHibernateRepository{
 		return user;
 	}
 	
-	@SuppressWarnings("unused")
-	private User createUser(String mail, String firstName, String lastName, Date birth) {
-		return new User(firstName, lastName, birth);
-	}
-
 	public static void setIfManager(User user, String rol) {
 		user.setManager(rol.equals("manager"));
 		user.setIsAdmin(rol.equals("admin"));
@@ -108,31 +90,30 @@ public class UserRepository extends AbstractHibernateRepository{
 		return false;
 	}
 
-	@SuppressWarnings("unchecked")
 	public String getQuestion(int userId) {
 		List<String> preguntas = null;
-		Session session=null;
-	    try 
-	    {
-		    Session sessionSQL = super.getSession();
-		    //Transaction tx = sessionSQL.beginTransaction();
-		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("SELECT pregunta FROM preguntas WHERE id = (select pregid from usuario where userid = ?)").setParameter(0, userId); 
-		    preguntas = query.list();
-		    //tx.commit();
-	    }
-	    catch(Exception e)
-	    {
-	    	e.printStackTrace();
-	    }
-	    finally
-	    {
-	        if(session !=null && session.isOpen())
-	        {
-	          session.close();
-	          session=null;
-	        }
-	    }
-	    
+//		Session session=null;
+//	    try 
+//	    {
+//		    Session sessionSQL = super.getSession();
+//		    //Transaction tx = sessionSQL.beginTransaction();
+//		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("SELECT pregunta FROM preguntas WHERE id = (select pregid from usuario where userid = ?)").setParameter(0, userId); 
+//		    preguntas = query.list();
+//		    //tx.commit();
+//	    }
+//	    catch(Exception e)
+//	    {
+//	    	e.printStackTrace();
+//	    }
+//	    finally
+//	    {
+//	        if(session !=null && session.isOpen())
+//	        {
+//	          session.close();
+//	          session=null;
+//	        }
+//	    }
+	    preguntas = find("select distinct p.question from Question q join User u where u.id = ?", userId);
 	    if(preguntas == null || preguntas.isEmpty()){
 	    	return "";
 	    }
