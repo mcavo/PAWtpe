@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.domain.common.AbstractHibernateRepository;
-import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 
 @Repository
 public class AddressRepository extends AbstractHibernateRepository {
@@ -18,22 +17,22 @@ public class AddressRepository extends AbstractHibernateRepository {
 		super(sessionFactory);
 	}
 
-	public Address getAddressById(int addressId) {
-		Address address = null;
-		List<Address> results = find("FROM Address WHERE id = ?", addressId);
-		if (!results.isEmpty()) {
-			address = results.get(0);
-		}
-		return address;
-	}
+//	public Address getAddressById(int addressId) {
+//		Address address = null;
+//		List<Address> results = find("FROM Address WHERE id = ?", addressId);
+//		if (!results.isEmpty()) {
+//			address = results.get(0);
+//		}
+//		return address;
+//	}
 
-	public int setAddress(Address address) {
-		int id = (Integer) save(address);
-		address.setId(id);
-
-		return id;
-
-	}
+//	public int setAddress(Address address) {
+//		int id = (Integer) save(address);
+//		address.setId(id);
+//
+//		return id;
+//
+//	}
 	
 	public Neighborhood	getneighById(int id) {
 		List<Neighborhood> l = find("FROM Neighborhood WHERE id=?",id);
@@ -46,14 +45,14 @@ public class AddressRepository extends AbstractHibernateRepository {
 		return l;
 	}
 	
-	public Address getByRestaurant(Restaurant rest) {
-		List<Address> result = find("FROM Address WHERE id = (select dirid from Restaurant where id = ?)",
-				rest.getId());
-		if (result.isEmpty()) {
-			return null;
-		}
-		return result.get(0);
-	}
+//	public Address getByRestaurant(Restaurant rest) {
+//		List<Address> result = find("FROM Address WHERE id = (select dirid from Restaurant where id = ?)",
+//				rest.getId());
+//		if (result.isEmpty()) {
+//			return null;
+//		}
+//		return result.get(0);
+//	}
 
 	public Serializable saveAddress(Address address) {
 		return save(address);

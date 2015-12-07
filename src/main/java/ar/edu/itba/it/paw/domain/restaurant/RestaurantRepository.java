@@ -1,7 +1,6 @@
 package ar.edu.itba.it.paw.domain.restaurant;
 
 import java.sql.Timestamp;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,7 +9,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import ar.edu.itba.it.paw.domain.address.Address;
 import ar.edu.itba.it.paw.domain.address.AddressRepository;
 import ar.edu.itba.it.paw.domain.common.AbstractHibernateRepository;
 import ar.edu.itba.it.paw.domain.users.User;
@@ -34,12 +32,9 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 				+ "(select o1.rest from Order o1 group by o1.rest.id having count(o1) >= "
 				+ "(select count(o2) from Order o2 where o2.rest.id <> o1.rest.id)) order by name asc");
 	    Menu menu;
-		Address address;
 		for (Restaurant r : rests) {
 			menu = getMenuByRestaurant(r);
 			r.setMenu(menu);
-			address = getAddressByRestaurant(r);
-			r.setAddress(address);
 			r.setCalifications(calificationRepository.getCalifications(r));
 		}
 		return rests;
@@ -49,12 +44,9 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		List<Restaurant> rests = null;
 		rests = find("from Restaurant r where ? in elements(r.typesOfFood) order by name asc", typeOfFood); 
 	    Menu menu;
-		Address address;
 		for (Restaurant r : rests) {
 			menu = getMenuByRestaurant(r);
 			r.setMenu(menu);
-			address = getAddressByRestaurant(r);
-			r.setAddress(address);
 			r.setCalifications(this.calificationRepository.getCalifications(r));
 		}
 		return rests;
@@ -67,26 +59,18 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		}
 		Restaurant r = rests.get(0);
 		Menu menu = getMenuByRestaurant(r);
-		Address address = getAddressByRestaurant(r);
-		Restaurant rest = new Restaurant(id, r.getName(), r.getMinamount(), r.getFrom(), r.getTo(), address, r.getTypesOfFood(), menu, r.getDelamount(),r.getDeliveryfrom(),r.getDeliveryto(),r.getDeliveryneigh());		
+		Restaurant rest = new Restaurant(id, r.getName(), r.getMinamount(), r.getFrom(), r.getTo(), r.getAddress(), r.getTypesOfFood(), menu, r.getDelamount(),r.getDeliveryfrom(),r.getDeliveryto(),r.getDeliveryneigh());		
 		rest.setCalifications(this.calificationRepository.getCalifications(r));
 		return rest;
 	}
 	
-	private Address getAddressByRestaurant(Restaurant r) {
-		return addressRepository.getByRestaurant(r);
-	}
-
 	public List<Restaurant> getLastWeekAdded() {
 		List<Restaurant> rests = find("FROM Restaurant WHERE CURRENT_DATE - DATE(regis) <= 7 ORDER BY name ASC");
 
 		Menu menu;
-		Address address;
 		for (Restaurant r : rests) {
 			menu = getMenuByRestaurant(r);
 			r.setMenu(menu);
-			address = getAddressByRestaurant(r);
-			r.setAddress(address);
 			r.setCalifications(this.calificationRepository.getCalifications(r));
 		}
 		return rests;	
@@ -95,19 +79,15 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 	public List<Restaurant> getAll() {
 		List<Restaurant> results = find("FROM Restaurant order by name asc");
 		Menu menu;
-		Address address;
 		for (Restaurant r : results) {
 			menu = getMenuByRestaurant(r);
 			r.setMenu(menu);
-			address = getAddressByRestaurant(r);
-			r.setAddress(address);
 			r.setCalifications(calificationRepository.getCalifications(r));
 		}
 		return results;
 	}
 		
 	public Menu getMenuByRestaurant(Restaurant r){
-		Menu menu = null;
 		LinkedList<Section> sections = new LinkedList<Section>();
 		Section section = null;
 		String seccion = null;
@@ -128,52 +108,17 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 			section.addDish(d);
 		}
 		
-		try {
-			menu = new Menu(sections);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return menu;
-	}
-	
-	public Restaurant matchRestAddress(String name, int addressId){
-		List<Restaurant> rests = find("from Restaurant where nombre like ? and dirid = ?", name, addressId);
-		if(rests.isEmpty()){
-			return null;
-		}
-		Restaurant r = rests.get(0);
-		r.setMenu(getMenuByRestaurant(r));
-		r.setCalifications(calificationRepository.getCalifications(r));
-		return r;
+		return new Menu(sections);
 	}
 	
 	public boolean setRestaurant( Restaurant rest) {
-		int addressId = this.addressRepository.setAddress(rest.getAddress());
-		if(addressId == -1){
-			return false;
-		}
-		rest.setDirid(addressId);
 		Timestamp now = new Timestamp((new Date()).getTime());
 		rest.setRegis(now);
-		int id = saveRestaurant(rest);
-		rest.setId(id);
-		int idBydir = getRestaurantId(addressId);
-		if (idBydir == -1) {
-			return false;
-		}
-		return true;
-	}
-	
-	private int getRestaurantId(int dirId) {
-		List<Restaurant> rests = find("from Restaurant where dirid = ?", dirId);
-		if(!rests.isEmpty()){
-			return rests.get(0).getId();
-		}
-		return -1;
+		return saveRestaurant(rest) != 0; //TODO: revisar si esto funciona 
 	}
 	
 	public int saveRestaurant(Restaurant rest) {
+		addressRepository.saveAddress(rest.getAddress());
 		return (int) save(rest);
 	}
 	

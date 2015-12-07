@@ -162,6 +162,4 @@ public class RegisterRestForm {
 		this.deliveryto = deliveryto;
 	}
 	
-	
-
 }

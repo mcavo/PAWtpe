@@ -5,7 +5,7 @@ import java.util.LinkedList;
 public class Menu {
 	private LinkedList<Section> sections;
 	
-	public Menu(LinkedList<Section> sections) throws Exception {
+	public Menu(LinkedList<Section> sections) {
 		super();
 		this.sections = sections;
 	}

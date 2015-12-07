@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -29,7 +30,6 @@ public class Restaurant extends PersistentEntity {
 	@OneToMany
 	@JoinColumn(name="gerid")
 	private Set<User> managers;
-	//private LinkedList<User> managers;
 	
 	@ManyToMany
 	@JoinTable(name="delivery", joinColumns=@JoinColumn(name="restid"), inverseJoinColumns=@JoinColumn(name="barrioid"))
@@ -47,7 +47,8 @@ public class Restaurant extends PersistentEntity {
 	@Column(name = "hasta")
 	private Float to;
 	
-	@Transient
+	@ManyToOne
+	@JoinColumn(name="dirid")
 	private Address address;
 	
 	@CollectionOfElements(targetElement = java.lang.String.class)
@@ -78,9 +79,6 @@ public class Restaurant extends PersistentEntity {
 	
 	@Column(name = "costoenvio")
 	private Double delamount;
-	
-	@Column(name = "dirid")
-	private int dirid;
 
 	//Only for javabean
 	Restaurant() {
@@ -286,14 +284,6 @@ public class Restaurant extends PersistentEntity {
 	
 	public Double getDelamount() {
 		return delamount;
-	}
-
-	public int getDirid() {
-		return dirid;
-	}
-
-	public void setDirid(int dirid) {
-		this.dirid = dirid;
 	}
 	
 	public void setNombre(String nombre) {
