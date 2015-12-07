@@ -63,10 +63,7 @@ public class Address extends PersistentEntity {
 		this.street = street;
 	}
 
-	public int getNumber() {
-		if(this.number == null){
-			return -1;
-		}
+	public Integer getNumber() {
 		return number;
 	}
 
@@ -100,10 +97,7 @@ public class Address extends PersistentEntity {
 		this.province = province;
 	}
 
-	public int getFloor() {
-		if(this.floor == null){
-			return -1;
-		}
+	public Integer getFloor() {
 		return floor;
 	}
 
