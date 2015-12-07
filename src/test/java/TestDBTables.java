@@ -17,7 +17,7 @@ public class TestDBTables {
 		ResultSet set;
 		try {
 			Statement st = dbConnection.createStatement(); 
-			set = st.executeQuery("SELECT * FROM restaurante;");
+			set = st.executeQuery("SELECT * FROM usuario;");
 			
 			while(set.next()) {
 //				for(int i=1 ; i<=3; i++)
@@ -35,23 +35,25 @@ public class TestDBTables {
 //					System.out.print("depto: " + set.getString("departamento") + '\n');
 //					System.out.print("street: " + set.getString("calle") + '\n');
 				
-//					System.out.print("id: " + set.getInt("userid") + '\n');
-//					System.out.print("nombre: " + set.getString("nombre") + '\n');
-//					System.out.print("apellido: " + set.getString("apellido") + '\n');
-//					System.out.print("dir: " + set.getString("dirid") + '\n');
-//					System.out.print("nacimiento: " + set.getDate("nacimiento") + '\n' + '\n');
-					
-					System.out.print("id: " + set.getInt("id") + '\n');
-					System.out.print("numero: " + set.getInt("dirid") + '\n');
+					System.out.print("id: " + set.getInt("userid") + '\n');
 					System.out.print("nombre: " + set.getString("nombre") + '\n');
-					System.out.print("mont: " + set.getFloat("montomin") + '\n');
-					System.out.print("depto: " + set.getFloat("hasta") + '\n');
-					System.out.print("depto: " + set.getFloat("deliverydesde") + '\n');
-					System.out.print("depto: " + set.getFloat("deliveryhasta") + '\n');
-					System.out.print("depto: " + set.getFloat("costoenvio") + '\n');
-					System.out.print("depto: " + set.getFloat("desde") + '\n');
-					System.out.print("depto: " + set.getString("descripcion") + '\n');
-					System.out.print("depto: " + set.getDate("regis") + '\n');
+					System.out.print("apellido: " + set.getString("apellido") + '\n');
+					System.out.print("dir: " + set.getString("dirid") + '\n');
+					System.out.print("preg: " + set.getInt("pregid") + '\n');
+					System.out.print("resp: " + set.getString("respuesta") + '\n');
+					System.out.print("nacimiento: " + set.getDate("nacimiento") + '\n' + '\n');
+					
+//					System.out.print("id: " + set.getInt("id") + '\n');
+//					System.out.print("numero: " + set.getInt("dirid") + '\n');
+//					System.out.print("nombre: " + set.getString("nombre") + '\n');
+//					System.out.print("mont: " + set.getFloat("montomin") + '\n');
+//					System.out.print("depto: " + set.getFloat("hasta") + '\n');
+//					System.out.print("depto: " + set.getFloat("deliverydesde") + '\n');
+//					System.out.print("depto: " + set.getFloat("deliveryhasta") + '\n');
+//					System.out.print("depto: " + set.getFloat("costoenvio") + '\n');
+//					System.out.print("depto: " + set.getFloat("desde") + '\n');
+//					System.out.print("depto: " + set.getString("descripcion") + '\n');
+//					System.out.print("depto: " + set.getDate("regis") + '\n');
 					
 //				System.out.print("depto: " + set.getFloat("restid") + '\n');
 //				System.out.print("depto: " + set.getFloat("costo") + '\n');

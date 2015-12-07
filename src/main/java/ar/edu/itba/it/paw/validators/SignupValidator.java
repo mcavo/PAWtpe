@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import ar.edu.itba.it.paw.domain.users.Question;
 import ar.edu.itba.it.paw.forms.SignupForm;
 
 @Component
@@ -30,7 +31,7 @@ public class SignupValidator implements Validator {
 		String firstname = form.getFirstname();
 		String lastname = form.getLastname();
 		// Address address = form.getAddress();
-		String question = form.getQuestion();
+		Question question = form.getQuestion();
 		String answer = form.getAnswer();
 		String email = form.getEmail();
 		int day, month, year, neigh;

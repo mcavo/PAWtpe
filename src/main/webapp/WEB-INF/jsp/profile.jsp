@@ -210,7 +210,7 @@
 								<div class="col-sm-8">
 									<form:select path="question" id="question">
 											<form:options items="${questList}" itemValue="id"
-											itemLabel="question" selected="${user.question}" />
+											itemLabel="question" selected="${user.question.question}" />
 									</form:select>
 								</div>
 

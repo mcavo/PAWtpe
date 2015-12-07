@@ -2,6 +2,7 @@ package ar.edu.itba.it.paw.forms;
 
 import ar.edu.itba.it.paw.domain.address.Address;
 import ar.edu.itba.it.paw.domain.address.AddressRepository;
+import ar.edu.itba.it.paw.domain.users.Question;
 import ar.edu.itba.it.paw.domain.users.User;
 import ar.edu.itba.it.paw.services.DateService;
 
@@ -23,7 +24,7 @@ public class SignupForm {
 	String neigh;
 	String city;
 	String prov;
-	String question;
+	Question question;
 	String answer;
 
 	public SignupForm() {
@@ -35,7 +36,7 @@ public class SignupForm {
 		us.setEmail(email);
 		us.setIsAdmin(false);
 		us.setManager(false);
-		us.setQuestion(Integer.parseInt(question));
+		us.setQuestion(question);
 		us.setAnswer(answer);
 		return us;
 	}
@@ -176,11 +177,11 @@ public class SignupForm {
 		this.pwd2 = pwd2;
 	}
 
-	public void setQuestion(String question) {
+	public void setQuestion(Question question) {
 		this.question = question;
 	}
 	
-	public String getQuestion() {
+	public Question getQuestion() {
 		return question;
 	}
 	

@@ -3,12 +3,12 @@
 <div class="container">
 	<form role="form" action="ask" method="post">
 		<input type="hidden" name="userId" value="${userId}">
-		<input type="hidden" name="question" value="${question}">
+		<input type="hidden" name="question" value="${question.id}">
 		<br>
 		<div class="form-group row">
 			<div class="col-sm-offset-4 col-sm-4">
 				<div class="col-sm-offset-1 col-sm-10 focus">
-					Pregunta: ${question}
+					Pregunta: ${question.question}
 				</div>
 			</div>
 		</div>

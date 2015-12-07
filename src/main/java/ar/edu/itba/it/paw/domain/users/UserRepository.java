@@ -1,11 +1,7 @@
 package ar.edu.itba.it.paw.domain.users;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
 
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -90,35 +86,8 @@ public class UserRepository extends AbstractHibernateRepository{
 		return false;
 	}
 
-	public String getQuestion(int userId) {
-		List<String> preguntas = null;
-//		Session session=null;
-//	    try 
-//	    {
-//		    Session sessionSQL = super.getSession();
-//		    //Transaction tx = sessionSQL.beginTransaction();
-//		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("SELECT pregunta FROM preguntas WHERE id = (select pregid from usuario where userid = ?)").setParameter(0, userId); 
-//		    preguntas = query.list();
-//		    //tx.commit();
-//	    }
-//	    catch(Exception e)
-//	    {
-//	    	e.printStackTrace();
-//	    }
-//	    finally
-//	    {
-//	        if(session !=null && session.isOpen())
-//	        {
-//	          session.close();
-//	          session=null;
-//	        }
-//	    }
-	    preguntas = find("select distinct p.question from Question q join User u where u.id = ?", userId);
-	    if(preguntas == null || preguntas.isEmpty()){
-	    	return "";
-	    }
-		return preguntas.get(0);
-		
+	public Question getQuestion(int userId) {
+		return (Question) find("select u.question from User u where u.id = ?", userId).get(0);
 	}
 
 	public boolean existsUser(int userId) {

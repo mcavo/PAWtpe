@@ -20,4 +20,8 @@ public class QuestionsRepository extends AbstractHibernateRepository {
 		List<Question> l = find("FROM Question");
 		return l;
 	}
+	
+	public Question getById(Integer id) {
+		return (Question) find("from Question where id = ?", id).get(0);
+	}	
 }
