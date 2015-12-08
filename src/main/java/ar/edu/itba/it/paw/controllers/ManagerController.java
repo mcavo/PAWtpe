@@ -88,7 +88,7 @@ public class ManagerController {
 	@RequestMapping(value="/addManager", method = RequestMethod.POST)
 	public String addManager(HttpServletRequest request, @RequestParam("manager-id") User manager, @RequestParam("restaurant-id") Restaurant rest) {
 		User user = (User) request.getAttribute("user");
-		if(user == null || !user.getIsAdmin() || manager.getIsManager()) {
+		if(user == null || manager==null || !user.getIsAdmin() || manager.getIsManager()) {
 			return "redirect:addManager";
 		}
 		manager.setManager(true);
