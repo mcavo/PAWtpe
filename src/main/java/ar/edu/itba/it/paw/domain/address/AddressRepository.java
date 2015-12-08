@@ -16,23 +16,6 @@ public class AddressRepository extends AbstractHibernateRepository {
 	public AddressRepository(SessionFactory sessionFactory) {
 		super(sessionFactory);
 	}
-
-//	public Address getAddressById(int addressId) {
-//		Address address = null;
-//		List<Address> results = find("FROM Address WHERE id = ?", addressId);
-//		if (!results.isEmpty()) {
-//			address = results.get(0);
-//		}
-//		return address;
-//	}
-
-//	public int setAddress(Address address) {
-//		int id = (Integer) save(address);
-//		address.setId(id);
-//
-//		return id;
-//
-//	}
 	
 	public Neighborhood	getneighById(int id) {
 		List<Neighborhood> l = find("FROM Neighborhood WHERE id=?",id);
@@ -44,15 +27,6 @@ public class AddressRepository extends AbstractHibernateRepository {
 		List<Neighborhood> l = find("FROM Neighborhood");
 		return l;
 	}
-	
-//	public Address getByRestaurant(Restaurant rest) {
-//		List<Address> result = find("FROM Address WHERE id = (select dirid from Restaurant where id = ?)",
-//				rest.getId());
-//		if (result.isEmpty()) {
-//			return null;
-//		}
-//		return result.get(0);
-//	}
 
 	public Serializable saveAddress(Address address) {
 		return save(address);

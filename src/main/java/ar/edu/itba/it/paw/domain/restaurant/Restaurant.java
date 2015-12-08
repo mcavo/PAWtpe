@@ -27,7 +27,7 @@ import ar.edu.itba.it.paw.domain.users.User;
 @Entity
 @Table(name = "restaurante")
 public class Restaurant extends PersistentEntity {
-
+	//TODO: esto esta haciendo algo?
 	@OneToMany
 	@JoinColumn(name="gerid")
 	private Set<User> managers;
