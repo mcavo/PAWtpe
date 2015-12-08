@@ -53,8 +53,8 @@ public class CredentialRepository extends AbstractHibernateRepository {
 	    return credentials;
 	}
 	
-	public void setRol(String rol, int id){
-		Credential c = get(id);
+	public void setRol(String rol, User user){
+		Credential c = get(user.getId());
 		c.setRol(rol);
 		update(c);
 	}
@@ -76,12 +76,5 @@ public class CredentialRepository extends AbstractHibernateRepository {
 		}
 		throw new NoCredentialException(email);
 	}
-	
-	private Credential credentialWithId(int id) throws NoCredentialException {
-		List<Credential> list = find("from Credential where id = ?", id);
-		if (!list.isEmpty()) {
-			return list.get(0);	
-		}
-		throw new NoCredentialException(id);
-	}
+
 }

@@ -152,23 +152,6 @@ public class RestaurantController {
 		return mav;
 	}
 	
-	@RequestMapping(value="/status", method = RequestMethod.GET)
-	public ModelAndView status() {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("setStatus");
-		return mav;
-	}
-	
-	@RequestMapping(value="/status", method = RequestMethod.POST)
-	public String status(HttpServletRequest request) {
-		User user = (User) request.getAttribute("user");
-		if(user == null){
-			return "redirect:/bin/homepage";
-		}
-		orderRepository.updateStatus(user, request.getParameter("orderID"), request.getParameter("estado"));
-		return "redirect:/bin/homepage";
-	}
-	
 	@RequestMapping(value="/register", method = RequestMethod.GET)
 	public ModelAndView register(HttpServletRequest request) {
 		User user = (User) request.getAttribute("user");

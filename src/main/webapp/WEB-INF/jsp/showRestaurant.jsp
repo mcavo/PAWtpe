@@ -1,6 +1,5 @@
 <%@ include file="header.jsp"%>
 
-<div class="container">
 	<div class="col-md-10 col-md-offset-1">
 		<div class="row">
 			<div>

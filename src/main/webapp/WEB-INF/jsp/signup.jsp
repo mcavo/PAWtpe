@@ -1,24 +1,6 @@
 <%@ include file="header.jsp"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-
-<div class="container">
-	<c:if test="${message != null}">
-		<div class="container">
-			<c:if test="${error}">
-				<div class="alert alert-danger" role="alert">${message}</div>
-			</c:if>
-			<c:if test="${success}">
-				<div class="alert alert-success" role="alert">${message}</div>
-			</c:if>
-			<c:if test="${warning}">
-				<div class="alert alert-warning" role="alert">${message}</div>
-			</c:if>
-			<c:if test="${info}">
-				<div class="alert alert-info" role="alert">${message}</div>
-			</c:if>
-		</div>
-	</c:if>
 	<div class="col-md-10 col-md-offset-1">
 		<form:form action="signup" data-toggle="validator" role="form"
 			commandName="signupForm" method="post" class="form-horizontal">

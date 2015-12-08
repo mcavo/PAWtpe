@@ -1,6 +1,5 @@
 <%@ include file="managersHeader.jsp"%>
 
-<div class="container">
 	<div class="col-md-10 col-md-offset-1">
 		<form action="addManager" method="post">
 

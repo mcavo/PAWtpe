@@ -49,14 +49,14 @@ public class LoginController {
 			cred = credentialRepository.getCredentials(email, pwd);
 		} catch (CredentialNoMatchException e) {
 			mav.setViewName("login");
-			mav.addObject("message", new Message("warning", "Credencial no válida"));
+			mav.addObject("message", new Message("warning", "Mail o constraseña incorrectos."));
 			return mav;
 		};
 
 		User user = userRepository.getUser(cred);
 		if(user == null){
 			mav.setViewName("login");				
-			mav.addObject("message", new Message("warning", "Credencial no válida"));
+			mav.addObject("message", new Message("warning", "Mail o constraseña incorrectos."));
 			return mav;		
 		}
 		UserManager userManager = new SessionUserManager(request);

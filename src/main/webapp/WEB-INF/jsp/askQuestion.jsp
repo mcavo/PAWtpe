@@ -1,6 +1,5 @@
 <%@ include file="header.jsp"%>
 
-<div class="container">
 	<form role="form" action="ask" method="post">
 		<input type="hidden" name="userId" value="${userId}">
 		<input type="hidden" name="question" value="${question.id}">

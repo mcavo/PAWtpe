@@ -83,12 +83,15 @@ public class ManagerController {
 	}
 
 	@RequestMapping(value="/addManager", method = RequestMethod.POST)
-	public String addManager(HttpServletRequest request, @RequestParam("manager-id") int userid, @RequestParam("restaurant-id") int restid) {
-		//Falta alguna validación más??
+	public String addManager(HttpServletRequest request, @RequestParam("manager-id") User manager, @RequestParam("restaurant-id") Restaurant rest) {
 		User user = (User) request.getAttribute("user");
-		if (user != null && user.getIsAdmin() && !managerRepository.addManager(userid, restid)) {
+		if(user == null || !user.getIsAdmin() || manager.getIsManager()) {
 			return "redirect:addManager";
 		}
+		manager.setManager(true);
+		managerRepository.setManager(manager);
+		rest.addManager(manager);
+		
 		return "redirect:/bin/homepage";
 	}
 }

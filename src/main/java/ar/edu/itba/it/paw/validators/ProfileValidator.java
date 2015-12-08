@@ -70,7 +70,6 @@ public class ProfileValidator implements Validator {
 			fmt.format("%02d", day);
 			dateToValidate += fmt.toString();
 			fmt.close();
-			System.out.println(dateToValidate);
 			DateTimeFormatter sdf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 			LocalDate date;
 			try {

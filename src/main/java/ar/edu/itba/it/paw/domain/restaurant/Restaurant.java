@@ -1,7 +1,10 @@
 package ar.edu.itba.it.paw.domain.restaurant;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -14,7 +17,6 @@ import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.CollectionOfElements;
 import org.joda.time.LocalTime;
@@ -27,9 +29,8 @@ import ar.edu.itba.it.paw.domain.users.User;
 @Entity
 @Table(name = "restaurante")
 public class Restaurant extends PersistentEntity {
-	//TODO: esto esta haciendo algo?
 	@OneToMany
-	@JoinColumn(name="gerid")
+	@JoinTable(name="gerente", joinColumns=@JoinColumn(name="restid"), inverseJoinColumns=@JoinColumn(name="userid"))
 	private Set<User> managers;
 	
 	@ManyToMany
@@ -64,8 +65,9 @@ public class Restaurant extends PersistentEntity {
 	@MapKey(name="restid")
 	private List<Calification> califications;
 	
-	@Transient
-	private Menu menu;
+	@OneToMany
+	@JoinColumn(name="restid")
+	List<Dish> menu;
 	
 	@Column(name="deliverydesde")
 	private String deliveryfrom;
@@ -84,7 +86,7 @@ public class Restaurant extends PersistentEntity {
 		
 	}
 	
-	public Restaurant(int id, String name, Float minimumPurchase, String startService, String endService, Address address, List<String> typeOfFood, Menu menu, Double cost, String delfrom,String delto, Set<Neighborhood> deliveryneigh) {
+	public Restaurant(int id, String name, Float minimumPurchase, String startService, String endService, Address address, List<String> typeOfFood, List<Dish> menu, Double cost, String delfrom,String delto, Set<Neighborhood> deliveryneigh) {
 		this.setName(name);
 		this.setMinamount(minimumPurchase);
 		this.setFrom(startService);
@@ -92,6 +94,20 @@ public class Restaurant extends PersistentEntity {
 		this.setAddress(address);
 		this.setTypesOfFood(typeOfFood);
 		this.setMenu(menu);
+		this.setId(id);;
+		this.setDelamount(cost);
+		this.setDeliveryfrom(delfrom);
+		this.setDeliveryto(delto);
+		this.setDeliveryneigh(deliveryneigh);
+	}
+	
+	public Restaurant(int id, String name, Float minimumPurchase, String startService, String endService, Address address, List<String> typeOfFood, Double cost, String delfrom,String delto, Set<Neighborhood> deliveryneigh) {
+		this.setName(name);
+		this.setMinamount(minimumPurchase);
+		this.setFrom(startService);
+		this.setTo(endService);
+		this.setAddress(address);
+		this.setTypesOfFood(typeOfFood);
 		this.setId(id);;
 		this.setDelamount(cost);
 		this.setDeliveryfrom(delfrom);
@@ -150,18 +166,16 @@ public class Restaurant extends PersistentEntity {
 	public void setName(String nombre) {
 		this.name = nombre;
 	}
-	
-	public Set<User> getManager() {
-		if(managers==null) {
-			
-		}
-		return managers;
-	}
 
 	public void setManagers(Set<User> managers) {
 		this.managers = managers;
 	}
 
+	public void addManager(User manager) {
+		//TODO: ver el tema de las validaciones
+		this.managers.add(manager);
+	}
+	
 	public Float getMinamount() {
 		return montomin;
 	}
@@ -222,11 +236,11 @@ public class Restaurant extends PersistentEntity {
 		this.description = descripcion;
 	}
 	
-	public Menu getMenu() {
+	public List<Dish> getMenu() {
 		return menu;
 	}
 
-	public void setMenu(Menu menu) {
+	public void setMenu(List<Dish> menu) {
 		this.menu = menu;
 	}
 
@@ -235,7 +249,10 @@ public class Restaurant extends PersistentEntity {
 		for (Calification calification : califications) {
 			s+=calification.getPuntaje();
 		}
-		return s;
+		if(califications.isEmpty())
+			return s;
+		s = s/((double) califications.size());
+		return Math.round(s*100)/100.0;
 	}
 
 	public Timestamp getRegis() {
@@ -245,10 +262,6 @@ public class Restaurant extends PersistentEntity {
 	public void setRegis(Timestamp regis) {
 		this.regis = regis;
 	}
-
-	/*public HashMap<Integer, Calification> getQualifications() {
-		return this.califications;
-	}*/
 	
 	public int getCountComments(){
 		if(califications==null)
@@ -299,4 +312,25 @@ public class Restaurant extends PersistentEntity {
 		return false;
 	}
 	
+	public List<List<Dish>> getMenuSections() {
+		Map<String, List<Dish>> sections = new HashMap<String, List<Dish>>();
+		String name;
+		for (Dish d : menu) {
+			name = d.getSection();
+			if (sections.containsKey(name)) {
+				sections.get(name).add(d);
+			} else {
+				List<Dish> l = new LinkedList<Dish>();
+				l.add(d);
+				sections.put(name, l);
+			}
+		}
+		return new LinkedList<List<Dish>>(sections.values());
+	}
+	
+	public void addDish(Dish d) {
+		if (d != null) {
+			menu.add(d);
+		}
+	}
 }
