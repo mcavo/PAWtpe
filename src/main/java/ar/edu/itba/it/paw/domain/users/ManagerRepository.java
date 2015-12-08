@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 import ar.edu.itba.it.paw.domain.common.AbstractHibernateRepository;
 import ar.edu.itba.it.paw.domain.restaurant.Dish;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
+import ar.edu.itba.it.paw.exceptions.DuplicateDishException;
+import ar.edu.itba.it.paw.exceptions.InvalidPriceException;
+import ar.edu.itba.it.paw.exceptions.InvalidSectionName;
 import ar.edu.itba.it.paw.exceptions.NoManagersAvailableException;
 import ar.edu.itba.it.paw.exceptions.NoRestaurantException;
 
@@ -23,29 +26,25 @@ public class ManagerRepository extends AbstractHibernateRepository{
 		this.credentialRepository = credentialRepo;
 	}
 
-	public void addDish(Restaurant rest, String section, String dish, int price, String desc) {
+	public void addDish(Restaurant rest, String section, String dish, int price, String desc) throws NoRestaurantException, InvalidPriceException, DuplicateDishException, InvalidSectionName {
 		if(Integer.valueOf(price) < 0 || dish == null || desc == null){
-			//precio menor a 0 excp
-			return;
+			throw new InvalidPriceException();
 		}
 		if(rest == null){
-			//app error
-			return;
+			throw new NoRestaurantException();
 		}
-		if(!existsSection(section)){
-			//no existe seccion
-			return;
+		if(!validateSection(section)){
+			throw new InvalidSectionName();
 		}
 		if(existsDish(dish)){
-			//ya existe
-			return;
+			throw new DuplicateDishException();
 		}
 		Dish d = new Dish(rest, dish, price, desc, section);
 		int id = (int) save(d);
 		d.setId(id);
 	}
 	
-	public boolean existsSection(String section) {
+	private boolean validateSection(String section) {
 		return section != null && section.length() > 0;
 	}
 

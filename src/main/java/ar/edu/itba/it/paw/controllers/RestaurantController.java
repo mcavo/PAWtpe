@@ -23,6 +23,10 @@ import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepository;
 import ar.edu.itba.it.paw.domain.users.ManagerRepository;
 import ar.edu.itba.it.paw.domain.users.User;
+import ar.edu.itba.it.paw.exceptions.CreationDishException;
+import ar.edu.itba.it.paw.exceptions.DuplicateDishException;
+import ar.edu.itba.it.paw.exceptions.InvalidPriceException;
+import ar.edu.itba.it.paw.exceptions.InvalidSectionName;
 import ar.edu.itba.it.paw.exceptions.NoRestaurantException;
 import ar.edu.itba.it.paw.forms.RegisterRestForm;
 import ar.edu.itba.it.paw.validators.RegisterRestValidator;
@@ -108,6 +112,7 @@ public class RestaurantController {
 	public ModelAndView menu(HttpServletRequest request, @RequestParam("code") Restaurant restaurant) {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("rest", restaurant);
+		mav.addObject("message", request.getAttribute("message"));
 		User user = (User) request.getAttribute("user");
 		boolean ok2order = false;
 		if(user != null){
@@ -118,9 +123,15 @@ public class RestaurantController {
 		return mav;
 	}
 	
+	@RequestMapping(value="/sendOrder", method = RequestMethod.GET)
+	public ModelAndView sendOrder() {
+		return new ModelAndView("redirect:/bin/homepage");
+	}
+	
 	@RequestMapping(value="/sendOrder", method = RequestMethod.POST)
 	public ModelAndView sendOrder(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
+		mav.setViewName("showRestaurant");
 		String restId = req.getParameter("restId");
 		Restaurant rest = restaurantRepository.getById(Integer.valueOf(restId));
 		User user = (User) req.getAttribute("user");
@@ -139,16 +150,23 @@ public class RestaurantController {
 			if(d != null)
 				map.put(d,Integer.valueOf(value));	
 		}
-		Integer orderId = orderRepository.sendOrder(user, rest, map);
-		if(orderId <= 0){
-			req.setAttribute("message",new Message("warning", "El monto minimo de pedido es" + rest.getMontomin().toString()));
-			mav.addObject("code", rest.getId());
-			mav.setViewName("redirect:menu");
+		Integer orderId = -1;
+		try {
+			orderId = orderRepository.sendOrder(user, rest, map);
+			if(orderId <= 0){
+				mav.addObject("message", new Message("warning", "El monto minimo de pedido es: $" + rest.getMontomin().toString()));
+				mav.addObject("orderId", orderId.toString());
+				mav.addObject("newOrderId", (orderId<0));
+				return mav;
+			}
+		} catch (CreationDishException e) {
+			mav.addObject("orderId", orderId.toString());
+			mav.addObject("newOrderId", (orderId<0));
+			mav.addObject("message",new Message("warning", "No se hacer el pedido"));
 			return mav;
 		}
 		mav.addObject("orderId", orderId.toString());
 		mav.addObject("newOrderId", (orderId>0));
-		mav.setViewName("showRestaurant");
 		return mav;
 	}
 	
@@ -193,7 +211,7 @@ public class RestaurantController {
 			try {
 				request.setAttribute("rest", managerRepository.getRestaurant(user));
 			} catch (NoRestaurantException e) {
-				mav.addObject("warning", "No hay restaurants disponibles para el usuario: " + e.getManager().getFirstName());
+				mav.addObject("message", new Message("warning", "No hay restaurants disponibles para el usuario: " + e.getManager().getFirstName()));
 			}
 			mav.setViewName("addDish");
 		}else{
@@ -206,11 +224,20 @@ public class RestaurantController {
 	public ModelAndView addDish(HttpServletRequest request, @RequestParam("section") String section, @RequestParam("dish") String dish, @RequestParam("price") String price, @RequestParam("description") String description) {
 		ModelAndView mav = new ModelAndView();
 		User user = (User) request.getAttribute("user");
+		Restaurant rest = null;
 		if(user != null && user.getIsManager()){
 			try {
-				managerRepository.addDish(managerRepository.getRestaurant(user), section, dish, Integer.valueOf(price), description);
+				rest = managerRepository.getRestaurant(user);
+				managerRepository.addDish(rest, section, dish, Integer.valueOf(price), description);
+				mav.addObject("message", new Message("success", "El plato se ha agregado correctamente al menu"));
 			}catch (NoRestaurantException e) {
-				mav.addObject("warning", "No hay restaurants disponibles para el usuario: " + e.getManager().getFirstName());
+				mav.addObject("message", new Message("warning", "No hay restaurants disponibles para el usuario: " + e.getManager().getFirstName()));
+			} catch (InvalidPriceException e) {
+				mav.addObject("message", new Message("warning", "El precio ingresado no es valido"));
+			} catch (InvalidSectionName e) {
+				mav.addObject("message", new Message("warning", "La sección ingresada no es valida"));
+			} catch (DuplicateDishException e) {
+				mav.addObject("message", new Message("warning", "El plato ya se encuentra ingresado"));
 			}
 			mav.setViewName("addDish");
 		}else{

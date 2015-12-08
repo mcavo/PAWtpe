@@ -18,6 +18,7 @@ import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepository;
 import ar.edu.itba.it.paw.domain.users.Credential;
 import ar.edu.itba.it.paw.domain.users.ManagerRepository;
 import ar.edu.itba.it.paw.domain.users.User;
+import ar.edu.itba.it.paw.exceptions.LoadOrderException;
 import ar.edu.itba.it.paw.exceptions.NoManagersAvailableException;
 import ar.edu.itba.it.paw.exceptions.NoRestaurantException;
 
@@ -46,7 +47,9 @@ public class ManagerController {
 				mav.addObject("rest", rest);
 				request.setAttribute("olist", orderRepository.getHistory(rest));
 			} catch (NoRestaurantException e) {
-				mav.addObject("warning", "No hay ningún restaurant asignado a" + e.getManager().getFirstName());
+				mav.addObject("message", new Message("warning", "No hay ningún restaurant asignado a" + e.getManager().getFirstName()));
+			} catch (LoadOrderException e) {
+				mav.addObject("message", new Message("warning", "No hay órdenes para mostrar"));
 			}
 			mav.setViewName("showOrders");
 		}else{

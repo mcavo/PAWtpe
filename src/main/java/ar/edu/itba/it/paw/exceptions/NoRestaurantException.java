@@ -10,6 +10,8 @@ public class NoRestaurantException extends Exception {
 	private static final long serialVersionUID = 1L;
 	private User manager;
 	
+	public NoRestaurantException() {}
+	
 	public NoRestaurantException(User manager) {
 		this.setManager(manager);
 	}

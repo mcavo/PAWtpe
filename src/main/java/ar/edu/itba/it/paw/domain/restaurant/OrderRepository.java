@@ -14,6 +14,8 @@ import org.springframework.stereotype.Repository;
 import ar.edu.itba.it.paw.domain.common.AbstractHibernateRepository;
 import ar.edu.itba.it.paw.domain.users.User;
 import ar.edu.itba.it.paw.domain.users.UserRepository;
+import ar.edu.itba.it.paw.exceptions.CreationDishException;
+import ar.edu.itba.it.paw.exceptions.LoadOrderException;
 
 @Repository
 public class OrderRepository extends AbstractHibernateRepository{
@@ -31,8 +33,9 @@ public class OrderRepository extends AbstractHibernateRepository{
 		return !dishes.isEmpty();
 	}
 	
-	public int sendOrder(User user, Restaurant rest, HashMap<Dish, Integer> oMap) {
+	public int sendOrder(User user, Restaurant rest, HashMap<Dish, Integer> oMap) throws CreationDishException {
 		if(!checkOrder(user.getId(), rest, oMap)){
+			System.out.println("no valida");
 			return -1;
 		}
 		HashMap<Dish,Integer> map = new HashMap<Dish,Integer>();
@@ -72,18 +75,19 @@ public class OrderRepository extends AbstractHibernateRepository{
 			total += dish.getPrice()*cant;
 		}
 		if(total < rest.getMinamount()){
+			System.out.println(rest.getMinamount());
 			return false;
 		}
 		return true;
 	}
 	
-	private void loadProducts(int orderId, HashMap<Dish, Integer> oMap) {
+	private void loadProducts(int orderId, HashMap<Dish, Integer> oMap) throws CreationDishException {
 		for (Entry<Dish, Integer> set : oMap.entrySet()) {
 			loadByOne(orderId, set.getKey().getId(), set.getValue());
 		}
 	}
 
-	private void loadByOne(int orderId, int dishId, int cant) {
+	private void loadByOne(int orderId, int dishId, int cant) throws CreationDishException {
 		Session session=null;
 	    try 
 	    {
@@ -96,7 +100,7 @@ public class OrderRepository extends AbstractHibernateRepository{
 	    }
 	    catch(Exception e)
 	    {
-	    	e.printStackTrace();
+	    	throw new CreationDishException();
 	    }
 	    finally
 	    {
@@ -116,7 +120,7 @@ public class OrderRepository extends AbstractHibernateRepository{
 		return dishes.get(0);
 	}
 	
-	public List<Order> getHistory(Restaurant rest) {
+	public List<Order> getHistory(Restaurant rest) throws LoadOrderException {
 		List<Order> history = find("from Order where restid = ?", rest.getId());
 		for (Order order : history) {
 			order.setOrdlist(getOrderList(order.getId()));
@@ -126,17 +130,15 @@ public class OrderRepository extends AbstractHibernateRepository{
 
 
 	@SuppressWarnings("unchecked")
-	private Map<Dish, Integer> getOrderList(int orderId) {
+	private Map<Dish, Integer> getOrderList(int orderId) throws LoadOrderException {
 		Map<Dish, Integer> order = new HashMap<Dish, Integer>();
 		
 		Session session=null;
 	    try 
 	    {
 		    Session sessionSQL = super.getSession();
-		    //Transaction tx = sessionSQL.beginTransaction();
 		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("select * from prodPedidos where pedid = ?").setParameter(0, orderId); 
 		    List<Object[]> rows = query.list();
-		    //tx.commit();
 		    
 		    int platoid;
 		    int cant;
@@ -148,7 +150,7 @@ public class OrderRepository extends AbstractHibernateRepository{
 	    }
 	    catch(Exception e)
 	    {
-	    	e.printStackTrace();
+	    	throw new LoadOrderException();
 	    }
 	    finally
 	    {
