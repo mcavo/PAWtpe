@@ -35,7 +35,6 @@ public class OrderRepository extends AbstractHibernateRepository{
 	
 	public int sendOrder(User user, Restaurant rest, HashMap<Dish, Integer> oMap) throws CreationDishException {
 		if(!checkOrder(user.getId(), rest, oMap)){
-			System.out.println("no valida");
 			return -1;
 		}
 		HashMap<Dish,Integer> map = new HashMap<Dish,Integer>();
@@ -75,7 +74,6 @@ public class OrderRepository extends AbstractHibernateRepository{
 			total += dish.getPrice()*cant;
 		}
 		if(total < rest.getMinamount()){
-			System.out.println(rest.getMinamount());
 			return false;
 		}
 		return true;
