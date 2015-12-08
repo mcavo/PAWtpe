@@ -55,8 +55,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		}
 		Restaurant r = rests.get(0);
 		Menu menu = getMenuByRestaurant(r);
-		r.setMenu(menu);
-		//Restaurant rest = new Restaurant(id, r.getName(), r.getMinamount(), r.getFrom(), r.getTo(), r.getAddress(), r.getTypesOfFood(), menu, r.getDelamount(),r.getDeliveryfrom(),r.getDeliveryto(),r.getDeliveryneigh());		
+		r.setMenu(menu);		
 		return r;
 	}
 	

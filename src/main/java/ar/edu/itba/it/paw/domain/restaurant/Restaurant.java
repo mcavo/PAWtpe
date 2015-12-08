@@ -1,16 +1,16 @@
 package ar.edu.itba.it.paw.domain.restaurant;
 
 import java.sql.Timestamp;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.MapKey;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -60,11 +60,8 @@ public class Restaurant extends PersistentEntity {
 	@Column(name = "descripcion")
 	private String description;
 	
-	//@Transient
-	//private HashMap<Integer, Calification> califications;
-	
-	@OneToMany
-	@JoinTable(name="calificacion", joinColumns=@JoinColumn(name="restid"), inverseJoinColumns=@JoinColumn(name="id"))
+	@OneToMany(cascade=CascadeType.ALL)
+	@MapKey(name="restid")
 	private List<Calification> califications;
 	
 	@Transient
@@ -138,10 +135,6 @@ public class Restaurant extends PersistentEntity {
 		return managers;
 	}
 
-	/*public HashMap<Integer, Calification> getCalifications() {
-		return califications;
-	}*/
-
 	public void setDelamount(double cost) {
 		this.delamount = cost;
 	}
@@ -149,26 +142,6 @@ public class Restaurant extends PersistentEntity {
 	public void setCostoenvio(Double delamount) {
 		this.delamount = delamount;
 	}
-	
-	/*private void calculateScore() {
-		if(califications==null || califications.isEmpty()) {
-			this.score = (double) 0;
-			return;
-		}
-			
-		double saux = (double) 0;
-		for (Entry<Integer,Calification> set : califications.entrySet()) {
-			saux += set.getValue().getPuntaje();
-		}
-		saux/=califications.size();
-		score=saux;
-	}
-
-
-	public void setCalifications(HashMap<Integer, Calification> qMap) {
-		this.califications = qMap;
-		calculateScore();
-	}*/
 
 	public String getName() {
 		return name;

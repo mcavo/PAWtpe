@@ -17,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import ar.edu.itba.it.paw.domain.address.AddressRepository;
 import ar.edu.itba.it.paw.domain.common.Message;
 import ar.edu.itba.it.paw.domain.restaurant.Calification;
-import ar.edu.itba.it.paw.domain.restaurant.CalificationRepository;
 import ar.edu.itba.it.paw.domain.restaurant.Dish;
 import ar.edu.itba.it.paw.domain.restaurant.OrderRepository;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
@@ -36,17 +35,15 @@ public class RestaurantController {
 	private final ManagerRepository managerRepository;
 	private final AddressRepository addressRepository;
 	private final RegisterRestValidator registerRestValidator;
-	private final CalificationRepository calificationRepository;
 	
 	
 	@Autowired
-	public RestaurantController(RestaurantRepository restaurantRepo, CalificationRepository calificationRepository, ManagerRepository managerRepo, OrderRepository orderRepo, AddressRepository addressRepository, RegisterRestValidator registerRestValidator){
+	public RestaurantController(RestaurantRepository restaurantRepo, ManagerRepository managerRepo, OrderRepository orderRepo, AddressRepository addressRepository, RegisterRestValidator registerRestValidator){
 		this.orderRepository = orderRepo;
 		this.restaurantRepository = restaurantRepo;
 		this.managerRepository = managerRepo;
 		this.addressRepository=addressRepository;
 		this.registerRestValidator=registerRestValidator;
-		this.calificationRepository = calificationRepository;
 	}
 	
 	@RequestMapping(value="/list", method = RequestMethod.GET)
@@ -91,21 +88,13 @@ public class RestaurantController {
 	public ModelAndView details(HttpServletRequest request, @RequestParam("code") Restaurant restaurant, @RequestParam("rating") String stars, @RequestParam(value="comment", required=false) String comments) {	
 		ModelAndView mav = new ModelAndView();
 		User user = (User) request.getAttribute("user");
-		//rest.setCalifications(calificationService.getCalifications(rest));
 		mav.addObject("rest", restaurant);
 		mav.setViewName("showRestaurant");
-		/*UserManager userManager = new SessionUserManager(request);
-		if (!userManager.existsUser()) {
-			throw new Exception("No hay un usuario loggeado");
-		}*/
 		try {
 			Calification q = new Calification(Integer.valueOf(stars), comments);
 			q.setUser(user);
 			q.setRestaurant(restaurant);
-			calificationRepository.save(q);
-			//restaurant.addCalification(q);
-			//restaurantRepository.update(restaurant);
-			//restaurant.getQualifications().put(user.getId(), new Calification(Integer.valueOf(stars), comments));
+			restaurant.addCalification(q);
 		} catch (Exception e) {
 			mav.addObject("message", new Message("warning", "No se pudo realizar la calificación"));
 		}
@@ -157,9 +146,6 @@ public class RestaurantController {
 			mav.setViewName("redirect:menu");
 			return mav;
 		}
-		/*if(!orderRepository.sendOrder(user.getId(), rest, map)){
-			return new ModelAndView("redirect:../homepage/");
-		}*/
 		mav.addObject("orderId", orderId.toString());
 		mav.addObject("newOrderId", (orderId>0));
 		mav.setViewName("showRestaurant");
