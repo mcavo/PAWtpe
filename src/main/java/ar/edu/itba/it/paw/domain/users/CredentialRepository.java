@@ -46,7 +46,7 @@ public class CredentialRepository extends AbstractHibernateRepository {
 
 	public List<Credential> getManagersAvailables() throws NoManagersAvailableException {
 		List<Credential> credentials = null;
-		credentials = super.find("from Credential c where c.rol != 'gerente' and exists (select u from User u where u.id = c.id)");
+		credentials = super.find("from Credential c where c.rol != 'manager' and exists (select u from User u where u.id = c.id)");
 	    if (credentials == null) {
 	    	throw new NoManagersAvailableException();
 	    }
