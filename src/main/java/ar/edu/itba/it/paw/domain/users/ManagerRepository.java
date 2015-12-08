@@ -98,13 +98,8 @@ public class ManagerRepository extends AbstractHibernateRepository{
 	    try 
 	    {
 		    Session sessionSQL = super.getSession();
-		    //Transaction tx = sessionSQL.beginTransaction();
-		    //ARREGLAR LA QUERY!
 		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("select restid from gerente where gerente.userid = ?").setParameter(0, manager.getId()); 
-		    //query.addScalar("userid", Hibernate.INTEGER);
-		    //query.addScalar("restid", Hibernate.INTEGER);
 		    ArrayList<Object> rows = (ArrayList<Object>) query.list();
-		    //tx.commit();
 
 		    for (int i = 0; i < rows.size(); i++) {
 		    	rest = this.restaurantRepository.getById((Integer) rows.get(i));
@@ -112,7 +107,6 @@ public class ManagerRepository extends AbstractHibernateRepository{
 	    }
 	    catch(Exception e)
 	    {
-	    	e.printStackTrace();
 	    	throw new NoRestaurantException(manager);
 	    }
 	    finally

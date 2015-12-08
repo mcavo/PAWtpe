@@ -2,11 +2,7 @@ package ar.edu.itba.it.paw.domain.users;
 
 import java.util.List;
 
-import org.hibernate.Hibernate;
-import org.hibernate.SQLQuery;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -47,13 +43,7 @@ public class CredentialRepository extends AbstractHibernateRepository {
 		}
 		throw new CredentialNoMatchException(email, pwd);
 	}
-	
-	public String getEmail(int credentialId) throws NoCredentialException {
-		Credential credential = credentialWithId(credentialId);
-		return credential.getMail();
-	}
 
-	@SuppressWarnings("unchecked")
 	public List<Credential> getManagersAvailables() throws NoManagersAvailableException {
 		List<Credential> credentials = null;
 		credentials = super.find("from Credential c where c.rol != 'gerente' and exists (select u from User u where u.id = c.id)");
@@ -66,11 +56,7 @@ public class CredentialRepository extends AbstractHibernateRepository {
 	public void setRol(String rol, int id){
 		Credential c = get(id);
 		c.setRol(rol);
-		try {
-			update(c);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		update(c);
 	}
 	
 	public void setPwd(String pwd, int id){

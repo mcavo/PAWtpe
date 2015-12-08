@@ -81,7 +81,6 @@ public class SignupValidator implements Validator {
 		try {
 			date = LocalDate.parse(dateToValidate,sdf);
 		} catch (DateTimeParseException e) {
-			e.printStackTrace();
 			return false;
 		}
 		ChronoLocalDate today = LocalDate.now();
