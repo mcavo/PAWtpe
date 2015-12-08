@@ -27,7 +27,6 @@ import ar.edu.itba.it.paw.domain.users.User;
 @Entity
 @Table(name = "restaurante")
 public class Restaurant extends PersistentEntity {
-	//TODO: esto esta haciendo algo?
 	@OneToMany
 	@JoinColumn(name="gerid")
 	private Set<User> managers;
@@ -235,7 +234,10 @@ public class Restaurant extends PersistentEntity {
 		for (Calification calification : califications) {
 			s+=calification.getPuntaje();
 		}
-		return s;
+		if(califications.isEmpty())
+			return s;
+		s = s/((double) califications.size());
+		return Math.round(s*100)/100.0;
 	}
 
 	public Timestamp getRegis() {
