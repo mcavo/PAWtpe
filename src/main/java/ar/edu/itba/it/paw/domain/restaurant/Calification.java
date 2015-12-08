@@ -1,14 +1,50 @@
 package ar.edu.itba.it.paw.domain.restaurant;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import ar.edu.itba.it.paw.domain.common.PersistentEntity;
+import ar.edu.itba.it.paw.domain.users.User;
 import ar.edu.itba.it.paw.services.NumberService;
 import ar.edu.itba.it.paw.services.StringService;
 
-//no esta mapeado porque no tiene id e hibernate no lo acepta
-public class Calification {
-	
+@Entity
+@Table(name = "calificacion")
+public class Calification extends PersistentEntity {
+
+	@Column
 	private Integer puntaje;
+	
+	@Column
 	private String descripcion;
-	private int userId;
+	
+	@ManyToOne
+	@JoinColumn(name ="userid")
+	private User user;
+	
+	@ManyToOne
+	@JoinColumn(name ="restid")
+	private Restaurant restaurant;
+	
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
+
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
+	}
 
 	public Calification(){
 		
@@ -36,13 +72,5 @@ public class Calification {
 	public void setDescripcion(String descripcion) {
 		StringService.validateMaximumLength(descripcion, 500);
 		this.descripcion = descripcion;
-	}
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
 	}
 }

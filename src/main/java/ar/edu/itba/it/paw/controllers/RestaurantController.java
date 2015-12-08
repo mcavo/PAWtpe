@@ -24,7 +24,6 @@ import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepository;
 import ar.edu.itba.it.paw.domain.users.ManagerRepository;
 import ar.edu.itba.it.paw.domain.users.User;
-import ar.edu.itba.it.paw.exceptions.CreateCalificationException;
 import ar.edu.itba.it.paw.exceptions.NoRestaurantException;
 import ar.edu.itba.it.paw.forms.RegisterRestForm;
 import ar.edu.itba.it.paw.validators.RegisterRestValidator;
@@ -32,22 +31,22 @@ import ar.edu.itba.it.paw.validators.RegisterRestValidator;
 @Controller
 public class RestaurantController {
 	
-	private final CalificationRepository calificationRepository;
 	private final OrderRepository orderRepository;
 	private final RestaurantRepository restaurantRepository;
 	private final ManagerRepository managerRepository;
 	private final AddressRepository addressRepository;
 	private final RegisterRestValidator registerRestValidator;
+	private final CalificationRepository calificationRepository;
 	
 	
 	@Autowired
-	public RestaurantController(RestaurantRepository restaurantRepo, CalificationRepository calificationRepo, ManagerRepository managerRepo, OrderRepository orderRepo, AddressRepository addressRepository, RegisterRestValidator registerRestValidator){
-		this.calificationRepository = calificationRepo;
+	public RestaurantController(RestaurantRepository restaurantRepo, CalificationRepository calificationRepository, ManagerRepository managerRepo, OrderRepository orderRepo, AddressRepository addressRepository, RegisterRestValidator registerRestValidator){
 		this.orderRepository = orderRepo;
 		this.restaurantRepository = restaurantRepo;
 		this.managerRepository = managerRepo;
 		this.addressRepository=addressRepository;
 		this.registerRestValidator=registerRestValidator;
+		this.calificationRepository = calificationRepository;
 	}
 	
 	@RequestMapping(value="/list", method = RequestMethod.GET)
@@ -73,7 +72,7 @@ public class RestaurantController {
 		mav.setViewName("showRestaurant");
 		User user = (User) request.getAttribute("user");
 		if(user != null){
-			request.setAttribute("okToQualify", !restaurant.getQualifications().keySet().contains(user.getId()));
+			request.setAttribute("okToQualify", !restaurant.hasCalificationByUser(user));
 		}else{
 			request.setAttribute("okToQualify", false);
 		}
@@ -100,9 +99,14 @@ public class RestaurantController {
 			throw new Exception("No hay un usuario loggeado");
 		}*/
 		try {
-			calificationRepository.addCalification(user, restaurant, stars, comments);
-			restaurant.getQualifications().put(user.getId(), new Calification(Integer.valueOf(stars), comments));
-		} catch (CreateCalificationException e) {
+			Calification q = new Calification(Integer.valueOf(stars), comments);
+			q.setUser(user);
+			q.setRestaurant(restaurant);
+			calificationRepository.save(q);
+			//restaurant.addCalification(q);
+			//restaurantRepository.update(restaurant);
+			//restaurant.getQualifications().put(user.getId(), new Calification(Integer.valueOf(stars), comments));
+		} catch (Exception e) {
 			mav.addObject("message", new Message("warning", "No se pudo realizar la calificación"));
 		}
 		
@@ -250,10 +254,6 @@ public class RestaurantController {
 	public ModelAndView homepage() {
 		ModelAndView mav = new ModelAndView();
 		List<Restaurant> weekRests = restaurantRepository.getLastWeekAdded();
-		for(Restaurant rest : weekRests) {
-			HashMap<Integer,Calification> map = rest.getQualifications();
-			rest.setCalifications(map);
-		}
 		mav.addObject("weekRests", weekRests);
 		return mav;
 	}

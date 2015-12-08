@@ -17,13 +17,11 @@ import ar.edu.itba.it.paw.domain.users.User;
 public class RestaurantRepository extends AbstractHibernateRepository{
 
 	private AddressRepository addressRepository;
-	private CalificationRepository calificationRepository;
 	
 	@Autowired
-	public RestaurantRepository(SessionFactory sessionFactory, AddressRepository addressRepository, CalificationRepository calificationRepository) {
+	public RestaurantRepository(SessionFactory sessionFactory, AddressRepository addressRepository) {
 		super(sessionFactory);
 		this.addressRepository = addressRepository;
-		this.calificationRepository = calificationRepository;
 	}
 	
 	public List<Restaurant> getMostPopular(){
@@ -35,7 +33,6 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		for (Restaurant r : rests) {
 			menu = getMenuByRestaurant(r);
 			r.setMenu(menu);
-			r.setCalifications(calificationRepository.getCalifications(r));
 		}
 		return rests;
 	}
@@ -47,7 +44,6 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		for (Restaurant r : rests) {
 			menu = getMenuByRestaurant(r);
 			r.setMenu(menu);
-			r.setCalifications(this.calificationRepository.getCalifications(r));
 		}
 		return rests;
 	}
@@ -59,9 +55,9 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		}
 		Restaurant r = rests.get(0);
 		Menu menu = getMenuByRestaurant(r);
-		Restaurant rest = new Restaurant(id, r.getName(), r.getMinamount(), r.getFrom(), r.getTo(), r.getAddress(), r.getTypesOfFood(), menu, r.getDelamount(),r.getDeliveryfrom(),r.getDeliveryto(),r.getDeliveryneigh());		
-		rest.setCalifications(this.calificationRepository.getCalifications(r));
-		return rest;
+		r.setMenu(menu);
+		//Restaurant rest = new Restaurant(id, r.getName(), r.getMinamount(), r.getFrom(), r.getTo(), r.getAddress(), r.getTypesOfFood(), menu, r.getDelamount(),r.getDeliveryfrom(),r.getDeliveryto(),r.getDeliveryneigh());		
+		return r;
 	}
 	
 	public List<Restaurant> getLastWeekAdded() {
@@ -71,7 +67,6 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		for (Restaurant r : rests) {
 			menu = getMenuByRestaurant(r);
 			r.setMenu(menu);
-			r.setCalifications(this.calificationRepository.getCalifications(r));
 		}
 		return rests;	
 	}
@@ -82,7 +77,6 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 		for (Restaurant r : results) {
 			menu = getMenuByRestaurant(r);
 			r.setMenu(menu);
-			r.setCalifications(calificationRepository.getCalifications(r));
 		}
 		return results;
 	}

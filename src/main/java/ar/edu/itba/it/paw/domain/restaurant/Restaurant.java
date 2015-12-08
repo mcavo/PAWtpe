@@ -60,14 +60,15 @@ public class Restaurant extends PersistentEntity {
 	@Column(name = "descripcion")
 	private String description;
 	
-	@Transient
-	private HashMap<Integer, Calification> califications;
+	//@Transient
+	//private HashMap<Integer, Calification> califications;
+	
+	@OneToMany
+	@JoinTable(name="calificacion", joinColumns=@JoinColumn(name="restid"), inverseJoinColumns=@JoinColumn(name="id"))
+	private List<Calification> califications;
 	
 	@Transient
 	private Menu menu;
-	
-	@Transient
-	private double score = (double)0;
 	
 	@Column(name="deliverydesde")
 	private String deliveryfrom;
@@ -137,9 +138,9 @@ public class Restaurant extends PersistentEntity {
 		return managers;
 	}
 
-	public HashMap<Integer, Calification> getCalifications() {
+	/*public HashMap<Integer, Calification> getCalifications() {
 		return califications;
-	}
+	}*/
 
 	public void setDelamount(double cost) {
 		this.delamount = cost;
@@ -149,7 +150,7 @@ public class Restaurant extends PersistentEntity {
 		this.delamount = delamount;
 	}
 	
-	private void calculateScore() {
+	/*private void calculateScore() {
 		if(califications==null || califications.isEmpty()) {
 			this.score = (double) 0;
 			return;
@@ -167,7 +168,7 @@ public class Restaurant extends PersistentEntity {
 	public void setCalifications(HashMap<Integer, Calification> qMap) {
 		this.califications = qMap;
 		calculateScore();
-	}
+	}*/
 
 	public String getName() {
 		return name;
@@ -257,11 +258,11 @@ public class Restaurant extends PersistentEntity {
 	}
 
 	public double getScore() {
-		return score;
-	}
-
-	public void setScore(double score) {
-		this.score = score;
+		double s = 0;
+		for (Calification calification : califications) {
+			s+=calification.getPuntaje();
+		}
+		return s;
 	}
 
 	public Timestamp getRegis() {
@@ -272,9 +273,9 @@ public class Restaurant extends PersistentEntity {
 		this.regis = regis;
 	}
 
-	public HashMap<Integer, Calification> getQualifications() {
+	/*public HashMap<Integer, Calification> getQualifications() {
 		return this.califications;
-	}
+	}*/
 	
 	public int getCountComments(){
 		if(califications==null)
@@ -310,4 +311,19 @@ public class Restaurant extends PersistentEntity {
 		}
 		return !(now.isAfter(dfrom) && now.isBefore(dto));
 	}
+
+	public void addCalification(Calification q) {
+		this.califications.add(q);
+		
+	}
+
+	public boolean hasCalificationByUser(User user) {
+		for (Calification calification : califications) {
+			if(calification.getUser().equals(user)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }
