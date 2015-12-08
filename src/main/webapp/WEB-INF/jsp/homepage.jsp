@@ -1,7 +1,5 @@
 <%@ include file="header.jsp"%>
 
-<div class="container">
-
 	<!-- Main component for a primary marketing message or call to action -->
 	<div class="jumbotron">
 		<h2>Pedir comida nunca fue tan fácil</h2>

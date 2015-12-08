@@ -1,7 +1,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ include file="managersHeader.jsp"%>
 
-<div class="container">
 	<form:form data-toggle="validator" role="form" action="register"
 		commandName="registerRestForm" method="post">
 		<div class="row">

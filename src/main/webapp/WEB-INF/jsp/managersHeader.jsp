@@ -57,3 +57,16 @@
 		<!--/.nav-collapse -->
 	</div>
 	</nav>
+	<div class="container">
+		<c:if test="${message != null}">
+			<br>
+			<br>
+			<div class="alert alert-${message.type} alert-dismissible"
+				role="alert">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				${message.text}
+			</div>
+		</c:if>

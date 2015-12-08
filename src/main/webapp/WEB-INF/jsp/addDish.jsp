@@ -1,6 +1,5 @@
 <%@ include file="managersHeader.jsp"%>
 
-<div class="container">
 	<div class="col-md-8 col-md-offset-2">
 		<div>
 			<h4>Agregar plato a ${rest.name}</h4>
