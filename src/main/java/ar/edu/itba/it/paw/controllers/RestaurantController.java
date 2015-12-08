@@ -155,18 +155,13 @@ public class RestaurantController {
 			orderId = orderRepository.sendOrder(user, rest, map);
 			if(orderId <= 0){
 				mav.addObject("message", new Message("warning", "El monto minimo de pedido es: $" + rest.getMontomin().toString()));
-				mav.addObject("orderId", orderId.toString());
-				mav.addObject("newOrderId", (orderId<0));
 				return mav;
 			}
 		} catch (CreationDishException e) {
-			mav.addObject("orderId", orderId.toString());
-			mav.addObject("newOrderId", (orderId<0));
 			mav.addObject("message",new Message("warning", "No se hacer el pedido"));
 			return mav;
 		}
-		mav.addObject("orderId", orderId.toString());
-		mav.addObject("newOrderId", (orderId>0));
+		mav.addObject("message",new Message("success", "El pedido se a ha realizado correctamente. El numero de orden es: " + orderId.toString()));
 		return mav;
 	}
 	
