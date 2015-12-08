@@ -30,7 +30,6 @@ public class SignupValidator implements Validator {
 		SignupForm form = (SignupForm) o;
 		String firstname = form.getFirstname();
 		String lastname = form.getLastname();
-		// Address address = form.getAddress();
 		Question question = form.getQuestion();
 		String answer = form.getAnswer();
 		String email = form.getEmail();
@@ -75,7 +74,6 @@ public class SignupValidator implements Validator {
 		fmt.format("%02d", day);
 		dateToValidate += fmt.toString();
 		fmt.close();
-		System.out.println(dateToValidate);
 		DateTimeFormatter sdf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 		LocalDate date;
 		try {

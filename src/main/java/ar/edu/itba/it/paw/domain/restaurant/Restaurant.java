@@ -325,7 +325,6 @@ public class Restaurant extends PersistentEntity {
 				sections.put(name, l);
 			}
 		}
-		System.out.println(menu);
 		return new LinkedList<List<Dish>>(sections.values());
 	}
 	

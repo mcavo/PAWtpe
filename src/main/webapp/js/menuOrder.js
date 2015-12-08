@@ -1,13 +1,21 @@
 $(document).ready(function(){
 	$(".select-dish").change(function() {
 		var p = $(this).parent().parent().children(".price").text();
+		var total_cant = 0;
 		$("#"+this.name+"").remove();
 		if ($(this).val() !== '0') {
+			var item = document.getElementById(this.name);
+			if(item != null){
+				item.remove();
+				
+			}
 			var cant = "<div class='col-sm-3 cant'> "+$(this).val()+" x </div>";
 			var nombre = "<div class='col-sm-5 nombre'>"+this.name+"</div>";
 			var precio = "<div class='col-sm-4 precio'>"+p+"</div>";
 			var product = $("<div class='product' id='"+this.name+"'>"+cant+nombre+precio+"</div>");
 			$(".productContainer").prepend(product);
+		}else{
+			document.getElementById(this.name).remove();
 		}
 		
 		var plist = document.getElementsByClassName("product");
@@ -40,6 +48,7 @@ $(document).ready(function(){
 			
 			
 			$(".cartresume").removeClass("hide");
+			$(".cartresume").show();
 		}
 		
 	});
