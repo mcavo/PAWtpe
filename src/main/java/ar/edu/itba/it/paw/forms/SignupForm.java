@@ -83,7 +83,6 @@ public class SignupForm {
 
 	public Address getAddress(AddressRepository addressRepo) {
 		Integer n = null;
-		System.out.println("floor: "+floor+";");
 		if(number!=null && !number.equals(""))
 			n = Integer.parseInt(number);
 		Integer f = null;

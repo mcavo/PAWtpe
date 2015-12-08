@@ -76,7 +76,19 @@ public class TryToConnect {
 			//dbConnection.createStatement().execute("ALTER TABLE delivery ALTER COLUMN costo SET NOT NULL;");
 			//dbConnection.createStatement().execute("ALTER TABLE restaurante ADD COLUMN deliverydesde FLOAT");
 			//dbConnection.createStatement().execute("ALTER TABLE restaurante ADD COLUMN deliveryhasta FLOAT");
-			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM usuario;");
+			/*dbConnection.createStatement().execute("UPDATE credencial SET rol='usuario' WHERE id=10");
+			dbConnection.createStatement().execute("DELETE FROM gerente WHERE userid=1;");
+			dbConnection.createStatement().execute("DELETE FROM gerente WHERE userid=31;");
+			dbConnection.createStatement().execute("DELETE FROM gerente WHERE userid=3;");
+			dbConnection.createStatement().execute("DELETE FROM gerente WHERE userid=4;");
+			dbConnection.createStatement().execute("DELETE FROM gerente WHERE userid=22;");
+			dbConnection.createStatement().execute("DELETE FROM gerente WHERE userid=19;");
+			dbConnection.createStatement().execute("DELETE FROM gerente WHERE userid=20;");
+			dbConnection.createStatement().execute("DELETE FROM gerente WHERE userid=37;");
+			dbConnection.createStatement().execute("DELETE FROM gerente WHERE userid=23;");
+			dbConnection.createStatement().execute("DELETE FROM gerente WHERE userid=36;");*/
+			ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM gerente;");
+			ResultSet set2 = dbConnection.createStatement().executeQuery("SELECT * FROM credencial;");
 			//dbConnection.createStatement().execute("DELETE FROM credencial WHERE id=42;");
 			
 			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM pedido where restid = 1");
@@ -85,10 +97,19 @@ public class TryToConnect {
 			//dbConnection.createStatement().execute("DELETE FROM plato WHERE id=3;");
 			//dbConnection.createStatement().execute("ALTER TABLE restaurante ALTER COLUMN regis SET DEFAULT CURRENT_TIMESTAMP;");
 			//ResultSet set = dbConnection.createStatement().executeQuery("SELECT * FROM restaurante");
-			//System.out.println("DIRECCION");
+			System.out.println("CREDENCIAL");
+			System.out.println("---------");
+			while(set2.next()) {
+				for(int i=1 ; i<=4; i++)
+					System.out.print(set2.getString(i)+" | ");
+				System.out.println("");
+			}
+			System.out.println();
+			System.out.println();
+			System.out.println("GERENTE");
 			System.out.println("---------");
 			while(set.next()) {
-				for(int i=1 ; i<=7; i++)
+				for(int i=1 ; i<=2; i++)
 					System.out.print(set.getString(i)+" | ");
 				System.out.println("");
 			}
