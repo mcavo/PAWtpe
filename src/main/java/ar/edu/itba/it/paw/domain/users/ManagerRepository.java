@@ -29,40 +29,6 @@ public class ManagerRepository extends AbstractHibernateRepository{
 		this.credentialRepository = credentialRepo;
 	}
 
-	/*@SuppressWarnings("unchecked")
-	public Restaurant getRestByManagerId(int managerId) {
-		Restaurant rest = null;
-		Session session=null;
-	    try 
-	    {
-		    Session sessionSQL = super.getSession();
-		    Transaction tx = sessionSQL.beginTransaction();
-		    //ARREGLAR LA QUERY!
-		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("SELECT restid FROM gerente WHERE userid = ?").setParameter(0, managerId); 
-		    //query.addScalar("userid", Hibernate.INTEGER);
-		    //query.addScalar("restid", Hibernate.INTEGER);
-		    List<Object[]> rows = query.list();
-		    tx.commit();
-		    
-		    for (Object[] row: rows) {
-		    	rest = this.restaurantRepository.getById((int) row[0]);
-		    }
-	    }
-	    catch(Exception e)
-	    {
-	    	e.printStackTrace();
-	    }
-	    finally
-	    {
-	        if(session !=null && session.isOpen())
-	        {
-	          session.close();
-	          session=null;
-	        }
-	    }
-	    return rest;
-	}*/
-
 	public void addDish(Restaurant rest, String section, String dish, int price, String desc) {
 		if(Integer.valueOf(price) < 0 || dish == null || desc == null){
 			//precio menor a 0 excp
@@ -129,13 +95,10 @@ public class ManagerRepository extends AbstractHibernateRepository{
 	    try 
 	    {
 		    Session sessionSQL = super.getSession();
-		    //Transaction tx = sessionSQL.beginTransaction();
-		    //ARREGLAR LA QUERY!
 		    SQLQuery queryInsert = (SQLQuery) sessionSQL.createSQLQuery("INSERT INTO gerente (userid, restid) VALUES (?, ?)"); 
 		    queryInsert.setParameter(0, userId);
 		    queryInsert.setParameter(1, restId);
 		    queryInsert.executeUpdate();
-		    //tx.commit();
 		    this.credentialRepository.setRol("manager", userId);
 	    }
 	    catch(Exception e)

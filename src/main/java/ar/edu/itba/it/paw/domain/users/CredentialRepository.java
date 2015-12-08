@@ -76,12 +76,5 @@ public class CredentialRepository extends AbstractHibernateRepository {
 		}
 		throw new NoCredentialException(email);
 	}
-	
-	private Credential credentialWithId(int id) throws NoCredentialException {
-		List<Credential> list = find("from Credential where id = ?", id);
-		if (!list.isEmpty()) {
-			return list.get(0);	
-		}
-		throw new NoCredentialException(id);
-	}
+
 }

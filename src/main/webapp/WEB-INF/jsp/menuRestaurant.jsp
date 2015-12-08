@@ -25,9 +25,9 @@
 
 				<div class="col-md-12 sections">
 					<form>
-						<c:forEach items="${rest.menu.sections}" var="sect">
-							<h4>${sect.name}</h4>
-							<c:forEach items="${sect.dishes}" var="dish">
+						<c:forEach items="${rest.menuSections}" var="sect">
+							<h4><c:out value="${sect[0].section}" /></h4>
+							<c:forEach items="${sect}" var="dish">
 								<div class="bs-callout bs-callout-info">
 									<div class="form-group">
 										<h4>${dish.product}</h4>
