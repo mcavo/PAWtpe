@@ -8,6 +8,13 @@ $(document).ready(function(){
 			var precio = "<div class='col-sm-4 precio'>"+p+"</div>";
 			var product = $("<div class='product' id='"+this.name+"'>"+cant+nombre+precio+"</div>");
 			$(".productContainer").prepend(product);
+		}else{
+			var aux_id;
+			aux_id = document.getElementById(this.name);
+			while(aux_id != null){
+				aux_id.remove();
+				aux_id = document.getElementById(this.name);
+			}
 		}
 		
 		var plist = document.getElementsByClassName("product");
