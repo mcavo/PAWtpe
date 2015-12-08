@@ -55,7 +55,7 @@ public class RestaurantRepository extends AbstractHibernateRepository{
 	public boolean setRestaurant( Restaurant rest) {
 		Timestamp now = new Timestamp((new Date()).getTime());
 		rest.setRegis(now);
-		return saveRestaurant(rest) != 0; //TODO: revisar si esto funciona 
+		return saveRestaurant(rest) != 0; 
 	}
 	
 	public int saveRestaurant(Restaurant rest) {

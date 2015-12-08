@@ -30,7 +30,7 @@ import ar.edu.itba.it.paw.domain.users.User;
 @Table(name = "restaurante")
 public class Restaurant extends PersistentEntity {
 	@OneToMany
-	@JoinColumn(name="gerid")
+	@JoinTable(name="gerente", joinColumns=@JoinColumn(name="restid"), inverseJoinColumns=@JoinColumn(name="userid"))
 	private Set<User> managers;
 	
 	@ManyToMany
@@ -166,18 +166,16 @@ public class Restaurant extends PersistentEntity {
 	public void setName(String nombre) {
 		this.name = nombre;
 	}
-	
-	public Set<User> getManager() {
-		if(managers==null) {
-			
-		}
-		return managers;
-	}
 
 	public void setManagers(Set<User> managers) {
 		this.managers = managers;
 	}
 
+	public void addManager(User manager) {
+		//TODO: ver el tema de las validaciones
+		this.managers.add(manager);
+	}
+	
 	public Float getMinamount() {
 		return montomin;
 	}

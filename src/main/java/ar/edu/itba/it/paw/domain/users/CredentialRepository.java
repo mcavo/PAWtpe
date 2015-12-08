@@ -53,8 +53,8 @@ public class CredentialRepository extends AbstractHibernateRepository {
 	    return credentials;
 	}
 	
-	public void setRol(String rol, int id){
-		Credential c = get(id);
+	public void setRol(String rol, User user){
+		Credential c = get(user.getId());
 		c.setRol(rol);
 		update(c);
 	}

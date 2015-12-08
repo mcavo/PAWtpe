@@ -8,7 +8,6 @@ import java.util.Map.Entry;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -89,13 +88,11 @@ public class OrderRepository extends AbstractHibernateRepository{
 	    try 
 	    {
 		    Session sessionSQL = super.getSession();
-		    //Transaction tx = sessionSQL.beginTransaction();
 		    SQLQuery query = (SQLQuery) sessionSQL.createSQLQuery("insert into prodPedidos (pedid, platoid, cant) VALUES (?, ?, ?)");
 		    query.setParameter(0, orderId); 
 		    query.setParameter(1, dishId);
 		    query.setParameter(2, cant);
 		    query.executeUpdate();
-		    //tx.commit();
 	    }
 	    catch(Exception e)
 	    {
