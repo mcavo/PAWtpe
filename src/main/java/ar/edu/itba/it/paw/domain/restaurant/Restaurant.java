@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.CollectionOfElements;
+import org.joda.time.LocalTime;
 
 import ar.edu.itba.it.paw.domain.address.Address;
 import ar.edu.itba.it.paw.domain.address.Neighborhood;
@@ -42,10 +43,10 @@ public class Restaurant extends PersistentEntity {
 	private Float montomin;
 	
 	@Column(name = "desde")
-	private Float from;
+	private String from;
 	
 	@Column(name = "hasta")
-	private Float to;
+	private String to;
 	
 	@OneToOne
 	@JoinColumn(name="dirid")
@@ -69,10 +70,10 @@ public class Restaurant extends PersistentEntity {
 	private double score = (double)0;
 	
 	@Column(name="deliverydesde")
-	private Float deliveryfrom;
+	private String deliveryfrom;
 	
 	@Column(name="deliveryhasta")
-	private Float deliveryto;
+	private String deliveryto;
 	
 	@Column(name = "regis")
 	private Timestamp regis;
@@ -85,7 +86,7 @@ public class Restaurant extends PersistentEntity {
 		
 	}
 	
-	public Restaurant(int id, String name, Float minimumPurchase, Float startService, Float endService, Address address, List<String> typeOfFood, Menu menu, Double cost, Float delfrom,Float delto, Set<Neighborhood> deliveryneigh) {
+	public Restaurant(int id, String name, Float minimumPurchase, String startService, String endService, Address address, List<String> typeOfFood, Menu menu, Double cost, String delfrom,String delto, Set<Neighborhood> deliveryneigh) {
 		this.setName(name);
 		this.setMinamount(minimumPurchase);
 		this.setFrom(startService);
@@ -116,19 +117,19 @@ public class Restaurant extends PersistentEntity {
 		this.montomin = montomin;
 	}
 
-	public Float getDeliveryfrom() {
+	public String getDeliveryfrom() {
 		return deliveryfrom;
 	}
 
-	public void setDeliveryfrom(Float deliveryfrom) {
+	public void setDeliveryfrom(String deliveryfrom) {
 		this.deliveryfrom = deliveryfrom;
 	}
 
-	public Float getDeliveryto() {
+	public String getDeliveryto() {
 		return deliveryto;
 	}
 
-	public void setDeliveryto(Float deliveryto) {
+	public void setDeliveryto(String deliveryto) {
 		this.deliveryto = deliveryto;
 	}
 
@@ -195,15 +196,15 @@ public class Restaurant extends PersistentEntity {
 		this.montomin = montomin;
 	}
 
-	public Float getFrom() {
+	public String getFrom() {
 		return from;
 	}
 
-	public void setFrom(Float desde) {
+	public void setFrom(String desde) {
 		this.from = desde;
 	}
 
-	public void setDesde(Float desde) {
+	public void setDesde(String desde) {
 		this.from = desde;
 	}
 	
@@ -215,15 +216,15 @@ public class Restaurant extends PersistentEntity {
 		this.address = address;
 	}
 
-	public Float getTo() {
+	public String getTo() {
 		return to;
 	}
 
-	public void setTo(Float hasta) {
+	public void setTo(String hasta) {
 		this.to = hasta;
 	}
 
-	public void setHasta(Float hasta) {
+	public void setHasta(String hasta) {
 		this.to = hasta;
 	}
 	
@@ -288,5 +289,25 @@ public class Restaurant extends PersistentEntity {
 	
 	public void setNombre(String nombre) {
 		this.name = nombre;
+	}
+	
+	public boolean getIsClosed(){
+		LocalTime dfrom = new LocalTime(this.from);
+		LocalTime dto = new LocalTime(this.to);
+		LocalTime now = new LocalTime();
+		if(dfrom.isAfter(dto)) {
+			return !((now.isAfter(new LocalTime("00:00")) && now.isBefore(dto)) || (now.isAfter(dfrom) && now.isBefore(new LocalTime("23:59"))));
+		}
+		return !(now.isAfter(dfrom) && now.isBefore(dto));
+	}
+	
+	public boolean getHasNotDelivery(){
+		LocalTime dfrom = new LocalTime(this.deliveryfrom);
+		LocalTime dto = new LocalTime(this.deliveryto);
+		LocalTime now = new LocalTime();
+		if(dfrom.isAfter(dto)) {
+			return !((now.isAfter(new LocalTime("00:00")) && now.isBefore(dto)) || (now.isAfter(dfrom) && now.isBefore(new LocalTime("23:59"))));
+		}
+		return !(now.isAfter(dfrom) && now.isBefore(dto));
 	}
 }

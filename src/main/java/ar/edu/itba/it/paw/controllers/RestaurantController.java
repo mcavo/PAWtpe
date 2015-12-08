@@ -237,7 +237,7 @@ public class RestaurantController {
 			try {
 				managerRepository.addDish(managerRepository.getRestaurant(user), section, dish, Integer.valueOf(price), description);
 			}catch (NoRestaurantException e) {
-				mav.addObject("worning", "No hay restaurants disponibles para el usuario: " + e.getManager().getFirstName());
+				mav.addObject("warning", "No hay restaurants disponibles para el usuario: " + e.getManager().getFirstName());
 			}
 			mav.setViewName("addDish");
 		}else{

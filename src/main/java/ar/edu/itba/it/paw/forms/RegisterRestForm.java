@@ -43,7 +43,7 @@ public class RegisterRestForm {
 		for(String s : delneigh) {
 			set.add(new Neighborhood(Integer.parseInt(s)));
 		}
-		Restaurant r = new Restaurant(-1,name,Float.parseFloat(minamount),Float.valueOf(from.replace(':', '.')),Float.valueOf(to.replace(':', '.')),address,l,null,Double.parseDouble(delamount),Float.valueOf(deliveryfrom.replace(':', '.')),Float.valueOf(deliveryto.replace(':', '.')), set);
+		Restaurant r = new Restaurant(-1,name,Float.parseFloat(minamount),from,to,address,l,null,Double.parseDouble(delamount),deliveryfrom,deliveryto, set);
 		
 		return r;
 	}

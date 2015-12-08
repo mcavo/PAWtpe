@@ -23,26 +23,91 @@ public class RegisterRestValidator implements Validator {
 	@Override
 	public void validate(Object o, Errors e) {
 		RegisterRestForm form = (RegisterRestForm) o;
-		try {
-			List<String> validTypes;
-			int floorV = -1;
-			int numberV;
-			float costV;
-			float minimumPurchase;
-			float from;
-			float to;
-			int neigh;
-			float deliveryfrom, deliveryto;
-			Set<Integer> validNeighs;
-
-			from = Float.valueOf(form.getFrom().replace(':', '.'));
-			to = Float.valueOf(form.getTo().replace(':', '.'));
-			deliveryfrom = Float.valueOf(form.getDeliveryfrom().replace(':', '.'));
-			deliveryto = Float.valueOf(form.getDeliveryto().replace(':', '.'));
-			if (!form.getFloor().isEmpty()) {
-				floorV = Integer.valueOf(form.getFloor());
-				ValidateDataService.validateFloor(floorV);
+		List<String> validTypes;
+		int numberV;
+		float costV;
+		float minimumPurchase;
+		int neigh;
+		Set<Integer> validNeighs;
+			
+		String[] from_split = form.getFrom().split(":");
+		if(from_split.length != 2)
+			e.reject("Horario de apertura inválido");
+		else { 
+			try {
+				int from_hour = Integer.valueOf(from_split[0]);
+				int from_min = Integer.valueOf(from_split[1]);
+				if(!validateHour(from_hour) || !validateMin(from_min))
+					e.reject("Horario de apertura inválido");
+			} catch (NumberFormatException err) {
+				e.reject("Horario de apertura inválido");
 			}
+		}
+			
+		String[] to_split = form.getTo().split(":");
+		if(to_split.length != 2)
+			e.reject("Horario de cierre inválido");
+		else { 
+			try {
+				int to_hour = Integer.valueOf(to_split[0]);
+				int to_min = Integer.valueOf(to_split[1]);
+				if(!validateHour(to_hour) || !validateMin(to_min))
+					e.reject("Horario de cierre inválido");
+			} catch (NumberFormatException err) {
+				e.reject("Horario de cierre inválido");
+			}
+		}
+			
+		String[] deliveryfrom_split = form.getDeliveryfrom().split(":");
+		if(deliveryfrom_split.length != 2)
+			e.reject("Horario de apertura de delivery inválido");
+		else { 
+			try {
+				int deliveryfrom_hour = Integer.valueOf(deliveryfrom_split[0]);
+				int deliveryfrom_min = Integer.valueOf(deliveryfrom_split[1]);
+				if(!validateHour(deliveryfrom_hour) || !validateMin(deliveryfrom_min))
+					e.reject("Horario de apertura de delivery inválido");
+			} catch (NumberFormatException err) {
+				e.reject("Horario de apertura de delivery inválido");
+			}
+		}
+			
+		String[] deliveryto_split = form.getDeliveryto().split(":");
+		if(deliveryto_split.length != 2)
+			e.reject("Horario de cierre de delivery inválido");
+		else { 
+			try {
+				int deliveryto_hour = Integer.valueOf(deliveryto_split[0]);
+				int deliveryto_min = Integer.valueOf(deliveryto_split[1]);
+				if(!validateHour(deliveryto_hour) || !validateMin(deliveryto_min))
+					e.reject("Horario de cierre de delivery inválido");
+			} catch (NumberFormatException err) {
+				e.reject("Horario de cierre de delivery inválido");
+			}
+		}
+			
+		if (!form.getFloor().isEmpty()) {
+			try {
+				int floorV = Integer.valueOf(form.getFloor());
+				ValidateDataService.validateFloor(floorV);
+			} catch (NumberFormatException err) {
+				e.reject("Piso inválido");
+			} catch (Exception e1) {
+				e.reject("Piso inválido");
+			}
+		}
+		
+		if (!form.getFloor().isEmpty()) {
+			try {
+				int floorV = Integer.valueOf(form.getFloor());
+				ValidateDataService.validateFloor(floorV);
+			} catch (NumberFormatException err) {
+				e.reject("Piso inválido");
+			} catch (Exception e1) {
+				e.reject("Piso inválido");
+			}
+		}
+		try {
 			numberV = Integer.valueOf(form.getNumber());
 			neigh = Integer.valueOf(form.getNeigh());
 			validNeighs = new HashSet<Integer>();
@@ -53,8 +118,6 @@ public class RegisterRestValidator implements Validator {
 			if (form.getDescription() != null && !form.getDescription().isEmpty()) {
 				ValidateDataService.validateStringLength(form.getDescription(), 500);
 			}
-			ValidateDataService.validateInterval(from, to);
-			ValidateDataService.validateInterval(deliveryfrom, deliveryto);
 			ValidateDataService.validateStringLength(form.getStreet(), 30);
 			ValidateDataService.validateStringLength(form.getCity(), 30);
 			ValidateDataService.validateStringLength(form.getProv(), 30);
@@ -64,11 +127,17 @@ public class RegisterRestValidator implements Validator {
 			validTypes = ValidateDataService.validateTypes(form.getTfood());
 			costV = ValidateDataService.validateCost(form.getDelamount());
 			minimumPurchase = ValidateDataService.validateMinimum(form.getMinamount());
-
 		} catch (Exception er) {
-			e.reject("Error al registar el restaurante");
-			return;
+			e.reject("Error al agregar el restaurante");
 		}
 
+	}
+
+	private boolean validateMin(int min) {
+		return min>=0 && min<60;
+	}
+
+	private boolean validateHour(int hour) {
+		return hour>=0 && hour<24;
 	}
 }

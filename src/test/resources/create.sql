@@ -54,13 +54,14 @@ CREATE TABLE restaurante (
 	dirid INTEGER NOT NULL,
 	nombre VARCHAR(30) NOT NULL,
 	descripcion VARCHAR(500) NOT NULL,
-	desde FLOAT NOT NULL,
-	hasta FLOAT NOT NULL,
 	montomin FLOAT NOT NULL,
 	regis TIMESTAMP NOT NULL SET DEFAULT CURRENT_TIMESTAMP,
-	costoenvio FLOAT NOT NULL,
-	deliverydesde FLOAT NOT NULL,
-	deliveryhasta FLOAT NOT NULL,
+	costoenvio FLOAT NOT NULL,	
+	desde VARCHAR(5) NOT NULL,
+	hasta VARCHAR(5) NOT NULL,
+	deliverydesde VARCHAR(5) NOT NULL,
+	deliveryhasta VARCHAR(5) NOT NULL,	
+	
 	PRIMARY KEY(id),
 	UNIQUE(dirid), 
 	FOREIGN KEY(gerid) REFERENCES TO usuario(userid) ON DELETE CASCADE, 
@@ -70,9 +71,7 @@ CREATE TABLE restaurante (
 CREATE TABLE delivery (
 	restid INTEGER NOT NULL,
 	barrioid INTEGER NOT NULL,
-	
 	costo FLOAT NOT NULL,
-	
 	PRIMARY KEY(restid,barrioid),
 	FOREIGN KEY(barrioid) REFERENCES barrio(id) ON DELETE CASCADE,
 	FOREIGN KEY(restid) REFERENCES restaurante(id) ON DELETE CASCADE
