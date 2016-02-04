@@ -200,6 +200,32 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+		    <groupId>org.apache.wicket</groupId>
+		    <artifactId>wicket-core</artifactId>
+		    <version>1.5.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-spring</artifactId>
+			<version>1.5.6</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring</artifactId>
+					<groupId>org.springframework</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+    		<groupId>org.apache.wicket</groupId>
+    		<artifactId>wicket-datetime</artifactId>
+    		<version>1.5.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.wicket</groupId>
+			<artifactId>wicket-extensions</artifactId>
+			<version>1.5.6</version>
+		</dependency>
 	</dependencies>
 
 	<build>
