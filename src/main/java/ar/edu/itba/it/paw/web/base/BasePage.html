@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:wicket="http://wicket.apache.org/">
+	<head>
+		<link href="bootstrap/css/bootstrap.min.css" type="text/css"
+			rel="stylesheet" />
+		<link href="bootstrap/css/header.css" type="text/css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="navbar-wrapper navbar-fixed">
+			<div class="container">
+				<div class="navbar navbar-inverse navbar-static-top"
+					role="navigation">
+					<div class="container">
+						<div class="navbar-header">
+							<a class="navbar-brand" wicket:id="tripHotel"><wicket:message
+									key="tripHotel">TripHotel</wicket:message></a>
+						</div>
+						<div class="navbar-collapse collapse">
+							<ul class="nav navbar-nav">
+								<li><a wicket:id="findHotel"><wicket:message
+											key="findHotel"> Buscar hotel</wicket:message></a></li>
+							</ul>
+							<ul class="nav navbar-nav">
+								<li><a wicket:id="fastFind"><wicket:message
+											key="fastFind"> Búsqueda Rápida</wicket:message></a></li>
+							</ul>
+								<ul class="nav navbar-nav">
+									<li>
+										<wicket:enclosure>
+											<a wicket:id="addHotel"><wicket:message key="addHotel">Agregar hotel</wicket:message></a>
+										</wicket:enclosure>
+									</li>
+								</ul>
+								<ul class="nav navbar-nav">
+									<li>
+										<wicket:enclosure>
+											<a wicket:id="viewUsers"><wicket:message key="viewUsers">Ver Usuarios</wicket:message></a>
+										</wicket:enclosure>
+									</li>
+								</ul>
+								<ul class="nav navbar-nav">
+									<li>
+										<wicket:enclosure>
+											<a wicket:id="profile"><wicket:message key="profile">Perfil</wicket:message></a>
+										</wicket:enclosure>
+									</li>
+								</ul>
+							<p class="navbar-text pull-right">
+								<wicket:enclosure child="mail">
+									<wicket:message key="currentUser">Logueado como</wicket:message>
+									<span wicket:id="mail">mail</span>
+								</wicket:enclosure> 
+								<wicket:enclosure>
+									[<a wicket:id="logout" style="color:blue;"><wicket:message key="logout">logout</wicket:message></a>]
+								</wicket:enclosure>
+							</p>
+							<div class="navbar-form navbar-right">
+								<a class="btn btn-success" wicket:id="login"><wicket:message
+										key="login">Ingresar</wicket:message></a> <a
+									class="btn btn-success" wicket:id="signup"><wicket:message
+										key="signup">Registrarse</wicket:message></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /container -->
+			</div>
+		</div>
+		<wicket:child />
+	</body>
+</html>

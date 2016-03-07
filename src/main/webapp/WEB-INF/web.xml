@@ -61,5 +61,4 @@
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
-	<display-name>Archetype Created Web Application</display-name>
 </web-app>
