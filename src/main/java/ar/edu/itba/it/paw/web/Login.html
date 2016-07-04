@@ -1,0 +1,22 @@
+<html xmlns:wicket="http://wicket.apache.org">
+<wicket:head>
+	<meta charset="utf-8" />
+	<title>LoginPage</title>
+	<wicket:link>
+		<link rel="stylesheet" href="style.css" type="text/css" media="screen"
+			title="Stylesheet" />
+	</wicket:link>
+</wicket:head>
+
+<body>
+	<form wicket:id="loginForm">
+		<span wicket:id="usernameLabel">Username</span>:<br /> <input
+			type="text" wicket:id="username" /><br /> <br /> <span
+			wicket:id="passwordLabel">Password</span>:<br /> <input
+			type="password" wicket:id="password" /><br /> <br /> <input
+			type="submit" wicket:message="value:login.submit.label" />
+
+		<div id="errorMessages" wicket:id="feedback"></div>
+	</form>
+</body>
+</html>
