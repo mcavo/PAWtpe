@@ -33,9 +33,9 @@ public class MyApp extends WebApplication{
 	}
 	
 	@Override
-    public Session newSession(Request request, Response response) {
-        return sessionProvider.createNewSession(request);
-    }
+	public Session newSession(Request request, Response response) {
+		return (Session) new BaseSession(request);
+	}
 	
 	public CookieService getCookieService(){
 		return cookieService;

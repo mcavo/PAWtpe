@@ -13,7 +13,7 @@ import ar.edu.itba.it.paw.exceptions.NoCredentialException;
 import ar.edu.itba.it.paw.exceptions.NoManagersAvailableException;
 
 @Repository
-public class CredentialRepository extends AbstractHibernateRepository {
+public class CredentialRepository extends AbstractHibernateRepository implements CredentialRepositoryType {
 	
 	@Autowired
 	public CredentialRepository(SessionFactory sessionFactory) {
