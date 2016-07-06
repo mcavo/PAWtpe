@@ -1,18 +1,19 @@
 package ar.edu.itba.it.paw.web;
 
-
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Button;
+import org.apache.wicket.markup.html.form.EmailTextField;
+import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
-import org.apache.wicket.markup.html.form.RequiredTextField;
-import org.apache.wicket.markup.html.form.StatelessForm;
-
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.apache.wicket.validation.validator.StringValidator.MaximumLengthValidator;
 
 import ar.edu.itba.it.paw.domain.users.CredentialRepositoryType;
-import ar.edu.itba.it.paw.exceptions.CredentialNoMatchException;
+import ar.edu.itba.it.paw.domain.users.User;
 
 public class Login extends WebPage {
 
@@ -20,55 +21,42 @@ public class Login extends WebPage {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	@SpringBean
 	public CredentialRepositoryType credentials;
-	
+
+	private String email;
+	private String password;
+
 	public Login() {
-		final LoginForm form = new LoginForm("loginForm", credentials);
-		add(form);
-	}
-
-	private static class LoginForm extends StatelessForm {
-
-		private static final long serialVersionUID = -6826853507535977683L;
 		
-		private CredentialRepositoryType credentials;
-		
-		private String username;
-		private String password;
+		Form<Login> form = new Form<Login>("loginForm", new CompoundPropertyModel<Login>(this)) {
 
-		public LoginForm(String id, CredentialRepositoryType credentails) {
-			super(id);
-			this.credentials = credentails;
-			setModel(new CompoundPropertyModel(this));
-			add(new Label("usernameLabel", getString("login.username.label", null, "Username")));
-			add(new RequiredTextField("username"));
-			add(new Label("passwordLabel", getString("login.password.label", null, "Password")));
-			add(new PasswordTextField("password"));
-			add(new FeedbackPanel("feedback"));
-		}
+			private static final long serialVersionUID = 1L;
 
-		@Override
-		protected void onSubmit() {
-			BaseSession session = BaseSession.get();
-
-			if (session.signIn(username, password, credentials)) {
-				System.out.println("Logged");
-				if (!continueToOriginalDestination()) { // Qué carajo hace esto??
-					System.out.println("No logra cargar la página principal");
-					setResponsePage(getApplication().getHomePage());
+			@Override
+			protected void onSubmit() {
+				BaseSession session = BaseSession.get();
+				if (session.signIn(email, password, credentials)) {
+					System.out.println("Logged");
+					if (!continueToOriginalDestination()) {
+						System.out.println("No logra cargar la página principal");
+						setResponsePage(getApplication().getHomePage());
+					}
+				} else {
+					error(getString("login.failed.badcredentials"));
 				}
-			} else {
-				error(getString("login.failed.badcredentials"));
 			}
-		}
-
-		private void setDefaultResponsePageIfNecessary() {
-			if (!continueToOriginalDestination()) {
-				setResponsePage(getApplication().getHomePage());
-			}
-		}
+		};
+		
+		form.add(new Label("emailLabel", getString("login.email.label", null, "Username")));
+		form.add(new EmailTextField("email").add(new MaximumLengthValidator(User.EMAIL_MAX_SIZE)).setRequired(true));
+		form.add(new Label("passwordLabel", getString("login.password.label", null, "Password")));
+		form.add(new PasswordTextField("password").add(new MaximumLengthValidator(User.PASSWORD_MAX_SIZE))
+				.setRequired(true));
+		form.add(new Button("submit", new ResourceModel("submit")));
+		form.add(new FeedbackPanel("feedback"));
+		add(form);
 	}
 
 }

@@ -17,6 +17,11 @@ import ar.edu.itba.it.paw.services.StringService;
 @Table(name = "usuario")
 public class User implements UserPermissions {
 	
+	public final static int FIRST_NAME_MAX_SIZE = 30;
+	public final static int LAST_NAME_MAX_SIZE = 30;
+	public final static int EMAIL_MAX_SIZE = 40;
+	public final static int PASSWORD_MAX_SIZE = 16;
+	
 	@Transient
 	private String email;
 	
