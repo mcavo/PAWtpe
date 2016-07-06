@@ -38,7 +38,7 @@
 				hibernate.dialect=${hibernate.dialect}
 				hibernate.hbm2ddl.auto=${hibernate.hbm2ddl.auto}
 				hibernate.show_sql=${hibernate.show_sql}
-				hibernate.current_session_context_class=thread
+				hibernate.current_session_context_class=managed
 				hibernate.max_fetch_depth=2
 				hibernate.jdbc.batch_size=30
 				hibernate.timeout=180000

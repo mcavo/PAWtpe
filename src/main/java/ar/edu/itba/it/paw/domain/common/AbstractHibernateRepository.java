@@ -22,13 +22,11 @@ public class AbstractHibernateRepository {
 		@SuppressWarnings("unchecked")
 		public <T> List<T> find(String hql, Object... params) {
 			Session session = getSession();
-			session.beginTransaction();
 			Query query = session.createQuery(hql);
 			for (int i = 0; i < params.length; i++) {
 				query.setParameter(i, params[i]);
 			}
 			List<T> list = query.list();
-			session.getTransaction().commit();
 			return list;
 		}
 
