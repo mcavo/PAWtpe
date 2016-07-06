@@ -11,6 +11,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
+import ar.edu.itba.it.paw.domain.restaurant.RestRepo;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepository;
 import ar.edu.itba.it.paw.web.base.BasePage;
@@ -19,8 +20,8 @@ public class HomePage extends BasePage {
 
 	private static final long serialVersionUID = 1L;
 
-//	@SpringBean
-//	private RestaurantRepository restaurantRepo;
+	@SpringBean
+	private RestRepo restaurantRepo;
 
 	public HomePage() {
 
@@ -39,8 +40,8 @@ public class HomePage extends BasePage {
 //				} else {
 //					return user.getFavourites();
 //				}
-				//return restaurantRepo.getAll();
-				return null;
+				return restaurantRepo.getAll();
+				//return null;
 			}
 		};
 //
@@ -72,9 +73,11 @@ public class HomePage extends BasePage {
 					}
 
 				};
-				item.add(restLink);
+				
+				restLink.add(new RestaurantTitlePanel("namePanel", item.getModelObject()));
 //				hotelLink.add(new HotelTitlePanel("namePanel", item.getModelObject()));
 //				hotelLink.add(new Label("address"));
+				item.add(restLink);
 			}
 
 		};

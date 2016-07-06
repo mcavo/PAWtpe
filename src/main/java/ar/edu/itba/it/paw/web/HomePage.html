@@ -4,7 +4,7 @@
 <!-- 	 <h1 wicket:id="name">Nombre</h1>   -->
       <div class="container">
 		<div class="page-header">
-          <h1><wicket:message key="title">Lista de Hoteles</wicket:message></h1>
+          <h1><wicket:message key="title"></wicket:message></h1>
         </div>  
       	<div class="container-fluid">
 			<div class="list-group">
@@ -14,6 +14,7 @@
 				<div class="list-group">
 					<div class="list-group-item" wicket:id="rests">
 						<a wicket:id="viewRest" href="#" class="list-group-item">
+							<h4 class="list-group-item-heading" wicket:id="namePanel"></h4>
 <!-- 							<h4 class="list-group-item-heading" wicket:id="namePanel">Nombre Hotel</h4> -->
 <!-- 							<p class="list-group-item-text" wicket:id="address">Descripcion</p> -->
 						</a>
