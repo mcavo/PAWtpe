@@ -1,0 +1,30 @@
+<html xmlns:wicket="http://wicket.apache.org">
+	<body>
+		<wicket:panel>
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/bin/index">Food on Board</a>
+			</div>
+			<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="/bin/restaurant/list"><wicket:message key="restaurants"/></a></li>
+				<li><a href="/bin/restaurant/popular"><wicket:message key="mostPopular"/></a></li>
+				<li><a href="#contact"><wicket:message key="contact"/></a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a wicket:id="loginLink" href="#">
+				    <wicket:message key="login"/></a></li>
+				<li><a wicket:id="logoutLink" href="#">
+					<wicket:message key="logout"/></a></li>
+			</ul>
+		</div>
+		<!--/.nav-collapse -->
+		</wicket:panel>
+	</body>
+</html>
