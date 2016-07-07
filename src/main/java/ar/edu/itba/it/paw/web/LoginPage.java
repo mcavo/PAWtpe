@@ -40,7 +40,7 @@ public class LoginPage extends BasePage {
 					System.out.println("Logged");
 					if (!continueToOriginalDestination()) {
 						System.out.println("No logra cargar la página principal");
-						setResponsePage(getApplication().getHomePage());
+						setResponsePage(HomePage.class);
 					}
 				} else {
 					error(getString("login.failed.badcredentials"));

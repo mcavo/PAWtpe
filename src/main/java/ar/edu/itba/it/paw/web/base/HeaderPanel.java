@@ -9,6 +9,7 @@ import ar.edu.itba.it.paw.domain.users.UserRepositoryType;
 import ar.edu.itba.it.paw.web.BaseSession;
 import ar.edu.itba.it.paw.web.HomePage;
 import ar.edu.itba.it.paw.web.LoginPage;
+import ar.edu.itba.it.paw.web.SignupPage;
 
 public class HeaderPanel extends Panel {
 	
@@ -39,7 +40,7 @@ public class HeaderPanel extends Panel {
 			}
 		};
 		add(loginLink.setVisible(!isSignIn));
-		/*
+
 		Link signupLink = new Link("signupLink") {
 
 			@Override
@@ -48,7 +49,7 @@ public class HeaderPanel extends Panel {
 			}
 		};
 		add(signupLink.setVisible(!isSignIn));
-		*/
+		
 	}
 
 	private void initialize() {
