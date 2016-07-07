@@ -15,7 +15,7 @@ import org.apache.wicket.validation.validator.StringValidator.MaximumLengthValid
 import ar.edu.itba.it.paw.domain.users.CredentialRepositoryType;
 import ar.edu.itba.it.paw.domain.users.User;
 
-public class Login extends WebPage {
+public class LoginPage extends WebPage {
 
 	/**
 	 * 
@@ -28,9 +28,9 @@ public class Login extends WebPage {
 	private String email;
 	private String password;
 
-	public Login() {
+	public LoginPage() {
 		
-		Form<Login> form = new Form<Login>("loginForm", new CompoundPropertyModel<Login>(this)) {
+		Form<LoginPage> form = new Form<LoginPage>("loginForm", new CompoundPropertyModel<LoginPage>(this)) {
 
 			private static final long serialVersionUID = 1L;
 
