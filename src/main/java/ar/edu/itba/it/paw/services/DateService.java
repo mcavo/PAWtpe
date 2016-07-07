@@ -1,54 +1,44 @@
 package ar.edu.itba.it.paw.services;
 
-import java.time.LocalDate;
-import java.time.chrono.ChronoLocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Formatter;
+import java.util.GregorianCalendar;
 
 public class DateService {
 
 	public static int getDayOfMonth(Date aDate) {
-	    Calendar cal = Calendar.getInstance();
-	    cal.setTime(aDate);
-	    return cal.get(Calendar.DAY_OF_MONTH);
-	}
-	
-	@SuppressWarnings("deprecation")
-	public static int getMonth(Date aDate) {
-		return aDate.getMonth()+1;
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(aDate);
+		return cal.get(Calendar.DAY_OF_MONTH);
 	}
 
-	@SuppressWarnings("deprecation")
+	public static int getMonth(Date aDate) {
+		Calendar date = new GregorianCalendar();
+	    date.setTime(aDate);
+		return date.get(Calendar.MONTH);
+	}
+
 	public static int getYear(Date aDate) {
-		return aDate.getYear()+1900;
+		Calendar date = new GregorianCalendar();
+	    date.setTime(aDate);
+		return date.get(Calendar.YEAR);
 	}
-	
-	@SuppressWarnings("deprecation")
+
 	public static Date date(int year, int month, int day) {
-		return new Date(year-1900,month-1,day);
+		Calendar date = new GregorianCalendar(year, month - 1, day);
+	    System.out.println(date.getTime());
+	    return date.getTime();
 	}
-	
-	public static void validateBirth(int year, int month, int day) {
-		Formatter fmt = new Formatter();
-		fmt.format("%04d", year);
-		String dateToValidate = fmt.toString() + "/";
-		fmt.close();
-		fmt = new Formatter();
-		fmt.format("%02d", month);
-		dateToValidate += fmt.toString() + "/";
-		fmt.close();
-		fmt = new Formatter();
-		fmt.format("%02d", day);
-		dateToValidate += fmt.toString();
-		fmt.close();
-		DateTimeFormatter sdf = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-		LocalDate date;
-		date = LocalDate.parse(dateToValidate,sdf);
-		ChronoLocalDate today = LocalDate.now();
-		if (date.isBefore(today)) {
-			throw new IllegalArgumentException("Invalid date");
+
+	public static boolean validateBirth(int year, int month, int day) {
+		try {
+			Calendar cal = Calendar.getInstance(); 
+			cal.setLenient(false);
+			cal.set(year, month - 1, day);
+			cal.getTime();
+			return true;
+		} catch (Exception e) {
+			return false;
 		}
 	}
 }

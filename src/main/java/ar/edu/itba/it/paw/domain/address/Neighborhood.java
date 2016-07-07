@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.domain.address;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -12,7 +13,12 @@ import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 
 @Entity
 @Table(name = "barrio")
-public class Neighborhood {
+public class Neighborhood implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@Column(name = "id")
 	private Integer id;

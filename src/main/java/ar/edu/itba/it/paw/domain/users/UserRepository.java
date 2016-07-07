@@ -11,7 +11,7 @@ import ar.edu.itba.it.paw.domain.address.AddressRepository;
 import ar.edu.itba.it.paw.domain.common.AbstractHibernateRepository;
 
 @Repository
-public class UserRepository extends AbstractHibernateRepository implements UserRepositoryType{
+public class UserRepository extends AbstractHibernateRepository implements UserRepositoryType {
 
 	private CredentialRepository credentialRepository;
 	private AddressRepository addressRepository;

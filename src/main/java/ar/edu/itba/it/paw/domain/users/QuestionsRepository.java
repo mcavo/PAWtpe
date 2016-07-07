@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import ar.edu.itba.it.paw.domain.common.AbstractHibernateRepository;
 
 @Repository
-public class QuestionsRepository extends AbstractHibernateRepository {
+public class QuestionsRepository extends AbstractHibernateRepository implements QuestionRepositoryType {
 
 	@Autowired
 	public QuestionsRepository(SessionFactory sessionFactory) {

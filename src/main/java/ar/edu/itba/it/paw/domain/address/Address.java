@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.domain.address;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -11,8 +13,13 @@ import ar.edu.itba.it.paw.services.StringService;
 
 @Entity
 @Table(name = "direccion")
-public class Address extends PersistentEntity {
+public class Address extends PersistentEntity implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Column(name = "calle")
 	private String street;
 	

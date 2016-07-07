@@ -21,6 +21,8 @@ public class User implements UserPermissions {
 	public final static int LAST_NAME_MAX_SIZE = 30;
 	public final static int EMAIL_MAX_SIZE = 40;
 	public final static int PASSWORD_MAX_SIZE = 16;
+	public final static int PASSWORD_MIN_SIZE = 8;
+	public final static int NO_EMPTY = 0;
 	
 	@Transient
 	private String email;

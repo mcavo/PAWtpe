@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import ar.edu.itba.it.paw.domain.common.AbstractHibernateRepository;
 
 @Component
-public class AddressRepository extends AbstractHibernateRepository implements AddressRepo{
+public class AddressRepository extends AbstractHibernateRepository implements AddressRepo, AddressRepositoryType {
 
 	@Autowired
 	public AddressRepository(SessionFactory sessionFactory) {
