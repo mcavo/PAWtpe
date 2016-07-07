@@ -32,7 +32,7 @@ public class HomePage extends BasePage {
 	
 				@Override
 				public void onClick() {
-					//setResponsePage(SignUpPage.class);
+					setResponsePage(SignupPage.class);
 				}
 			};
 			add(signupLink.setVisible(true));

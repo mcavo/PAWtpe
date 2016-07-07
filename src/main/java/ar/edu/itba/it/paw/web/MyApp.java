@@ -29,7 +29,7 @@ public class MyApp extends WebApplication{
 
 	@Override
 	public Class<? extends Page> getHomePage() {
-		return SignupPage.class;
+		return HomePage.class;
 	}
 	
 	@Override
