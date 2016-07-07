@@ -1,7 +1,5 @@
 package ar.edu.itba.it.paw.web;
 
-import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.EmailTextField;
 import org.apache.wicket.markup.html.form.Form;
@@ -14,8 +12,9 @@ import org.apache.wicket.validation.validator.StringValidator.MaximumLengthValid
 
 import ar.edu.itba.it.paw.domain.users.CredentialRepositoryType;
 import ar.edu.itba.it.paw.domain.users.User;
+import ar.edu.itba.it.paw.web.base.BasePage;
 
-public class LoginPage extends WebPage {
+public class LoginPage extends BasePage {
 
 	/**
 	 * 
@@ -49,13 +48,11 @@ public class LoginPage extends WebPage {
 			}
 		};
 		
-		form.add(new Label("emailLabel", getString("login.email.label", null, "Username")));
 		form.add(new EmailTextField("email").add(new MaximumLengthValidator(User.EMAIL_MAX_SIZE)).setRequired(true));
-		form.add(new Label("passwordLabel", getString("login.password.label", null, "Password")));
 		form.add(new PasswordTextField("password").add(new MaximumLengthValidator(User.PASSWORD_MAX_SIZE))
 				.setRequired(true));
 		form.add(new Button("submit", new ResourceModel("submit")));
-		form.add(new FeedbackPanel("feedback"));
+		add(new FeedbackPanel("feedback"));
 		add(form);
 	}
 

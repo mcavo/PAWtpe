@@ -11,7 +11,7 @@ import ar.edu.itba.it.paw.domain.address.AddressRepository;
 import ar.edu.itba.it.paw.domain.common.AbstractHibernateRepository;
 
 @Repository
-public class UserRepository extends AbstractHibernateRepository{
+public class UserRepository extends AbstractHibernateRepository implements UserRepositoryType{
 
 	private CredentialRepository credentialRepository;
 	private AddressRepository addressRepository;
@@ -24,11 +24,18 @@ public class UserRepository extends AbstractHibernateRepository{
 	}
 	
 	public User getUser(Credential cred){
+		if(cred == null)
+			return null;
 		User user = getUserById(cred.getId());
 		user.setEmail(cred.getMail());
 		user.setManager(cred.getRol().equals("manager"));
 		user.setIsAdmin(cred.getRol().equals("admin"));
 		return user;
+	}
+	
+	public User getUser(String email){
+		Credential cred = credentialRepository.get(email);
+		return getUser(cred);
 	}
 	
 	public User getUserById(int id){
@@ -69,7 +76,7 @@ public class UserRepository extends AbstractHibernateRepository{
 		return user;
 	}
 	
-	public static void setIfManager(User user, String rol) {
+	public void setIfManager(User user, String rol) {
 		user.setManager(rol.equals("manager"));
 		user.setIsAdmin(rol.equals("admin"));
 	}

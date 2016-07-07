@@ -31,6 +31,17 @@ public class CredentialRepository extends AbstractHibernateRepository implements
 		return get(Credential.class, id);
 	}
 	
+	public Credential get(String email) {
+		if(email == null) {
+			return null;
+		}
+		List<Credential> creds = find("select cred from Credential cred where cred.mail = ?", email);
+		if (creds.isEmpty()) {
+			return null;
+		}
+		return creds.get(0);
+	}
+	
 	public int getCredentialID(String email) throws NoCredentialException {
 		Credential credential = credentialWithMail(email);
 		return credential.getId();

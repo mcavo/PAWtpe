@@ -9,6 +9,7 @@ import ar.edu.itba.it.paw.exceptions.NoManagersAvailableException;
 public interface CredentialRepositoryType {
 	public void add(Credential credential) throws Exception;
 	public Credential get(int id);
+	public Credential get(String email);
 	public int getCredentialID(String email) throws NoCredentialException;
 	public Credential getCredentials(String email, String pwd) throws CredentialNoMatchException;
 	public List<Credential> getManagersAvailables() throws NoManagersAvailableException;
