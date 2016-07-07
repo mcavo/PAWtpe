@@ -61,7 +61,7 @@ public class HeaderPanel extends Panel {
 		};
 		profileLink.setVisible(loggedUser != null);
 		add(profileLink);
-		
+
 	}
 
 	private void initialize() {
