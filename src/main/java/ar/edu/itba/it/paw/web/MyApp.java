@@ -48,6 +48,8 @@ public class MyApp extends WebApplication{
 		getRequestCycleListeners().add(new HibernateRequestCycleListener(sessionFactory));
 		this.sessionProvider = new SessionProvider(cookieService);
 		getDebugSettings().setAjaxDebugModeEnabled(false); 
+		mountPage("/index", HomePage.class);
+		mountPage("/login", LoginPage.class);
 	}
 
 }
