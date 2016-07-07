@@ -2,7 +2,7 @@ package ar.edu.itba.it.paw.web;
 
 import java.util.List;
 
-import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -13,10 +13,8 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.itba.it.paw.domain.restaurant.RestRepo;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
-import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepository;
-import ar.edu.itba.it.paw.web.base.BasePage;
 
-public class HomePage extends BasePage {
+public class HomePage extends WebPage {
 
 	private static final long serialVersionUID = 1L;
 
