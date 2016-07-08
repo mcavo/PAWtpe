@@ -134,4 +134,14 @@ public class Address extends PersistentEntity implements Serializable {
 			throw new IllegalArgumentException("Invalid apartment");
 		}
 	}
+	
+	public String toString() {
+		String ret = this.street + " " + this.number;
+		if(this.floor != null)
+			ret += " piso " + this.floor;
+		if(this.apartment != null)
+			ret += " departamento " + this.apartment;
+		ret+= ", " + this.neighborhood.getName() + ", " +this.province;
+		return ret;
+	}
 }

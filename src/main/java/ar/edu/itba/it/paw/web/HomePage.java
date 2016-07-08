@@ -53,8 +53,7 @@ public class HomePage extends BasePage {
 
 				};
 				
-				restLink.add(new RestaurantTitlePanel("namePanel", item.getModelObject()));
-				//hotelLink.add(new Label("address"));
+				restLink.add(new RestaurantPanel("restPanel", item.getModelObject()));
 				item.add(restLink);
 			}
 
