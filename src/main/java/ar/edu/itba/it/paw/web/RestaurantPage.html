@@ -1,0 +1,41 @@
+<html xmlns:wicket="http://wicket.apache.org">
+
+<body>
+	<wicket:extend>
+		<div class="container">
+			<div class="col-md-10 col-md-offset-1">
+				<div class="row">
+					<div>
+						<h3 wicket:id="nameText"></h3>
+						<p wicket:id="orderText"></p>
+<!-- 						<c:if test="${newOrderId}"> -->
+<!-- 							<p> -->
+<!-- 								Su numero de pedido es: ${orderId} -->
+<!-- 							</p> -->
+<!-- 						</c:if> -->
+						<h4>
+							<p>
+ 								<span class="label label-warning" wicket:id="score"></span>
+ 								<label wicket:id="count"></label>
+							</p>
+							<br> <br>
+						</h4>
+					</div>
+				</div>
+				
+				<div class="col-md-8">
+					<div class="col-md-12">
+						<ul class="nav nav-pills nav-justified">
+							<li ><!-- a href="/bin/restaurant/menu?code=${rest.id}">Menú</a--> <a wicket:id="menuLink"></a></li>
+							<li class="active"><!-- a href="#">Información</a--><a wicket:id="infoLink"></a></li>
+						</ul>
+					</div>
+				</div>
+				<br> <br>
+				
+				<div wicket:id="descriptionText"></div>
+			</div>
+		</div>
+	</wicket:extend>
+</body>
+</html>

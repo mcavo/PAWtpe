@@ -5,6 +5,8 @@ import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.request.Request;
 
 import ar.edu.itba.it.paw.domain.users.CredentialRepositoryType;
+import ar.edu.itba.it.paw.domain.users.User;
+import ar.edu.itba.it.paw.domain.users.UserRepositoryType;
 import ar.edu.itba.it.paw.exceptions.CredentialNoMatchException;
 
 public class BaseSession extends WebSession {
@@ -13,7 +15,7 @@ public class BaseSession extends WebSession {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String username;
+	private User user;
 
 	public static BaseSession get() {
 		return (BaseSession) Session.get();
@@ -23,14 +25,13 @@ public class BaseSession extends WebSession {
 		super(request);
 	}
 
-	public String getUsername() {
-		return username;
+	public User getUser() {
+		return user;
 	}
 
-	public boolean signIn(String username, String password, CredentialRepositoryType credentials) {
+	public boolean signIn(String username, String password, CredentialRepositoryType credentials, UserRepositoryType users) {
 		try {
-			credentials.getCredentials(username, password);
-			this.username = username;
+			this.user = users.getUser(credentials.getCredentials(username, password));
 			return true;
 		} catch(CredentialNoMatchException e) {
 			return false;
@@ -38,7 +39,7 @@ public class BaseSession extends WebSession {
 	}
 
 	public boolean isSignedIn() {
-		return username != null;
+		return user != null;
 	}
 
 	public void signOut() {

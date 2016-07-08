@@ -24,7 +24,7 @@ public class BasePage extends WebPage {
 	private void initialize() {
 		boolean isSignIn = BaseSession.get().isSignedIn();
 		if (isSignIn) {
-			loggedUser = users.getUser(BaseSession.get().getUsername());
+			loggedUser = BaseSession.get().getUser();
 		}
 		
 	}

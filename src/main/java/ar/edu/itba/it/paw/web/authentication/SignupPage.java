@@ -104,8 +104,8 @@ public class SignupPage extends BasePage {
 				
 				if (users.setUser(user, password) != null) {
 					System.out.println("Logged");
-					session.signIn(email, password, credentials);
-					if (!continueToOriginalDestination()) { 
+					session.signIn(email, password, credentials, users);
+					if (!continueToOriginalDestination()) { // Qué carajo hace esto??
 						System.out.println("No logra cargar la página principal");
 						setResponsePage(getApplication().getHomePage());
 					}
