@@ -13,6 +13,15 @@ public class RestaurantPanel extends Panel{
 		add(new Label("restName", rest.getName()));
 		add(new Label("restAddress", rest.getAddress().toString()));
 		add(new Label("restSchedule", getString("schedule") + " " + rest.getDeliveryfrom() + " -  " + rest.getDeliveryto()));
+		
+		String categories = "";
+		for(String c : rest.getTypesOfFood()) {
+			categories += "<span class='label label-primary'>" + c + "</span> ";
+		}
+		add(new Label("restCategories", categories).setEscapeModelStrings(false));
+		
+		String calification = "<span class='label label-warning'>" + rest.getScore() + "</span> " + rest.getCountComments() + " " + getString("califications");
+		add(new Label("restCalification", calification).setEscapeModelStrings(false));
 	}
 
 }
