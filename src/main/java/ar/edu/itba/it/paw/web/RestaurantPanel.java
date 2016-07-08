@@ -1,20 +1,18 @@
 package ar.edu.itba.it.paw.web;
-import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.panel.ComponentFeedbackPanel;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.validation.validator.StringValidator;
 
+import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
+
+
+@SuppressWarnings("serial")
 public class RestaurantPanel extends Panel{
 
-	public RestaurantPanel(String id, boolean showName) {
+	public RestaurantPanel(String id, Restaurant rest) {
 		super(id);
-		
-		TextField<String> name = new TextField<String>("name");
-		//name.setRequired(true);
-		//name.setVisible(showName);
-		//name.add(new StringValidator.MaximumLengthValidator(NAMELENGTH));
-		//add(new ComponentFeedbackPanel("name_error", get("name")));
+		add(new Label("restName", rest.getName()));
+		add(new Label("restAddress", rest.getAddress().toString()));
+		add(new Label("restSchedule", getString("schedule") + " " + rest.getDeliveryfrom() + " -  " + rest.getDeliveryto()));
 	}
 
 }
