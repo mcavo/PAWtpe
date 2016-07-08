@@ -13,12 +13,9 @@ import org.apache.wicket.validation.validator.StringValidator.MaximumLengthValid
 
 import ar.edu.itba.it.paw.domain.users.CredentialRepositoryType;
 import ar.edu.itba.it.paw.domain.users.User;
-<<<<<<< 30a85209ab56fdac64b12f5395da0269e6d8e9cd:src/main/java/ar/edu/itba/it/paw/web/authentication/LoginPage.java
+import ar.edu.itba.it.paw.domain.users.UserRepositoryType;
 import ar.edu.itba.it.paw.web.BaseSession;
 import ar.edu.itba.it.paw.web.HomePage;
-=======
-import ar.edu.itba.it.paw.domain.users.UserRepositoryType;
->>>>>>> muestra el details de restoran - sin probar:src/main/java/ar/edu/itba/it/paw/web/LoginPage.java
 import ar.edu.itba.it.paw.web.base.BasePage;
 
 public class LoginPage extends BasePage {
