@@ -1,19 +1,20 @@
-package ar.edu.itba.it.paw.web;
+package ar.edu.itba.it.paw.web.restaurant;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import ar.edu.itba.it.paw.domain.restaurant.RestRepo;
+import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepositoryType;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.users.User;
+import ar.edu.itba.it.paw.web.BaseSession;
 import ar.edu.itba.it.paw.web.base.BasePage;
 
 @SuppressWarnings("serial")
 public class RestaurantMenuPage extends BasePage{
 
 	@SpringBean
-	RestRepo rests;
+	RestaurantRepositoryType rests;
 	
 	public RestaurantMenuPage(Restaurant r){
 		add(new Label("name", r.getName()));
