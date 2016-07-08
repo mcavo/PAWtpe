@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.domain.restaurant;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -28,7 +29,7 @@ import ar.edu.itba.it.paw.domain.users.User;
 
 @Entity
 @Table(name = "restaurante")
-public class Restaurant extends PersistentEntity {
+public class Restaurant extends PersistentEntity implements Serializable {
 	@OneToMany
 	@JoinTable(name="gerente", joinColumns=@JoinColumn(name="restid"), inverseJoinColumns=@JoinColumn(name="userid"))
 	private Set<User> managers;

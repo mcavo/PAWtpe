@@ -1,9 +1,8 @@
-package ar.edu.itba.it.paw.web;
+package ar.edu.itba.it.paw.web.authentication;
 
 import java.util.Date;
 import java.util.List;
 
-import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
@@ -31,8 +30,10 @@ import ar.edu.itba.it.paw.domain.users.QuestionRepositoryType;
 import ar.edu.itba.it.paw.domain.users.User;
 import ar.edu.itba.it.paw.domain.users.UserRepositoryType;
 import ar.edu.itba.it.paw.services.DateService;
+import ar.edu.itba.it.paw.web.BaseSession;
+import ar.edu.itba.it.paw.web.base.BasePage;
 
-public class SignupPage extends WebPage {
+public class SignupPage extends BasePage {
 
 	/**
 	 * 
@@ -104,7 +105,7 @@ public class SignupPage extends WebPage {
 				if (users.setUser(user, password) != null) {
 					System.out.println("Logged");
 					session.signIn(email, password, credentials);
-					if (!continueToOriginalDestination()) { // Qué carajo hace esto??
+					if (!continueToOriginalDestination()) { 
 						System.out.println("No logra cargar la página principal");
 						setResponsePage(getApplication().getHomePage());
 					}

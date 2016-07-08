@@ -1,0 +1,41 @@
+<wicket:extend>
+
+	<form role="form" wicket:id="askQuestionForm">
+		<br/>
+		<div id="errorMessages" wicket:id="feedback"></div>
+		<div class="form-group row">
+			<div class="col-sm-offset-4 col-sm-4">
+				<div class="col-sm-offset-1 col-sm-10 focus" wicket:id="question"></div>
+			</div>
+		</div>
+		<div class="form-group row">
+			<div class="col-sm-offset-4 col-sm-4">
+				<div class="col-sm-offset-1 col-sm-10">
+					<input type="text" class="form-control" autofocus wicket:id="answer">
+				</div>
+			</div>
+		</div>
+		<div class="form-group col-md-6">
+			<label class="control-label col-sm-2 ">Nueva
+				contraseña</label>
+			<div class="col-sm-8 col-sm-offset-1">
+				<input data-toggle="validator" data-minlength="8"
+					type="password"
+					class="form-control" required wicket:id="newPassword"> <span
+					class="help-block">Mínimo 8 caracteres</span>
+			</div>
+		</div>
+		<div class="form-group col-md-6">
+			<label class="control-label col-sm-2">Confirmación</label>
+			<div class="col-sm-8 col-sm-offset-1">
+				<input wicket:id="confirmation" type="password" class="form-control" required>
+				<div class="help-block with-errors"></div>
+			</div>
+		</div>
+		<div class="col-sm-offset-4 col-sm-4">
+			<div class="col-sm-offset-2 col-sm-8">
+				<button class="btn btn-lg btn-primary btn-block" type="submit" wicket:id="send">Enviar</button>
+			</div>
+		</div>
+	</form>
+</wicket:extend>

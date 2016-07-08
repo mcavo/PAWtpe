@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.domain.restaurant;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -15,7 +16,7 @@ import ar.edu.itba.it.paw.domain.users.User;
 
 @Entity
 @Table(name = "pedido")
-public class Order extends PersistentEntity {
+public class Order extends PersistentEntity implements Serializable {
 	
 	@Transient
 	private Map<Dish,Integer> ordlist;

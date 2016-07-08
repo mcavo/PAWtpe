@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.domain.users;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -7,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "preguntas")
-public class Question {
+public class Question implements Serializable {
 
 	@Id
 	@Column(name = "id")

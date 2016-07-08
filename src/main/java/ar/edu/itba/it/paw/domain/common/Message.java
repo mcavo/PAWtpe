@@ -1,6 +1,8 @@
 package ar.edu.itba.it.paw.domain.common;
 
-public class Message {
+import java.io.Serializable;
+
+public class Message implements Serializable {
 	String type;
 	String text;
 	

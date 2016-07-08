@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.domain.restaurant;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -13,7 +15,7 @@ import ar.edu.itba.it.paw.services.StringService;
 
 @Entity
 @Table(name = "calificacion")
-public class Calification extends PersistentEntity {
+public class Calification extends PersistentEntity implements Serializable {
 
 	@Column
 	private Integer puntaje;

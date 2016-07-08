@@ -8,13 +8,16 @@ import ar.edu.itba.it.paw.domain.users.User;
 import ar.edu.itba.it.paw.domain.users.UserRepositoryType;
 import ar.edu.itba.it.paw.web.BaseSession;
 import ar.edu.itba.it.paw.web.HomePage;
-import ar.edu.itba.it.paw.web.LoginPage;
-import ar.edu.itba.it.paw.web.SignupPage;
+import ar.edu.itba.it.paw.web.authentication.LoginPage;
+import ar.edu.itba.it.paw.web.authentication.SignupPage;
+import ar.edu.itba.it.paw.web.profile.ProfilePage;
 
 public class HeaderPanel extends Panel {
 	
 	@SpringBean 
 	private UserRepositoryType users;
+	
+	private User loggedUser;
 
 	@SuppressWarnings({ "rawtypes", "serial" })
 	public HeaderPanel(String id) {
@@ -50,13 +53,21 @@ public class HeaderPanel extends Panel {
 		};
 		add(signupLink.setVisible(!isSignIn));
 		
+		Link<Void> profileLink = new Link<Void>("profile") {
+			
+			public void onClick() {
+				setResponsePage(new ProfilePage());
+			}
+		};
+		profileLink.setVisible(loggedUser != null);
+		add(profileLink);
+		
 	}
 
 	private void initialize() {
 		boolean isSignIn = BaseSession.get().isSignedIn();
-		User user;
 		if (isSignIn) {
-			user = users.getUser(BaseSession.get().getUsername());
+			loggedUser = users.getUser(BaseSession.get().getUsername());
 			System.out.println(BaseSession.get().getUsername());
 		}
 		

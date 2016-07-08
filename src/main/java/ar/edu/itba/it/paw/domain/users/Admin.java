@@ -1,8 +1,10 @@
 package ar.edu.itba.it.paw.domain.users;
 
+import java.io.Serializable;
+
 import ar.edu.itba.it.paw.services.StringService;
 
-public class Admin {
+public class Admin implements Serializable {
 	private String name;
 	private String email;
 	

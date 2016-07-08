@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import ar.edu.itba.it.paw.web.authentication.LoginPage;
 import ar.edu.itba.it.paw.web.common.CookieService;
 import ar.edu.itba.it.paw.web.common.HibernateRequestCycleListener;
 import ar.edu.itba.it.paw.web.common.SessionProvider;

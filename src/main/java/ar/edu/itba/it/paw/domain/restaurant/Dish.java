@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.domain.restaurant;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -10,7 +12,7 @@ import ar.edu.itba.it.paw.domain.common.PersistentEntity;
 
 @Entity
 @Table(name = "plato")
-public class Dish extends PersistentEntity {
+public class Dish extends PersistentEntity implements Serializable {
 	
 	@Column(name = "nombre")
 	private String product;

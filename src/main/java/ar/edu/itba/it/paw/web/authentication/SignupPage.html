@@ -1,19 +1,8 @@
-<html xmlns:wicket="http://wicket.apache.org">
-
-<wicket:head>
-	<meta charset="utf-8" />
-	<title>SignupPage</title>
-	<wicket:link>
-		<link rel="stylesheet" href="/css/bootstrap.css" type="text/css"
-			media="screen" title="Stylesheet" />
-	</wicket:link>
-</wicket:head>
-
-<body>
+<wicket:extend>
 	<div class="col-md-10 col-md-offset-1">
 		<form wicket:id="signupForm" data-toggle="validator" role="form"
 			class="form-horizontal">
-			<div wicket:id="feedback" class="formErrors" id="errorMessages"/>
+			<div wicket:id="feedback" class="formErrors" id="errorMessages" />
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">
@@ -59,22 +48,22 @@
 						<!-- 						</div> -->
 						<label class="control-label col-sm-3"><wicket:message
 								key="signup.dateOfBirth.label"></wicket:message>:</label>
-								
+
 						<div class="form-group has-feedback col-sm-3">
 							<div class="col-sm-10 col-sm-offset-1">
-								<input class="form-control" wicket:id="day" 
+								<input class="form-control" wicket:id="day"
 									wicket:message="title:signup.day.placeholder"></input>
 							</div>
 						</div>
 						<div class="form-group has-feedback col-sm-3">
 							<div class="col-sm-10 col-sm-offset-1">
-								<input class="form-control" wicket:id="month" 
+								<input class="form-control" wicket:id="month"
 									wicket:message="title:signup.month.placeholder"></input>
 							</div>
 						</div>
 						<div class="form-group has-feedback col-sm-3">
 							<div class="col-sm-10 col-sm-offset-1">
-								<input class="form-control" wicket:id="year" 
+								<input class="form-control" wicket:id="year"
 									wicket:message="title:signup.year.placeholder"></input>
 							</div>
 							<div class="help-block with-errors"></div>
@@ -240,5 +229,4 @@
 			</div>
 		</form>
 	</div>
-</body>
-</html>
+</wicket:extend>

@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.domain.users;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -8,7 +10,7 @@ import ar.edu.itba.it.paw.domain.common.PersistentEntity;
 import ar.edu.itba.it.paw.services.StringService;
 @Entity
 @Table(name = "credencial")
-public class Credential extends PersistentEntity {
+public class Credential extends PersistentEntity implements Serializable {
 	
 	@Column(name = "rol")
 	private String rol;

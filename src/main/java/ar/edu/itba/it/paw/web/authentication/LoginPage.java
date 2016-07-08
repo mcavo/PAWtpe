@@ -1,9 +1,10 @@
-package ar.edu.itba.it.paw.web;
+package ar.edu.itba.it.paw.web.authentication;
 
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.EmailTextField;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.ResourceModel;
@@ -12,6 +13,8 @@ import org.apache.wicket.validation.validator.StringValidator.MaximumLengthValid
 
 import ar.edu.itba.it.paw.domain.users.CredentialRepositoryType;
 import ar.edu.itba.it.paw.domain.users.User;
+import ar.edu.itba.it.paw.web.BaseSession;
+import ar.edu.itba.it.paw.web.HomePage;
 import ar.edu.itba.it.paw.web.base.BasePage;
 
 public class LoginPage extends BasePage {
@@ -54,6 +57,12 @@ public class LoginPage extends BasePage {
 		form.add(new Button("submit", new ResourceModel("submit")));
 		add(new FeedbackPanel("feedback"));
 		add(form);
+		add(new Link<Void>("recoverPassword") {
+			@Override
+			public void onClick() {
+				setResponsePage(new RecoverPasswordPage());
+			}
+		});
 	}
 
 }

@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.domain.users;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -15,7 +16,7 @@ import ar.edu.itba.it.paw.services.StringService;
 
 @Entity
 @Table(name = "usuario")
-public class User implements UserPermissions {
+public class User implements UserPermissions, Serializable {
 	
 	public final static int FIRST_NAME_MAX_SIZE = 30;
 	public final static int LAST_NAME_MAX_SIZE = 30;
