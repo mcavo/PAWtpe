@@ -17,6 +17,7 @@
 							<p>
  								<span class="label label-warning" wicket:id="score"></span>
  								<label wicket:id="count"></label>
+ 								<label><wicket:message key=califications></wicket:message></label>
 							</p>
 							<br> <br>
 						</h4>
@@ -26,8 +27,8 @@
 				<div class="col-md-8">
 					<div class="col-md-12">
 						<ul class="nav nav-pills nav-justified">
-							<li ><!-- a href="/bin/restaurant/menu?code=${rest.id}">Menú</a--> <a wicket:id="menuLink"></a></li>
-							<li class="active"><!-- a href="#">Información</a--><a wicket:id="infoLink"></a></li>
+							<li ><!-- a href="/bin/restaurant/menu?code=${rest.id}">Menú</a--> <a wicket:id="menuLink"><wicket:message key="menu"/></a></li>
+							<li class="active"><!-- a href="#">Información</a--><a wicket:id="infoLink"><wicket:message key="info"/></a></li>
 						</ul>
 					</div>
 				</div>
