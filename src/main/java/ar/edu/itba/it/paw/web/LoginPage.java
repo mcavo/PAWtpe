@@ -12,6 +12,7 @@ import org.apache.wicket.validation.validator.StringValidator.MaximumLengthValid
 
 import ar.edu.itba.it.paw.domain.users.CredentialRepositoryType;
 import ar.edu.itba.it.paw.domain.users.User;
+import ar.edu.itba.it.paw.domain.users.UserRepositoryType;
 import ar.edu.itba.it.paw.web.base.BasePage;
 
 public class LoginPage extends BasePage {
@@ -23,6 +24,9 @@ public class LoginPage extends BasePage {
 
 	@SpringBean
 	public CredentialRepositoryType credentials;
+	
+	@SpringBean
+	public UserRepositoryType users;
 
 	private String email;
 	private String password;
@@ -36,7 +40,7 @@ public class LoginPage extends BasePage {
 			@Override
 			protected void onSubmit() {
 				BaseSession session = BaseSession.get();
-				if (session.signIn(email, password, credentials)) {
+				if (session.signIn(email, password, credentials, users)) {
 					System.out.println("Logged");
 					if (!continueToOriginalDestination()) {
 						System.out.println("No logra cargar la página principal");

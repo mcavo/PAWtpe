@@ -56,8 +56,8 @@ public class HeaderPanel extends Panel {
 		boolean isSignIn = BaseSession.get().isSignedIn();
 		User user;
 		if (isSignIn) {
-			user = users.getUser(BaseSession.get().getUsername());
-			System.out.println(BaseSession.get().getUsername());
+			user = BaseSession.get().getUser();
+			//System.out.println(BaseSession.get().getUsername());
 		}
 		
 	}

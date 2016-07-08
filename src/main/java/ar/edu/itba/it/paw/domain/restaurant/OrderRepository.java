@@ -18,7 +18,7 @@ import ar.edu.itba.it.paw.exceptions.CreationDishException;
 import ar.edu.itba.it.paw.exceptions.LoadOrderException;
 
 @Repository
-public class OrderRepository extends AbstractHibernateRepository{
+public class OrderRepository extends AbstractHibernateRepository implements OrderRepositoryType{
 
 	private UserRepository userRepository;
 	
