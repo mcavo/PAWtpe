@@ -3,46 +3,32 @@
 <body>
 	<wicket:extend>
 		<div class="container">
-		 	 <div class="jumbotron">
-				<h2><wicket:message key="title"></wicket:message></h2>
-				<p><wicket:message key="subTitle"></wicket:message></p>
+
+			<div class="jumbotron">
+				<h2>
+					<wicket:message key="title"></wicket:message>
+				</h2>
 				<p>
-					
+					<wicket:message key="subTitle"></wicket:message>
+				</p>
+				<p>
+					<a class="btn btn-lg btn-primary" href="/bin/signup" role="button">Sign
+						in »</a>
 				</p>
 			</div>
-      	<br>
-		<h4><wicket:message key="pageTitle"></wicket:message></h4>
-        
-        <div wicket:id="rests">
-	        <a wicket:id="viewRest" href="#">
-	        	<div class="bs-callout bs-callout-info" wicket:id="restPanel">
-	        	</div>
-	        </a>
-        </div>
-        <!-- a href="/bin/restaurant/menu?code=${rest.id}">
-						<div class="bs-callout bs-callout-info">
-							<h4>${rest.name}</h4>
-							<p>
-								<c:forEach items="${rest.typesOfFood}" var="tof">
-									<span class="label label-primary">${tof}</span>
-								</c:forEach>
-							</p>
-							<p class="restcard-adress">${rest.address.street} ${rest.address.number}<c:if test="${rest.address.floor}!=null">${rest.address.floor}º</c:if><c:if test="${rest.address.apartment}!=null"> ${rest.address.apartment}</c:if>, ${rest.address.neighborhood.name}, ${rest.address.province}</p>
-							
-							<p class="restcard-schedule">Abierto de ${rest.from} a ${rest.to} hs</p>
-							<p> <span class="label label-warning">${rest.score}</span> ${rest.countComments} calificaciones </p>
-						</div>
-			</a-->
-					
-<!-- 			<a wicket:id="viewRest" href="#"> -->
-<!-- 				<div class="bs-callout bs-callout-info"> -->
-<!-- 					<h4 wicket:id="namePanel"></h4> -->
-<!-- 					<p><span class="label label-primary" wicket:id="TofPanel"></span></p> -->
-<!-- 					<p class="restcard-adress" wicket:id="addressPanel"></p> -->
-<!-- 					<p class="restcard-schedule" wicket:id="timePanel"></p> -->
-<!-- 					<p><span class="label label-warning" wicket:id="scorePanel"></span></p> -->
-<!-- 				</div> -->
-<!-- 			</a> -->
+
+
+			<br>
+			<h4>
+				<wicket:message key="pageTitle"></wicket:message>
+			</h4>
+
+			<div wicket:id="rests">
+				<a wicket:id="viewRest" href="#">
+					<div class="bs-callout bs-callout-info" wicket:id="restPanel">
+					</div>
+				</a>
+			</div>
 		</div>
 	</wicket:extend>
 </body>

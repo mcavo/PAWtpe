@@ -2,7 +2,6 @@ package ar.edu.itba.it.paw.web;
 
 import java.util.List;
 
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -29,7 +28,7 @@ public class HomePage extends BasePage {
 
 			@Override
 			protected List<Restaurant> load() {
-				return restaurantRepo.getAll();
+				return restaurantRepo.getLastWeekAdded();
 			}
 		};
 
