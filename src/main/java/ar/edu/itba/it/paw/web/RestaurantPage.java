@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
@@ -35,13 +36,24 @@ public class RestaurantPage extends BasePage{
 				orderId = order.getId();
 			}
 		}
-		Label lbl_order = new Label("orderText", "<p> u numero de pedido es: "+ orderId  +"</p>");
+		Label lbl_order = new Label("orderText", "Su numero de pedido es: "+ orderId );
 		add(lbl_order.setVisible(orderId != -1));
 		
-		add(new Label("score", "<span class=\"label label-warning\">" + String.valueOf(r.getScore()) +"</span>"));
-		add(new Label("count", String.valueOf(r.getCountComments())+"calificaciones"));
+		add(new Label("score", String.valueOf(r.getScore())));
+		add(new Label("count", String.valueOf(r.getCountComments())));
 		
-		Link menu = new Link("menuLink"){
+		Link menuLink = new Link("menuLink"){
+				
+			@Override
+			public void onClick() {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		};
+		add(menuLink.setVisible(true));
+		
+		Link infoLink = new Link("infoLink"){
 
 			@Override
 			public void onClick() {
@@ -50,16 +62,7 @@ public class RestaurantPage extends BasePage{
 			}
 			
 		};
-		
-		Link info = new Link("infoLink"){
-
-			@Override
-			public void onClick() {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		};
+		add(infoLink.setVisible(true));
 		
 		add(new Label("descriptionText", r.getDescription()));
 	}
