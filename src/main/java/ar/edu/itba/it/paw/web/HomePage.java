@@ -30,7 +30,7 @@ public class HomePage extends BasePage {
 
 			@Override
 			protected List<Restaurant> load() {
-				return restaurantRepo.getLastWeekAdded();
+				return restaurantRepo.getAll();
 			}
 		};
 

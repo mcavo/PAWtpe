@@ -48,7 +48,7 @@ public class RestaurantPage extends BasePage{
 				
 			@Override
 			public void onClick() {
-				setResponsePage(new RestaurantMenuPage(r));
+				setResponsePage(new RestaurantMenuPage(r.getId()));
 			}
 			
 		};
