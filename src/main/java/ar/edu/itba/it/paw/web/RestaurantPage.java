@@ -15,6 +15,7 @@ import ar.edu.itba.it.paw.domain.users.User;
 import ar.edu.itba.it.paw.exceptions.LoadOrderException;
 import ar.edu.itba.it.paw.web.base.BasePage;
 
+@SuppressWarnings("serial")
 public class RestaurantPage extends BasePage{
 
 	@SpringBean
@@ -46,8 +47,7 @@ public class RestaurantPage extends BasePage{
 				
 			@Override
 			public void onClick() {
-				// TODO Auto-generated method stub
-				
+				setResponsePage(new RestaurantMenuPage(r));
 			}
 			
 		};
@@ -57,7 +57,6 @@ public class RestaurantPage extends BasePage{
 
 			@Override
 			public void onClick() {
-				// TODO Auto-generated method stub
 				
 			}
 			
