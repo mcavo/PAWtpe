@@ -22,7 +22,7 @@ public class DishPanel extends Panel {
 		super(id);
 		this.dish = dishModel.getModelObject();
 		
-		add(new Label("name", new PropertyModel<String>(dish, "name")));
+		add(new Label("name", new PropertyModel<String>(dish, "product")));
 		add(new Label("description", new PropertyModel<String>(dish, "description")));
 		add(new Label("price", new PropertyModel<String>(dish, "price")));
 		
