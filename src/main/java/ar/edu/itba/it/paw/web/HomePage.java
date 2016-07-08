@@ -10,16 +10,18 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
-import ar.edu.itba.it.paw.domain.restaurant.RestRepo;
+import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepositoryType;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.web.base.BasePage;
+import ar.edu.itba.it.paw.web.restaurant.RestaurantPage;
+import ar.edu.itba.it.paw.web.restaurant.RestaurantPanel;
 
 public class HomePage extends BasePage {
 
 	private static final long serialVersionUID = 1L;
 
 	@SpringBean
-	private RestRepo restaurantRepo;
+	private RestaurantRepositoryType restaurantRepo;
 
 	public HomePage() {
 		

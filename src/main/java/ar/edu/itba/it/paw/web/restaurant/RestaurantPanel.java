@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.web;
+package ar.edu.itba.it.paw.web.restaurant;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
 

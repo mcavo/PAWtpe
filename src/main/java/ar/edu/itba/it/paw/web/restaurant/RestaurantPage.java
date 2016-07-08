@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.web;
+package ar.edu.itba.it.paw.web.restaurant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +13,7 @@ import ar.edu.itba.it.paw.domain.restaurant.OrderRepositoryType;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.users.User;
 import ar.edu.itba.it.paw.exceptions.LoadOrderException;
+import ar.edu.itba.it.paw.web.BaseSession;
 import ar.edu.itba.it.paw.web.base.BasePage;
 
 @SuppressWarnings("serial")
