@@ -1,6 +1,8 @@
 package ar.edu.itba.it.paw.web.restaurant;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.model.StringResourceModel;
 
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 
@@ -12,7 +14,8 @@ public class RestaurantPanel extends Panel{
 		super(id);
 		add(new Label("restName", rest.getName()));
 		add(new Label("restAddress", rest.getAddress().toString()));
-		add(new Label("restSchedule", getString("schedule") + " " + rest.getDeliveryfrom() + " -  " + rest.getDeliveryto()));
+		add(new Label("restSchedule",new StringResourceModel("schedule",this, new Model<Restaurant>(rest))));
+		//add(new Label("restSchedule", getString("schedule") + " " + rest.getDeliveryfrom() + " -  " + rest.getDeliveryto()));
 		
 		String categories = "";
 		for(String c : rest.getTypesOfFood()) {
@@ -20,8 +23,7 @@ public class RestaurantPanel extends Panel{
 		}
 		add(new Label("restCategories", categories).setEscapeModelStrings(false));
 		
-		String calification = "<span class='label label-warning'>" + rest.getScore() + "</span> " + rest.getCountComments() + " " + getString("califications");
-		add(new Label("restCalification", calification).setEscapeModelStrings(false));
+		add(new Label("restCalification",new StringResourceModel("califications",this, new Model<Restaurant>(rest))).setEscapeModelStrings(false));
 	}
 
 }
