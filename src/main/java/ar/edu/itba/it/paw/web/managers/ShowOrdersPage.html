@@ -1,0 +1,18 @@
+<html xmlns:wicket="http://wicket.apache.org">
+
+<body>
+	<wicket:extend>
+	<div class="col-md-8 col-md-offset-2">
+		<div class="title">
+			<h3 wicket:id="restName"><wicket:message key="order_to"/> Pedidos a ${rest.name}</h3>
+		</div>
+		
+		<div class="orders-container">
+			<div wicket:id="orders">
+				<div class="bs-callout bs-callout-info" wicket:id="orderPanel"></div>
+			</div>
+		</div>
+	</div>
+	</wicket:extend>
+</body>
+</html>
