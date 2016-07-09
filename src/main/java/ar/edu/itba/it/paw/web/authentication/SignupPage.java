@@ -52,15 +52,20 @@ public class SignupPage extends BasePage {
 	@SpringBean
 	private QuestionRepositoryType questions;
 	
+	//Base Information
 	private String firstName;
 	private String lastName;
-	private String email;
-	private String password;
-	private String confirmation;
 	private Date birth; 
 	private Integer day;
 	private Integer month;
 	private Integer year;
+	
+	//Authentication
+	private String email;
+	private String password;
+	private String confirmation;
+	
+	//Address
 	private Address address;
 	private String street;
 	private Integer number;
@@ -69,6 +74,8 @@ public class SignupPage extends BasePage {
 	private Neighborhood neighborhood;
 	private String province;
 	private String city;
+	
+	//Question
 	private Question question;
 	private String answer;
 	

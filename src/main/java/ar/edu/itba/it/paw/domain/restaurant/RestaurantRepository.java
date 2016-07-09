@@ -8,23 +8,21 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
-import ar.edu.itba.it.paw.domain.address.AddressRepo;
-import ar.edu.itba.it.paw.domain.address.AddressRepository;
+import ar.edu.itba.it.paw.domain.address.AddressRepositoryType;
 import ar.edu.itba.it.paw.domain.common.AbstractHibernateRepository;
 import ar.edu.itba.it.paw.domain.users.User;
 
 @Component
 public class RestaurantRepository extends AbstractHibernateRepository implements RestaurantRepositoryType{
 
-	@SpringBean
-	private AddressRepo addressRepository;
+//	@SpringBean
+	private AddressRepositoryType addressRepository;
 	
 	@Autowired
-	public RestaurantRepository(SessionFactory sessionFactory/*, AddressRepository addressRepository*/) {
+	public RestaurantRepository(SessionFactory sessionFactory, AddressRepositoryType addressRepository) {
 		super(sessionFactory);
-		//this.addressRepository = addressRepository;
+		this.addressRepository = addressRepository;
 	}
 	
 	public List<Restaurant> getMostPopular(){

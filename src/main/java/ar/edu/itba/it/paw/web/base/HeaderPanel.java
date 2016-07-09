@@ -11,12 +11,13 @@ import ar.edu.itba.it.paw.web.HomePage;
 import ar.edu.itba.it.paw.web.authentication.LoginPage;
 import ar.edu.itba.it.paw.web.authentication.SignupPage;
 import ar.edu.itba.it.paw.web.profile.ProfilePage;
+import ar.edu.itba.it.paw.web.restaurant.register.RegisterRestaurantPage;
 
 public class HeaderPanel extends Panel {
-	
-	@SpringBean 
+
+	@SpringBean
 	private UserRepositoryType users;
-	
+
 	private User loggedUser;
 
 	@SuppressWarnings({ "rawtypes", "serial" })
@@ -31,7 +32,7 @@ public class HeaderPanel extends Panel {
 				BaseSession.get().invalidate();
 				setResponsePage(HomePage.class);
 			}
-			
+
 		};
 		add(logoutLink.setVisible(isSignIn));
 
@@ -52,9 +53,9 @@ public class HeaderPanel extends Panel {
 			}
 		};
 		add(signupLink.setVisible(!isSignIn));
-		
+
 		Link<Void> profileLink = new Link<Void>("profile") {
-			
+
 			public void onClick() {
 				setResponsePage(new ProfilePage());
 			}
@@ -62,6 +63,14 @@ public class HeaderPanel extends Panel {
 		profileLink.setVisible(loggedUser != null);
 		add(profileLink);
 
+		Link<Void> addRestaurantLink = new Link<Void>("addRestaurant") {
+
+			public void onClick() {
+				setResponsePage(new RegisterRestaurantPage());
+			}
+		};
+		profileLink.setVisible(loggedUser != null && loggedUser.getIsAdmin());
+		add(addRestaurantLink);
 	}
 
 	private void initialize() {
@@ -70,7 +79,7 @@ public class HeaderPanel extends Panel {
 			loggedUser = BaseSession.get().getUser();
 
 		}
-		
+
 	}
 
 }

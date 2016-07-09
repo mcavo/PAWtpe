@@ -30,6 +30,11 @@ import ar.edu.itba.it.paw.domain.users.User;
 @Entity
 @Table(name = "restaurante")
 public class Restaurant extends PersistentEntity implements Serializable {
+	
+	public final static int DESCRIPTIO_MAX_LENGTH = 500;
+	public final static int NAME_MAX_LENGTH = 30;
+	public final static int NO_EMPTY = 0;
+	
 	@OneToMany
 	@JoinTable(name="gerente", joinColumns=@JoinColumn(name="restid"), inverseJoinColumns=@JoinColumn(name="userid"))
 	private Set<User> managers;
@@ -230,10 +235,6 @@ public class Restaurant extends PersistentEntity implements Serializable {
 	}
 
 	public void setDescription(String descripcion) {
-		this.description = descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
 		this.description = descripcion;
 	}
 	
