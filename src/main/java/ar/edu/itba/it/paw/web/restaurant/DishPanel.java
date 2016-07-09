@@ -22,9 +22,9 @@ public class DishPanel extends Panel {
 		super(id);
 		this.dish = dishModel.getModelObject();
 		
-		add(new Label("name", new PropertyModel<String>(dish, "product")));
-		add(new Label("description", new PropertyModel<String>(dish, "description")));
-		add(new Label("price", new PropertyModel<String>(dish, "price")));
+		add(new Label("name", dish.getProduct()));
+		add(new Label("description", dish.getDescription()));
+		add(new Label("price", String.valueOf(dish.getPrice())));
 		
 		dishCountModel = new Model<String>();
 		dishCountTextField = new TextField<String>("dishCount", dishCountModel); 
