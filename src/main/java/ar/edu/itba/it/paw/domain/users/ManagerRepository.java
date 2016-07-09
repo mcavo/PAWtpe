@@ -16,7 +16,7 @@ import ar.edu.itba.it.paw.exceptions.NoManagersAvailableException;
 import ar.edu.itba.it.paw.exceptions.NoRestaurantException;
 
 @Repository
-public class ManagerRepository extends AbstractHibernateRepository{
+public class ManagerRepository extends AbstractHibernateRepository implements ManagerRepositoryType{
 
 	private CredentialRepository credentialRepository;
 	
