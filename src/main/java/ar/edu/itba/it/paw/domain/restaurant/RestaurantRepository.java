@@ -16,7 +16,6 @@ import ar.edu.itba.it.paw.domain.users.User;
 @Component
 public class RestaurantRepository extends AbstractHibernateRepository implements RestaurantRepositoryType{
 
-//	@SpringBean
 	private AddressRepositoryType addressRepository;
 	
 	@Autowired

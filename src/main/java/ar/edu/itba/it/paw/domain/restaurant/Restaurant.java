@@ -335,4 +335,10 @@ public class Restaurant extends PersistentEntity implements Serializable {
 			menu.add(d);
 		}
 	}
+
+	// Show name + direccion
+	public String getString() {
+		return name + " - " + address.toString();
+	}
+
 }
