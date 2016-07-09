@@ -14,7 +14,10 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import ar.edu.itba.it.paw.domain.restaurant.Order;
 import ar.edu.itba.it.paw.domain.restaurant.OrderRepositoryType;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
+import ar.edu.itba.it.paw.domain.users.ManagerRepositoryType;
 import ar.edu.itba.it.paw.exceptions.LoadOrderException;
+import ar.edu.itba.it.paw.exceptions.NoRestaurantException;
+import ar.edu.itba.it.paw.web.BaseSession;
 import ar.edu.itba.it.paw.web.base.BasePage;
 
 public class ShowOrdersPage extends BasePage{
@@ -24,7 +27,11 @@ public class ShowOrdersPage extends BasePage{
 	@SpringBean
 	private OrderRepositoryType orderRepo;
 	
-	public ShowOrdersPage(Restaurant rest) {
+	@SpringBean
+	private ManagerRepositoryType managerRepo;
+		
+	public ShowOrdersPage() {
+		Restaurant rest = loadRest();
 		
 		add(new Label("restName", rest.getName()));
 		
@@ -53,5 +60,16 @@ public class ShowOrdersPage extends BasePage{
 
 		};
 		add(listview);
+	}
+	
+	private Restaurant loadRest(){
+		Restaurant r = null;
+		try {
+			r = managerRepo.getRestaurant(BaseSession.get().getUser());
+		} catch (NoRestaurantException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return r;
 	}
 }

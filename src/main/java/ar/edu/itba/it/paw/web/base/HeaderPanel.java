@@ -10,6 +10,7 @@ import ar.edu.itba.it.paw.web.BaseSession;
 import ar.edu.itba.it.paw.web.HomePage;
 import ar.edu.itba.it.paw.web.authentication.LoginPage;
 import ar.edu.itba.it.paw.web.authentication.SignupPage;
+import ar.edu.itba.it.paw.web.managers.ShowOrdersPage;
 import ar.edu.itba.it.paw.web.profile.ProfilePage;
 
 public class HeaderPanel extends Panel {
@@ -61,6 +62,15 @@ public class HeaderPanel extends Panel {
 		};
 		profileLink.setVisible(loggedUser != null);
 		add(profileLink);
+		
+		Link<Void> historyLink = new Link<Void>("history") {
+			
+			public void onClick() {
+				setResponsePage(new ShowOrdersPage());
+			}
+		};
+		historyLink.setVisible(loggedUser != null);
+		add(historyLink);
 
 	}
 

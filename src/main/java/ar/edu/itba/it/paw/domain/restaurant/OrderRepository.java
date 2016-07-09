@@ -27,7 +27,7 @@ public class OrderRepository extends AbstractHibernateRepository implements Orde
 		super(sessionFactory);
 		this.userRepository = userRepo;
 	}
-
+	
 	public boolean checkDish(Restaurant rest, Dish dish) {
 		List<Dish> dishes = find("FROM Dish WHERE restid = ? and nombre like ? and descripcion like ? and precio = ?", rest.getId(), dish.getProduct(), dish.getDescription(), dish.getPrice());
 		return !dishes.isEmpty();
