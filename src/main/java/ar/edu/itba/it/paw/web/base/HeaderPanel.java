@@ -15,6 +15,7 @@ import ar.edu.itba.it.paw.web.managers.ShowOrdersPage;
 import ar.edu.itba.it.paw.web.managers.dishes.AddDishPage;
 import ar.edu.itba.it.paw.web.profile.ProfilePage;
 import ar.edu.itba.it.paw.web.restaurant.RestaurantListPage;
+import ar.edu.itba.it.paw.web.restaurant.RestaurantPopularPage;
 import ar.edu.itba.it.paw.web.restaurant.register.RegisterRestaurantPage;
 
 public class HeaderPanel extends Panel {
@@ -66,6 +67,15 @@ public class HeaderPanel extends Panel {
 		};
 		restsLink.setVisible(true);
 		add(restsLink);
+		
+		Link<Void> restsMostPopularLink = new Link<Void>("restaurantsMostPopular") {
+
+			public void onClick() {
+				setResponsePage(new RestaurantPopularPage());
+			}
+		};
+		restsMostPopularLink.setVisible(true);
+		add(restsMostPopularLink);
 		
 		Link<Void> profileLink = new Link<Void>("profile") {
 

@@ -14,6 +14,8 @@ import ar.edu.itba.it.paw.web.authentication.LoginPage;
 import ar.edu.itba.it.paw.web.common.CookieService;
 import ar.edu.itba.it.paw.web.common.HibernateRequestCycleListener;
 import ar.edu.itba.it.paw.web.common.SessionProvider;
+import ar.edu.itba.it.paw.web.restaurant.RestaurantListPage;
+import ar.edu.itba.it.paw.web.restaurant.RestaurantPopularPage;
 
 @Component
 public class MyApp extends WebApplication{
@@ -51,6 +53,8 @@ public class MyApp extends WebApplication{
 		getDebugSettings().setAjaxDebugModeEnabled(false); 
 		mountPage("/index", HomePage.class);
 		mountPage("/login", LoginPage.class);
+		mountPage("/restaurant/list", RestaurantListPage.class);
+		mountPage("/restaurant/popular", RestaurantPopularPage.class);
 	}
 
 }
