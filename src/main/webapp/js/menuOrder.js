@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(document).ready(function() {
 	$(".select-dish").change(function() {
 		var p = $(this).parent().parent().children(".price").text();
 		var total_cant = 0;
@@ -52,5 +52,9 @@ $(document).ready(function(){
 		
 	});
 	
+	$(".trigger-button").click(function() {
+		console.log('Hola');
+		$("form:first").submit();
+	});
 	
 });

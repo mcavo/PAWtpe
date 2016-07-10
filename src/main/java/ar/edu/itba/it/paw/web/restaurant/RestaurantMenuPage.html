@@ -27,14 +27,12 @@
 							</ul>
 						</div>
 
-
 						<div class="col-md-12 sections">
 							<form wicket:id="orderForm" role="form">
 								<div wicket:id="dishListList">
 									<div wicket:id="dishListPanel">
 									</div>
 								</div>
-								<button type="submit" class="btn btn-info" wicket:id="orderButton"></button>
 							</form>
 						</div>
 					</div>
@@ -72,6 +70,7 @@
 												<br> <br>
 											</div>
 											<label wicket:id="lblCantOrder"></label>
+											<button type="button" class="btn btn-info trigger-button"><wicket:message key="confirm_order" /></button>
 										</div>
 									</div>
 <!-- 									<c:if test="${user != null}"> -->

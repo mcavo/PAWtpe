@@ -42,7 +42,8 @@ public class RestaurantMenuPage extends BasePage{
 	
 	private Restaurant r;
 	
-	//private List<DishPanel> dishPanels;
+	private boolean ok2order = false;
+	
 	private List<DishListPanel> dishListPanels;
 	
 	@SuppressWarnings({ "rawtypes" })
@@ -87,11 +88,10 @@ public class RestaurantMenuPage extends BasePage{
 		
 		User user = BaseSession.get().getUser();
 		Label lblCantOrder = new Label("lblCantOrder", getString("can_not_order"));
-		boolean ok2order = false;
 		if(user != null){
 			ok2order = rests.userCanOrder(user, r);
 		}
-		lblCantOrder.setVisible(ok2order);
+		lblCantOrder.setVisible(!ok2order);
 		add(lblCantOrder);
 		
 		dishListPanels = new LinkedList<>();
@@ -111,6 +111,12 @@ public class RestaurantMenuPage extends BasePage{
 					return;
 				}
 				
+				if (!ok2order) {
+					error(getString("can_not_order"));
+					setResponsePage(getPage());
+					return;
+				}
+				
 				HashMap<Dish, Integer> oMap = new HashMap<>();
 				Integer orderId = -1;
 				for(DishListPanel dlp : dishListPanels) {
@@ -118,32 +124,22 @@ public class RestaurantMenuPage extends BasePage{
 						int dishCount = dp.getDishCountt();
 						Dish dish = dp.getDish();
 						oMap.put(dish, dishCount);
-						System.out.println(dish.getProduct() + ": "+dishCount);
 					}
 				}
 				
 				try {
 					orderId = orders.sendOrder(BaseSession.get().getUser(), r, oMap);
 					if(orderId<0) {
-						error(new StringResourceModel("min_cost",this, new Model<Restaurant>(r)));
+						error(getString("min_cost") + " $" + r.getMontomin()+".");
+						setResponsePage(getPage());
 						return;
 					}
-					System.out.println("orderId" + orderId);
 				} catch (CreationDishException e) {
+					setResponsePage(getPage());
 					return;
 				}
-				Order o = null;
-				try {
-					for(Order io : orders.getHistory(r)) {
-						if (io.getId() == orderId) {
-							o = io;
-						}
-					}
-					if(o!=null)
-						success(new StringResourceModel("success_order",this, new Model<Order>(o)));
-				} catch (LoadOrderException e) {
-					e.printStackTrace();
-				}
+				
+				success(getString("success_order") + " " + orderId + ".");
 				
 				setResponsePage(getPage());
 				
