@@ -1,6 +1,7 @@
 package ar.edu.itba.it.paw.domain.users;
 
 import java.io.Serializable;
+import java.util.List;
 
 public interface UserRepositoryType {
 	public User getUser(Credential cred);
@@ -13,4 +14,6 @@ public interface UserRepositoryType {
 	public boolean updatePassword(String userId, String newPwd, String respuesta);
 	public Question getQuestion(int userId);
 	public boolean existsUser(int userId);
+	public List<User> getAll();
+	public boolean blockUser(int userId, boolean blocked);
 }

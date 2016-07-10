@@ -105,4 +105,18 @@ public class UserRepository extends AbstractHibernateRepository implements UserR
 	public boolean existsUser(int userId) {
 		return getUserById(userId) != null;
 	}
+	
+	public List<User> getAll() {
+		return find("FROM User order by case when lastconnection is null then 1 else 0 end, lastconnection desc, nombre, apellido");
+	}
+	
+	public boolean blockUser(int userId, boolean blocked) {
+		User user = getUserById(userId);
+		if(user != null){
+			user.setBlock(blocked);
+			save(user);
+			return true;
+		}
+		return false;
+	}
 }

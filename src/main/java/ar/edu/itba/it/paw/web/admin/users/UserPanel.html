@@ -1,0 +1,21 @@
+<html xmlns:wicket="http://wicket.apache.org">
+<body>
+	<wicket:panel>
+		<div class="row">
+			<form wicket:id="userPanelForm">
+				<div class="row">
+					<div class="col-md-8">
+						<p wicket:id="userName" />
+						<p wicket:id="lastConnection" />
+					</div>
+					<div class="col-md-4">
+						<label> <input wicket:id="blocked" type="checkbox"
+							onchange="this.form.submit()" /> <wicket:message key="blocked" />
+						</label>
+					</div>
+				</div>
+			</form>
+		</div>
+	</wicket:panel>
+</body>
+</html>

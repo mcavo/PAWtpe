@@ -9,6 +9,7 @@ import ar.edu.itba.it.paw.domain.users.UserRepositoryType;
 import ar.edu.itba.it.paw.web.BaseSession;
 import ar.edu.itba.it.paw.web.HomePage;
 import ar.edu.itba.it.paw.web.admin.AddManagerPage;
+import ar.edu.itba.it.paw.web.admin.users.ListUsersPage;
 import ar.edu.itba.it.paw.web.authentication.LoginPage;
 import ar.edu.itba.it.paw.web.authentication.SignupPage;
 import ar.edu.itba.it.paw.web.managers.ShowOrdersPage;
@@ -121,6 +122,15 @@ public class HeaderPanel extends Panel {
 		};
 		addDishLink.setVisible(loggedUser != null && loggedUser.getIsManager());
 		add(addDishLink);
+		
+		Link<Void> users = new Link<Void>("users") {
+
+			public void onClick() {
+				setResponsePage(new ListUsersPage());
+			}
+		};
+		users.setVisible(loggedUser != null && loggedUser.getIsAdmin());
+		add(users);
 	}
 
 	private void initialize() {

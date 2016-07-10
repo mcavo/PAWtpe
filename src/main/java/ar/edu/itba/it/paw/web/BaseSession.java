@@ -1,5 +1,7 @@
 package ar.edu.itba.it.paw.web;
 
+import java.util.Date;
+
 import org.apache.wicket.Session;
 import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.request.Request;
@@ -35,6 +37,7 @@ public class BaseSession extends WebSession {
 		try {
 			Credential credential = credentials.getCredentials(username, password);
 			this.user = users.getUser(credential);
+			user.setLastConnection(new Date());
 			boolean changePassword = AuthenticationService.getInstance().userNeedsUpdatePassword(credential);
 			boolean[] ans = {true, changePassword};
 			return ans;

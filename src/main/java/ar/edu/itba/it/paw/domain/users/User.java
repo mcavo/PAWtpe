@@ -1,7 +1,6 @@
 package ar.edu.itba.it.paw.domain.users;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -58,6 +57,9 @@ public class User implements UserPermissions, Serializable {
 	
 	@Column(name = "lastconnection")
 	private Date lastConnection;
+	
+	@Column(name = "blocked")
+	private  Boolean blocked;
 
 	public User(){}
 
@@ -163,4 +165,14 @@ public class User implements UserPermissions, Serializable {
 		this.lastConnection = lastConnection;
 	}
 	
+	public boolean getBlock() {
+		return blocked == null ? false : blocked;
+	}
+	
+	public void setBlock(Boolean blocked) {
+		if (blocked == null) {
+			blocked = false;
+		}
+		this.blocked = blocked;
+	}
 }
