@@ -12,6 +12,7 @@ import ar.edu.itba.it.paw.web.admin.AddManagerPage;
 import ar.edu.itba.it.paw.web.authentication.LoginPage;
 import ar.edu.itba.it.paw.web.authentication.SignupPage;
 import ar.edu.itba.it.paw.web.managers.ShowOrdersPage;
+import ar.edu.itba.it.paw.web.managers.dishes.AddDishPage;
 import ar.edu.itba.it.paw.web.profile.ProfilePage;
 import ar.edu.itba.it.paw.web.restaurant.register.RegisterRestaurantPage;
 
@@ -91,6 +92,15 @@ public class HeaderPanel extends Panel {
 		};
 		addManagerLink.setVisible(loggedUser != null && loggedUser.getIsAdmin());
 		add(addManagerLink);
+		
+		Link<Void> addDishLink = new Link<Void>("addDish") {
+
+			public void onClick() {
+				setResponsePage(new AddDishPage());
+			}
+		};
+		addDishLink.setVisible(loggedUser != null && loggedUser.getIsManager());
+		add(addDishLink);
 	}
 
 	private void initialize() {

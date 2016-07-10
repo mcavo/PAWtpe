@@ -1,0 +1,52 @@
+<wicket:extend>
+	<div class="col-md-8 col-md-offset-2">
+		<div>
+			<h4>
+				<Label wicket:id="title" />
+			</h4>
+		</div>
+		<div>
+			<form class="form-horizontal" wicket:id="addDishForm">
+				<div class="form-group">
+					<label class="control-label col-sm-2"><wicket:message
+							key="addDish.section.label" /></label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" wicket:id="section"
+							wicket:message="placeholder:addDish.section.placeholder">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2"><wicket:message
+							key="addDish.dish.label" /></label>
+					<div class="col-sm-10">
+						<input type="text" class="form-control" wicket:id="dish"
+							wicket:message="placeholder:addDish.dish.placeholder">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="price"><wicket:message
+							key="addDish.price.label" /></label>
+					<div class="col-sm-10">
+						<div class="input-group">
+							<span class="input-group-addon">$</span><input type="number"
+								min="1" class="form-control"
+								aria-label="Amount (to the nearest dollar)" wicket:id="price">
+							<span class="input-group-addon">.00</span>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="description"><wicket:message
+							key="addDish.description.label" /></label>
+					<div class="col-sm-10">
+						<textarea class="form-control" rows="5" wicket:id="description"
+							wicket:message="placeholder:addDish.description.placeholder"></textarea>
+					</div>
+				</div>
+				<div class="form-group col-md-4 col-md-offset-4">
+					<input type="submit" class="btn btn-primary" wicket:id="add" />
+				</div>
+			</form>
+		</div>
+	</div>
+</wicket:extend>
