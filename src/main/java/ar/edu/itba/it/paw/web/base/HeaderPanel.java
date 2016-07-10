@@ -8,9 +8,11 @@ import ar.edu.itba.it.paw.domain.users.User;
 import ar.edu.itba.it.paw.domain.users.UserRepositoryType;
 import ar.edu.itba.it.paw.web.BaseSession;
 import ar.edu.itba.it.paw.web.HomePage;
+import ar.edu.itba.it.paw.web.admin.AddManagerPage;
 import ar.edu.itba.it.paw.web.authentication.LoginPage;
 import ar.edu.itba.it.paw.web.authentication.SignupPage;
 import ar.edu.itba.it.paw.web.managers.ShowOrdersPage;
+import ar.edu.itba.it.paw.web.managers.dishes.AddDishPage;
 import ar.edu.itba.it.paw.web.profile.ProfilePage;
 import ar.edu.itba.it.paw.web.restaurant.RestaurantListPage;
 import ar.edu.itba.it.paw.web.restaurant.register.RegisterRestaurantPage;
@@ -71,7 +73,7 @@ public class HeaderPanel extends Panel {
 				setResponsePage(new ProfilePage());
 			}
 		};
-		profileLink.setVisible(loggedUser != null);
+		profileLink.setVisible(loggedUser != null && !loggedUser.getIsAdmin());
 		add(profileLink);
 		
 		Link<Void> historyLink = new Link<Void>("history") {
@@ -89,8 +91,26 @@ public class HeaderPanel extends Panel {
 				setResponsePage(new RegisterRestaurantPage());
 			}
 		};
-		profileLink.setVisible(loggedUser != null && loggedUser.getIsAdmin());
+		addRestaurantLink.setVisible(loggedUser != null && loggedUser.getIsAdmin());
 		add(addRestaurantLink);
+		
+		Link<Void> addManagerLink = new Link<Void>("addManager") {
+
+			public void onClick() {
+				setResponsePage(new AddManagerPage());
+			}
+		};
+		addManagerLink.setVisible(loggedUser != null && loggedUser.getIsAdmin());
+		add(addManagerLink);
+		
+		Link<Void> addDishLink = new Link<Void>("addDish") {
+
+			public void onClick() {
+				setResponsePage(new AddDishPage());
+			}
+		};
+		addDishLink.setVisible(loggedUser != null && loggedUser.getIsManager());
+		add(addDishLink);
 	}
 
 	private void initialize() {
