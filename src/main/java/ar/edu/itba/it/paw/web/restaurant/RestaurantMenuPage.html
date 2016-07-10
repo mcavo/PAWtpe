@@ -30,8 +30,7 @@
 						<div class="col-md-12 sections">
 							<form wicket:id="orderForm" role="form">
 								<div wicket:id="dishListList">
-									<div wicket:id="dishListPanel">
-									</div>
+									<div wicket:id="dishListPanel"></div>
 								</div>
 							</form>
 						</div>
@@ -70,21 +69,11 @@
 												<br> <br>
 											</div>
 											<label wicket:id="lblCantOrder"></label>
-											<button type="button" class="btn btn-info trigger-button"><wicket:message key="confirm_order" /></button>
+											<button type="button" class="btn btn-info trigger-button">
+												<wicket:message key="confirm_order" />
+											</button>
 										</div>
 									</div>
-<!-- 									<c:if test="${user != null}"> -->
-<!-- 										<c:if test="${canOrder}">	 -->
-<!-- 											<form action="sendOrder" method="POST" id="order"> -->
-<!-- 												<input type="hidden"  name="restId" value="${rest.id}"> -->
-<!-- 												<input type="submit" class="btn btn-info" -->
-<!-- 													value="Confirmar pedido"> -->
-<!-- 											</form> -->
-<!-- 										</c:if> -->
-<!-- 										c:if test="${!canOrder}" -->
-<!-- 											<label wicket:id="lblCanOrder">NO PUEDE HACER EL PEDIDO PORQUE NO HAY DELIVERY A SU BARRIO</label> -->
-<!-- 										/c:if -->
-<!-- 									</c:if> -->
 									<label wicket:id="lblCantOrder"></label>
 								</div>
 							</div>
@@ -93,8 +82,6 @@
 				</div>
 			</div>
 		</div>
-
-	</div>
-</wicket:extend>
+	</wicket:extend>
 </body>
 </html>
