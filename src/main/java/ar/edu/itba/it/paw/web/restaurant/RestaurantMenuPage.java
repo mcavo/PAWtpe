@@ -13,15 +13,19 @@ import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.ResourceModel;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.itba.it.paw.domain.restaurant.Dish;
+import ar.edu.itba.it.paw.domain.restaurant.Order;
 import ar.edu.itba.it.paw.domain.restaurant.OrderRepositoryType;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepositoryType;
 import ar.edu.itba.it.paw.domain.users.User;
 import ar.edu.itba.it.paw.exceptions.CreationDishException;
+import ar.edu.itba.it.paw.exceptions.LoadOrderException;
 import ar.edu.itba.it.paw.web.BaseSession;
 import ar.edu.itba.it.paw.web.authentication.LoginPage;
 import ar.edu.itba.it.paw.web.base.BasePage;
@@ -73,13 +77,13 @@ public class RestaurantMenuPage extends BasePage{
 		};
 		add(infoLink.setVisible(true));
 		
-		add(new Label("sprice", String.valueOf(r.getDelamount())));
+		add(new Label("sprice", "$ " + String.valueOf(r.getDelamount())));
 		
 		double tprice = 0;
-		add(new Label("tprice", String.valueOf(tprice)));
+		add(new Label("tprice", "$ " + String.valueOf(tprice)));
 		
 		double subprice = 0;
-		add(new Label("subprice", String.valueOf(subprice)));
+		add(new Label("subprice", "$ " + String.valueOf(subprice)));
 		
 		User user = BaseSession.get().getUser();
 		Label lblCantOrder = new Label("lblCantOrder", getString("can_not_order"));
@@ -120,17 +124,28 @@ public class RestaurantMenuPage extends BasePage{
 				
 				try {
 					orderId = orders.sendOrder(BaseSession.get().getUser(), r, oMap);
-					if(orderId<0)
-						System.out.println("orderId" + orderId);
+					if(orderId<0) {
+						error(new StringResourceModel("min_cost",this, new Model<Restaurant>(r)));
+						return;
+					}
 					System.out.println("orderId" + orderId);
 				} catch (CreationDishException e) {
-					e.printStackTrace();
 					return;
 				}
-				System.out.println("Success");
+				Order o = null;
+				try {
+					for(Order io : orders.getHistory(r)) {
+						if (io.getId() == orderId) {
+							o = io;
+						}
+					}
+					if(o!=null)
+						success(new StringResourceModel("success_order",this, new Model<Order>(o)));
+				} catch (LoadOrderException e) {
+					e.printStackTrace();
+				}
 				
 				setResponsePage(getPage());
-
 				
 			}
 			

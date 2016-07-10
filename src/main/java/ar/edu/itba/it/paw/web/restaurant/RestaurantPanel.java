@@ -15,7 +15,6 @@ public class RestaurantPanel extends Panel{
 		add(new Label("restName", rest.getName()));
 		add(new Label("restAddress", rest.getAddress().toString()));
 		add(new Label("restSchedule",new StringResourceModel("schedule",this, new Model<Restaurant>(rest))));
-		//add(new Label("restSchedule", getString("schedule") + " " + rest.getDeliveryfrom() + " -  " + rest.getDeliveryto()));
 		
 		String categories = "";
 		for(String c : rest.getTypesOfFood()) {

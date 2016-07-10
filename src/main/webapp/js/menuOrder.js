@@ -10,8 +10,8 @@ $(document).ready(function(){
 				
 			}
 			var cant = "<div class='col-sm-3 cant'> "+$(this).val()+" x </div>";
-			var nombre = "<div class='col-sm-5 nombre'>"+this.name+"</div>";
-			var precio = "<div class='col-sm-4 precio'>"+p+"</div>";
+			var nombre = "<div class='col-sm-5 nombre'>"+$(this).closest('.bs-callout-info').find('h4').first().text()+"</div>";
+			var precio = "<div class='col-sm-4 precio'>$ "+p+"</div>";
 			var product = $("<div class='product' id='"+this.name+"'>"+cant+nombre+precio+"</div>");
 			$(".productContainer").prepend(product);
 		}else{
@@ -19,7 +19,6 @@ $(document).ready(function(){
 		}
 		
 		var plist = document.getElementsByClassName("product");
-		console.log(plist.length);
 		if(plist.length==0) {
 			$(".cartresume").hide();
 		} else {
@@ -55,14 +54,3 @@ $(document).ready(function(){
 	
 	
 });
-
-/*
-<div class="product" id="name">
-	<div class="col-sm-3 cant" value="CANT">CANT X</div>
-	<div class="col-sm-6 nombre">NOMBRE</div>
-	<div class="col-sm-3 precio" value="PRECIO">PRECIO</div>
-</div>
-<div class="subtotal"></div>
-<div class="costoEnvio"></div>
-<div class="total"></div>
-*/
