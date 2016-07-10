@@ -12,6 +12,7 @@ import ar.edu.itba.it.paw.web.authentication.LoginPage;
 import ar.edu.itba.it.paw.web.authentication.SignupPage;
 import ar.edu.itba.it.paw.web.managers.ShowOrdersPage;
 import ar.edu.itba.it.paw.web.profile.ProfilePage;
+import ar.edu.itba.it.paw.web.restaurant.RestaurantListPage;
 import ar.edu.itba.it.paw.web.restaurant.register.RegisterRestaurantPage;
 
 public class HeaderPanel extends Panel {
@@ -55,6 +56,15 @@ public class HeaderPanel extends Panel {
 		};
 		add(signupLink.setVisible(!isSignIn));
 
+		Link<Void> restsLink = new Link<Void>("restaurants") {
+
+			public void onClick() {
+				setResponsePage(new RestaurantListPage());
+			}
+		};
+		restsLink.setVisible(true);
+		add(restsLink);
+		
 		Link<Void> profileLink = new Link<Void>("profile") {
 
 			public void onClick() {

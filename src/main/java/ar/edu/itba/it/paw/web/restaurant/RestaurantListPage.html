@@ -1,0 +1,31 @@
+<html xmlns:wicket="http://wicket.apache.org">
+
+<body>
+	<wicket:extend>
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<div class="well">
+				<form wicket:id="filterRestaurantForm">
+					<div class="form-group">
+						<label for="type"><span class="glyphicon glyphicon-filter"></span>Filtrar por:</label> 
+							<select wicket:id="foodTypes" class="form-control" onchange="this.form.submit()"></select>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<div wicket:id="rests">
+				<a wicket:id="viewRest" href="#">
+					<div class="bs-callout bs-callout-info" wicket:id="restPanel">
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+
+	</wicket:extend>
+</body>
+</html>
