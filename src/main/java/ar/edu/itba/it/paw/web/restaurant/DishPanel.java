@@ -39,8 +39,7 @@ public class DishPanel extends Panel {
 		return dish;
 	}
 	
-	public int getDishCount() {
-		System.out.println(dishCount);
+	public int getDishCountt() {
 		if(dishCount==null || dishCount.equals(""))
 			return 0;
 		return Integer.parseInt(dishCount);

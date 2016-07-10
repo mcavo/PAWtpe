@@ -11,6 +11,7 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -110,23 +111,23 @@ public class RestaurantMenuPage extends BasePage{
 				Integer orderId = -1;
 				for(DishListPanel dlp : dishListPanels) {
 					for(DishPanel dp : dlp.getDishPanel()) {
-						int dishCount = dp.getDishCount();
+						int dishCount = dp.getDishCountt();
 						Dish dish = dp.getDish();
 						oMap.put(dish, dishCount);
 						System.out.println(dish.getProduct() + ": "+dishCount);
 					}
 				}
 				
-//				try {
-//					orderId = orders.sendOrder(BaseSession.get().getUser(), r, oMap);
-//					if(orderId<0)
-//						System.out.println("orderId" + orderId);
-//					System.out.println("orderId" + orderId);
-//				} catch (CreationDishException e) {
-//					e.printStackTrace();
-//					return;
-//				}
-//				System.out.println("Success");
+				try {
+					orderId = orders.sendOrder(BaseSession.get().getUser(), r, oMap);
+					if(orderId<0)
+						System.out.println("orderId" + orderId);
+					System.out.println("orderId" + orderId);
+				} catch (CreationDishException e) {
+					e.printStackTrace();
+					return;
+				}
+				System.out.println("Success");
 				
 				setResponsePage(getPage());
 
@@ -157,6 +158,7 @@ public class RestaurantMenuPage extends BasePage{
 		
 		form.add(new Button("orderButton", new ResourceModel("orderButton")));
 		add(form);
+		add(new FeedbackPanel("feedback"));
 		
 		
 	}	
