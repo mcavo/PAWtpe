@@ -10,7 +10,6 @@ import ar.edu.itba.it.paw.domain.users.Credential;
 public class AuthenticationService {
 
 	final private static String validDatysKeys = "passwordValidPeriod";
-	final private static long CHANGE_TO_DAYS = 86400000; // 24 * 60 * 60 * 1000
 	private static AuthenticationService instance;
 	
 	public static AuthenticationService getInstance() {
@@ -27,11 +26,7 @@ public class AuthenticationService {
 			if (credential.getLastPassUpdate() == null) { //TODO: this should be replace when foring BD
 				return true;
 			}
-			long timeSinceLastChange = new Date().getTime() - credential.getLastPassUpdate().getTime();
-			int daysSinceLastUpdate = (int) (timeSinceLastChange / CHANGE_TO_DAYS);
-			System.out.println(credential.getLastPassUpdate().getTime());
-			System.out.println(daysSinceLastUpdate);
-			System.out.println(validDays);
+			int daysSinceLastUpdate = DateService.datesFromDate(credential.getLastPassUpdate());
 			return daysSinceLastUpdate >= validDays;
 		} catch (IOException e) {
 			return false; //TODO: qué retornamos en caso de que falle.

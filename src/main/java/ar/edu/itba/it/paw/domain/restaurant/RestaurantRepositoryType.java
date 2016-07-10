@@ -15,4 +15,5 @@ public interface RestaurantRepositoryType {
 	public boolean validateId(int id);
 	public boolean userCanOrder(User user, Restaurant rest);
 	public List<Restaurant> getLastWeekAdded();
+	public List<Restaurant> getNewRestaurantsFromLastSession(User user);
 }

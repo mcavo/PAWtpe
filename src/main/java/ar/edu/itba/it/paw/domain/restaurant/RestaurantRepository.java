@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,7 +13,7 @@ import ar.edu.itba.it.paw.domain.common.AbstractHibernateRepository;
 import ar.edu.itba.it.paw.domain.users.User;
 
 @Component
-public class RestaurantRepository extends AbstractHibernateRepository implements RestaurantRepositoryType{
+public class RestaurantRepository extends AbstractHibernateRepository implements RestaurantRepositoryType {
 
 	private AddressRepositoryType addressRepository;
 	
@@ -70,6 +69,15 @@ public class RestaurantRepository extends AbstractHibernateRepository implements
 
 	public boolean userCanOrder(User user, Restaurant rest) {
 		return !find("from Restaurant r where r.id = ? and  (Select u.address.neighborhood from User u where u.id = ?) in elements(r.deliveryneigh)", rest.getId(), user.getId()).isEmpty();
+	}
+
+	@Override
+	public List<Restaurant> getNewRestaurantsFromLastSession(User user) {
+		if (user.getLastConnection() == null) {
+			return getAll();
+		}
+		List<Restaurant> l = find("FROM Restaurant r WHERE DATE(r.regis) <= ? and  (Select u.address.neighborhood from User u where u.id = ?) in elements(r.deliveryneigh) ORDER BY name ASC", user.getLastConnection(), user.getId()); 
+		return l;
 	}
 	
 }

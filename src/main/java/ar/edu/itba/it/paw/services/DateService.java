@@ -6,6 +6,8 @@ import java.util.GregorianCalendar;
 
 public class DateService {
 
+	final private static long CHANGE_TO_DAYS = 86400000; // 24 * 60 * 60 * 1000
+	
 	public static int getDayOfMonth(Date aDate) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(aDate);
@@ -40,5 +42,10 @@ public class DateService {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+	
+	public static int datesFromDate(Date date) {
+		long timeSinceLastChange = new Date().getTime() - date.getTime();
+		return (int) (timeSinceLastChange / CHANGE_TO_DAYS);
 	}
 }

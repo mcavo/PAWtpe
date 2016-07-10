@@ -13,6 +13,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.itba.it.paw.domain.users.User;
 import ar.edu.itba.it.paw.domain.users.UserRepositoryType;
+import ar.edu.itba.it.paw.web.HomePage;
 import ar.edu.itba.it.paw.web.base.BasePage;
 
 @SuppressWarnings("serial")
@@ -21,6 +22,10 @@ public class ListUsersPage extends BasePage {
 	@SpringBean private UserRepositoryType users;
 	
 	public ListUsersPage() {
+		
+		if (loggedUser == null || !loggedUser.getIsAdmin()) {
+			setResponsePage(new HomePage());
+		}
 		
 		add(new Label("title", new ResourceModel("title")));
 		
