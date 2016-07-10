@@ -14,6 +14,7 @@ import javax.persistence.Transient;
 import ar.edu.itba.it.paw.domain.address.Address;
 import ar.edu.itba.it.paw.services.StringService;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "usuario")
 public class User implements UserPermissions, Serializable {

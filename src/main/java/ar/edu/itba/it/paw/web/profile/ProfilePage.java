@@ -30,12 +30,8 @@ import ar.edu.itba.it.paw.services.DateService;
 import ar.edu.itba.it.paw.web.BaseSession;
 import ar.edu.itba.it.paw.web.base.BasePage;
 
+@SuppressWarnings("serial")
 public class ProfilePage extends BasePage {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	
 	@SpringBean
 	private UserRepositoryType users;
@@ -88,10 +84,6 @@ public class ProfilePage extends BasePage {
 		answer = loggedUser.getAnswer();
 			
 			Form<ProfilePage> form = new Form<ProfilePage>("signupForm", new CompoundPropertyModel<ProfilePage>(this)) {
-				/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
 
 				@Override
 				protected void onSubmit() {
@@ -121,6 +113,7 @@ public class ProfilePage extends BasePage {
 					user.getAddress().setCity(city);
 					
 					if (users.updateUser(user) != null) {
+						session.updateUser(user);
 						setResponsePage(getApplication().getHomePage());
 					} else {
 						error(getString("profile.failed.creation"));
@@ -132,10 +125,6 @@ public class ProfilePage extends BasePage {
 			// Basic Information
 			form.add(new TextField<String>("firstName").add(new MaximumLengthValidator(User.FIRST_NAME_MAX_SIZE)).setRequired(true));
 			form.add(new TextField<String>("lastName").add(new MaximumLengthValidator(User.LAST_NAME_MAX_SIZE)).setRequired(true));
-			// TODO: check if this will be like this change to calendar! or validate format
-//			form.add(new TextField<Date>("birth")
-//					.add(DateValidator.maximum(new Date()))
-//					.setRequired(true));
 			
 			form.add(new TextField<Integer>("day")
 					.add(new RangeValidator<Integer>(1, 31))
@@ -153,17 +142,12 @@ public class ProfilePage extends BasePage {
 					.setRequired(true));
 			
 			// Address 
-			// TODO: update validations
 			form.add(new TextField<String>("street").add(new MaximumLengthValidator(User.FIRST_NAME_MAX_SIZE)).setRequired(true));
 			form.add(new TextField<Integer>("number"));
 			form.add(new TextField<Integer>("floor"));
 			form.add(new TextField<String>("apartment").add(new MaximumLengthValidator(User.FIRST_NAME_MAX_SIZE)));
 			
 			IModel<List<Neighborhood>> neighborhoodsModel = new LoadableDetachableModel<List<Neighborhood>>() {
-				/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
 
 				@Override
 				protected List<Neighborhood> load() {
@@ -178,10 +162,6 @@ public class ProfilePage extends BasePage {
 			
 			//Question
 			IModel<List<Question>> questionsModel = new LoadableDetachableModel<List<Question>>() {
-				/**
-				 * 
-				 */
-				private static final long serialVersionUID = 1L;
 
 				@Override
 				protected List<Question> load() {
@@ -193,7 +173,7 @@ public class ProfilePage extends BasePage {
 					.setRequired(true));
 			form.add(new TextField<String>("answer").add(new MaximumLengthValidator(User.LAST_NAME_MAX_SIZE)).setRequired(true));
 			
-			form.add(new Button("update", new ResourceModel("signup.submit.label")));
+			form.add(new Button("update", new ResourceModel("profile.submit.label")));
 			form.add(new FeedbackPanel("feedback"));
 			add(form);
 	}

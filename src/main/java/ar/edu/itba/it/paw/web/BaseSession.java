@@ -37,7 +37,11 @@ public class BaseSession extends WebSession {
 			return false;
 		}
 	}
-
+	
+	public void updateUser(User user) {
+		this.user = user;
+	}
+	
 	public boolean isSignedIn() {
 		return user != null;
 	}
