@@ -1,7 +1,9 @@
 package ar.edu.itba.it.paw.web.restaurant;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -10,15 +12,17 @@ import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.itba.it.paw.domain.restaurant.Dish;
+import ar.edu.itba.it.paw.domain.restaurant.OrderRepositoryType;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepositoryType;
 import ar.edu.itba.it.paw.domain.users.User;
+import ar.edu.itba.it.paw.exceptions.CreationDishException;
 import ar.edu.itba.it.paw.web.BaseSession;
+import ar.edu.itba.it.paw.web.authentication.LoginPage;
 import ar.edu.itba.it.paw.web.base.BasePage;
 
 public class RestaurantMenuPage extends BasePage{
@@ -28,11 +32,15 @@ public class RestaurantMenuPage extends BasePage{
 	@SpringBean
 	RestaurantRepositoryType rests;
 	
+	@SpringBean
+	OrderRepositoryType orders;
+	
 	private Restaurant r;
 	
-	private List<DishPanel> dishPanels;
+	//private List<DishPanel> dishPanels;
+	private List<DishListPanel> dishListPanels;
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "rawtypes" })
 	public RestaurantMenuPage(int id){
 		this.r = rests.getById(id);
 		
@@ -81,7 +89,7 @@ public class RestaurantMenuPage extends BasePage{
 		lblCantOrder.setVisible(ok2order);
 		add(lblCantOrder);
 		
-		dishPanels = new LinkedList<>();
+		dishListPanels = new LinkedList<>();
 		
 		final List<ListView<Dish>> dishLists = new LinkedList<>();
 		
@@ -93,29 +101,75 @@ public class RestaurantMenuPage extends BasePage{
 			@Override
 			protected void onSubmit() {
 				
+				if (!BaseSession.get().isSignedIn()) {
+					setResponsePage(new LoginPage());
+					return;
+				}
+				
+				HashMap<Dish, Integer> oMap = new HashMap<>();
+				Integer orderId = -1;
+				for(DishListPanel dlp : dishListPanels) {
+					for(DishPanel dp : dlp.getDishPanel()) {
+						int dishCount = dp.getDishCount();
+						Dish dish = dp.getDish();
+						oMap.put(dish, dishCount);
+						System.out.println(dish.getProduct() + ": "+dishCount);
+					}
+				}
+				
+//				try {
+//					orderId = orders.sendOrder(BaseSession.get().getUser(), r, oMap);
+//					if(orderId<0)
+//						System.out.println("orderId" + orderId);
+//					System.out.println("orderId" + orderId);
+//				} catch (CreationDishException e) {
+//					e.printStackTrace();
+//					return;
+//				}
+//				System.out.println("Success");
+				
+				setResponsePage(getPage());
+
+				
 			}
 			
 		};
 		
 		List<Dish> dishes = r.getMenu();
+		Map<String,List<Dish>> map = new HashMap<>();
+		for(Dish d : dishes) {
+			if(map.containsKey(d.getSection())) {
+				map.get(d.getSection()).add(d);
+			} else {
+				List<Dish> l = new LinkedList<>();
+				l.add(d);
+				map.put(d.getSection(), l);
+			}
+		}
 		
-		form.add(createDishList("dishList", dishes));
+		List<List<Dish>> list = new LinkedList<>();
 		
-		//form.add(new Button("orderButton", new ResourceModel("orderButton")));
+		for(List<Dish> l : map.values()) {
+			list.add(l);
+		}
+		
+		form.add(createDishListList("dishListList", list));
+		
+		form.add(new Button("orderButton", new ResourceModel("orderButton")));
 		add(form);
 		
 		
-	}
-
-	private ListView<Dish> createDishList(String id, List<Dish> dishes) {
-		return new ListView<Dish>(id, dishes) {
+	}	
+	
+	private ListView<List<Dish>> createDishListList(String id, List<List<Dish>> dishes) {
+		return new ListView<List<Dish>>(id, dishes) {
 
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected void populateItem(final ListItem<Dish> item) {
-				DishPanel dishPanel = new DishPanel("dishPanel", item);
-				dishPanels.add(dishPanel);
+			protected void populateItem(final ListItem<List<Dish>> item) {
+				DishListPanel dishPanel = new DishListPanel("dishListPanel", item.getModelObject());
+				dishListPanels.add(dishPanel);
 				item.add(dishPanel);
 			}
 		};

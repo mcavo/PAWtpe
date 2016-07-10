@@ -1,73 +1,81 @@
 <html xmlns:wicket="http://wicket.apache.org">
-
 <body>
 	<wicket:extend>
-	<div class="row">
-		<div class="col-md-10 col-md-offset-1">
+		<div class="container">
 			<div class="row">
-				<div>
-					<H3 wicket:id="name"></H3>
-					<h4>
-						<p>
- 								<span class="label label-warning" wicket:id="score"></span>
- 								<label wicket:id="count"></label>
- 								<label><wicket:message key=califications></wicket:message></label>
-						</p>
-						<br> <br>
-					</h4>
-				</div>
-			</div>
-			<div class="col-md-8">
-				<div class="col-md-12">
-					<ul class="nav nav-pills nav-justified">
-						<li class="active"><a wicket:id="menuLink"><wicket:message key="menu"/></a></li>
-						<li><a wicket:id="infoLink"><wicket:message key="info"/></a></li>
-					</ul>
-				</div>
-			</div>
-
-			<div class="col-md-12 sections">
-				<form wicket:id="orderForm" role="form">
-<!-- 					<div wicket:id="sections"> -->
-<!-- 						<div wicket:id="viewSect"> -->
-<!-- 							<label wicket:id="nameSect"></label> -->
-<!-- 						</div> -->
-						<div class="bs-callout bs-callout-info">
-							<div class="form-group" wicket:id="dishes">
-								<div wicket:id="viewDish">
-									<label wicket:id="dishPanel"></label>
-								</div>
-							</div>
+				<div class="col-md-10 col-md-offset-1">
+					<div class="row">
+						<div>
+							<H3 wicket:id="name"></H3>
+							<h4>
+								<p>
+									<span class="label label-warning" wicket:id="score"></span> <label
+										wicket:id="count"></label> <label><wicket:message
+											key=califications></wicket:message></label>
+								</p>
+								<br> <br>
+							</h4>
 						</div>
-<!-- 					</div> -->
-				</form>
-			</div>
-					
-			<div class="col-md-4">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<wicket:message key="myOrder"/> <span class="glyphicon glyphicon-shopping-cart"></span>
 					</div>
-					<div class="panel-body">
-						<div class="cart">
-							<div class="productContainer"></div>
-							<div class="cartresume hide">
-								<div class="subtotal">
-									<br> <br>
-									<div class="col-sm-8"><wicket:message key="subtotal"/>:</div>
-									<div class='col-sm-4' wicket:id="subprice"></div>
-								</div>
-								<div class="costoEnvio">
-									<div class="col-sm-8"><wicket:message key="ship"/>:</div>
-									<div class='col-sm-4' wicket:id="sprice"></div>
-								</div>
-								<div class="total">
-									<br> <br>
-									<div class="col-sm-8">
-										<b><wicket:message key="total"/>:</b>
+					<div class="col-md-8">
+						<div class="col-md-12">
+							<ul class="nav nav-pills nav-justified">
+								<li><a wicket:id="infoLink"><wicket:message key="info" /></a></li>
+								<li class="active"><a wicket:id="menuLink"><wicket:message
+											key="menu" /></a></li>
+							</ul>
+						</div>
+
+
+						<div class="col-md-12 sections">
+							<form wicket:id="orderForm" role="form">
+								<div wicket:id="dishListList">
+									<div wicket:id="dishListPanel">
 									</div>
-									<div class='col-sm-4' wicket:id="tprice">
-										<br> <br>
+								</div>
+								<!-- 
+								<div wicket:id="dishList">
+									<div class="bs-callout bs-callout-info" wicket:id="dishPanel"></div>
+								</div> -->
+								<button type="submit" class="btn btn-info" wicket:id="orderButton"></button>
+							</form>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<wicket:message key="myOrder" />
+								<span class="glyphicon glyphicon-shopping-cart"></span>
+							</div>
+							<div class="panel-body">
+								<div class="cart">
+									<div class="productContainer"></div>
+									<div class="cartresume hide">
+										<div class="subtotal">
+											<br> <br>
+											<div class="col-sm-8">
+												<wicket:message key="subtotal" />
+												:
+											</div>
+											<div class='col-sm-4' wicket:id="subprice"></div>
+										</div>
+										<div class="costoEnvio">
+											<div class="col-sm-8">
+												<wicket:message key="ship" />
+												:
+											</div>
+											<div class='col-sm-4' wicket:id="sprice"></div>
+										</div>
+										<div class="total">
+											<br> <br>
+											<div class="col-sm-8">
+												<b><wicket:message key="total" />:</b>
+											</div>
+											<div class='col-sm-4' wicket:id="tprice">
+												<br> <br>
+											</div>
+											<label wicket:id="lblCantOrder"></label>
+										</div>
 									</div>
 <!-- 									<c:if test="${user != null}"> -->
 <!-- 										<c:if test="${canOrder}">	 -->
