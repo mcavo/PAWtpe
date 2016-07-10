@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.web.authentication;
+package ar.edu.itba.it.paw.web.authentication.password;
 
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.EmailTextField;

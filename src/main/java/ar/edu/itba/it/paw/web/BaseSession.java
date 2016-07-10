@@ -4,10 +4,12 @@ import org.apache.wicket.Session;
 import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.request.Request;
 
+import ar.edu.itba.it.paw.domain.users.Credential;
 import ar.edu.itba.it.paw.domain.users.CredentialRepositoryType;
 import ar.edu.itba.it.paw.domain.users.User;
 import ar.edu.itba.it.paw.domain.users.UserRepositoryType;
 import ar.edu.itba.it.paw.exceptions.CredentialNoMatchException;
+import ar.edu.itba.it.paw.services.AuthenticationService;
 
 public class BaseSession extends WebSession {
 
@@ -29,12 +31,16 @@ public class BaseSession extends WebSession {
 		return user;
 	}
 
-	public boolean signIn(String username, String password, CredentialRepositoryType credentials, UserRepositoryType users) {
+	public boolean[] signIn(String username, String password, CredentialRepositoryType credentials, UserRepositoryType users) {
 		try {
-			this.user = users.getUser(credentials.getCredentials(username, password));
-			return true;
+			Credential credential = credentials.getCredentials(username, password);
+			this.user = users.getUser(credential);
+			boolean changePassword = AuthenticationService.getInstance().userNeedsUpdatePassword(credential);
+			boolean[] ans = {true, changePassword};
+			return ans;
 		} catch(CredentialNoMatchException e) {
-			return false;
+			boolean[] ans = {false, false};
+			return ans;
 		}
 	}
 	

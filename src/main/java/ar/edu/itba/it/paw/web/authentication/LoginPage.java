@@ -16,14 +16,12 @@ import ar.edu.itba.it.paw.domain.users.User;
 import ar.edu.itba.it.paw.domain.users.UserRepositoryType;
 import ar.edu.itba.it.paw.web.BaseSession;
 import ar.edu.itba.it.paw.web.HomePage;
+import ar.edu.itba.it.paw.web.authentication.password.RecoverPasswordPage;
+import ar.edu.itba.it.paw.web.authentication.password.UpdatePasswordPage;
 import ar.edu.itba.it.paw.web.base.BasePage;
 
+@SuppressWarnings("serial")
 public class LoginPage extends BasePage {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	@SpringBean
 	public CredentialRepositoryType credentials;
@@ -38,15 +36,16 @@ public class LoginPage extends BasePage {
 		
 		Form<LoginPage> form = new Form<LoginPage>("loginForm", new CompoundPropertyModel<LoginPage>(this)) {
 
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			protected void onSubmit() {
 				BaseSession session = BaseSession.get();
-				if (session.signIn(email, password, credentials, users)) {
-					System.out.println("Logged");
+				boolean[] sessionAns = session.signIn(email, password, credentials, users); 
+				if (sessionAns[0]) {
+					if (sessionAns[1]) {
+						setResponsePage(UpdatePasswordPage.class);
+						return;
+					}
 					if (!continueToOriginalDestination()) {
-						System.out.println("No logra cargar la página principal");
 						setResponsePage(HomePage.class);
 					}
 				} else {

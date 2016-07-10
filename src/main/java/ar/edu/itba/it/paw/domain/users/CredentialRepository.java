@@ -72,7 +72,7 @@ public class CredentialRepository extends AbstractHibernateRepository implements
 	
 	public void setPwd(String pwd, int id){
 		Credential c = get(id);
-		c.setPsw(pwd);
+		c.updatePassword(pwd);
 		update(c);
 	}
 	

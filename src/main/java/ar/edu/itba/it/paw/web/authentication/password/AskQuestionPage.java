@@ -1,4 +1,4 @@
-package ar.edu.itba.it.paw.web.authentication;
+package ar.edu.itba.it.paw.web.authentication.password;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -18,6 +18,7 @@ import ar.edu.itba.it.paw.domain.users.User;
 import ar.edu.itba.it.paw.web.HomePage;
 import ar.edu.itba.it.paw.web.base.BasePage;
 
+@SuppressWarnings("serial")
 public class AskQuestionPage extends BasePage {
 
 	@SpringBean private CredentialRepositoryType credentials;
@@ -27,6 +28,7 @@ public class AskQuestionPage extends BasePage {
 	private String confirmation;
 	
 	public AskQuestionPage(final User user) {
+		
 		Form<AskQuestionPage> form = new Form<AskQuestionPage>(
 				"askQuestionForm", new CompoundPropertyModel<AskQuestionPage>(this)) {
 
@@ -58,12 +60,10 @@ public class AskQuestionPage extends BasePage {
 		form.add(cpasswordt);
 		form.add(new EqualPasswordInputValidator(passwordt, cpasswordt));
 		
-		form.add(new TextField("answer"));
+		form.add(new TextField<String>("answer"));
 		
 		form.add(new FeedbackPanel("feedback"));
 		form.add(new Button("send", new ResourceModel("send")));
 		add(form);
-
-		
 	}
 }

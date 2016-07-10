@@ -1,6 +1,7 @@
 package ar.edu.itba.it.paw.domain.users;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -54,6 +55,9 @@ public class User implements UserPermissions, Serializable {
 	
 	@Column(name="respuesta")
 	private String answer;
+	
+	@Column(name = "lastconnection")
+	private Date lastConnection;
 
 	public User(){}
 
@@ -150,4 +154,13 @@ public class User implements UserPermissions, Serializable {
 		StringService.validateMaximumLength(answer, 100);
 		this.answer = answer;
 	}
+	
+	public Date getLastConnection() {
+		return lastConnection;
+	}
+	
+	public void setLastConnection(Date lastConnection) {
+		this.lastConnection = lastConnection;
+	}
+	
 }

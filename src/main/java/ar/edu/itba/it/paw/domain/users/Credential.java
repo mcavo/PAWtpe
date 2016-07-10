@@ -1,6 +1,8 @@
 package ar.edu.itba.it.paw.domain.users;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,8 @@ import javax.persistence.Table;
 
 import ar.edu.itba.it.paw.domain.common.PersistentEntity;
 import ar.edu.itba.it.paw.services.StringService;
+
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "credencial")
 public class Credential extends PersistentEntity implements Serializable {
@@ -20,6 +24,9 @@ public class Credential extends PersistentEntity implements Serializable {
 	
 	@Column(name = "psw")
 	private String psw;
+	
+	@Column(name = "lastpassupdate")
+	private Date lastPassUpdate;
 	
 	Credential() {
 		
@@ -96,5 +103,22 @@ public class Credential extends PersistentEntity implements Serializable {
 		if (!(rol.equals("usuario") || rol.equals("manager") || rol.equals("admin"))) {
 			throw new IllegalArgumentException("invalid rol exception");
 		}
+	}
+	
+	public Date getLastPassUpdate() {
+		return lastPassUpdate;
+	}
+	
+	public void setLastPassUpdate(Date lastPassUpdate) {
+		this.lastPassUpdate = lastPassUpdate;
+	}
+	
+	public boolean updatePassword(String password) {
+		if (password.equals(psw)) {
+			return false;
+		}
+		setPsw(password);
+		setLastPassUpdate(new Date());
+		return true;
 	}
 }
