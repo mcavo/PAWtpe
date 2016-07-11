@@ -1,7 +1,9 @@
 package ar.edu.itba.it.paw.domain.users;
 
+import java.util.LinkedList;
 import java.util.List;
 
+import ar.edu.itba.it.paw.domain.report.CardReport;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.exceptions.DuplicateDishException;
 import ar.edu.itba.it.paw.exceptions.InvalidPriceException;
@@ -16,4 +18,5 @@ public interface ManagerRepositoryType {
 	public boolean existsDish(String dish);
 	public List<Credential> getManagersAvailables() throws NoManagersAvailableException;
 	public void setManager(User manager);
+	public LinkedList<CardReport> getReport(User manager);
 }
