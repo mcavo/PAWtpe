@@ -31,6 +31,7 @@ CREATE TABLE credencial (
 	mail VARCHAR(40) NOT NULL,
 	psw VARCHAR(16) NOT NULL,
 	rol VARCHAR(20) NOT NULL,
+	lastpassupdate TIMESTAMP,
 	PRIMARY KEY(id),
 	UNIQUE(mail)
 );
@@ -43,6 +44,8 @@ CREATE TABLE usuario (
 	dirid INTEGER NOT NULL,
 	pregid INTEGER,
 	respuesta VARCHAR(100),
+	lastconnection TIMESTAMP,
+	blocked BOOLEAN,
 	PRIMARY KEY(userid),
 	FOREIGN KEY(userid) REFERENCES credencial(id) ON DELETE CASCADE,
 	FOREIGN KEY(dirid) REFERENCES direccion(id) ON DELETE CASCADE,	
