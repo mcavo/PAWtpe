@@ -16,4 +16,5 @@ public interface RestaurantRepositoryType {
 	public boolean userCanOrder(User user, Restaurant rest);
 	public List<Restaurant> getLastWeekAdded();
 	public List<Restaurant> getNewRestaurantsFromLastSession(User user);
+
 }

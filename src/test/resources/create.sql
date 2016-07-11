@@ -138,5 +138,15 @@ CREATE TABLE gerente (
 	restid INT NOT NULL,
 	PRIMARY KEY(userid),
 	FOREIGN KEY(userid) REFERENCES usuario(userid) ON DELETE CASCADE,
-	FOREIGN KEY(restid) REFERENCES restaurante(id) ON DELETE CASCADE,
-}
+	FOREIGN KEY(restid) REFERENCES restaurante(id) ON DELETE CASCADE
+);
+
+CREATE TABLE periodoClausura (
+	id SERIAL NOT NULL,
+	restid INT NOT NULL,
+	desde DATE NOT NULL,
+	hasta DATE NOT NULL,
+	razon VARCHAR(500) NOT NULL,
+	PRIMARY KEY(id), 
+	FOREIGN KEY(restid) REFERENCES restaurante(id) ON DELETE CASCADE
+);

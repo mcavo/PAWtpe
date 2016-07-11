@@ -47,7 +47,7 @@ public class RestaurantRepository extends AbstractHibernateRepository implements
 	public List<Restaurant> getLastWeekAdded() {
 		return find("FROM Restaurant WHERE CURRENT_DATE - DATE(regis) <= 7 ORDER BY name ASC");
 	}
-
+	
 	public List<Restaurant> getAll() {
 		return find("FROM Restaurant order by name asc");
 	}
