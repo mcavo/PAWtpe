@@ -74,10 +74,9 @@ public class RestaurantRepository extends AbstractHibernateRepository implements
 	@Override
 	public List<Restaurant> getNewRestaurantsFromLastSession(User user) {
 		if (user.getLastConnection() == null) {
-			return getAll();
+			return find("FROM Restaurant r WHERE (Select u.address.neighborhood from User u where u.id = ?) in elements(r.deliveryneigh) ORDER BY name ASC", user.getLastConnection(), user.getId());
 		}
-		List<Restaurant> l = find("FROM Restaurant r WHERE DATE(r.regis) <= ? and  (Select u.address.neighborhood from User u where u.id = ?) in elements(r.deliveryneigh) ORDER BY name ASC", user.getLastConnection(), user.getId()); 
-		return l;
+		return find("FROM Restaurant r WHERE DATE(r.regis) <= ? and  (Select u.address.neighborhood from User u where u.id = ?) in elements(r.deliveryneigh) ORDER BY name ASC", user.getLastConnection(), user.getId());
 	}
 	
 }
