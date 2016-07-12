@@ -71,7 +71,7 @@ public class ProfilePage extends BasePage {
 		email = loggedUser.getEmail();
 		birth = loggedUser.getBirth();
 		day = DateService.getDayOfMonth(loggedUser.getBirth());
-		month = DateService.getMonth(loggedUser.getBirth());
+		month = DateService.getMonth(loggedUser.getBirth())+1;
 		year = DateService.getYear(loggedUser.getBirth());
 		address = loggedUser.getAddress();
 		street = loggedUser.getAddress().getStreet();
