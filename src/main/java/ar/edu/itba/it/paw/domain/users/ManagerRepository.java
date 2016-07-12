@@ -16,6 +16,7 @@ import ar.edu.itba.it.paw.domain.report.AdminCard;
 import ar.edu.itba.it.paw.domain.report.Card;
 import ar.edu.itba.it.paw.domain.report.CardReport;
 import ar.edu.itba.it.paw.domain.restaurant.Dish;
+import ar.edu.itba.it.paw.domain.restaurant.Order;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.exceptions.DuplicateDishException;
 import ar.edu.itba.it.paw.exceptions.InvalidPriceException;
@@ -139,39 +140,20 @@ public class ManagerRepository extends AbstractHibernateRepository implements Ma
 	    }
 	    return details;
 	}
-
+	
 	@Override
 	public List<AdminCard> getAdminReport(Date from, Date to) {
 		List<AdminCard> report = new LinkedList<AdminCard>();
-		Session session=null;
-	    try 
-	    {
-		    Session sessionSQL = super.getSession();
-		    SQLQuery query = null;
-	    	query = (SQLQuery) sessionSQL.createSQLQuery("select r.id, r.nombre, COUNT(*) from restaurante r, pedido o where o.restid = r.id and horario >= ? and horario <= ? group by r.id");
-	    	query.setParameter(0, from);
-	    	query.setParameter(1, to);
-	    	
-		    List<Object[]> rows = query.list();
-		    for (Object[] row: rows) {
-		    	//System.out.printf("cant: %d", (int) row[2]);
-		    	//System.out.println();
-		    	
-		    	report.add(new AdminCard(String.valueOf(row[1]), Integer.valueOf(String.valueOf(row[2]))));
-		    }
-	    }
-	    catch(Exception e)
-	    {
-	    	e.printStackTrace();
-	    }
-	    finally
-	    {
-	        if(session !=null && session.isOpen())
-	        {
-	          session.close();
-	          session=null;
-	        }
-	    }
+		List<Restaurant> rests = find("from Restaurant");
+		List<Order> orders = new LinkedList<Order>();
+		for (Restaurant r : rests) {
+			orders = find("from Order o where o.time >= ? and o.time <= ? and o.rest = ?", from, to, r);
+			if(orders.size() > 0){
+				report.add(new AdminCard(r.getName(), orders.size()));
+			}
+		}
 	    return report;
 	}
+
+	
 }

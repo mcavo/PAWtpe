@@ -1,18 +1,14 @@
 <html xmlns:wicket="http://wicket.apache.org">
-	<body>
-		<wicket:panel>
-				<div wicket:id="cards">
-					<div  class="row">
-						<a href="#" wicket:id="viewReport">
-							<label wicket:id="lblNeighbourhood">
-		<!-- 						<label><wicket:message key="neighbourhood"/></label> -->
-							</label>
-						</a>
-						<Label wicket:id="lblAmount">
-	<!-- 						<label><wicket:message key="amount"/></label> -->
-						</Label>
-					</div>
-				</div>
-	 	</wicket:panel>
-	</body>
+<body>
+	<wicket:panel>
+		<div wicket:id="cards">
+			<div class="bs-callout bs-callout-info">
+				<a href="#" wicket:id="viewReport">
+					<h4 wicket:id="lblNeighbourhood"></h4>
+				</a>
+				<p wicket:id="lblAmount"></p>
+			</div>
+		</div>
+	</wicket:panel>
+</body>
 </html>

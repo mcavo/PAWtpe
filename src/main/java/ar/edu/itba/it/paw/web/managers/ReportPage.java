@@ -15,18 +15,15 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.RangeValidator;
 
-import ar.edu.itba.it.paw.domain.report.Card;
 import ar.edu.itba.it.paw.domain.report.CardReport;
 import ar.edu.itba.it.paw.domain.restaurant.OrderRepositoryType;
 import ar.edu.itba.it.paw.domain.users.ManagerRepositoryType;
 import ar.edu.itba.it.paw.services.DateService;
 import ar.edu.itba.it.paw.web.BaseSession;
 import ar.edu.itba.it.paw.web.base.BasePage;
-import ar.edu.itba.it.paw.web.restaurant.RestaurantListPage;
 
 public class ReportPage extends BasePage{
 
@@ -62,6 +59,9 @@ public class ReportPage extends BasePage{
 	
 	private void initialize(){
 		Form<ReportPage> form = new Form<ReportPage>("filterDateForm", new CompoundPropertyModel<ReportPage>(this)) {
+
+			private static final long serialVersionUID = 1L;
+
 			@Override
 			protected void onSubmit() {
 				if (!DateService.validateBirth(from_year, from_month, from_day)) {
@@ -128,6 +128,7 @@ public class ReportPage extends BasePage{
 			};
 
 		};
+		
 		listview.setVisible(showAll);
 		add(listview);
 	}

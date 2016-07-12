@@ -19,6 +19,8 @@ import ar.edu.itba.it.paw.domain.report.CardReport;
 
 public class CardPanel extends Panel{
 
+	private static final long serialVersionUID = 1L;
+
 	public CardPanel(String id, CardReport report) {
 		super(id);
 		final IModel<List<Card>> cardModel = new LoadableDetachableModel<List<Card>>() {
@@ -26,9 +28,6 @@ public class CardPanel extends Panel{
 			
 			@Override
 			protected List<Card> load() {
-//				List<Card> cards = new LinkedList<Card>();
-//				cards = report.getCards();				
-//				return cards;
 				return report.getCards();
 			}
 		};
@@ -45,17 +44,14 @@ public class CardPanel extends Panel{
 
 					@Override
 					public void onClick() {
-//						Restaurant r = report.getRest();
-//						Neighborhood n = item.getModelObject().getNeighbourhood();
-//						setResponsePage(new RestaurantReportPage(r.getId(), n.getId(), report.getFrom(), report.getTo()));
 						setResponsePage(new RestaurantReportPage(report.getRest(), item.getModelObject().getNeighbourhood(), report.getFrom(), report.getTo()));
 					}
 
 				};
-				//reportLink.add(new Label("neighbourhood", item.getModelObject().getNeighbourhood().getName()));
+
 				reportLink.add(new Label("lblNeighbourhood", new StringResourceModel("neighbourhood", this, new Model<Neighborhood>(item.getModelObject().getNeighbourhood()))));
 				item.add(reportLink);
-				//item.add(new Label("amount", String.valueOf(item.getModelObject().getCant())));
+
 				item.add(new Label("lblAmount", new StringResourceModel("amount", this, new Model<String>(String.valueOf(item.getModelObject().getCant())))));
 			}
 		};

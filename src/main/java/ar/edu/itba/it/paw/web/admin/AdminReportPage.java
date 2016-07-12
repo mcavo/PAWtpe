@@ -1,11 +1,12 @@
 package ar.edu.itba.it.paw.web.admin;
 
-import org.apache.wicket.markup.html.form.Button;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -17,14 +18,16 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.RangeValidator;
+import org.joda.time.LocalDate;
 
 import ar.edu.itba.it.paw.domain.report.AdminCard;
 import ar.edu.itba.it.paw.domain.users.ManagerRepositoryType;
 import ar.edu.itba.it.paw.services.DateService;
 import ar.edu.itba.it.paw.web.base.BasePage;
-import ar.edu.itba.it.paw.web.managers.ReportPage;
 
 public class AdminReportPage extends BasePage{
+
+	private static final long serialVersionUID = 1L;
 
 	@SpringBean
 	private ManagerRepositoryType managerRepo;
@@ -66,6 +69,12 @@ public class AdminReportPage extends BasePage{
 				
 				from = DateService.date(from_year, from_month, from_day);
 				to = DateService.date(to_year, to_month, to_day);
+				
+				if((new LocalDate(to)).isBefore(new LocalDate(from))) {
+					error(getString("invalid_range"));
+					return;
+				}
+			
 				setResponsePage(new AdminReportPage(from,to));
 			}
 		};
@@ -120,5 +129,13 @@ public class AdminReportPage extends BasePage{
 		};
 		listview.setVisible(showAll);
 		add(listview);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		String range = "";
+		if(to!=null && from!=null) {
+			range = sdf.format(from) + " - " + sdf.format(to);
+		}
+		add(new Label("range", range).setVisible(to!=null && from!=null));
+		
 	}
 }
