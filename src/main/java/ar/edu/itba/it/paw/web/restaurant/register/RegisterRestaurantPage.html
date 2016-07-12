@@ -1,189 +1,42 @@
+<html xmlns:wicket="http://wicket.apache.org">
+<body>
 
-
-<wicket:extend>
-	<body>
-		<div class="col-md-10 col-md-offset-1">
-			<form data-toggle="validator" wicket:id="registerRestaurantForm">
-				<div wicket:id="feedback" class="formErrors" id="errorMessages" />
-				<div class="row">
-					<div class="col-md-6">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h3 class="panel-title">
-									<wicket:message key="regusterRestaurant.basicInformation" />
-								</h3>
-							</div>
-							<div class="panel-body">
-								<div class="form-group">
-									<input type="text" class="form-control" wicket:id="name" />
-								</div>
-								<div class="form-group">
-									<label class="control-label"><wicket:message
-											key="regusterRestaurant.description" /></label>
-									<textarea class="form-control" rows="4" wicket:id="description"></textarea>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-6">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h3 class="panel-title">
-									<wicket:message key="regusterRestaurant.foodTypes" />
-								</h3>
-							</div>
-							<div class="panel-body">
-								<select wicket:id="foodTypes" class="form-control"></select>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h3 class="panel-title">
-								<wicket:message key="registerRestaurant.address.title" />
-							</h3>
-						</div>
-						<div class="panel-body">
-							<div class="row">
-								<div class="col-md-4">
-									<div class="form-group has-feedback">
-										<label class="control-label col-sm-2 "><wicket:message
-												key="registerRestaurant.street.label" />:</label>
-										<div class="col-sm-10">
-											<input class="form-control" wicket:id="street"></input>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-3">
-									<div class="form-group has-feedback">
-										<label class="control-label col-sm-4"><wicket:message
-												key="registerRestaurant.number.label" />:</label>
-										<div class="col-sm-8">
-											<input class="form-control" wicket:id="number"></input>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-2">
-									<div class="form-group has-feedback">
-										<label class="control-label col-sm-3"><wicket:message
-												key="registerRestaurant.floor.label" />:</label>
-										<div class="col-sm-9">
-											<input class="form-control" wicket:id="floor"></input>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-3">
-									<div class="form-group has-feedback">
-										<label class="control-label col-sm-3"><wicket:message
-												key="registerRestaurant.apartment.label" />:</label>
-										<div class="col-sm-9">
-											<input class="form-control" wicket:id="apartment"></input>
-										</div>
-									</div>
-								</div>
-							</div>
-							<br />
-							<div class="row">
-								<div class="col-md-4">
-									<div class="form-group has-feedback">
-										<label class="control-label col-sm-4"><wicket:message
-												key="registerRestaurant.neighborhood.label" />:</label>
-										<div class="col-sm-8">
-											<select class="form-control" wicket:id="neighborhood"></select>
-										</div>
-
-									</div>
-								</div>
-								<div class="col-md-4">
-									<div class="form-group has-feedback">
-										<label class="control-label col-sm-4"><wicket:message
-												key="registerRestaurant.province.label" /></label>
-										<div class="col-sm-8">
-											<input class="form-control" wicket:id="province"></input>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-4">
-									<div class="form-group has-feedback">
-										<label class="control-label col-sm-4"><wicket:message
-												key="registerRestaurant.city.label" />:</label>
-										<div class="col-sm-8">
-											<input class="form-control" wicket:id="city"></input>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<br />
+	<wicket:extend>
+		<div class="container">
+			<div class="col-md-10 col-md-offset-1">
+				<form data-toggle="validator" wicket:id="registerRestaurantForm">
+					<div wicket:id="feedback" class="formErrors" id="errorMessages" ></div>
 					<div class="row">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h3 class="panel-title">
-									<wicket:message key="registerRestaurant.time.title" />
-								</h3>
-							</div>
-							<div class="panel-body">
-								<div class="form-group col-md-6">
-									<label class="control-label col-md-4"><wicket:message
-											key="registerRestaurant.openTime.label" />:</label>
-									<div class="form-group col-md-8">
-										<div class="form-group col-md-4">
-											<input type="number" class="form-control"
-												wicket:id="openTimeHour"></input>
-										</div>
-										<div class="form-group col-md-4">
-											<label for="inputFrom" class="control-label">:</label>
-										</div>
-										<div class="form-group col-md-4">
-											<input type="number" class="form-control"
-											wicket:id="openTimeMinutes"></input>
-										</div>
+						<div class="col-md-6">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h3 class="panel-title">
+										<wicket:message key="regusterRestaurant.basicInformation" />
+									</h3>
+								</div>
+								<div class="panel-body">
+									<div class="form-group">
+										<input type="text" class="form-control" wicket:id="name" />
+									</div>
+									<div class="form-group">
+										<label class="control-label"><wicket:message
+												key="regusterRestaurant.description" /></label>
+										<textarea class="form-control" rows="4"
+											wicket:id="description"></textarea>
 									</div>
 								</div>
-								<div class="form-group col-md-6">
-									<label for="inputTo" class="control-label col-md-4"><wicket:message
-											key="registerRestaurant.closeTime.label" />:</label>
-									<div class="form-group col-md-8">
-										<div class="form-group col-md-4">
-											<input type="number" class="form-control"
-												wicket:id="closeTimeHour"></input>
-										</div>
-										<div class="form-group col-md-4">
-											<label for="inputFrom" class="control-label">:</label>
-										</div>
-										<div class="form-group col-md-4">
-											<input type="number" class="form-control"
-											wicket:id="closeTimeMinutes"></input>
-										</div>
-									</div>
-								</div>
-								<div class="help-block with-errors"></div>
 							</div>
 						</div>
-					</div>
-					<br />
-					<div class="row">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<h3 class="panel-title">
-									<wicket:message key="registerRestaurant.shopInformation.title" />
-								</h3>
-							</div>
-							<div class="panel-body">
-								<div class="form-group col-md-6">
-									<label for="inputFrom" class="control-label col-md-4"><wicket:message
-											key="registerRestaurant.minAmount.label" />:</label>
-									<div class="input-group form-group col-md-6 col-md-offset-1">
-										<span class="input-group-addon">$</span> <input type="number"
-											class="form-control"
-											aria-label="Amount (to the nearest dollar)"
-											wicket:id="minAmount" /> <span class="input-group-addon">.00</span>
-									</div>
+						<div class="col-md-6">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h3 class="panel-title">
+										<wicket:message key="regusterRestaurant.foodTypes" />
+									</h3>
 								</div>
-								<div class="help-block with-errors"></div>
+								<div class="panel-body">
+									<select wicket:id="foodTypes" class="form-control"></select>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -191,71 +44,222 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h3 class="panel-title">
-									<wicket:message
-										key="registerRestaurant.deliveryInformaiton.title" />
+									<wicket:message key="registerRestaurant.address.title" />
 								</h3>
 							</div>
 							<div class="panel-body">
-								<div class="form-group col-md-6">
-									<label for="inputFrom" class="control-label col-md-4"><wicket:message
-											key="registerRestaurant.deliveryOpen.label" />:</label>
-									<div class="form-group col-md-8">
-										<div class="form-group col-md-4">
-											<input type="number" class="form-control"
-												wicket:id="deliveryOpenHour"></input>
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group has-feedback">
+											<label class="control-label col-sm-2 "><wicket:message
+													key="registerRestaurant.street.label" />:</label>
+											<div class="col-sm-10">
+												<input class="form-control" wicket:id="street"></input>
+											</div>
 										</div>
-										<div class="form-group col-md-4">
-											<label for="inputFrom" class="control-label">:</label>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group has-feedback">
+											<label class="control-label col-sm-4"><wicket:message
+													key="registerRestaurant.number.label" />:</label>
+											<div class="col-sm-8">
+												<input class="form-control" wicket:id="number"></input>
+											</div>
 										</div>
-										<div class="form-group col-md-4">
-											<input type="number" class="form-control"
-											wicket:id="deliveryOpenMinutes"></input>
+									</div>
+									<div class="col-md-2">
+										<div class="form-group has-feedback">
+											<label class="control-label col-sm-3"><wicket:message
+													key="registerRestaurant.floor.label" />:</label>
+											<div class="col-sm-9">
+												<input class="form-control" wicket:id="floor"></input>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group has-feedback">
+											<label class="control-label col-sm-3"><wicket:message
+													key="registerRestaurant.apartment.label" />:</label>
+											<div class="col-sm-9">
+												<input class="form-control" wicket:id="apartment"></input>
+											</div>
 										</div>
 									</div>
 								</div>
-								<div class="form-group col-md-6">
-									<label for="inputTo" class="control-label col-md-4"><wicket:message
-											key="registerRestaurant.deliveryClose.label" />:</label>
-									<div class="form-group col-md-8">
-										<div class="form-group col-md-4">
-											<input type="number" class="form-control"
-												wicket:id="deliveryCloseHour"></input>
+								<br />
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group has-feedback">
+											<label class="control-label col-sm-4"><wicket:message
+													key="registerRestaurant.neighborhood.label" />:</label>
+											<div class="col-sm-8">
+												<select class="form-control" wicket:id="neighborhood"></select>
+											</div>
+
 										</div>
-										<div class="form-group col-md-4">
-											<label for="inputFrom" class="control-label">:</label>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group has-feedback">
+											<label class="control-label col-sm-4"><wicket:message
+													key="registerRestaurant.province.label" /></label>
+											<div class="col-sm-8">
+												<input class="form-control" wicket:id="province"></input>
+											</div>
 										</div>
-										<div class="form-group col-md-4">
-											<input type="number" class="form-control"
-											wicket:id="deliveryCloseMinutes"></input>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group has-feedback">
+											<label class="control-label col-sm-4"><wicket:message
+													key="registerRestaurant.city.label" />:</label>
+											<div class="col-sm-8">
+												<input class="form-control" wicket:id="city"></input>
+											</div>
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
-									<div class="col-sm-8">
-										<select class="form-control" wicket:id="neighborhoodDelivered"></select>
-									</div>
+							</div>
+						</div>
+						<br />
+						<div class="row">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h3 class="panel-title">
+										<wicket:message key="registerRestaurant.time.title" />
+									</h3>
 								</div>
-								<div class="form-group form-group col-md-6">
-									<label class="control-label col-md-4"><wicket:message
-											key="registerRestaurant.deliveryPrice.label" />:</label>
-									<div class="input-group form-group col-md-6 col-md-offset-1">
-										<span class="input-group-addon">$</span> <input type="number"
-											class="form-control"
-											aria-label="Amount (to the nearest dollar)"
-											wicket:id="deliveryCost" /> <span class="input-group-addon">.00</span>
+								<div class="panel-body">
+									<div class="form-group col-md-6">
+										<label class="control-label col-md-4"><wicket:message
+												key="registerRestaurant.openTime.label" />:</label>
+										<div class="form-group col-md-8">
+											<div class="form-group col-md-4">
+												<input type="number" class="form-control"
+													wicket:id="openTimeHour"></input>
+											</div>
+											<div class="form-group col-md-4">
+												<label for="inputFrom" class="control-label">:</label>
+											</div>
+											<div class="form-group col-md-4">
+												<input type="number" class="form-control"
+													wicket:id="openTimeMinutes"></input>
+											</div>
+										</div>
 									</div>
+									<div class="form-group col-md-6">
+										<label for="inputTo" class="control-label col-md-4"><wicket:message
+												key="registerRestaurant.closeTime.label" />:</label>
+										<div class="form-group col-md-8">
+											<div class="form-group col-md-4">
+												<input type="number" class="form-control"
+													wicket:id="closeTimeHour"></input>
+											</div>
+											<div class="form-group col-md-4">
+												<label for="inputFrom" class="control-label">:</label>
+											</div>
+											<div class="form-group col-md-4">
+												<input type="number" class="form-control"
+													wicket:id="closeTimeMinutes"></input>
+											</div>
+										</div>
+									</div>
+									<div class="help-block with-errors"></div>
 								</div>
-								<div class="help-block with-errors"></div>
+							</div>
+						</div>
+						<br />
+						<div class="row">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h3 class="panel-title">
+										<wicket:message key="registerRestaurant.shopInformation.title" />
+									</h3>
+								</div>
+								<div class="panel-body">
+									<div class="form-group col-md-6">
+										<label for="inputFrom" class="control-label col-md-4"><wicket:message
+												key="registerRestaurant.minAmount.label" />:</label>
+										<div class="input-group form-group col-md-6 col-md-offset-1">
+											<span class="input-group-addon">$</span> <input type="number"
+												class="form-control"
+												aria-label="Amount (to the nearest dollar)"
+												wicket:id="minAmount" /> <span class="input-group-addon">.00</span>
+										</div>
+									</div>
+									<div class="help-block with-errors"></div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h3 class="panel-title">
+										<wicket:message
+											key="registerRestaurant.deliveryInformaiton.title" />
+									</h3>
+								</div>
+								<div class="panel-body">
+									<div class="form-group col-md-6">
+										<label for="inputFrom" class="control-label col-md-4"><wicket:message
+												key="registerRestaurant.deliveryOpen.label" />:</label>
+										<div class="form-group col-md-8">
+											<div class="form-group col-md-4">
+												<input type="number" class="form-control"
+													wicket:id="deliveryOpenHour"></input>
+											</div>
+											<div class="form-group col-md-4">
+												<label for="inputFrom" class="control-label">:</label>
+											</div>
+											<div class="form-group col-md-4">
+												<input type="number" class="form-control"
+													wicket:id="deliveryOpenMinutes"></input>
+											</div>
+										</div>
+									</div>
+									<div class="form-group col-md-6">
+										<label for="inputTo" class="control-label col-md-4"><wicket:message
+												key="registerRestaurant.deliveryClose.label" />:</label>
+										<div class="form-group col-md-8">
+											<div class="form-group col-md-4">
+												<input type="number" class="form-control"
+													wicket:id="deliveryCloseHour"></input>
+											</div>
+											<div class="form-group col-md-4">
+												<label for="inputFrom" class="control-label">:</label>
+											</div>
+											<div class="form-group col-md-4">
+												<input type="number" class="form-control"
+													wicket:id="deliveryCloseMinutes"></input>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="col-sm-8">
+											<select class="form-control"
+												wicket:id="neighborhoodDelivered"></select>
+										</div>
+									</div>
+									<div class="form-group form-group col-md-6">
+										<label class="control-label col-md-4"><wicket:message
+												key="registerRestaurant.deliveryPrice.label" />:</label>
+										<div class="input-group form-group col-md-6 col-md-offset-1">
+											<span class="input-group-addon">$</span> <input type="number"
+												class="form-control"
+												aria-label="Amount (to the nearest dollar)"
+												wicket:id="deliveryCost" /> <span class="input-group-addon">.00</span>
+										</div>
+									</div>
+									<div class="help-block with-errors"></div>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="form-group">
-					<!-- 			<form:errors path="*" /> -->
-					<input type="submit" class="btn btn-primary" wicket:id="create" />
-				</div>
-			</form>
+					<div class="form-group">
+						<!-- 			<form:errors path="*" /> -->
+						<input type="submit" class="btn btn-primary" wicket:id="create" />
+					</div>
+				</form>
+			</div>
 		</div>
-	</body>
-</wicket:extend>
-
+	</wicket:extend>
+</body>
+</html>

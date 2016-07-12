@@ -37,6 +37,7 @@ public class UpdatePasswordPage extends BasePage {
 			protected void onSubmit() {
 				if (newPassword.equals(oldPassword)) {
 					error(getString("updatePassword.equalsPassword"));
+					return;
 				}
 
 				try {
