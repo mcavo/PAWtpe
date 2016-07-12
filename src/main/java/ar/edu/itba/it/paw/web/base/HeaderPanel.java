@@ -36,6 +36,7 @@ public class HeaderPanel extends Panel {
 		super(id);
 		initialize();
 		boolean isSignIn = BaseSession.get().isSignedIn();
+		
 		Link logoutLink = new Link("logoutLink") {
 
 			@Override
