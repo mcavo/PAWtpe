@@ -28,7 +28,6 @@ public class DateService {
 
 	public static Date date(int year, int month, int day) {
 		Calendar date = new GregorianCalendar(year, month - 1, day);
-	    System.out.println(date.getTime());
 	    return date.getTime();
 	}
 

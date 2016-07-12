@@ -1,0 +1,70 @@
+<html xmlns:wicket="http://wicket.apache.org">
+
+<body>
+	<wicket:extend>
+	<div class="col-md-8 col-md-offset-2">
+		<div class="title">
+			<h3><wicket:message key="reports"/></h3>
+		</div>
+		<form wicket:id="filterDateForm" data-toggle="validator" role="form" class="form-horizontal">
+			<div wicket:id="feedback" class="formErrors" id="errorMessages" />
+			<div class="row">	
+				<label class="control-label col-sm-3">
+					<wicket:message key="from"></wicket:message>:
+				</label>
+		
+				<div class="form-group has-feedback col-sm-3">
+					<div class="col-sm-10 col-sm-offset-1">
+						<input class="form-control" wicket:id="from_day" wicket:message="placeholder:day_placeholder"></input>
+					</div>
+				</div>
+				<div class="form-group has-feedback col-sm-3">
+					<div class="col-sm-10 col-sm-offset-1">
+						<input class="form-control" wicket:id="from_month" wicket:message="placeholder:month_placeholder"></input>
+					</div>
+				</div>
+				<div class="form-group has-feedback col-sm-3">
+					<div class="col-sm-10 col-sm-offset-1">
+						<input class="form-control" wicket:id="from_year" wicket:message="placeholder:year_placeholder"></input>
+<!-- 						<input class="form-control" wicket:id="from_year"></input> -->
+					</div>
+					<div class="help-block with-errors"></div>
+				</div>
+			</div>
+					<div class="row">	
+				<label class="control-label col-sm-3">
+					<wicket:message key="to"></wicket:message>:
+				</label>
+		
+				<div class="form-group has-feedback col-sm-3">
+					<div class="col-sm-10 col-sm-offset-1">
+						<input class="form-control" wicket:id="to_day" wicket:message="placeholder:day_placeholder"></input>
+					</div>
+				</div>
+				<div class="form-group has-feedback col-sm-3">
+					<div class="col-sm-10 col-sm-offset-1">
+						<input class="form-control" wicket:id="to_month" wicket:message="placeholder:month_placeholder"></input>
+					</div>
+				</div>
+				<div class="form-group has-feedback col-sm-3">
+					<div class="col-sm-10 col-sm-offset-1">
+						<input class="form-control" wicket:id="to_year" wicket:message="placeholder:year_placeholder"></input>
+					</div>
+					<div class="help-block with-errors"></div>
+				</div>
+			</div>
+			<div class="row">
+				<input type="submit" class="btn btn-primary" wicket:id="find" />
+			</div>
+		</form>
+		<div class="orders-container">
+			<div wicket:id="report">
+				<h3 class="list-group-item-heading" wicket:id="restName" style="display:inline-block;"></h3>
+				<p class="restcard-adress" wicket:id="restAddress"></p>
+				<div wicket:id="cardPanel"></div>
+			</div>
+		</div>
+	</div>
+	</wicket:extend>
+</body>
+</html>

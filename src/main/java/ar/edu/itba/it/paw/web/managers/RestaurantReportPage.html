@@ -1,0 +1,30 @@
+<html xmlns:wicket="http://wicket.apache.org">
+
+<body>
+	<wicket:extend>
+		<div class="container">
+			<div class="col-md-8 col-md-offset-2">
+				<div class="title">
+					<h3 wicket:id="restName"></h3>
+					<h4 wicket:id="neighName"></h4>
+				</div>
+
+				<div class="orders-container">
+					<table class="table table-striped">
+						<tr>
+							<td><b><wicket:message key="day_field" /></b></td>
+							<td><b><wicket:message key="hour_field" /></b></td>
+							<td><b><wicket:message key="amount_field" /></b></td>
+						</tr>
+						<tr wicket:id="details">
+							<td wicket:id="day"></td>
+							<td wicket:id="hour"></td>
+							<td wicket:id="cant"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</wicket:extend>
+</body>
+</html>

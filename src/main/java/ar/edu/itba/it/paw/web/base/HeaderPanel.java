@@ -10,9 +10,11 @@ import ar.edu.itba.it.paw.web.BaseSession;
 import ar.edu.itba.it.paw.web.HomePage;
 import ar.edu.itba.it.paw.web.admin.AddManagerPage;
 import ar.edu.itba.it.paw.web.admin.users.ListUsersPage;
+import ar.edu.itba.it.paw.web.admin.AdminReportPage;
 import ar.edu.itba.it.paw.web.authentication.LoginPage;
 import ar.edu.itba.it.paw.web.authentication.SignupPage;
 import ar.edu.itba.it.paw.web.managers.ClosingPeriodPage;
+import ar.edu.itba.it.paw.web.managers.ReportPage;
 import ar.edu.itba.it.paw.web.managers.ShowOrdersPage;
 import ar.edu.itba.it.paw.web.managers.dishes.AddDishPage;
 import ar.edu.itba.it.paw.web.profile.ProfilePage;
@@ -96,7 +98,7 @@ public class HeaderPanel extends Panel {
 				setResponsePage(new ShowOrdersPage());
 			}
 		};
-		historyLink.setVisible(loggedUser != null);
+		historyLink.setVisible(loggedUser != null && loggedUser.getIsManager());
 		add(historyLink);
 
 		Link<Void> addRestaurantLink = new Link<Void>("addRestaurant") {
@@ -135,6 +137,7 @@ public class HeaderPanel extends Panel {
 		addDishLink.setVisible(loggedUser != null && loggedUser.getIsManager());
 		add(addDishLink);
 		
+
 		Link<Void> users = new Link<Void>("users") {
 
 			public void onClick() {
@@ -143,6 +146,24 @@ public class HeaderPanel extends Panel {
 		};
 		users.setVisible(loggedUser != null && loggedUser.getIsAdmin());
 		add(users);
+
+		Link<Void> reportsLink = new Link<Void>("reports") {
+
+			public void onClick() {
+				setResponsePage(new ReportPage());
+			}
+		};
+		reportsLink.setVisible(loggedUser != null && loggedUser.getIsManager());
+		add(reportsLink);
+		
+		Link<Void> reportsAdminLink = new Link<Void>("report_admin") {
+
+			public void onClick() {
+				setResponsePage(new AdminReportPage());
+			}
+		};
+		reportsAdminLink.setVisible(loggedUser != null && loggedUser.getIsAdmin());
+		add(reportsAdminLink);
 	}
 
 	private void initialize() {
