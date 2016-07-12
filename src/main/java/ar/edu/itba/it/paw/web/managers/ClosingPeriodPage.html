@@ -1,0 +1,66 @@
+<html xmlns:wicket="http://wicket.apache.org">
+<body>
+	<wicket:extend>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<h3><label wicket:id="restName"></label></h3>
+					<h4><wicket:message key="cp.creation.title"/></h4>
+					<form wicket:id="cpForm" data-toggle="validator" role="form"
+						class="form-horizontal">
+						<div wicket:id="feedback" class="formErrors" id="errorMessages"></div>
+						<div class="panel panel-default">
+							<div class="panel-body">
+								<div class="row">
+									<label class="control-label col-sm-3"><wicket:message
+											key="cp.creation.reason"></wicket:message></label>
+									<div class="col-sm-9">
+										<textarea class="form-control" rows="4"
+											wicket:id="description"></textarea>
+									</div>
+								</div>
+								<br/>
+								<div class="row">
+									<label class="control-label col-sm-3"><wicket:message
+											key="cp.creation.end"></wicket:message></label>
+									<div class="form-group col-sm-3">
+										<div class="col-sm-10 col-sm-offset-1">
+											<input wicket:id="toDay"
+												wicket:message="placeholder:cp.creation.day.placeholder"></input>
+										</div>
+									</div>
+									<div class="form-group col-sm-3">
+										<div class="col-sm-10 col-sm-offset-1">
+											<input wicket:id="toMonth"
+												wicket:message="placeholder:cp.creation.month.placeholder"></input>
+										</div>
+									</div>
+									<div class="form-group col-sm-3">
+										<div class="col-sm-10 col-sm-offset-1">
+											<input wicket:id="toYear"
+												wicket:message="placeholder:cp.creation.year.placeholder"></input>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group col-md-4 col-md-offset-4">
+							<input type="submit" class="btn btn-info" wicket:id="submit" />
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+					<h4><wicket:message key="cp.history.title"/></h4>
+					<div wicket:id="cps">
+						<div class="bs-callout bs-callout-info" wicket:id="cpPanel">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</wicket:extend>
+</body>
+</html>

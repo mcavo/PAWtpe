@@ -29,7 +29,6 @@ import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepositoryType;
 import ar.edu.itba.it.paw.domain.users.User;
 import ar.edu.itba.it.paw.services.TimeService;
-import ar.edu.itba.it.paw.web.BaseSession;
 import ar.edu.itba.it.paw.web.base.BasePage;
 
 @SuppressWarnings("serial")

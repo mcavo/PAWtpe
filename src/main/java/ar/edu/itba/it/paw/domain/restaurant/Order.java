@@ -17,7 +17,9 @@ import ar.edu.itba.it.paw.domain.users.User;
 @Entity
 @Table(name = "pedido")
 public class Order extends PersistentEntity implements Serializable {
-	
+
+	private static final long serialVersionUID = 1L;
+
 	@Transient
 	private Map<Dish,Integer> ordlist;
 	

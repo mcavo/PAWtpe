@@ -35,9 +35,6 @@ import ar.edu.itba.it.paw.web.base.BasePage;
 
 public class SignupPage extends BasePage {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	@SpringBean
@@ -63,6 +60,7 @@ public class SignupPage extends BasePage {
 	//Authentication
 	private String email;
 	private String password;
+	@SuppressWarnings("unused")
 	private String confirmation;
 	
 	//Address

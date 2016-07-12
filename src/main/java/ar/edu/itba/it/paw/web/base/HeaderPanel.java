@@ -12,6 +12,7 @@ import ar.edu.itba.it.paw.web.admin.AddManagerPage;
 import ar.edu.itba.it.paw.web.admin.users.ListUsersPage;
 import ar.edu.itba.it.paw.web.authentication.LoginPage;
 import ar.edu.itba.it.paw.web.authentication.SignupPage;
+import ar.edu.itba.it.paw.web.managers.ClosingPeriodPage;
 import ar.edu.itba.it.paw.web.managers.ShowOrdersPage;
 import ar.edu.itba.it.paw.web.managers.dishes.AddDishPage;
 import ar.edu.itba.it.paw.web.profile.ProfilePage;
@@ -20,6 +21,8 @@ import ar.edu.itba.it.paw.web.restaurant.RestaurantPopularPage;
 import ar.edu.itba.it.paw.web.restaurant.register.RegisterRestaurantPage;
 
 public class HeaderPanel extends Panel {
+
+	private static final long serialVersionUID = 1L;
 
 	@SpringBean
 	private UserRepositoryType users;
@@ -104,6 +107,15 @@ public class HeaderPanel extends Panel {
 		};
 		addRestaurantLink.setVisible(loggedUser != null && loggedUser.getIsAdmin());
 		add(addRestaurantLink);
+		
+		Link<Void> closeRestaurantLink = new Link<Void>("closeRestaurant") {
+
+			public void onClick() {
+				setResponsePage(new ClosingPeriodPage());
+			}
+		};
+		closeRestaurantLink.setVisible(loggedUser != null && loggedUser.getIsManager());
+		add(closeRestaurantLink);
 		
 		Link<Void> addManagerLink = new Link<Void>("addManager") {
 

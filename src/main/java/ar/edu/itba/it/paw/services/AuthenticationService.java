@@ -2,7 +2,6 @@ package ar.edu.itba.it.paw.services;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
 import java.util.Properties;
 
 import ar.edu.itba.it.paw.domain.users.Credential;

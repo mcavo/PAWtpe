@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.joda.time.LocalDate;
 
+import ar.edu.itba.it.paw.domain.restaurant.ClosingPeriod;
+import ar.edu.itba.it.paw.domain.restaurant.ClosingPeriodRepositoryType;
 import ar.edu.itba.it.paw.domain.restaurant.Order;
 import ar.edu.itba.it.paw.domain.restaurant.OrderRepositoryType;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
@@ -22,6 +26,10 @@ public class RestaurantPage extends BasePage{
 	@SpringBean
 	OrderRepositoryType orders;
 	
+	@SpringBean
+	private ClosingPeriodRepositoryType closingPeriods;
+	
+	@SuppressWarnings("rawtypes")
 	public RestaurantPage(Restaurant r){
 		add(new Label("nameText", r.getName()));
 		User user = BaseSession.get().getUser();
@@ -65,5 +73,12 @@ public class RestaurantPage extends BasePage{
 		add(infoLink.setVisible(true));
 		
 		add(new Label("descriptionText", r.getDescription()));
+		boolean isClosed = false;
+		ClosingPeriod cp = closingPeriods.getLastClosingPeriod(r);
+		if(cp!=null) {
+			isClosed = !(new LocalDate()).isAfter(new LocalDate(cp.getFrom()));
+		}
+		add(new Label("restClose",new StringResourceModel("close",this, new Model<ClosingPeriod>(cp))).setEscapeModelStrings(false).setVisible(isClosed));
+		
 	}
 }

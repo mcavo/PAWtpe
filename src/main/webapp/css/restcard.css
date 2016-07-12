@@ -65,4 +65,8 @@ div.line-vert-left{
   border-left: 1px solid black;
 } 
  
+.alert-default {
+  color: #878787;
+  background-color: #f5f5f5;
+  border-color: #e3e3e3;
 }
