@@ -10,6 +10,7 @@ import ar.edu.itba.it.paw.web.BaseSession;
 import ar.edu.itba.it.paw.web.HomePage;
 import ar.edu.itba.it.paw.web.admin.AddManagerPage;
 import ar.edu.itba.it.paw.web.admin.users.ListUsersPage;
+import ar.edu.itba.it.paw.web.admin.AdminReportPage;
 import ar.edu.itba.it.paw.web.authentication.LoginPage;
 import ar.edu.itba.it.paw.web.authentication.SignupPage;
 import ar.edu.itba.it.paw.web.managers.ClosingPeriodPage;
@@ -154,6 +155,15 @@ public class HeaderPanel extends Panel {
 		};
 		reportsLink.setVisible(loggedUser != null && loggedUser.getIsManager());
 		add(reportsLink);
+		
+		Link<Void> reportsAdminLink = new Link<Void>("report_admin") {
+
+			public void onClick() {
+				setResponsePage(new AdminReportPage());
+			}
+		};
+		reportsAdminLink.setVisible(loggedUser != null && loggedUser.getIsAdmin());
+		add(reportsAdminLink);
 	}
 
 	private void initialize() {

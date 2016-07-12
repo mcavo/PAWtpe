@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.domain.users;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import ar.edu.itba.it.paw.domain.address.Neighborhood;
 import ar.edu.itba.it.paw.domain.common.AbstractHibernateRepository;
+import ar.edu.itba.it.paw.domain.report.AdminCard;
 import ar.edu.itba.it.paw.domain.report.Card;
 import ar.edu.itba.it.paw.domain.report.CardReport;
 import ar.edu.itba.it.paw.domain.restaurant.Dish;
@@ -20,6 +22,7 @@ import ar.edu.itba.it.paw.exceptions.InvalidPriceException;
 import ar.edu.itba.it.paw.exceptions.InvalidSectionName;
 import ar.edu.itba.it.paw.exceptions.NoManagersAvailableException;
 import ar.edu.itba.it.paw.exceptions.NoRestaurantException;
+import ar.edu.itba.it.paw.web.managers.DetailCard;
 
 @Repository
 public class ManagerRepository extends AbstractHibernateRepository implements ManagerRepositoryType {
@@ -75,48 +78,52 @@ public class ManagerRepository extends AbstractHibernateRepository implements Ma
 		this.credentialRepository.setRol("manager", manager);
 	}
 
+
 	@Override
-	public LinkedList<CardReport> getReport(User manager) {
+	public LinkedList<CardReport> getReport(User manager, Date from, Date to) {
 		LinkedList<CardReport> reportPreview = new LinkedList<CardReport>();
 		List<Restaurant> rests = find("from Restaurant r where ? in elements(r.managers) and r.id in (select o.rest.id from Order o where o.status = 0 group by o.rest.id order by o.rest.id)", manager);
+		
+		int cant;
+		LinkedList<Card> cards = new LinkedList<Card>();
+		    
+	    for (Restaurant rest : rests) {
+	    	List<Neighborhood> neighs = find("from Neighborhood where id in (select o.user.address.neighborhood.id from Order o where o.status = 0 and o.rest.id = ? and o.time >= ? and o.time <= ? group by o.user.address.neighborhood)", rest.getId(), from, to);
+	    	for (Neighborhood neighborhood : neighs) {
+				cant = 0;
+				List<Integer> amounts = find("select count(*) from Order o where o.status = 0 and o.rest.id = ? and o.time >= ? and o.time <= ? and o.user.address.neighborhood.id = ? ", rest.getId(), from, to, neighborhood.getId());
+				if (amounts.size() > 0) {
+					cant = new Integer(String.valueOf(amounts.get(0)));
+				}
+				if(cant > 0){
+					cards.addLast(new Card(neighborhood, cant));
+				}
+	    	}
+	    	reportPreview.addLast(new CardReport(rest, cards, from, to));
+	    }
+	    return reportPreview;
+	}
+	
+	@Override
+	public List<DetailCard> getReportDetail(User manager, int restId, int neighId, Date from, Date to) {
+		List<DetailCard> details = new LinkedList<DetailCard>();
 		Session session=null;
 	    try 
 	    {
-		    //Session sessionSQL = super.getSession();
-		    //SQLQuery query = null;
-		    int cant = 0;
-		    //int neighbourhoodId;
-		    //Card card = null;
-		    LinkedList<Card> cards = new LinkedList<Card>();
-		    
-		    for (Restaurant rest : rests) {
-		    	List<Neighborhood> neighs = find("from Neighborhood where id in (select o.user.address.neighborhood.id from Order o where o.status = 0 and o.rest.id = ? group by o.user.address.neighborhood)", rest.getId());
-		    	for (Neighborhood neighborhood : neighs) {
-					cant = 0;
-					List<Integer> amounts = find("select count(*) from Order o where o.status = 0 and o.rest.id = ? and o.user.address.neighborhood.id = ? ", rest.getId(), neighborhood.getId());
-					if (amounts.size() > 0) {
-						cant = new Integer(String.valueOf(amounts.get(0)));
-					}
-					if(cant > 0){
-						cards.addLast(new Card(neighborhood, cant));
-					}
-		    	}
+		    Session sessionSQL = super.getSession();
+		    SQLQuery query = null;
+	    	query = (SQLQuery) sessionSQL.createSQLQuery("select to_char(horario, 'dd-mm-yyyy'), extract(hour from horario), COUNT(*) from pedido where restid = ? and horario >= ? and horario <= ? and userid in (select u.userid from usuario u where u.dirid in (select a.id from direccion a where a.barrioid = ?)) group by horario, extract(hour from horario)");
+	    	query.setParameter(0, restId);
+	    	query.setParameter(1, from);
+	    	query.setParameter(2, to);
+	    	query.setParameter(3, neighId);
+	    	
+		    List<Object[]> rows = query.list();
+		    for (Object[] row: rows) {
+		    	System.out.println();
 		    	
-		    	
-		    	//query = (SQLQuery) sessionSQL.createSQLQuery("select sum (*), from pedido o where o.estado = 0 and o.restid = ? group by o.user.address.neighborhood;").setParameter(0, rest.getId());
-//			    List<Object[]> rows = query.list();
-//			    
-//			    cant = 0;
-//			    neighbourhoodId = -1;
-//			    for (Object[] row: rows) {
-//			    	cant = (int) row[1];
-//			    	neighbourhoodId = (int) row[2];
-//			    	cards.addLast(new Card(neighbourhoodId, cant));
-//			    }
-			    reportPreview.addLast(new CardReport(rest, cards));
-			    //rows.clear();
-			}
-		    
+		    	details.add(new DetailCard(String.valueOf(row[0]), String.valueOf(row[1]), Integer.valueOf(String.valueOf(row[2]))));
+		    }
 	    }
 	    catch(Exception e)
 	    {
@@ -130,6 +137,41 @@ public class ManagerRepository extends AbstractHibernateRepository implements Ma
 	          session=null;
 	        }
 	    }
-	    return reportPreview;
+	    return details;
+	}
+
+	@Override
+	public List<AdminCard> getAdminReport(Date from, Date to) {
+		List<AdminCard> report = new LinkedList<AdminCard>();
+		Session session=null;
+	    try 
+	    {
+		    Session sessionSQL = super.getSession();
+		    SQLQuery query = null;
+	    	query = (SQLQuery) sessionSQL.createSQLQuery("select r.id, r.nombre, COUNT(*) from restaurante r, pedido o where o.restid = r.id and horario >= ? and horario <= ? group by r.id");
+	    	query.setParameter(0, from);
+	    	query.setParameter(1, to);
+	    	
+		    List<Object[]> rows = query.list();
+		    for (Object[] row: rows) {
+		    	//System.out.printf("cant: %d", (int) row[2]);
+		    	//System.out.println();
+		    	
+		    	report.add(new AdminCard(String.valueOf(row[1]), Integer.valueOf(String.valueOf(row[2]))));
+		    }
+	    }
+	    catch(Exception e)
+	    {
+	    	e.printStackTrace();
+	    }
+	    finally
+	    {
+	        if(session !=null && session.isOpen())
+	        {
+	          session.close();
+	          session=null;
+	        }
+	    }
+	    return report;
 	}
 }

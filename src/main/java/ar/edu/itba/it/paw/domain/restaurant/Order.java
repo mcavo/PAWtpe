@@ -1,5 +1,6 @@
 package ar.edu.itba.it.paw.domain.restaurant;
 
+import java.util.Date;
 import java.io.Serializable;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -30,6 +31,9 @@ public class Order extends PersistentEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="restid")
 	private Restaurant rest;
+	
+	@Column(name = "horario")
+	private Date time;
 	
 	@Column(name = "estado")
 	private Integer status;
@@ -87,4 +91,9 @@ public class Order extends PersistentEntity implements Serializable {
 		}
 		return total;
 	}
+
+	public Date getTime() {
+		return time;
+	}
+	
 }

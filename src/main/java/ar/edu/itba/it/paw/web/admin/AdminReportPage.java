@@ -1,11 +1,11 @@
-package ar.edu.itba.it.paw.web.managers;
+package ar.edu.itba.it.paw.web.admin;
 
+import org.apache.wicket.markup.html.form.Button;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.list.ListItem;
@@ -15,26 +15,17 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.LoadableDetachableModel;
-import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 import org.apache.wicket.validation.validator.RangeValidator;
 
-import ar.edu.itba.it.paw.domain.report.Card;
-import ar.edu.itba.it.paw.domain.report.CardReport;
-import ar.edu.itba.it.paw.domain.restaurant.OrderRepositoryType;
+import ar.edu.itba.it.paw.domain.report.AdminCard;
 import ar.edu.itba.it.paw.domain.users.ManagerRepositoryType;
 import ar.edu.itba.it.paw.services.DateService;
-import ar.edu.itba.it.paw.web.BaseSession;
 import ar.edu.itba.it.paw.web.base.BasePage;
-import ar.edu.itba.it.paw.web.restaurant.RestaurantListPage;
+import ar.edu.itba.it.paw.web.managers.ReportPage;
 
-public class ReportPage extends BasePage{
+public class AdminReportPage extends BasePage{
 
-	private static final long serialVersionUID = 1L;
-
-	@SpringBean
-	private OrderRepositoryType orderRepo;
-	
 	@SpringBean
 	private ManagerRepositoryType managerRepo;
 	
@@ -49,19 +40,19 @@ public class ReportPage extends BasePage{
 	private boolean showAll;
 	
 	
-	public ReportPage(){
+	public AdminReportPage(){
 		initialize();
 		
 	}
 
-	public ReportPage(Date d_from, Date d_to) {
+	public AdminReportPage(Date d_from, Date d_to) {
 		this.from = d_from;
 		this.to = d_to;
 		initialize();
 	}
 	
 	private void initialize(){
-		Form<ReportPage> form = new Form<ReportPage>("filterDateForm", new CompoundPropertyModel<ReportPage>(this)) {
+		Form<AdminReportPage> form = new Form<AdminReportPage>("filterDateForm", new CompoundPropertyModel<AdminReportPage>(this)) {
 			@Override
 			protected void onSubmit() {
 				if (!DateService.validateBirth(from_year, from_month, from_day)) {
@@ -75,7 +66,7 @@ public class ReportPage extends BasePage{
 				
 				from = DateService.date(from_year, from_month, from_day);
 				to = DateService.date(to_year, to_month, to_day);
-				setResponsePage(new ReportPage(from,to));
+				setResponsePage(new AdminReportPage(from,to));
 			}
 		};
 		form.add(new TextField<Integer>("from_day")
@@ -104,27 +95,26 @@ public class ReportPage extends BasePage{
 		if(this.from == null || this.to == null){
 			showAll = false;
 		}
-		final IModel<List<CardReport>> reportModel = new LoadableDetachableModel<List<CardReport>>() {
+		final IModel<List<AdminCard>> reportModel = new LoadableDetachableModel<List<AdminCard>>() {
 			private static final long serialVersionUID = 1L;
 			
 			@Override
-			protected List<CardReport> load() {
-				List<CardReport> report = new LinkedList<CardReport>();
+			protected List<AdminCard> load() {
+				List<AdminCard> report = new LinkedList<AdminCard>();
 				if(showAll){
-					report = managerRepo.getReport(BaseSession.get().getUser(), from, to);				
+					report = managerRepo.getAdminReport(from, to);				
 				}
 				return report;
 			}
 		};
 		
-		ListView<CardReport> listview = new PropertyListView<CardReport>("report", reportModel) {
+		ListView<AdminCard> listview = new PropertyListView<AdminCard>("report", reportModel) {
 			private static final long serialVersionUID = 1L;
 
 			@Override
-			protected void populateItem(ListItem<CardReport> item) {
-				item.add(new Label("restName", item.getModelObject().getRest().getName()));
-				item.add(new Label("restAddress", item.getModelObject().getRest().getAddress().toString()));
-				item.add(new CardPanel("cardPanel", item.getModelObject()));
+			protected void populateItem(ListItem<AdminCard> item) {
+				item.add(new Label("restName", item.getModelObject().getRestName()));
+				item.add(new Label("cant", String.valueOf(item.getModelObject().getCant())));
 			};
 
 		};

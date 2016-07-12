@@ -6,16 +6,16 @@ import ar.edu.itba.it.paw.domain.address.Neighborhood;
 
 public class Card implements Serializable{
 
-	private Neighborhood neighbourhoodId;
+	private Neighborhood neighbourhood;
 	private int cant;
 	
 	public Card(Neighborhood neighborhood, int cant) {
-		this.neighbourhoodId = neighborhood;
+		this.neighbourhood = neighborhood;
 		this.cant = cant;
 	}
 
 	public Neighborhood getNeighbourhood() {
-		return neighbourhoodId;
+		return neighbourhood;
 	}
 
 	public int getCant() {
