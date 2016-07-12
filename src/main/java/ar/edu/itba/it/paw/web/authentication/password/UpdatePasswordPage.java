@@ -28,7 +28,6 @@ public class UpdatePasswordPage extends BasePage {
 	private String oldPassword;
 	
 	public UpdatePasswordPage() {
-		
 		Form<UpdatePasswordPage> form = new Form<UpdatePasswordPage>(
 				"updatePasswordForm", new CompoundPropertyModel<UpdatePasswordPage>(this)) {
 
@@ -41,6 +40,7 @@ public class UpdatePasswordPage extends BasePage {
 				try {
 					Credential credential = credentials.getCredentials(loggedUser.getEmail(), oldPassword);
 					credential.updatePassword(newPassword);
+					loggedUser.setOnUpdate(false);
 					setResponsePage(new HomePage());
 				} catch (CredentialNoMatchException e) {
 					error(getString("updatePassword.invalidPassword"));

@@ -61,6 +61,9 @@ public class User implements UserPermissions, Serializable {
 	@Column(name = "blocked")
 	private  Boolean blocked;
 
+	@Transient
+	private boolean onUpdate;
+
 	public User(){}
 
 	public User(String firstName, String lastName, Date birth) {
@@ -174,5 +177,13 @@ public class User implements UserPermissions, Serializable {
 			blocked = false;
 		}
 		this.blocked = blocked;
+	}
+	
+	public boolean isOnUpdate() {
+		return onUpdate;
+	}
+
+	public void setOnUpdate(boolean onUpdate) {
+		this.onUpdate = onUpdate;
 	}
 }

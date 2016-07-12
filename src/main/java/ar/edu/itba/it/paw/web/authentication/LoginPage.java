@@ -42,6 +42,7 @@ public class LoginPage extends BasePage {
 				boolean[] sessionAns = session.signIn(email, password, credentials, users); 
 				if (sessionAns[0]) {
 					if (sessionAns[1]) {
+						BaseSession.get().getUser().setOnUpdate(true);
 						setResponsePage(UpdatePasswordPage.class);
 						return;
 					}

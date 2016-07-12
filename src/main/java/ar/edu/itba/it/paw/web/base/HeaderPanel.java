@@ -84,7 +84,7 @@ public class HeaderPanel extends Panel {
 				setResponsePage(new ProfilePage());
 			}
 		};
-		profileLink.setVisible(loggedUser != null && !loggedUser.getIsAdmin());
+		profileLink.setVisible(loggedUser != null && !loggedUser.isOnUpdate() && !loggedUser.getIsAdmin());
 		add(profileLink);
 		
 		Link<Void> historyLink = new Link<Void>("history") {
@@ -93,7 +93,7 @@ public class HeaderPanel extends Panel {
 				setResponsePage(new ShowOrdersPage());
 			}
 		};
-		historyLink.setVisible(loggedUser != null);
+		historyLink.setVisible(loggedUser != null && !loggedUser.isOnUpdate());
 		add(historyLink);
 
 		Link<Void> addRestaurantLink = new Link<Void>("addRestaurant") {
@@ -102,7 +102,7 @@ public class HeaderPanel extends Panel {
 				setResponsePage(new RegisterRestaurantPage());
 			}
 		};
-		addRestaurantLink.setVisible(loggedUser != null && loggedUser.getIsAdmin());
+		addRestaurantLink.setVisible(loggedUser != null && !loggedUser.isOnUpdate() &&loggedUser.getIsAdmin());
 		add(addRestaurantLink);
 		
 		Link<Void> addManagerLink = new Link<Void>("addManager") {
@@ -111,7 +111,7 @@ public class HeaderPanel extends Panel {
 				setResponsePage(new AddManagerPage());
 			}
 		};
-		addManagerLink.setVisible(loggedUser != null && loggedUser.getIsAdmin());
+		addManagerLink.setVisible(loggedUser != null && !loggedUser.isOnUpdate() && loggedUser.getIsAdmin());
 		add(addManagerLink);
 		
 		Link<Void> addDishLink = new Link<Void>("addDish") {
@@ -120,7 +120,7 @@ public class HeaderPanel extends Panel {
 				setResponsePage(new AddDishPage());
 			}
 		};
-		addDishLink.setVisible(loggedUser != null && loggedUser.getIsManager());
+		addDishLink.setVisible(loggedUser != null && !loggedUser.isOnUpdate() && loggedUser.getIsManager());
 		add(addDishLink);
 		
 		Link<Void> users = new Link<Void>("users") {
@@ -129,7 +129,7 @@ public class HeaderPanel extends Panel {
 				setResponsePage(new ListUsersPage());
 			}
 		};
-		users.setVisible(loggedUser != null && loggedUser.getIsAdmin());
+		users.setVisible(loggedUser != null && !loggedUser.isOnUpdate() && loggedUser.getIsAdmin());
 		add(users);
 	}
 
