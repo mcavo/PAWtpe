@@ -24,6 +24,7 @@ public class UpdatePasswordPage extends BasePage {
 	@SpringBean private CredentialRepositoryType credentials;
 	
 	private String newPassword;
+	@SuppressWarnings("unused")
 	private String confirmation;
 	private String oldPassword;
 	

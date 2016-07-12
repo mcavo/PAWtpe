@@ -5,14 +5,10 @@ import javax.servlet.http.Cookie;
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.request.Request;
-import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import ar.edu.itba.it.paw.web.DemoWicketSession;
 
 public class SessionProvider {
-
-//	@SpringBean
-//	private UserRepo users;
 
 	private CookieService cookieService;
 

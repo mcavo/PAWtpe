@@ -25,6 +25,7 @@ public class AskQuestionPage extends BasePage {
 	
 	private String answer;
 	private String newPassword;
+	@SuppressWarnings("unused")
 	private String confirmation;
 	
 	public AskQuestionPage(final User user) {
