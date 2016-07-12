@@ -1,7 +1,6 @@
 package ar.edu.itba.it.paw.domain.users;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Date;
 
 import javax.persistence.Column;

@@ -1,20 +1,26 @@
 package ar.edu.itba.it.paw.domain.restaurant;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.ocpsoft.prettytime.PrettyTime;
+
+import ar.edu.itba.it.paw.domain.common.PersistentEntity;
 import ar.edu.itba.it.paw.services.StringService;
 
 @Entity
 @Table(name = "periodoClausura")
-public class ClosingPeriod {
+public class ClosingPeriod extends PersistentEntity implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Column(name = "desde")
 	private Date from;
 	
@@ -27,10 +33,6 @@ public class ClosingPeriod {
 	@ManyToOne
 	@JoinColumn(name ="restid")
 	private Restaurant restaurant;
-	
-	@Id
-	@Column(name = "id")
-	private int id;
 	
 	public ClosingPeriod() {
 	}
@@ -57,8 +59,14 @@ public class ClosingPeriod {
 		return restaurant;
 	}
 	
-	public int getId() {
-		return id;
+	public String getToString() {
+		PrettyTime prettyTime = new PrettyTime(new Locale("es"));
+		return prettyTime.format(this.getTo());
+	}
+	
+	public String getFromString() {
+		PrettyTime prettyTime = new PrettyTime(new Locale("es"));
+		return prettyTime.format(this.getFrom());
 	}
 	
 	public void setDescription(String description) {

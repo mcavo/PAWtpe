@@ -14,6 +14,8 @@ import ar.edu.itba.it.paw.domain.common.PersistentEntity;
 @Table(name = "plato")
 public class Dish extends PersistentEntity implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Column(name = "nombre")
 	private String product;
 	

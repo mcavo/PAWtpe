@@ -17,15 +17,16 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.model.StringResourceModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.joda.time.LocalDate;
 
+import ar.edu.itba.it.paw.domain.restaurant.ClosingPeriod;
+import ar.edu.itba.it.paw.domain.restaurant.ClosingPeriodRepositoryType;
 import ar.edu.itba.it.paw.domain.restaurant.Dish;
-import ar.edu.itba.it.paw.domain.restaurant.Order;
 import ar.edu.itba.it.paw.domain.restaurant.OrderRepositoryType;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.restaurant.RestaurantRepositoryType;
 import ar.edu.itba.it.paw.domain.users.User;
 import ar.edu.itba.it.paw.exceptions.CreationDishException;
-import ar.edu.itba.it.paw.exceptions.LoadOrderException;
 import ar.edu.itba.it.paw.web.BaseSession;
 import ar.edu.itba.it.paw.web.authentication.LoginPage;
 import ar.edu.itba.it.paw.web.base.BasePage;
@@ -40,19 +41,32 @@ public class RestaurantMenuPage extends BasePage{
 	@SpringBean
 	OrderRepositoryType orders;
 	
+	@SpringBean
+	private ClosingPeriodRepositoryType closingPeriods;
+	
 	private Restaurant r;
 	
+	private ClosingPeriod cp;
+	
 	private boolean ok2order = false;
+	private boolean isClosed = false;
 	
 	private List<DishListPanel> dishListPanels;
 	
-	@SuppressWarnings({ "rawtypes" })
+	@SuppressWarnings({ "rawtypes", "unused" })
 	public RestaurantMenuPage(int id){
 		this.r = rests.getById(id);
 		
 		add(new Label("name", r.getName()));
 		add(new Label("score", String.valueOf(r.getScore())));
 		add(new Label("count", String.valueOf(r.getCountComments())));
+		
+		cp = closingPeriods.getLastClosingPeriod(r);
+		if(cp!=null) {
+			isClosed = !(new LocalDate()).isAfter(new LocalDate(cp.getFrom()));
+		}
+		add(new Label("restClose",new StringResourceModel("close",this, new Model<ClosingPeriod>(cp))).setEscapeModelStrings(false).setVisible(isClosed));
+		
 		
 		Link menuLink = new Link("menuLink"){
 			
@@ -113,6 +127,18 @@ public class RestaurantMenuPage extends BasePage{
 				
 				if (!ok2order) {
 					error(getString("can_not_order"));
+					setResponsePage(getPage());
+					return;
+				}
+				
+				if(BaseSession.get().getUser().getBlock()) {
+					error(getString("banned"));
+					setResponsePage(getPage());
+					return;
+				}
+				
+				if(isClosed) {
+					error(getString("error_closed") + " " + cp.getToString() + " " + getString("because") + " " + cp.getDescription().toLowerCase() + ".");
 					setResponsePage(getPage());
 					return;
 				}

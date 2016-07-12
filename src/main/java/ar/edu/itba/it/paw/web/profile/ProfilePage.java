@@ -52,6 +52,7 @@ public class ProfilePage extends BasePage {
 	private Integer day;
 	private Integer month;
 	private Integer year;
+	@SuppressWarnings("unused")
 	private Address address;
 	private String street;
 	private Integer number;

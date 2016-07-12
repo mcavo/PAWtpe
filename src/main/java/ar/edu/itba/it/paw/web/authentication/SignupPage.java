@@ -60,6 +60,7 @@ public class SignupPage extends BasePage {
 	//Authentication
 	private String email;
 	private String password;
+	@SuppressWarnings("unused")
 	private String confirmation;
 	
 	//Address

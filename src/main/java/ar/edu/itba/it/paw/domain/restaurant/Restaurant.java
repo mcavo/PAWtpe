@@ -30,6 +30,8 @@ import ar.edu.itba.it.paw.domain.users.User;
 @Entity
 @Table(name = "restaurante")
 public class Restaurant extends PersistentEntity implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	
 	public final static int DESCRIPTIO_MAX_LENGTH = 500;
 	public final static int NAME_MAX_LENGTH = 30;

@@ -17,6 +17,8 @@ import ar.edu.itba.it.paw.services.StringService;
 @Table(name = "calificacion")
 public class Calification extends PersistentEntity implements Serializable {
 
+	private static final long serialVersionUID = 1L;
+
 	@Column
 	private Integer puntaje;
 	

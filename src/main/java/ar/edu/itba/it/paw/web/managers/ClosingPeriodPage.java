@@ -24,7 +24,6 @@ import ar.edu.itba.it.paw.domain.restaurant.ClosingPeriod;
 import ar.edu.itba.it.paw.domain.restaurant.ClosingPeriodRepositoryType;
 import ar.edu.itba.it.paw.domain.restaurant.Restaurant;
 import ar.edu.itba.it.paw.domain.users.ManagerRepositoryType;
-import ar.edu.itba.it.paw.domain.users.User;
 import ar.edu.itba.it.paw.exceptions.NoRestaurantException;
 import ar.edu.itba.it.paw.services.DateService;
 import ar.edu.itba.it.paw.web.BaseSession;
@@ -37,9 +36,6 @@ public class ClosingPeriodPage extends BasePage {
 	private Restaurant restaurant;
 	
 	private Date from;
-	private Integer fromDay;
-	private Integer fromMonth;
-	private Integer fromYear;
 	
 	private Date to; 
 	private Integer toDay;
@@ -55,9 +51,6 @@ public class ClosingPeriodPage extends BasePage {
 	private ClosingPeriodRepositoryType closingPeriods;
 	
 	public ClosingPeriodPage() {
-		
-		User user = BaseSession.get().getUser();
-		System.out.println(user == null);
 		
 		BaseSession session = BaseSession.get();
 		
@@ -75,17 +68,12 @@ public class ClosingPeriodPage extends BasePage {
 			@Override
 			protected void onSubmit() {
 				
-				if (!DateService.validateBirth(fromYear, fromMonth, fromDay)) {
-					error(getString("cp.from.failed.invalidDate"));
-					return;
-				}
-				
 				if (!DateService.validateBirth(toYear, toMonth, toDay)) {
 					error(getString("cp.to.failed.invalidDate"));
 					return;
 				}
 				
-				from = DateService.date(fromYear, fromMonth, fromDay);
+				from = new Date();
 				to = DateService.date(toYear, toMonth, toDay);
 				
 				if(from.after(to)) {
@@ -105,16 +93,6 @@ public class ClosingPeriodPage extends BasePage {
 		};
 		
 		form.add(new TextArea<String>("description").add(new MaximumLengthValidator(Restaurant.DESCRIPTIO_MAX_LENGTH)).setRequired(true));
-		
-		form.add(new TextField<Integer>("fromDay")
-				.add(new RangeValidator<Integer>(1, 31))
-				.setRequired(true));
-		form.add(new TextField<Integer>("fromMonth")
-				.add(new RangeValidator<Integer>(1, 12))
-				.setRequired(true));
-		form.add(new TextField<Integer>("fromYear")
-				.add(new RangeValidator<Integer>(1900, null)) //TODO: this should change for future years 
-				.setRequired(true));
 		
 		form.add(new TextField<Integer>("toDay")
 				.add(new RangeValidator<Integer>(1, 31))

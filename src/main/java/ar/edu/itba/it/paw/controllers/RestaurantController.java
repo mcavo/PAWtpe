@@ -128,6 +128,7 @@ public class RestaurantController {
 		return new ModelAndView("redirect:/bin/homepage");
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@RequestMapping(value="/sendOrder", method = RequestMethod.POST)
 	public ModelAndView sendOrder(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView();
