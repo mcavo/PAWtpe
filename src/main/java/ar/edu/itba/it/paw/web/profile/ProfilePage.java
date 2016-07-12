@@ -103,7 +103,7 @@ public class ProfilePage extends BasePage {
 					user.setLastName(lastName);
 					user.setAnswer(answer);
 					user.setQuestion(question);
-					user.setIsAdmin(user.getIsManager());
+					user.setIsAdmin(user.getIsAdmin());
 					user.setManager(user.getIsManager());
 					user.getAddress().setStreet(street);
 					user.getAddress().setNumber(number);
